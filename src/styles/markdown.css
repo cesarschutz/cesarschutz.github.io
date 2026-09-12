@@ -137,6 +137,11 @@
   @apply my-4;
 }
 
+/* Imagens dentro de posts (diagramas etc.) */
+.article img {
+  @apply mx-auto my-4 rounded-xl;
+}
+
 /* Diagramas Mermaid (renderizados no cliente) */
 .article pre.mermaid {
   @apply my-6 flex justify-center overflow-x-auto rounded-xl p-4;
