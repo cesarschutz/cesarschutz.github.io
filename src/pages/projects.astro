@@ -57,6 +57,14 @@ import I18nKeys from "../locales/keys";
       ))
     }
   </div>
+  <p class="projects-footer onload-animation">
+    {i18n(I18nKeys.projects_see_all)}
+    <a
+      href="https://github.com/cesarschutz"
+      target="_blank"
+      rel="noopener noreferrer">github.com/cesarschutz</a
+    >
+  </p>
 </Main>
 
 <style>
@@ -105,5 +113,18 @@ import I18nKeys from "../locales/keys";
   .project-link:hover {
     color: var(--primary-color);
     background-color: var(--primary-color-transparent);
+  }
+
+  .projects-footer {
+    @apply mt-6 text-center text-sm;
+    color: var(--text-color-lighten);
+  }
+
+  .projects-footer a {
+    color: var(--primary-color);
+  }
+
+  .projects-footer a:hover {
+    text-decoration: underline;
   }
 </style>

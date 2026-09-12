@@ -10,7 +10,7 @@ export interface Project {
   description: string;
   /** Tecnologias/temas — viram chips no card */
   tags: string[];
-  /** Link do repositório (opcional) */
+  /** Link do repositório (opcional — omita em projetos privados) */
   repoUrl?: string;
   /** Link de demo/produção (opcional) */
   demoUrl?: string;
@@ -18,29 +18,46 @@ export interface Project {
   emoji?: string;
 }
 
-// TODO: substitua os placeholders pelos seus projetos reais
 export const projects: Project[] = [
   {
-    name: "Projeto Exemplo 1",
+    name: "Swagger Agent",
     description:
-      "Descrição placeholder de um projeto. Troque por algo real: o que faz, qual problema resolve e o que você aprendeu construindo.",
-    tags: ["Java", "Spring Boot", "PostgreSQL"],
-    repoUrl: "https://github.com/cesarschutz",
-    emoji: "⚙️",
+      "Converse com qualquer API: agente de IA que lê especificações OpenAPI/Swagger e permite operá-las em linguagem natural. Com documentação e chat de demonstração online.",
+    tags: ["Java 21", "Spring AI", "OpenAPI"],
+    repoUrl: "https://github.com/cesarschutz/swagger-agent",
+    demoUrl: "https://cesarschutz.github.io/swagger-agent/",
+    emoji: "🤖",
   },
   {
-    name: "Projeto Exemplo 2",
+    name: "BrainAPI",
     description:
-      "Outro placeholder. Dica: projetos com demo online geram mais interesse — inclua o link quando tiver.",
-    tags: ["Arquitetura", "Eventos", "Kafka"],
-    repoUrl: "https://github.com/cesarschutz",
-    demoUrl: "https://cesarschutz.github.io",
-    emoji: "📡",
+      "Transforma specs OpenAPI em tools para agentes de IA usando Google ADK e MCP Toolbox — o caminho da sua API até a linguagem natural.",
+    tags: ["Java", "Google ADK", "MCP"],
+    repoUrl: "https://github.com/cesarschutz/BrainAPI",
+    demoUrl: "https://cesarschutz.github.io/BrainAPI/",
+    emoji: "🧠",
   },
   {
-    name: "Este site",
+    name: "CSRFinance",
     description:
-      "Meu site pessoal: Astro + tema Yukina adaptado com as cores do Imortal Tricolor, Expressive Code, MDX e diagramas Mermaid. Publicado no GitHub Pages.",
+      "Sistema de finanças pessoais com dashboard, transações, relatórios em múltiplas visões, categorias, contas e investimentos.",
+    tags: ["Angular 19", "TypeScript", "Chart.js"],
+    repoUrl: "https://github.com/cesarschutz/CSRFinance",
+    demoUrl: "https://cesarschutz.github.io/CSRFinance/",
+    emoji: "💰",
+  },
+  {
+    name: "DEV NOTE",
+    description:
+      "Notícias técnicas que viram aprendizado: transforma o noticiário de desenvolvimento e arquitetura em notas de estudo. Em evolução ativa.",
+    tags: ["Angular 21", "Tailwind CSS", "Playwright"],
+    demoUrl: "https://dev-note-phi.vercel.app",
+    emoji: "📰",
+  },
+  {
+    name: "Caderno Público",
+    description:
+      "Este site: Astro + tema Yukina adaptado com as cores do Imortal Tricolor, Expressive Code, MDX e diagramas Mermaid. Publicado no GitHub Pages.",
     tags: ["Astro", "TypeScript", "GitHub Pages"],
     repoUrl: "https://github.com/cesarschutz/cesarschutz.github.io",
     demoUrl: "https://cesarschutz.github.io",

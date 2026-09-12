@@ -17,6 +17,7 @@ export const en: Translation = {
   [key.projects_page_subtitle]: "Things I built, studied or maintain",
   [key.projects_view_repo]: "Repository",
   [key.projects_view_demo]: "Live demo",
+  [key.projects_see_all]: "I also learn in public — see all repositories at",
 
   [key.post_card_words]: "Words",
   [key.post_card_minutes]: "Minutes",

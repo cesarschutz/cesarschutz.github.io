@@ -17,6 +17,7 @@ export const zh_CN: Translation = {
   [key.projects_page_subtitle]: "我构建、研究或维护的东西",
   [key.projects_view_repo]: "仓库",
   [key.projects_view_demo]: "在线演示",
+  [key.projects_see_all]: "我也在公开学习——查看所有仓库：",
 
   [key.post_card_words]: "字",
   [key.post_card_minutes]: "分钟",

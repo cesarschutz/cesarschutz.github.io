@@ -14,6 +14,7 @@ enum I18nKeys {
   projects_page_subtitle = "projects_page_subtitle",
   projects_view_repo = "projects_view_repo",
   projects_view_demo = "projects_view_demo",
+  projects_see_all = "projects_see_all",
 
   post_card_words = "post_card_words",
   post_card_minutes = "post_card_minutes",

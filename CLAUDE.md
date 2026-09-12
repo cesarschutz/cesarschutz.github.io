@@ -107,6 +107,7 @@ public/banners/               # artes SVG do banner rotativo
 
 ## Pendências conhecidas (TODOs do dono)
 
-- Substituir projetos placeholder em `src/data/projects.ts`
 - Completar a página Sobre (`src/contents/specs/about.md` tem TODOs)
 - Adicionar LinkedIn em `yukina.config.ts` (bloco comentado)
+- Nota: o card "DEV NOTE" em `src/data/projects.ts` não tem repoUrl de propósito
+  (repositório privado) — adicionar se um dia for tornado público
