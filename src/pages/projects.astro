@@ -1,0 +1,109 @@
+---
+import { Icon } from "astro-icon/components";
+import Main from "../layouts/MainLayout.astro";
+import { projects } from "../data/projects";
+import { i18n } from "../locales/translation";
+import I18nKeys from "../locales/keys";
+---
+
+<Main
+  title={i18n(I18nKeys.projects_page_title)}
+  subTitle={i18n(I18nKeys.projects_page_subtitle)}
+>
+  <div class="projects-grid">
+    {
+      projects.map((project, index) => (
+        <div
+          class="project-card onload-animation"
+          style={`animation-delay: calc(var(--onload-animation-delay) + ${index + 1} * var(--onload-animation-interval));`}
+        >
+          <div class="flex items-start justify-between">
+            <span class="text-3xl leading-none">{project.emoji ?? "🧩"}</span>
+            <div class="flex flex-row space-x-1">
+              {project.repoUrl && (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                  aria-label={i18n(I18nKeys.projects_view_repo)}
+                  title={i18n(I18nKeys.projects_view_repo)}
+                >
+                  <Icon name="mingcute:github-line" class="h-5 w-5" />
+                </a>
+              )}
+              {project.demoUrl && (
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                  aria-label={i18n(I18nKeys.projects_view_demo)}
+                  title={i18n(I18nKeys.projects_view_demo)}
+                >
+                  <Icon name="mingcute:external-link-line" class="h-5 w-5" />
+                </a>
+              )}
+            </div>
+          </div>
+          <h2 class="project-name">{project.name}</h2>
+          <p class="project-description">{project.description}</p>
+          <div class="mt-auto flex flex-wrap gap-2 pt-3">
+            {project.tags.map((tag) => (
+              <span class="project-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Main>
+
+<style>
+  .projects-grid {
+    @apply grid grid-cols-1 gap-4 md:grid-cols-2;
+  }
+
+  .project-card {
+    @apply flex flex-col rounded-2xl bg-[var(--card-color)] p-6;
+    border: 1px solid transparent;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+  }
+
+  .project-name {
+    @apply mt-3 text-xl font-bold;
+    color: var(--text-color);
+    font-family: var(--title-font);
+  }
+
+  .project-description {
+    @apply mt-2 text-sm leading-relaxed;
+    color: var(--text-color-lighten);
+  }
+
+  .project-tag {
+    @apply rounded-full px-3 py-1 text-xs font-medium;
+    color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+  }
+
+  .project-link {
+    @apply flex h-9 w-9 items-center justify-center rounded-lg;
+    color: var(--text-color-lighten);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .project-link:hover {
+    color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+  }
+</style>

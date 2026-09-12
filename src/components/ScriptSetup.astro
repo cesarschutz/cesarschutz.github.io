@@ -1,0 +1,116 @@
+---
+
+---
+
+<script>
+  import lozad from "lozad";
+  import { OverlayScrollbars } from "overlayscrollbars";
+
+  // setup post url
+  const setupUrlAnchor = () => {
+    const url = window.location.href;
+    const urlElement = document.getElementById("post-url") as HTMLAnchorElement;
+    if (urlElement) {
+      urlElement.href = url;
+      urlElement.innerText = url;
+    }
+  };
+
+  // setup lazy load for images
+  const setupLozad = () => {
+    const observer = lozad(".lozad", {
+      loaded: (el) => {
+        el.classList.add("loaded");
+      },
+    });
+
+    observer.observe();
+  };
+
+  // add global scroll bar
+  const setupScrollBar = () => {
+    OverlayScrollbars(
+      { target: document.body, cancel: { nativeScrollbarsOverlaid: true } },
+      {
+        scrollbars: {
+          theme: "scrollbar-base scrollbar-auto py-1",
+          autoHide: "move",
+        },
+      },
+    );
+    document.body.classList.remove("overflow-y-hidden");
+
+    // add scrollbar for code blocks
+    // (Expressive Code e Mermaid têm rolagem própria — não aplicar neles)
+    document.querySelectorAll("pre").forEach((ele) => {
+      if (ele.closest(".expressive-code") || ele.classList.contains("mermaid"))
+        return;
+      OverlayScrollbars(ele, {
+        scrollbars: {
+          theme: "scrollbar-base scrollbar-dark px-2",
+          autoHide: "leave",
+          autoHideDelay: 500,
+          autoHideSuspend: false,
+        },
+      });
+    });
+  };
+
+  // render mermaid diagrams (client-side, lazy — só carrega a lib se a página tiver diagrama)
+  const setupMermaid = async () => {
+    const blocks = document.querySelectorAll<HTMLElement>("pre.mermaid");
+    if (blocks.length === 0) return;
+
+    const { default: mermaid } = await import("mermaid");
+
+    // guarda o código-fonte para poder re-renderizar ao trocar o tema
+    blocks.forEach((el) => {
+      if (!el.dataset.source) el.dataset.source = el.textContent ?? "";
+    });
+
+    const render = async () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      const nodes = document.querySelectorAll<HTMLElement>("pre.mermaid");
+      if (nodes.length === 0) return;
+      nodes.forEach((el) => {
+        el.removeAttribute("data-processed");
+        el.textContent = el.dataset.source ?? "";
+      });
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: isDark ? "dark" : "neutral",
+      });
+      await mermaid.run({ nodes });
+    };
+
+    await render();
+
+    // re-renderiza quando o usuário alterna claro/escuro
+    if (!(window as any).__mermaidThemeObserver) {
+      (window as any).__mermaidThemeObserver = new MutationObserver(() => {
+        render();
+      });
+      (window as any).__mermaidThemeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+    }
+  };
+
+  // init
+  const setup = () => {
+    setupUrlAnchor();
+    setupLozad();
+    setupScrollBar();
+    setupMermaid();
+  };
+
+  document.addEventListener("DOMContentLoaded", setup);
+  if (window.swup?.hooks) {
+    setup();
+  } else {
+    document.addEventListener("swup:enable", () => {
+      window.swup.hooks.on("content:replace", setup);
+    });
+  }
+</script>

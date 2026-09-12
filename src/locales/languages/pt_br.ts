@@ -1,0 +1,36 @@
+import type { Translation } from "../translation";
+import key from "../keys";
+
+export const pt_BR: Translation = {
+  [key.copy_right_author]: "Autor",
+  [key.copy_right_publish_date]: "Publicado em",
+  [key.copy_right_license]: "Licença",
+
+  [key.nav_bar_home]: "Início",
+  [key.nav_bar_archive]: "Arquivo",
+  [key.nav_bar_about]: "Sobre",
+  [key.nav_bar_github]: "GitHub",
+  [key.nav_bar_projects]: "Projetos",
+  [key.nav_bar_search_placeholder]: "Buscar",
+
+  [key.projects_page_title]: "Projetos",
+  [key.projects_page_subtitle]: "Coisas que construí, estudei ou mantenho",
+  [key.projects_view_repo]: "Repositório",
+  [key.projects_view_demo]: "Ver online",
+
+  [key.post_card_words]: "Palavras",
+  [key.post_card_minutes]: "Minutos",
+
+  [key.side_bar_categories]: "Categorias",
+  [key.side_bar_tags]: "Tags",
+  [key.side_bar_view_more]: "Ver mais",
+
+  [key.archive_year_title_count]: "{{}} artigo(s) no total",
+
+  [key.pages_categories_archive]: "Arquivo de artigos",
+  [key.pages_tags_archive]: "Arquivo de tags",
+  [key.pages_archive_archive]: "Arquivo",
+
+  [key.pages_tags_title]: "Tags",
+  [key.pages_categories_title]: "Categorias",
+};

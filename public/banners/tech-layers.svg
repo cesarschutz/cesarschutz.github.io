@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#021c2b"/>
+      <stop offset="1" stop-color="#01131b"/>
+    </linearGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow3" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a0e5" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#00a0e5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#bg3)"/>
+  <rect width="1600" height="800" fill="url(#grid)"/>
+  <ellipse cx="800" cy="430" rx="560" ry="320" fill="url(#glow3)"/>
+
+  <!-- pilha isométrica de camadas (arquitetura) -->
+  <g stroke-linejoin="round">
+    <g>
+      <polygon points="800,560 1080,470 800,380 520,470" fill="#032c42" stroke="#00a0e5" stroke-opacity="0.7" stroke-width="2.5"/>
+      <polygon points="520,470 800,560 800,610 520,520" fill="#021c2b" stroke="#00a0e5" stroke-opacity="0.4" stroke-width="2"/>
+      <polygon points="1080,470 800,560 800,610 1080,520" fill="#01131b" stroke="#00a0e5" stroke-opacity="0.4" stroke-width="2"/>
+    </g>
+    <g transform="translate(0,-130)">
+      <polygon points="800,560 1080,470 800,380 520,470" fill="#043751" stroke="#00a0e5" stroke-opacity="0.8" stroke-width="2.5"/>
+      <polygon points="520,470 800,560 800,600 520,510" fill="#032c42" stroke="#00a0e5" stroke-opacity="0.45" stroke-width="2"/>
+      <polygon points="1080,470 800,560 800,600 1080,510" fill="#021c2b" stroke="#00a0e5" stroke-opacity="0.45" stroke-width="2"/>
+    </g>
+    <g transform="translate(0,-260)">
+      <polygon points="800,560 1080,470 800,380 520,470" fill="#00577e" stroke="#00a0e5" stroke-width="2.5"/>
+      <polygon points="520,470 800,560 800,600 520,510" fill="#04435f" stroke="#00a0e5" stroke-opacity="0.5" stroke-width="2"/>
+      <polygon points="1080,470 800,560 800,600 1080,510" fill="#032c42" stroke="#00a0e5" stroke-opacity="0.5" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- conexões saindo das camadas -->
+  <g stroke="#00a0e5" stroke-opacity="0.45" stroke-width="2" fill="none" stroke-dasharray="6 8">
+    <path d="M1080 340 C1250 300 1300 260 1420 250"/>
+    <path d="M520 340 C360 300 300 250 190 240"/>
+    <path d="M1080 470 C1260 480 1330 540 1440 560"/>
+    <path d="M520 470 C350 490 280 550 170 570"/>
+  </g>
+  <g fill="#00a0e5">
+    <circle cx="1420" cy="250" r="6"/>
+    <circle cx="190" cy="240" r="6"/>
+    <circle cx="1440" cy="560" r="6"/>
+    <circle cx="170" cy="570" r="6"/>
+  </g>
+
+  <g fill="#7fd4f5" opacity="0.4">
+    <circle cx="300" cy="130" r="2.5"/><circle cx="680" cy="90" r="2"/>
+    <circle cx="1180" cy="110" r="2.5"/><circle cx="1460" cy="400" r="2"/>
+    <circle cx="1300" cy="700" r="2.5"/><circle cx="420" cy="710" r="2"/>
+    <circle cx="120" cy="420" r="2.5"/>
+  </g>
+</svg>

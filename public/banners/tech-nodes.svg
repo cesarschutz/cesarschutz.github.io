@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#01131b"/>
+      <stop offset="0.55" stop-color="#04283d"/>
+      <stop offset="1" stop-color="#01131b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a0e5" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#00a0e5" stop-opacity="0"/>
+    </radialGradient>
+    <circle id="node" r="7" fill="#00a0e5"/>
+    <circle id="node-sm" r="4" fill="#7fd4f5"/>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#bg)"/>
+  <circle cx="1150" cy="260" r="420" fill="url(#glow)"/>
+  <circle cx="300" cy="620" r="360" fill="url(#glow)" opacity="0.7"/>
+
+  <g stroke="#00a0e5" stroke-opacity="0.28" stroke-width="1.5" fill="none">
+    <path d="M150 640 L340 480 L560 560 L780 380 L1020 470 L1240 300 L1450 380"/>
+    <path d="M340 480 L420 250 L700 190 L1020 470"/>
+    <path d="M700 190 L1240 300 M560 560 L420 250 M780 380 L700 190"/>
+    <path d="M150 640 L420 250 M1240 300 L1450 160 M1020 470 L1450 380"/>
+    <path d="M560 560 L900 690 L1240 620 L1450 380 M900 690 L1020 470"/>
+  </g>
+
+  <g opacity="0.9">
+    <use href="#node" x="150" y="640"/>
+    <use href="#node" x="340" y="480"/>
+    <use href="#node" x="560" y="560"/>
+    <use href="#node" x="780" y="380"/>
+    <use href="#node" x="1020" y="470"/>
+    <use href="#node" x="1240" y="300"/>
+    <use href="#node" x="700" y="190"/>
+    <use href="#node" x="420" y="250"/>
+    <use href="#node-sm" x="1450" y="380"/>
+    <use href="#node-sm" x="1450" y="160"/>
+    <use href="#node-sm" x="900" y="690"/>
+    <use href="#node-sm" x="1240" y="620"/>
+  </g>
+
+  <g fill="#7fd4f5" opacity="0.45">
+    <circle cx="240" cy="180" r="2.5"/><circle cx="520" cy="120" r="2"/>
+    <circle cx="960" cy="90" r="2.5"/><circle cx="1340" cy="120" r="2"/>
+    <circle cx="1500" cy="560" r="2.5"/><circle cx="1120" cy="720" r="2"/>
+    <circle cx="620" cy="720" r="2.5"/><circle cx="90" cy="360" r="2"/>
+  </g>
+</svg>
