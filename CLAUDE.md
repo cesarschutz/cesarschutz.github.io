@@ -52,13 +52,14 @@ Conteúdo em Markdown...
 
 2. Convenções:
    - Nome do arquivo = slug da URL (`slugMode: RAW`): use kebab-case, sem acentos
-   - Categorias em uso: `Geral`, `Exemplos`, `Estudos` (crie novas com moderação; tags são livres)
+   - Categorias em uso: `Arquitetura` (crie novas com moderação; tags são livres)
+   - Posts da série "Aprendizado de arquitetura" vêm do Notion (página "Aprendizado
+     arquitetura Claude") — ATENÇÃO: as URLs de imagem do Notion expiram em ~5 min;
+     baixe os SVGs para `public/posts/<slug>/` imediatamente após o fetch
    - Imagem própria de capa: colocar em `public/covers/` e referenciar `/covers/arquivo.webp`
    - Template completo em `.claude/templates/post.md`
 
 ## Recursos disponíveis nos posts (usar sem medo)
-
-Referência viva com exemplos renderizados: post `recursos-do-blog.md`.
 
 - **Código**: ` ```java title="Arquivo.java" {3-5} ` (destaque), `del={}/ins={}` (diff),
   `showLineNumbers`, `collapse={1-10}` (recolher trechos)
@@ -78,7 +79,6 @@ código bonito são prioridade. Ao adicionar um recurso novo:
 
 1. Instale e configure
 2. Documente a sintaxe neste arquivo (seção "Recursos disponíveis")
-3. Se fizer sentido, adicione um exemplo ao post `recursos-do-blog.md`
 
 ## Estrutura de pastas relevante
 
