@@ -22,12 +22,12 @@ Considerar só runtime é o erro clássico. Hardware é barato; o que sai caro �
 
 ```mermaid
 flowchart TD
-  O((Overhead)) --> R["Runtime<br>CPU · memória · latência"]
-  O --> D["Desenvolvimento<br>código · testes · setup"]
-  O --> C["Cognitivo<br>camadas · indireção"]
-  O --> M["Manutenção<br>dependências · CVEs"]
-  O --> OP["Operacional<br>deploy · observabilidade"]
-  O --> ORG["Organizacional<br>times · reuniões · handoffs"]
+  O((Overhead)) --> R["Runtime CPU · memória · latência"]
+  O --> D["Desenvolvimento código · testes · setup"]
+  O --> C["Cognitivo camadas · indireção"]
+  O --> M["Manutenção dependências · CVEs"]
+  O --> OP["Operacional deploy · observabilidade"]
+  O --> ORG["Organizacional times · reuniões · handoffs"]
 ```
 
 **a) Runtime** (o mais óbvio)

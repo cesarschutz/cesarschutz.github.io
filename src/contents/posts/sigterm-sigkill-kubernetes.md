@@ -21,9 +21,9 @@ Quando um pod entra em `Terminating` (delete manual, rolling update, scale-in, e
 
 ```mermaid
 flowchart TD
-  T["Pod entra em Terminating"] --> N["Trilha de rede:<br>remove dos endpoints do Service"]
-  T --> C["Trilha de container:<br>preStop hook → SIGTERM ao PID 1"]
-  C --> G["terminationGracePeriodSeconds<br>(default 30s) começa a contar"]
+  T["Pod entra em Terminating"] --> N["Trilha de rede: remove dos endpoints do Service"]
+  T --> C["Trilha de container: preStop hook → SIGTERM ao PID 1"]
+  C --> G["terminationGracePeriodSeconds (default 30s) começa a contar"]
   G -->|"processo saiu"| OK["encerrado limpo · exit 0/143"]
   G -->|"período estourou"| K["SIGKILL · exit 137"]
 ```

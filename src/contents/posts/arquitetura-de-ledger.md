@@ -14,10 +14,10 @@ Este post resume 12 artigos sobre o assunto (a série *How to Scale a Ledger* e 
 
 ```mermaid
 flowchart LR
-  T["TRANSACTION<br>(evento atômico)"] --> E1["ENTRY débito<br>(imutável)"]
-  T --> E2["ENTRY crédito<br>(imutável)"]
-  E1 --> A1[("ACCOUNT<br>origem")]
-  E2 --> A2[("ACCOUNT<br>destino")]
+  T["TRANSACTION (evento atômico)"] --> E1["ENTRY débito (imutável)"]
+  T --> E2["ENTRY crédito (imutável)"]
+  E1 --> A1[("ACCOUNT origem")]
+  E2 --> A2[("ACCOUNT destino")]
   A1 -.->|"SUM(entries)"| S1["saldo derivado"]
   A2 -.->|"SUM(entries)"| S2["saldo derivado"]
 ```
@@ -284,10 +284,10 @@ public List<Entry> findEntriesAt(String accountId, Instant timestamp) throws SQL
 
 ```mermaid
 flowchart LR
-  J[Job de conciliação] --> C{"SUM(entries)<br>== saldo cacheado?"}
+  J[Job de conciliação] --> C{"SUM(entries) == saldo cacheado?"}
   C -->|sim| OK[conta saudável]
   C -->|não| D[drift detectado]
-  D --> OFF[desliga leitura<br>de cache da conta]
+  D --> OFF[desliga leitura de cache da conta]
   D --> AL[alerta + backfill]
 ```
 
@@ -445,13 +445,13 @@ public class Entry {
 
 ```mermaid
 flowchart TD
-  PE[Posting engine<br>valida double-entry] --> PG[("PostgreSQL<br>journal append-only")]
+  PE[Posting engine valida double-entry] --> PG[("PostgreSQL journal append-only")]
   PE -->|JournalEntryPosted| K[(Kafka)]
-  K --> BM[Balance materializer<br>três saldos]
-  BM --> R[(Redis<br>contas quentes)]
-  EXT[Arquivos externos<br>processador · banco] --> RP[Reconciliation pipeline<br>Airflow / Dagster]
+  K --> BM[Balance materializer três saldos]
+  BM --> R[(Redis contas quentes)]
+  EXT[Arquivos externos processador · banco] --> RP[Reconciliation pipeline Airflow / Dagster]
   PG --> RP
-  RP --> EX[Tabela de exceções<br>+ alertas]
+  RP --> EX[Tabela de exceções + alertas]
 ```
 
 **Build vs buy:** construa se o ledger é diferencial competitivo ou se os requisitos excedem um Ledger-as-a-Service; use LaaS ou open-source (Formance Ledger, Blnk) se o ledger é infraestrutura e time-to-market importa mais. A maioria começa melhor com LaaS/open-source e migra para custom quando a plataforma não atende um requisito.

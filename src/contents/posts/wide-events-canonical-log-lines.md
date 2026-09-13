@@ -21,12 +21,12 @@ Logging tradicional foi desenhado para uma era de monólitos e single-server. Ho
 ```mermaid
 flowchart LR
   subgraph T["Logging tradicional"]
-    R1[Request] --> L1["log.info ×15<br>espalhados pelo código"]
-    L1 --> G["grep + regex<br>para montar o contexto"]
+    R1[Request] --> L1["log.info ×15 espalhados pelo código"]
+    L1 --> G["grep + regex para montar o contexto"]
   end
   subgraph W["Wide events"]
-    R2[Request] --> MW["middleware acumula<br>contexto no lifecycle"]
-    MW --> E1["1 evento com 50 campos<br>no final da request"]
+    R2[Request] --> MW["middleware acumula contexto no lifecycle"]
+    MW --> E1["1 evento com 50 campos no final da request"]
     E1 --> Q["uma query responde tudo"]
   end
 ```

@@ -12,9 +12,7 @@ Um **JWT (JSON Web Token)** é definido pela **RFC 7519** e é composto por trê
 
 ```mermaid
 flowchart LR
-  H["header<br>(JOSE)"] --- D1(("·")) --- P["payload<br>(claims)"] --- D2(("·")) --- S["signature<br>(sobre header.payload)"]
-  style D1 fill:none,stroke:none
-  style D2 fill:none,stroke:none
+  H["header (JOSE)"] -->|"."| P["payload (claims)"] -->|"."| S["signature (sobre header.payload)"]
 ```
 
 ## Header (JOSE Header)

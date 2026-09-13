@@ -44,9 +44,9 @@ Diferente do AspectJ puro, que faz **bytecode weaving**, o **Spring AOP é proxy
 
 ```mermaid
 flowchart LR
-  C[Caller] -->|"chamada externa"| P["Proxy<br>(advices rodam ✓)"]
+  C[Caller] -->|"chamada externa"| P["Proxy (advices rodam ✓)"]
   P --> T["Bean alvo"]
-  T -.->|"this.outroMetodo()<br>self-invocation ✗<br>(advice NÃO roda)"| T
+  T -.->|"this.outroMetodo() self-invocation ✗ (advice NÃO roda)"| T
 ```
 
 Consequências do modelo:

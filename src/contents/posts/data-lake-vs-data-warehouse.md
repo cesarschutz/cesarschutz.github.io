@@ -14,8 +14,8 @@ draft: false
 
 ```mermaid
 flowchart LR
-  F["Fontes<br>apps · logs · eventos"] --> L[("Data Lake<br>bruto · schema-on-read")]
-  L -->|"ELT: transforma depois"| W[("Data Warehouse<br>estruturado · schema-on-write")]
+  F["Fontes apps · logs · eventos"] --> L[("Data Lake bruto · schema-on-read")]
+  L -->|"ELT: transforma depois"| W[("Data Warehouse estruturado · schema-on-write")]
   W --> BI["BI · dashboards"]
   L --> ML["ML · exploração"]
 ```

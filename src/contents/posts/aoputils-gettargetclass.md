@@ -65,7 +65,7 @@ Isso quebra qualquer código que dependa da identidade da classe real:
 
 ```mermaid
 flowchart LR
-  B["bean injetado<br>(proxy)"] -->|"getClass()"| P["MeuServico$$SpringCGLIB$$0 ✗"]
+  B["bean injetado (proxy)"] -->|"getClass()"| P["MeuServico$$SpringCGLIB$$0 ✗"]
   B -->|"AopUtils.getTargetClass()"| R["MeuServico ✓"]
 ```
 

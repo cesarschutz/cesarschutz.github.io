@@ -33,8 +33,7 @@ flowchart LR
   P[Produtor] --> T((Tópico SNS))
   T -->|"eventType = A ✓"| Q1[SQS · consumidor A]
   T -->|"eventType = B ✓"| Q2[SQS · consumidor B]
-  T -.->|"outros tipos ✗<br>descartados no SNS"| X(( ))
-  style X fill:none,stroke:none
+  T -.->|"outros tipos ✗"| X["descartadas no SNS"]
 ```
 
 ## Por que isso importa

@@ -36,12 +36,12 @@ Isso importa principalmente quando o processamento altera dados, envia eventos, 
 
 ```mermaid
 flowchart TD
-  T["chegou o horário do schedule"] --> C{"execução anterior<br>ainda ativa?"}
+  T["chegou o horário do schedule"] --> C{"execução anterior ainda ativa?"}
   C -->|"não"| R["nova execução inicia"]
   C -->|"sim + Forbid"| S["execução pulada"]
-  R --> D{"passou de<br>activeDeadlineSeconds?"}
-  D -->|"sim"| K["K8s encerra e marca como falho<br>(não bloqueia os próximos ciclos)"]
-  D -->|"não"| F["terminou — sucesso ou falha<br>(backoffLimit decide retry)"]
+  R --> D{"passou de activeDeadlineSeconds?"}
+  D -->|"sim"| K["K8s encerra e marca como falho (não bloqueia os próximos ciclos)"]
+  D -->|"não"| F["terminou — sucesso ou falha (backoffLimit decide retry)"]
 ```
 
 ## `concurrencyPolicy: Forbid`

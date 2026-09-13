@@ -28,9 +28,9 @@ testImplementation 'ch.qos.logback:logback-classic'
 
 ```mermaid
 flowchart LR
-  D["dependência"] --> CO["compileOnly<br>compila o código · não vai pro runtime"]
-  D --> AP["annotationProcessor<br>ferramenta do compilador · gera metadados"]
-  D --> TI["testImplementation<br>compila e roda só os testes"]
+  D["dependência"] --> CO["compileOnly compila o código · não vai pro runtime"]
+  D --> AP["annotationProcessor ferramenta do compilador · gera metadados"]
+  D --> TI["testImplementation compila e roda só os testes"]
 ```
 
 ## `compileOnly`
