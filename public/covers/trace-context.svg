@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#01131b"/>
+      <stop offset="0.55" stop-color="#04283d"/>
+      <stop offset="1" stop-color="#01131b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a0e5" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#00a0e5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <marker id="seta" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#00a0e5"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#bg)"/>
+  <rect width="1600" height="800" fill="url(#grid)"/>
+  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+
+  <!-- fio contínuo do trace atravessando os serviços -->
+  <path d="M120 470 C300 470 300 380 470 380 H620 C760 380 760 470 900 470 H1040 C1180 470 1180 380 1320 380 H1480"
+        fill="none" stroke="#00a0e5" stroke-width="7" stroke-opacity="0.85" marker-end="url(#seta)"/>
+
+  <!-- serviços -->
+  <g font-family="-apple-system, sans-serif" font-size="30" text-anchor="middle">
+    <g>
+      <rect x="380" y="330" width="240" height="100" rx="18" fill="#032c42" stroke="#00a0e5" stroke-width="5"/>
+      <text x="500" y="390" fill="#7fd4f5">produtor</text>
+    </g>
+    <g>
+      <rect x="800" y="420" width="240" height="100" rx="18" fill="#032c42" stroke="#00a0e5" stroke-width="5"/>
+      <text x="920" y="480" fill="#7fd4f5">mensageria</text>
+    </g>
+    <g>
+      <rect x="1220" y="330" width="240" height="100" rx="18" fill="#032c42" stroke="#00a0e5" stroke-width="5"/>
+      <text x="1340" y="390" fill="#7fd4f5">consumidor</text>
+    </g>
+  </g>
+
+  <!-- etiqueta do trace-id -->
+  <g>
+    <rect x="430" y="180" width="740" height="70" rx="35" fill="#00577e" stroke="#00a0e5" stroke-width="4"/>
+    <text x="800" y="227" font-family="ui-monospace, monospace" font-size="34" fill="#ffffff" text-anchor="middle">traceparent: 00-4bf92f35…-01</text>
+  </g>
+  <g stroke="#7fd4f5" stroke-opacity="0.5" stroke-width="3" stroke-dasharray="5 8">
+    <path d="M500 250 V325"/>
+    <path d="M920 250 V415"/>
+    <path d="M1340 250 V325"/>
+  </g>
+
+  <g fill="#7fd4f5" opacity="0.4">
+    <circle cx="240" cy="150" r="2.5"/><circle cx="900" cy="110" r="2"/>
+    <circle cx="1400" cy="620" r="2.5"/><circle cx="1500" cy="200" r="2"/>
+    <circle cx="200" cy="660" r="2.5"/><circle cx="700" cy="700" r="2"/>
+  </g>
+</svg>
