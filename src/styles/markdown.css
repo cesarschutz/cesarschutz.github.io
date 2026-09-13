@@ -145,6 +145,12 @@
   cursor: zoom-in;
 }
 
+/* Capa do banner do post também abre no lightbox
+   (cursor no container: a img fica atrás do overlay do banner) */
+#banner .cover {
+  cursor: zoom-in;
+}
+
 /* Lightbox de imagens */
 #img-lightbox {
   position: fixed;

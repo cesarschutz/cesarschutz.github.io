@@ -26,6 +26,8 @@ interface Props {
   };
   author?: string;
   sourceLink?: string;
+  prevPost?: { title: string; url: string };
+  nextPost?: { title: string; url: string };
 }
 
 const {
@@ -40,6 +42,8 @@ const {
   license,
   author,
   sourceLink,
+  prevPost,
+  nextPost,
 } = Astro.props;
 
 // sumário: só h2/h3, e só quando o post tem estrutura suficiente
@@ -52,6 +56,13 @@ const showToc = tocHeadings.length >= 3;
     <div class="min-w-0 flex-1">
       <div class="article-wrapper">
         <header class="post-header">
+          {
+            category && (
+              <a class="post-eyebrow" href={`/categories/${IdToSlug(category)}`}>
+                {category}
+              </a>
+            )
+          }
           <h1 class="post-title">{title}</h1>
           {
             subTitle && (
@@ -65,14 +76,6 @@ const showToc = tocHeadings.length >= 3;
                   <Icon name="cuida:calendar-outline" />
                   {formatDate(published, YukinaConfig.locale)}
                 </span>
-              )
-            }
-            {
-              category && (
-                <a class="meta-item meta-link" href={`/categories/${IdToSlug(category)}`}>
-                  <Icon name="dashicons:category" />
-                  {category}
-                </a>
               )
             }
             {
@@ -115,6 +118,33 @@ const showToc = tocHeadings.length >= 3;
               />
             )
           }
+          {
+            (prevPost || nextPost) && (
+              <nav class="post-nav" aria-label={i18n(I18nKeys.continue_reading)}>
+                <p class="post-nav-heading">{i18n(I18nKeys.continue_reading)}</p>
+                <div class="post-nav-grid">
+                  {prevPost ? (
+                    <a class="post-nav-card" href={prevPost.url}>
+                      <span class="post-nav-label">
+                        ← {i18n(I18nKeys.post_prev)}
+                      </span>
+                      <span class="post-nav-title">{prevPost.title}</span>
+                    </a>
+                  ) : (
+                    <span />
+                  )}
+                  {nextPost && (
+                    <a class="post-nav-card post-nav-card-next" href={nextPost.url}>
+                      <span class="post-nav-label">
+                        {i18n(I18nKeys.post_next)} →
+                      </span>
+                      <span class="post-nav-title">{nextPost.title}</span>
+                    </a>
+                  )}
+                </div>
+              </nav>
+            )
+          }
         </div>
       </div>
     </div>
@@ -148,6 +178,16 @@ const showToc = tocHeadings.length >= 3;
   .post-header {
     @apply mb-6 border-b pb-6;
     border-color: var(--primary-color-transparent);
+  }
+
+  .post-eyebrow {
+    @apply mb-2 inline-block text-xs font-bold uppercase transition-all;
+    letter-spacing: 0.3em;
+    color: var(--primary-color);
+  }
+
+  .post-eyebrow:hover {
+    filter: brightness(1.2);
   }
 
   .post-title {
@@ -222,5 +262,44 @@ const showToc = tocHeadings.length >= 3;
   .article {
     @apply flex flex-col;
     font-size: var(--primary-font);
+  }
+
+  .post-nav {
+    @apply mt-6;
+  }
+
+  .post-nav-heading {
+    @apply mb-3 text-xs font-bold uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-color-lighten);
+  }
+
+  .post-nav-grid {
+    @apply grid grid-cols-1 gap-3 sm:grid-cols-2;
+  }
+
+  .post-nav-card {
+    @apply flex flex-col gap-y-1 rounded-xl p-4 transition-all;
+    border: 1px solid var(--primary-color-transparent);
+  }
+
+  .post-nav-card:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+  }
+
+  .post-nav-card-next {
+    @apply text-right;
+  }
+
+  .post-nav-label {
+    @apply text-xs font-semibold uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary-color);
+  }
+
+  .post-nav-title {
+    @apply text-sm font-semibold leading-snug;
+    color: var(--text-color);
   }
 </style>

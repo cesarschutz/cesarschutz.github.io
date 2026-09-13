@@ -23,7 +23,7 @@ export interface Props {
 const props = Astro.props;
 const entryID = IdToSlug(props.id);
 const contentUrl = `/posts/${entryID}`;
-const { time, wordCount } = props.readingMetadata;
+const { time } = props.readingMetadata;
 ---
 
 <div class="mx-3 flex flex-col rounded-3xl bg-[var(--card-color)] lg:mx-0">
@@ -97,39 +97,29 @@ const { time, wordCount } = props.readingMetadata;
               </li>
             )
           }
-          {
-            props.tags && props.tags.length > 0 && (
-              <li class="data space-x-2">
-                <PostCardInfoIcon name="mdi:tag-outline" />
-                <ul class="flex flex-row flex-wrap items-center gap-y-1">
-                  {props.tags.slice(0, 3).map((tag, index) => (
-                    <li class="flex select-none flex-row items-center whitespace-nowrap text-[var(--text-color-lighten)]">
-                      {index > 0 && <span class="pr-1">/</span>}
-                      <a
-                        class="whitespace-nowrap rounded-md px-1.5 py-0.5 transition-all hover:bg-[var(--primary-color-lighten)] hover:text-[var(--primary-color)]"
-                        href={`/tags/${IdToSlug(tag)}`}
-                      >
-                        {tag}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            )
-          }
         </ul>
       </div>
+      {
+        props.tags && props.tags.length > 0 && (
+          <div class="-mt-1 lg:ml-2">
+            <ul class="flex flex-row flex-wrap gap-x-2.5 gap-y-1">
+              {props.tags.map((tag) => (
+                <li>
+                  <a class="tag" href={`/tags/${IdToSlug(tag)}`}>
+                    #{tag}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
       <div class="lg:ml-2">
         <p class="desc" set:html={renderInlineMd(props.description)} />
       </div>
       <div class="mt-auto">
         <div class="select-none lg:ml-2">
           <div class="reading-time">
-            <span>
-              {wordCount}
-              {i18n(I18nKeys.post_card_words)}
-            </span>
-            <span>|</span>
             <span>
               {time}
               {i18n(I18nKeys.post_card_minutes)}
@@ -164,6 +154,11 @@ const { time, wordCount } = props.readingMetadata;
 
   .data > span {
     @apply inline-block self-center align-middle text-[var(--text-color-lighten)];
+    font-family: var(--primary-font);
+  }
+
+  .tag {
+    @apply select-none text-xs text-[var(--text-color-lighten)] opacity-80 transition-all hover:text-[var(--primary-color)] hover:opacity-100;
     font-family: var(--primary-font);
   }
 

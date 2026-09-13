@@ -6,6 +6,9 @@ import Pagination from "../components/controllers/Pagination.astro";
 // Utils
 import type { PaginateFunction } from "astro";
 import { GetSortedPosts } from "../utils/content";
+import { IdToSlug } from "../utils/hash";
+import { i18n } from "../locales/translation";
+import I18nKeys from "../locales/keys";
 
 export async function getStaticPaths({
   paginate,
@@ -16,10 +19,40 @@ export async function getStaticPaths({
   return paginate(postCollections, { pageSize: 6 });
 }
 const { page } = Astro.props;
+
+// série "Aprendizado de arquitetura": as sessões numeradas, em ordem
+const seriePosts = (await GetSortedPosts())
+  .filter((post) => /Sessão \d{2}/.test(post.data.title))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title))
+  .map((post) => {
+    const match = post.data.title.match(/Sessão (\d{2}) — (.*)$/);
+    return {
+      numero: match?.[1] ?? "",
+      titulo: match?.[2] ?? post.data.title,
+      url: `/posts/${IdToSlug(post.id)}/`,
+    };
+  });
+const mostrarSerie = page.currentPage === 1 && seriePosts.length >= 2;
 ---
 
 <Main>
   <div class="space-y-8">
+    {
+      mostrarSerie && (
+        <section class="serie onload-animation">
+          <p class="serie-label">{i18n(I18nKeys.series_label)}</p>
+          <h2 class="serie-title">Aprendizado de arquitetura</h2>
+          <div class="serie-grid">
+            {seriePosts.map((sessao) => (
+              <a class="serie-item" href={sessao.url}>
+                <span class="serie-num">{sessao.numero}</span>
+                <span class="serie-nome">{sessao.titulo}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
     <div class="w-full space-y-4">
       {
         page.data.map((entry, index) => (
@@ -53,3 +86,46 @@ const { page } = Astro.props;
     />
   </div>
 </Main>
+
+<style>
+  .serie {
+    @apply mx-3 rounded-3xl bg-[var(--card-color)] p-6 lg:mx-0;
+  }
+
+  .serie-label {
+    @apply text-xs font-bold uppercase;
+    letter-spacing: 0.3em;
+    color: var(--primary-color);
+  }
+
+  .serie-title {
+    @apply mt-1 text-xl font-bold;
+    color: var(--text-color);
+    font-family: var(--title-font);
+  }
+
+  .serie-grid {
+    @apply mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4;
+  }
+
+  .serie-item {
+    @apply flex flex-row items-baseline gap-x-3 rounded-xl p-3 transition-all;
+    border: 1px solid var(--primary-color-transparent);
+  }
+
+  .serie-item:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+  }
+
+  .serie-num {
+    @apply text-2xl font-extrabold;
+    color: var(--primary-color);
+    font-family: var(--code-font);
+  }
+
+  .serie-nome {
+    @apply text-sm font-semibold leading-snug;
+    color: var(--text-color);
+  }
+</style>

@@ -1,20 +1,28 @@
-# Sobre mim
+# Cesar Schutz
 
-Olá! Sou o **Cesar Schutz**, arquiteto de solução. 👋
+**Arquiteto de Solução**
 
-Trabalho desenhando e evoluindo sistemas — conectando necessidades de negócio a decisões técnicas: arquitetura de aplicações, integrações, e as escolhas difíceis de mudar depois.
-
-Este site é o meu **Caderno Público**: registro aqui o que estudo, construo e aprendo, tanto para consolidar o próprio aprendizado quanto para ajudar quem chegar até aqui.
+Trabalho na interseção entre arquitetura, engenharia de software e sistemas distribuídos — conectando necessidades de negócio a decisões técnicas: desenho de sistemas, integrações, e as escolhas difíceis de mudar depois.
 
 <!-- TODO: complete com sua trajetória — empresas, anos de experiência, especialidades -->
 
-## Interesses
+## Áreas de interesse
 
-- Arquitetura de software e integração de sistemas
-- Desenvolvimento e boas práticas de engenharia
-- Estudo contínuo — sempre tem algo novo na fila
+**01 — Arquitetura de sistemas**
 
-<!-- TODO: ajuste os interesses acima para refletir o que você realmente curte -->
+**02 — Java & JVM**
+
+**03 — Sistemas distribuídos**
+
+**04 — Dados**
+
+**05 — Inteligência Artificial**
+
+## Este site
+
+O Caderno Público é o meu **laboratório público**: um lugar para registrar ideias, experimentos e coisas que aprendi construindo software — tanto para consolidar o próprio aprendizado quanto para ajudar quem chegar até aqui.
+
+Aqui você encontra a série [Aprendizado de arquitetura](/categories/Arquitetura) (desafios reais dissecados em sessões), o guia completo de [atualizações do Java](/posts/guia-atualizacoes-java/) versão a versão, e notas de estudo sobre observabilidade, DevOps, dados e segurança.
 
 ## Contato
 

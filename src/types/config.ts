@@ -17,6 +17,11 @@ interface Configuration {
   sign: string;
   avatarUrl: string;
 
+  /** Linha pequena em caps acima do nome no hero da home (ex.: cargo) */
+  heroRole?: string;
+  /** Áreas de atuação exibidas abaixo do subtítulo no hero e no rodapé */
+  heroTopics?: string[];
+
   socialLinks: { icon: string; link: string }[];
 
   maxSidebarCategoryChip: number;

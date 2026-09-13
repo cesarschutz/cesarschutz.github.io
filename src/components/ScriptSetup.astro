@@ -86,14 +86,18 @@
     });
     document.addEventListener("click", (e) => {
       const t = e.target as HTMLElement;
-      if (
-        t.tagName === "IMG" &&
-        t.closest(".article") &&
-        !t.closest("#img-lightbox") &&
-        !t.closest("a")
-      ) {
+      if (t.closest("#img-lightbox")) return;
+      // imagem dentro do corpo do post
+      if (t.tagName === "IMG" && t.closest(".article") && !t.closest("a")) {
         const img = t as HTMLImageElement;
         open(img.currentSrc || img.src, img.alt);
+        return;
+      }
+      // capa do banner: o clique cai no container (a img fica atrás do overlay)
+      const cover = t.closest("#banner .cover");
+      if (cover) {
+        const img = cover.querySelector("img");
+        if (img) open(img.currentSrc || img.src, img.alt);
       }
     });
   };

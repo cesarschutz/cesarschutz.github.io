@@ -39,6 +39,15 @@ const YukinaConfig: Configuration = {
   username: "Cesar Schutz",
   sign: "Arquitetura, código e aprendizado contínuo.",
   avatarUrl: "https://github.com/cesarschutz.png",
+
+  heroRole: "Arquiteto de Solução",
+  heroTopics: [
+    "Arquitetura",
+    "Engenharia",
+    "Java",
+    "Sistemas Distribuídos",
+    "IA",
+  ],
   socialLinks: [
     {
       icon: "line-md:github-loop",

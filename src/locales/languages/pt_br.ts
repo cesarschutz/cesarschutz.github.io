@@ -7,11 +7,16 @@ export const pt_BR: Translation = {
   [key.copy_right_license]: "Licença",
 
   [key.nav_bar_home]: "Início",
-  [key.nav_bar_archive]: "Arquivo",
+  [key.nav_bar_archive]: "Artigos",
   [key.nav_bar_about]: "Sobre",
   [key.nav_bar_github]: "GitHub",
   [key.nav_bar_projects]: "Projetos",
   [key.nav_bar_search_placeholder]: "Buscar",
+
+  [key.series_label]: "Série",
+  [key.continue_reading]: "Continue lendo",
+  [key.post_prev]: "Post anterior",
+  [key.post_next]: "Próximo post",
 
   [key.projects_page_title]: "Projetos",
   [key.projects_page_subtitle]: "Coisas que construí, estudei ou mantenho",

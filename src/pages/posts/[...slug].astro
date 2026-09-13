@@ -1,18 +1,34 @@
 ---
-import { getCollection } from "astro:content";
 import { IdToSlug } from "../../utils/hash";
 import PostLayout from "../../layouts/PostLayout.astro";
 import { render } from "astro:content";
+import { GetSortedPosts } from "../../utils/content";
 
 export async function getStaticPaths() {
-  const postEntries = await getCollection("posts");
-  return postEntries.map((entry) => ({
+  const sorted = await GetSortedPosts();
+  return sorted.map((entry, index) => ({
     params: { slug: IdToSlug(entry.id) },
-    props: { entry },
+    props: {
+      entry,
+      // ordenação decrescente por data: [index+1] é o post mais antigo (anterior),
+      // [index-1] é o mais novo (próximo)
+      prev: sorted[index + 1]
+        ? {
+            title: sorted[index + 1].data.title,
+            url: `/posts/${IdToSlug(sorted[index + 1].id)}/`,
+          }
+        : undefined,
+      next: sorted[index - 1]
+        ? {
+            title: sorted[index - 1].data.title,
+            url: `/posts/${IdToSlug(sorted[index - 1].id)}/`,
+          }
+        : undefined,
+    },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, prev, next } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(entry);
 ---
 
@@ -32,6 +48,8 @@ const { Content, headings, remarkPluginFrontmatter } = await render(entry);
   }
   author={entry.data.author}
   sourceLink={entry.data.sourceLink}
+  prevPost={prev}
+  nextPost={next}
 >
   <Content />
 </PostLayout>

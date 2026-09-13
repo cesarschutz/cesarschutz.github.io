@@ -10,6 +10,11 @@ enum I18nKeys {
   nav_bar_projects = "nav_bar_projects",
   nav_bar_search_placeholder = "nav_bar_search_placeholder",
 
+  series_label = "series_label",
+  continue_reading = "continue_reading",
+  post_prev = "post_prev",
+  post_next = "post_next",
+
   projects_page_title = "projects_page_title",
   projects_page_subtitle = "projects_page_subtitle",
   projects_view_repo = "projects_view_repo",

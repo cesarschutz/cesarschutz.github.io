@@ -13,6 +13,11 @@ export const en: Translation = {
   [key.nav_bar_projects]: "Projects",
   [key.nav_bar_search_placeholder]: "Search",
 
+  [key.series_label]: "Series",
+  [key.continue_reading]: "Keep reading",
+  [key.post_prev]: "Previous post",
+  [key.post_next]: "Next post",
+
   [key.projects_page_title]: "Projects",
   [key.projects_page_subtitle]: "Things I built, studied or maintain",
   [key.projects_view_repo]: "Repository",
