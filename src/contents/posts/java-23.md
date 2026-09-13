@@ -4,7 +4,7 @@ published: 2026-09-02
 description: "Cada novidade do Java 23 (2024) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-nodes.svg
+cover: /covers/java/java-23.svg
 draft: false
 ---
 

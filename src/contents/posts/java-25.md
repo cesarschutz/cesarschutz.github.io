@@ -4,7 +4,7 @@ published: 2026-09-04
 description: "Cada novidade do Java 25 (2025) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
 category: Java
-cover: /banners/tech-layers.svg
+cover: /covers/java/java-25.svg
 draft: false
 ---
 

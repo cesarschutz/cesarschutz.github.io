@@ -4,7 +4,7 @@ published: 2026-09-10
 description: "O clássico retry que cobra duas vezes: por que checar antes de gravar não resolve, e onde a idempotência mora de verdade."
 tags: [Arquitetura, Idempotência, Pagamentos]
 category: Arquitetura
-cover: /banners/tech-nodes.svg
+cover: /covers/sessao-00-idempotencia.svg
 draft: false
 ---
 

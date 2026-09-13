@@ -4,7 +4,7 @@ published: 2026-09-01
 description: "Cada novidade do Java 22 (2024) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-layers.svg
+cover: /covers/java/java-22.svg
 draft: false
 ---
 

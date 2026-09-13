@@ -4,7 +4,7 @@ published: 2026-08-22
 description: "Cada novidade do Java 12 (2019) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-circuit.svg
+cover: /covers/java/java-12.svg
 draft: false
 ---
 

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#01131b"/>
+      <stop offset="0.55" stop-color="#04283d"/>
+      <stop offset="1" stop-color="#01131b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a0e5" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#00a0e5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <marker id="seta" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#00a0e5"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#bg)"/>
+  <rect width="1600" height="800" fill="url(#grid)"/>
+  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+
+  <!-- duas requisições iguais -->
+  <g font-family="ui-monospace, monospace" font-size="34" fill="#7fd4f5">
+    <rect x="230" y="270" width="270" height="86" rx="16" fill="#032c42" stroke="#00a0e5" stroke-width="4"/>
+    <text x="365" y="325" text-anchor="middle">R$ 250 · k-91f</text>
+    <rect x="230" y="450" width="270" height="86" rx="16" fill="#032c42" stroke="#00a0e5" stroke-width="4" stroke-dasharray="10 8"/>
+    <text x="365" y="505" text-anchor="middle" opacity="0.8">R$ 250 · k-91f</text>
+    <text x="330" y="430" font-size="30" opacity="0.6">retry</text>
+  </g>
+
+  <g stroke="#00a0e5" stroke-width="5" fill="none">
+    <path d="M510 313 C640 313 680 380 800 395" marker-end="url(#seta)"/>
+    <path d="M510 493 C640 493 680 425 800 410" marker-end="url(#seta)" stroke-dasharray="10 8" stroke-opacity="0.7"/>
+  </g>
+
+  <!-- restrição única: só um passa -->
+  <g>
+    <rect x="820" y="330" width="150" height="150" rx="24" fill="#00577e" stroke="#00a0e5" stroke-width="5"/>
+    <text x="895" y="428" font-family="-apple-system, sans-serif" font-size="72" font-weight="800" fill="#ffffff" text-anchor="middle">1×</text>
+  </g>
+
+  <!-- banco -->
+  <g stroke="#00a0e5" stroke-width="5" fill="#032c42">
+    <path d="M1120 300 h240 v190 a120 26 0 0 1 -240 0 Z"/>
+    <ellipse cx="1240" cy="300" rx="120" ry="26"/>
+    <path d="M1120 365 a120 26 0 0 0 240 0" fill="none" stroke-opacity="0.5"/>
+  </g>
+  <path d="M980 405 H1100" stroke="#00a0e5" stroke-width="5" marker-end="url(#seta)"/>
+  <text x="1240" y="430" font-family="ui-monospace, monospace" font-size="34" fill="#7fd4f5" text-anchor="middle">UNIQUE</text>
+
+  <g fill="#7fd4f5" opacity="0.4">
+    <circle cx="300" cy="140" r="2.5"/><circle cx="900" cy="120" r="2"/>
+    <circle cx="1300" cy="680" r="2.5"/><circle cx="1500" cy="200" r="2"/>
+    <circle cx="600" cy="690" r="2.5"/><circle cx="150" cy="600" r="2"/>
+  </g>
+</svg>

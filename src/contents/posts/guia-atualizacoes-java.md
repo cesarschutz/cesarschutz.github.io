@@ -4,7 +4,7 @@ published: 2026-09-08
 description: "Como funciona o ciclo de releases do Java, LTS vs não-LTS, distribuições e custos, matriz de compatibilidade e um processo de migração em 5 fases."
 tags: [Java, Migração]
 category: Java
-cover: /banners/tech-nodes.svg
+cover: /covers/guia-java.svg
 draft: false
 ---
 

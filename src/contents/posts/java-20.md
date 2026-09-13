@@ -4,7 +4,7 @@ published: 2026-08-30
 description: "Cada novidade do Java 20 (2023) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-nodes.svg
+cover: /covers/java/java-20.svg
 draft: false
 ---
 

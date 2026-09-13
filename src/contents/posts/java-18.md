@@ -4,7 +4,7 @@ published: 2026-08-28
 description: "Cada novidade do Java 18 (2022) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-circuit.svg
+cover: /covers/java/java-18.svg
 draft: false
 ---
 

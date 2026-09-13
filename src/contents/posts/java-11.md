@@ -4,7 +4,7 @@ published: 2026-08-21
 description: "Cada novidade do Java 11 (2018) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
 category: Java
-cover: /banners/tech-nodes.svg
+cover: /covers/java/java-11.svg
 draft: false
 ---
 

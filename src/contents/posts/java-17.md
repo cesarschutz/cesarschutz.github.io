@@ -4,7 +4,7 @@ published: 2026-08-27
 description: "Cada novidade do Java 17 (2021) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
 category: Java
-cover: /banners/tech-nodes.svg
+cover: /covers/java/java-17.svg
 draft: false
 ---
 

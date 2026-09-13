@@ -4,7 +4,7 @@ published: 2026-09-11
 description: "A captura passou, o processo morreu antes de gravar: o problema da escrita dupla e por que a resposta é gravar a intenção antes do efeito."
 tags: [Arquitetura, Outbox, Pagamentos]
 category: Arquitetura
-cover: /banners/tech-layers.svg
+cover: /covers/sessao-01-outbox.svg
 draft: false
 ---
 

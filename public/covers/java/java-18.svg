@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#01131b"/>
+      <stop offset="0.55" stop-color="#04283d"/>
+      <stop offset="1" stop-color="#01131b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a0e5" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#00a0e5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#bg)"/>
+  <rect width="1600" height="800" fill="url(#grid)"/>
+  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+
+  <!-- xícara de café -->
+  <g stroke="#00a0e5" stroke-width="7" fill="#032c42" stroke-linecap="round">
+    <path d="M420 350 H660 V470 a60 60 0 0 1 -60 60 H480 a60 60 0 0 1 -60 -60 Z"/>
+    <path d="M660 375 h45 a55 55 0 0 1 0 110 h-45" fill="none"/>
+    <path d="M395 570 h290" stroke-opacity="0.6"/>
+  </g>
+  <g stroke="#7fd4f5" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.8">
+    <path d="M495 300 C480 270 510 250 495 220"/>
+    <path d="M575 300 C560 270 590 250 575 215"/>
+  </g>
+  <text x="540" y="462" font-family="ui-monospace, monospace" font-size="52" fill="#7fd4f5" text-anchor="middle" opacity="0.9">&lt;/&gt;</text>
+
+  <!-- versão -->
+  <text x="1130" y="360" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="72" font-weight="600" fill="#ffffff" fill-opacity="0.75" text-anchor="middle" letter-spacing="14">JAVA</text>
+  <text x="1130" y="590" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="270" font-weight="800" fill="#00a0e5" text-anchor="middle">18</text>
+
+  <g fill="#7fd4f5" opacity="0.4">
+    <circle cx="260" cy="160" r="2.5"/><circle cx="700" cy="120" r="2"/>
+    <circle cx="1180" cy="110" r="2.5"/><circle cx="1460" cy="300" r="2"/>
+    <circle cx="1340" cy="700" r="2.5"/><circle cx="380" cy="700" r="2"/>
+    <circle cx="130" cy="430" r="2.5"/>
+  </g>
+</svg>

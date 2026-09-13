@@ -4,7 +4,7 @@ published: 2026-08-26
 description: "Cada novidade do Java 16 (2021) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-layers.svg
+cover: /covers/java/java-16.svg
 draft: false
 ---
 

@@ -4,7 +4,7 @@ published: 2026-09-03
 description: "Cada novidade do Java 24 (2025) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-circuit.svg
+cover: /covers/java/java-24.svg
 draft: false
 ---
 

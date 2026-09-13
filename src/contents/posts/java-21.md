@@ -4,7 +4,7 @@ published: 2026-08-31
 description: "Cada novidade do Java 21 (2023) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
 category: Java
-cover: /banners/tech-circuit.svg
+cover: /covers/java/java-21.svg
 draft: false
 ---
 

@@ -4,7 +4,7 @@ published: 2026-08-23
 description: "Cada novidade do Java 13 (2019) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-layers.svg
+cover: /covers/java/java-13.svg
 draft: false
 ---
 

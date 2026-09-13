@@ -4,7 +4,7 @@ published: 2026-08-18
 description: "Cada novidade do Java 8 (2014) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
 category: Java
-cover: /banners/tech-nodes.svg
+cover: /covers/java/java-8.svg
 draft: false
 ---
 

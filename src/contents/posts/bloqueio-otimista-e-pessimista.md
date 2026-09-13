@@ -4,7 +4,7 @@ published: 2026-09-13
 description: "Lost update: o defeito que os dois bloqueios resolvem. Detecção vs prevenção de conflito, SQL puro e Spring Data JPA, o caso híbrido e como escolher."
 tags: [Arquitetura, Banco de Dados, Concorrência]
 category: Arquitetura
-cover: /banners/tech-nodes.svg
+cover: /covers/sessao-03-bloqueios.svg
 draft: false
 ---
 

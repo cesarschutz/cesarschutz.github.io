@@ -4,7 +4,7 @@ published: 2026-08-24
 description: "Cada novidade do Java 14 (2020) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-nodes.svg
+cover: /covers/java/java-14.svg
 draft: false
 ---
 

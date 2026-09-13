@@ -4,7 +4,7 @@ published: 2026-09-12
 description: "Instância viva mas muda e milhares de sockets em CLOSE_WAIT: pinning de virtual threads, o gargalo que muda de lugar, bulkhead e circuit breaker."
 tags: [Java, Virtual Threads, Resiliência]
 category: Arquitetura
-cover: /banners/tech-circuit.svg
+cover: /covers/sessao-02-virtual-threads.svg
 draft: false
 ---
 

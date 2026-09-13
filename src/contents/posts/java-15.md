@@ -4,7 +4,7 @@ published: 2026-08-25
 description: "Cada novidade do Java 15 (2020) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-circuit.svg
+cover: /covers/java/java-15.svg
 draft: false
 ---
 

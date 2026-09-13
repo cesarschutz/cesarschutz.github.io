@@ -4,7 +4,7 @@ published: 2026-08-29
 description: "Cada novidade do Java 19 (2022) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java
-cover: /banners/tech-layers.svg
+cover: /covers/java/java-19.svg
 draft: false
 ---
 
