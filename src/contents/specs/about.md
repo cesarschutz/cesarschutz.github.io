@@ -16,10 +16,6 @@ Este site é o meu **Caderno Público**: registro aqui o que estudo, construo e 
 
 <!-- TODO: ajuste os interesses acima para refletir o que você realmente curte -->
 
-## Fora do código
-
-Torcedor do **Grêmio** — se as cores do site parecem familiares, não é coincidência. 🔵⚫⚪
-
 ## Contato
 
 - GitHub: [github.com/cesarschutz](https://github.com/cesarschutz)
