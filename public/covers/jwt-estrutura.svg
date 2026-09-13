@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#01131b"/>
+      <stop offset="0.55" stop-color="#04283d"/>
+      <stop offset="1" stop-color="#01131b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a0e5" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#00a0e5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#bg)"/>
+  <rect width="1600" height="800" fill="url(#grid)"/>
+  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+
+  <!-- token em três blocos -->
+  <g font-family="ui-monospace, monospace" text-anchor="middle">
+    <g>
+      <rect x="220" y="320" width="360" height="160" rx="20" fill="#032c42" stroke="#7fd4f5" stroke-width="6"/>
+      <text x="400" y="390" font-size="36" fill="#7fd4f5">header</text>
+      <text x="400" y="440" font-size="24" fill="#7fd4f5" opacity="0.7">alg · typ · kid</text>
+    </g>
+    <text x="610" y="420" font-size="60" fill="#00a0e5">.</text>
+    <g>
+      <rect x="640" y="320" width="360" height="160" rx="20" fill="#00577e" stroke="#00a0e5" stroke-width="6"/>
+      <text x="820" y="390" font-size="36" fill="#ffffff">payload</text>
+      <text x="820" y="440" font-size="24" fill="#cfeeff" opacity="0.9">iss · sub · aud · exp</text>
+    </g>
+    <text x="1030" y="420" font-size="60" fill="#00a0e5">.</text>
+    <g>
+      <rect x="1060" y="320" width="360" height="160" rx="20" fill="#032c42" stroke="#d9534f" stroke-width="6"/>
+      <text x="1240" y="390" font-size="36" fill="#d9534f">signature</text>
+      <text x="1240" y="440" font-size="24" fill="#d9534f" opacity="0.75">RS256 · HS256</text>
+    </g>
+  </g>
+
+  <!-- selo base64url -->
+  <text x="800" y="560" font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.7" text-anchor="middle">base64url(header) . base64url(payload) . assinatura</text>
+
+  <!-- cadeado pequeno na assinatura -->
+  <g stroke="#d9534f" stroke-width="5" fill="#3a1518">
+    <path d="M1218 262 v-16 a22 22 0 0 1 44 0 v16" fill="none" stroke-linecap="round"/>
+    <rect x="1206" y="262" width="68" height="50" rx="10"/>
+  </g>
+
+  <g fill="#7fd4f5" opacity="0.4">
+    <circle cx="240" cy="150" r="2.5"/><circle cx="900" cy="120" r="2"/>
+    <circle cx="1480" cy="660" r="2.5"/><circle cx="1520" cy="200" r="2"/>
+    <circle cx="140" cy="680" r="2.5"/><circle cx="600" cy="700" r="2"/>
+  </g>
+</svg>
