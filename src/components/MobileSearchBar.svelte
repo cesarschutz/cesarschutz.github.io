@@ -5,6 +5,7 @@
 
   import I18nKeys from "../locales/keys";
   import { i18n } from "../locales/translation";
+  import { searchPosts } from "../utils/search";
 
   let searchKeyword = "";
   let searchResult: any[] = [];
@@ -26,19 +27,10 @@
     });
 
     /**
-     * Asynchronously performs a search based on the provided keyword.
-     * If in development mode, extracts a subset of mock results for demonstration.
-     * Otherwise, fetches results from the Pagefind search engine and populates the array.
-     * Toggles the visibility and height of the results panel based on the outcome.
+     * Busca no índice próprio do site (frase exata + fallback por palavras).
      */
     search = async (keyword: string) => {
-      let searchResultArr = [];
-
-      // @ts-ignore
-      const ret = await pagefind.search(keyword);
-      for (const item of ret.results) {
-        searchResultArr.push(await item.data());
-      }
+      const searchResultArr = await searchPosts(keyword);
       searchResult = searchResultArr;
 
       const searchResultVisable = keyword != "" && searchResult.length != 0;

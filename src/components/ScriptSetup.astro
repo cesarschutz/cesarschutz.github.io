@@ -97,12 +97,48 @@
     }
   };
 
+  // sumário lateral dos posts: destaca a seção visível durante a rolagem
+  const setupToc = () => {
+    const previous = (window as any).__tocScrollHandler;
+    if (previous) document.removeEventListener("scroll", previous, true);
+
+    const toc = document.querySelector("[data-toc]");
+    if (!toc) return;
+
+    const links = new Map<string, HTMLElement>();
+    toc.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((el) => {
+      links.set(el.dataset.tocLink!, el);
+    });
+    const headings = [
+      ...document.querySelectorAll<HTMLElement>(
+        ".article h2[id], .article h3[id]",
+      ),
+    ].filter((h) => links.has(h.id));
+    if (headings.length === 0) return;
+
+    let activeId = "";
+    const handler = () => {
+      let current = headings[0].id;
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top <= 120) current = heading.id;
+        else break;
+      }
+      if (current === activeId) return;
+      activeId = current;
+      links.forEach((el, id) => el.classList.toggle("active", id === current));
+    };
+    (window as any).__tocScrollHandler = handler;
+    document.addEventListener("scroll", handler, true);
+    handler();
+  };
+
   // init
   const setup = () => {
     setupUrlAnchor();
     setupLozad();
     setupScrollBar();
     setupMermaid();
+    setupToc();
   };
 
   document.addEventListener("DOMContentLoaded", setup);

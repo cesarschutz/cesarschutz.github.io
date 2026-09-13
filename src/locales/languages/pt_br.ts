@@ -19,8 +19,8 @@ export const pt_BR: Translation = {
   [key.projects_view_demo]: "Ver online",
   [key.projects_see_all]: "Também estudo em público — veja todos os repositórios em",
 
-  [key.post_card_words]: "Palavras",
-  [key.post_card_minutes]: "Minutos",
+  [key.post_card_words]: "palavras",
+  [key.post_card_minutes]: "min de leitura",
 
   [key.side_bar_categories]: "Categorias",
   [key.side_bar_tags]: "Tags",

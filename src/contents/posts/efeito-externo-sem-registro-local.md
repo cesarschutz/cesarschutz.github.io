@@ -1,7 +1,7 @@
 ---
 title: "Arquitetura · Sessão 01 — Efeito externo sem registro local"
 published: 2026-09-11
-description: "A captura passou, o processo morreu antes de gravar: o problema da escrita dupla e por que a resposta é gravar a intenção antes do efeito."
+description: "O que fazer quando a captura no parceiro passa e a gravação no seu banco falha: gravar a intenção antes de causar o efeito. **Também caiu aqui:** o problema da escrita dupla, tabela outbox e relay, conciliação como rede de segurança, CDC, event sourcing e por que 2PC é rejeitado."
 tags: [Arquitetura, Outbox, Pagamentos]
 category: Arquitetura
 cover: /covers/sessao-01-outbox.svg

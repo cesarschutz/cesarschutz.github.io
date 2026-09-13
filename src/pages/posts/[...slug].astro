@@ -13,54 +13,25 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings, remarkPluginFrontmatter } = await render(entry);
 ---
 
-{
-  !entry.data.licenseName && (
-    <PostLayout
-      title={entry.data.title}
-      subTitle={entry.data.description}
-      bannerImage={entry.data.cover}
-      published={entry.data.published}
-    >
-      <div
-        class="hidden"
-        data-pagefind-body
-        data-pagefind-weight="10"
-        data-pagefind-meta="title"
-      >
-        {entry.data.title}
-      </div>
-      <div data-pagefind-body>
-        <Content />
-      </div>
-    </PostLayout>
-  )
-}
-{
-  entry.data.licenseName && (
-    <PostLayout
-      title={entry.data.title}
-      subTitle={entry.data.description}
-      bannerImage={entry.data.cover}
-      published={entry.data.published}
-      license={{ name: entry.data.licenseName, url: entry.data.licenseUrl }}
-      author={entry.data.author}
-      sourceLink={entry.data.sourceLink}
-    >
-      <div
-        class="hidden"
-        data-pagefind-body
-        data-pagefind-weight="10"
-        data-pagefind-meta="title"
-      >
-        {entry.data.title}
-      </div>
-      <div data-pagefind-body>
-        <Content />
-      </div>
-    </PostLayout>
-  )
-}
-<!-- <Fragment set:html={tocHTMLString} /> -->
+<PostLayout
+  title={entry.data.title}
+  subTitle={entry.data.description}
+  bannerImage={entry.data.cover}
+  published={entry.data.published}
+  category={entry.data.category}
+  tags={entry.data.tags}
+  readingMetadata={(remarkPluginFrontmatter as any).readingMetadata}
+  headings={headings}
+  license={
+    entry.data.licenseName
+      ? { name: entry.data.licenseName, url: entry.data.licenseUrl }
+      : undefined
+  }
+  author={entry.data.author}
+  sourceLink={entry.data.sourceLink}
+>
+  <Content />
+</PostLayout>

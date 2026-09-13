@@ -12,21 +12,29 @@ export interface Props {
   subTitle?: string;
   bannerImage?: string;
   slug?: string;
+  /** true = banner só com a imagem (sem título por cima) e mais baixo — usado nos posts */
+  plainBanner?: boolean;
+  pageDescription?: string;
 }
 
 const props = Astro.props;
 ---
 
-<Base>
+<Base
+  pageTitle={props.title}
+  pageDescription={props.pageDescription ?? props.subTitle}
+  pageImage={props.bannerImage}
+>
   <NavBar />
 
   {
     YukinaConfig.bannerStyle == "LOOP" && (
       <Banner
-        title={props.title}
-        subTitle={props.subTitle}
+        title={props.plainBanner ? undefined : props.title}
+        subTitle={props.plainBanner ? undefined : props.subTitle}
         bannerImage={props.bannerImage}
         slug={props.slug}
+        plain={props.plainBanner}
       />
     )
   }

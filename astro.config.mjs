@@ -20,8 +20,6 @@ import { remarkMermaid } from "./src/plugins/remark-mermaid.mjs";
 
 import YukinaConfig from "./yukina.config";
 
-import pagefind from "astro-pagefind";
-
 // https://astro.build/config
 export default defineConfig({
   site: YukinaConfig.site,
@@ -57,7 +55,6 @@ export default defineConfig({
       globalInstance: true,
     }),
     sitemap(),
-    pagefind(),
   ],
   markdown: {
     remarkPlugins: [remarkReadingTime, remarkMath, remarkMermaid],

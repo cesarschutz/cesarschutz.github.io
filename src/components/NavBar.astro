@@ -5,7 +5,6 @@ import { i18n } from "../locales/translation";
 import { Icon } from "astro-icon/components";
 import SearchBar from "./SearchBar.svelte";
 import MobileSearchBar from "./MobileSearchBar.svelte";
-import "astro-pagefind";
 
 const navCount = YukinaConfig.navigators.length;
 ---
@@ -329,16 +328,3 @@ const navCount = YukinaConfig.navigators.length;
   });
 </script>
 
-<script is:inline>
-  // load pagefind
-  async function loadPagefind() {
-    const pagefind = await import("/pagefind/pagefind.js");
-    await pagefind.options({
-      excerptLength: 20,
-    });
-    pagefind.init();
-    window.pagefind = pagefind;
-    pagefind.search("");
-  }
-  loadPagefind();
-</script>

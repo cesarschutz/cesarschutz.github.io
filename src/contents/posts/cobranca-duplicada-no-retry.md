@@ -1,7 +1,7 @@
 ---
 title: "Arquitetura · Sessão 00 — Cobrança duplicada no retry"
 published: 2026-09-10
-description: "O clássico retry que cobra duas vezes: por que checar antes de gravar não resolve, e onde a idempotência mora de verdade."
+description: "Como garantir que um retry não cobre o cliente duas vezes: chave de idempotência e restrição única no banco, em vez de verificar antes de gravar. **Também caiu aqui:** condição de corrida do tipo verifica-e-age, entrega pelo menos uma vez, e as alternativas de bloqueio pessimista e otimista."
 tags: [Arquitetura, Idempotência, Pagamentos]
 category: Arquitetura
 cover: /covers/sessao-00-idempotencia.svg

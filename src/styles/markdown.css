@@ -142,6 +142,49 @@
   @apply mx-auto my-4 rounded-xl;
 }
 
+/* Blocos colapsáveis (<details>) — estilo toggle do Notion */
+.article details {
+  @apply my-4 rounded-xl px-4 py-1;
+  border: 1px solid var(--primary-color-transparent);
+  background-color: var(--primary-color-transparent);
+}
+
+.article details > summary {
+  @apply cursor-pointer select-none list-none py-2 font-semibold;
+  color: var(--primary-color);
+}
+
+.article details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.article details > summary::before {
+  content: "▸";
+  @apply mr-2 inline-block transition-transform;
+}
+
+.article details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.article details[open] > summary {
+  @apply mb-1 border-b pb-2;
+  border-color: var(--primary-color-transparent);
+}
+
+.article details > *:not(summary) {
+  @apply my-2;
+}
+
+/* Destaque de trecho encontrado pela busca */
+mark {
+  color: var(--text-color);
+  background-color: var(--primary-color-transparent);
+  border-radius: 3px;
+  padding: 0 2px;
+  font-weight: 600;
+}
+
 /* Diagramas Mermaid (renderizados no cliente) */
 .article pre.mermaid {
   @apply my-6 flex justify-center overflow-x-auto rounded-xl p-4;

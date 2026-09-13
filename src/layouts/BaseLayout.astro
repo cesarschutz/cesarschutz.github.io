@@ -1,10 +1,22 @@
 ---
 import YukinaConfig from "../../yukina.config";
 import BaseHead from "../components/BaseHead.astro";
+
+interface Props {
+  pageTitle?: string;
+  pageDescription?: string;
+  pageImage?: string;
+}
+
+const { pageTitle, pageDescription, pageImage } = Astro.props;
 ---
 
 <html lang={YukinaConfig.locale}>
-  <BaseHead />
+  <BaseHead
+    pageTitle={pageTitle}
+    pageDescription={pageDescription}
+    pageImage={pageImage}
+  />
   <body class="overflow-y-hidden">
     <slot />
   </body>

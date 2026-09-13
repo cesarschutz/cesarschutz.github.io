@@ -1,13 +1,25 @@
 ---
+import type { MarkdownHeading } from "astro";
+import { Icon } from "astro-icon/components";
 import Main from "../layouts/MainLayout.astro";
 import Markdown from "../components/Markdown.astro";
 import CopyRight from "../components/misc/CopyRight.astro";
+import YukinaConfig from "../../yukina.config";
+import { formatDate } from "../utils/date";
+import { IdToSlug } from "../utils/hash";
+import { renderInlineMd } from "../utils/inline-md";
+import { i18n } from "../locales/translation";
+import I18nKeys from "../locales/keys";
 
 interface Props {
   title?: string;
   subTitle?: string;
   bannerImage?: string;
   published?: Date;
+  category?: string;
+  tags?: string[];
+  readingMetadata?: { time: number; wordCount: number };
+  headings?: MarkdownHeading[];
   license?: {
     name: string;
     url?: string;
@@ -21,31 +33,110 @@ const {
   subTitle,
   bannerImage,
   published,
+  category,
+  tags,
+  readingMetadata,
+  headings = [],
   license,
   author,
   sourceLink,
 } = Astro.props;
+
+// sumário: só h2/h3, e só quando o post tem estrutura suficiente
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const showToc = tocHeadings.length >= 3;
 ---
 
-<Main title={title} subTitle={subTitle} bannerImage={bannerImage}>
-  <!-- <Fragment set:html={tocHTMLString} /> -->
-  <div class="article-wrapper">
-    <div class="article">
-      <Markdown>
-        <slot />
-      </Markdown>
-      {
-        published && title && (
-          <CopyRight
-            title={title}
-            published={published}
-            license={license}
-            author={author}
-            sourceLink={sourceLink}
-          />
-        )
-      }
+<Main title={title} subTitle={subTitle} bannerImage={bannerImage} plainBanner>
+  <div class="flex flex-row items-start gap-4">
+    <div class="min-w-0 flex-1">
+      <div class="article-wrapper">
+        <header class="post-header">
+          <h1 class="post-title">{title}</h1>
+          {
+            subTitle && (
+              <p class="post-description" set:html={renderInlineMd(subTitle)} />
+            )
+          }
+          <div class="post-meta">
+            {
+              published && (
+                <span class="meta-item">
+                  <Icon name="cuida:calendar-outline" />
+                  {formatDate(published, YukinaConfig.locale)}
+                </span>
+              )
+            }
+            {
+              category && (
+                <a class="meta-item meta-link" href={`/categories/${IdToSlug(category)}`}>
+                  <Icon name="dashicons:category" />
+                  {category}
+                </a>
+              )
+            }
+            {
+              tags && tags.length > 0 && (
+                <span class="meta-item">
+                  <Icon name="mdi:tag-outline" />
+                  {tags.map((tag, index) => (
+                    <>
+                      {index > 0 && <span class="opacity-50">/</span>}
+                      <a class="meta-link" href={`/tags/${IdToSlug(tag)}`}>
+                        {tag}
+                      </a>
+                    </>
+                  ))}
+                </span>
+              )
+            }
+            {
+              readingMetadata && (
+                <span class="meta-item">
+                  <Icon name="mingcute:time-line" />
+                  {readingMetadata.time} {i18n(I18nKeys.post_card_minutes)}
+                </span>
+              )
+            }
+          </div>
+        </header>
+        <div class="article">
+          <Markdown>
+            <slot />
+          </Markdown>
+          {
+            published && title && (
+              <CopyRight
+                title={title}
+                published={published}
+                license={license}
+                author={author}
+                sourceLink={sourceLink}
+              />
+            )
+          }
+        </div>
+      </div>
     </div>
+
+    {
+      showToc && (
+        <aside class="toc-aside" data-toc>
+          <div class="toc-card">
+            <p class="toc-title">Neste post</p>
+            <ul class="toc-list">
+              {tocHeadings.map((heading) => (
+                <li class:list={["toc-item", `toc-depth-${heading.depth}`]}>
+                  <a href={`#${heading.slug}`} data-toc-link={heading.slug}>
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      )
+    }
   </div>
 </Main>
 
@@ -53,6 +144,81 @@ const {
   .article-wrapper {
     @apply mx-3 rounded-2xl bg-[var(--card-color)] px-5 py-6 lg:mx-0 lg:px-10 lg:py-9;
   }
+
+  .post-header {
+    @apply mb-6 border-b pb-6;
+    border-color: var(--primary-color-transparent);
+  }
+
+  .post-title {
+    @apply text-3xl font-bold leading-tight lg:text-4xl;
+    color: var(--text-color);
+    font-family: var(--title-font);
+  }
+
+  .post-description {
+    @apply mt-3 text-base leading-relaxed;
+    color: var(--text-color-lighten);
+  }
+
+  .post-description :global(code) {
+    @apply rounded px-1 text-sm;
+    font-family: var(--code-font);
+    color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+  }
+
+  .post-meta {
+    @apply mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm;
+    color: var(--text-color-lighten);
+  }
+
+  .meta-item {
+    @apply flex flex-row items-center gap-x-1.5;
+  }
+
+  .meta-link {
+    @apply rounded-md px-1 transition-all hover:bg-[var(--primary-color-lighten)] hover:text-[var(--primary-color)];
+  }
+
+  .toc-aside {
+    @apply sticky top-24 hidden max-h-[calc(100vh-8rem)] w-[230px] min-w-[230px] overflow-y-auto xl:block;
+    scrollbar-width: thin;
+  }
+
+  .toc-card {
+    @apply rounded-2xl bg-[var(--card-color)] px-4 py-4;
+  }
+
+  .toc-title {
+    @apply mb-2 text-sm font-bold uppercase tracking-wide;
+    color: var(--primary-color);
+  }
+
+  .toc-list {
+    @apply space-y-1;
+  }
+
+  .toc-item a {
+    @apply block rounded-md px-2 py-1 text-sm leading-snug transition-all;
+    color: var(--text-color-lighten);
+  }
+
+  .toc-item a:hover {
+    color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+  }
+
+  .toc-item a.active {
+    color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+    font-weight: 600;
+  }
+
+  .toc-depth-3 {
+    @apply pl-3;
+  }
+
   .article {
     @apply flex flex-col;
     font-size: var(--primary-font);

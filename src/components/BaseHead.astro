@@ -2,8 +2,22 @@
 import YukinaConfig from "../../yukina.config";
 import GlobalStyles from "./GlobalStyles.astro";
 import ScriptSetup from "./ScriptSetup.astro";
+import { stripInlineMd } from "../utils/inline-md";
+
+interface Props {
+  pageTitle?: string;
+  pageDescription?: string;
+  pageImage?: string;
+}
+
+const { pageTitle, pageDescription, pageImage } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const headTitle = pageTitle
+  ? `${pageTitle} — ${YukinaConfig.title}`
+  : YukinaConfig.title;
+const headDescription = stripInlineMd(pageDescription) || YukinaConfig.description;
+const headImage = pageImage ? new URL(pageImage, Astro.site).href : undefined;
 ---
 
 <!-- Global Metadata -->
@@ -25,23 +39,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
-<title>{YukinaConfig.title}</title>
-<meta name="title" content={YukinaConfig.title} />
-<meta name="description" content={YukinaConfig.description} />
+<title>{headTitle}</title>
+<meta name="title" content={headTitle} />
+<meta name="description" content={headDescription} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={YukinaConfig.title} />
-<meta property="og:description" content={YukinaConfig.description} />
-<!-- <meta property="og:image" content={new URL(image, Astro.url)} /> -->
+<meta property="og:title" content={headTitle} />
+<meta property="og:description" content={headDescription} />
+{headImage && <meta property="og:image" content={headImage} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={YukinaConfig.title} />
-<meta property="twitter:description" content={YukinaConfig.description} />
-<!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
+<meta property="twitter:title" content={headTitle} />
+<meta property="twitter:description" content={headDescription} />
+{headImage && <meta property="twitter:image" content={headImage} />}
 
 <!-- RSS AutoDiscovery -->
 <link

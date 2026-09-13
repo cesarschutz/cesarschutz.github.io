@@ -1,7 +1,7 @@
 ---
 title: "Arquitetura · Sessão 03 — Bloqueio otimista e pessimista"
 published: 2026-09-13
-description: "Lost update: o defeito que os dois bloqueios resolvem. Detecção vs prevenção de conflito, SQL puro e Spring Data JPA, o caso híbrido e como escolher."
+description: "As duas formas de impedir que duas gravações simultâneas se atropelem: detectar o conflito com coluna de versão, ou evitar travando a linha. Com SQL e Spring Data JPA. **Também caiu aqui:** lost update, `FOR UPDATE` com NOWAIT e SKIP LOCKED, deadlock e como preveni-lo, níveis de isolamento do Postgres, e quando um único UPDATE condicional dispensa os dois."
 tags: [Arquitetura, Banco de Dados, Concorrência]
 category: Arquitetura
 cover: /covers/sessao-03-bloqueios.svg

@@ -12,7 +12,9 @@ blog de estudos + portfólio de projetos. Publicado no GitHub Pages em
 - **Mermaid** — diagramas (renderizados no cliente, sem custo no build)
 - **KaTeX** — fórmulas matemáticas
 - **MDX** — posts com componentes interativos
-- **Pagefind** — busca (só funciona após `npm run build`)
+- **Busca própria** com frase exata — índice em `src/pages/search-index.json.ts`,
+  motor em `src/utils/search.ts` (normaliza acentos; frase exata primeiro,
+  fallback por palavras). Funciona também no `npm run dev`. NÃO usa Pagefind.
 - Gerenciador de pacotes: **npm**
 
 ## Comandos
@@ -69,6 +71,14 @@ Conteúdo em Markdown...
 - **Diagramas**: bloco ` ```mermaid ` — flowchart, sequence, class, state, ER…
   (re-renderiza sozinho ao alternar claro/escuro)
 - **Matemática**: `$inline$` e `$$bloco$$`
+- **Toggle colapsável** (estilo Notion, estilizado em `markdown.css`): use
+  `<details>` + `<summary>Título</summary>`, linha em branco, conteúdo em
+  Markdown normal, linha em branco, `</details>`
+- **Sumário lateral**: gerado automaticamente dos h2/h3 do post (desktop xl+,
+  com scrollspy) — nada a fazer, só usar headings bem estruturados
+- **Descrições ricas**: o campo `description` do frontmatter aceita `**negrito**`
+  e `` `código` `` — aparece no card da home e no cabeçalho do post; a convenção
+  da série de arquitetura é terminar com "**Também caiu aqui:** …"
 - **MDX + Svelte**: para demos interativas/animadas, criar componente em
   `src/components/interactive/` e usar num post `.mdx`
 
@@ -98,6 +108,12 @@ public/banners/               # artes SVG do banner rotativo
 .claude/templates/post.md     # template de frontmatter para posts
 ```
 
+## Operação
+
+- Deploy normal: push na main → Actions publica em ~1 min
+- **Deploy preso na fila** (já aconteceu — instabilidade do GitHub): cancele o
+  run (`gh run cancel <id>`) e dispare de novo com `gh workflow run deploy.yml`
+
 ## Alterações feitas sobre o tema original (para saber onde mexer)
 
 - Página `/projects` + chaves i18n `projects_*` e `nav_bar_projects`
@@ -106,7 +122,13 @@ public/banners/               # artes SVG do banner rotativo
   CSS legado do Shiki escopado em `src/styles/markdown.css`)
 - Mermaid client-side (`remark-mermaid.mjs` + `setupMermaid` em `ScriptSetup.astro`)
 - Tema escuro padrão + anti-flash
-- Banners SVG próprios (Grêmio tech art)
+- Banners SVG próprios (Grêmio tech art) + capas por post em `public/covers/`
+- Pagefind REMOVIDO — busca própria (ver Stack); os componentes de busca são
+  `SearchBar.svelte` e `MobileSearchBar.svelte`
+- Posts usam banner "plain" (imagem sem texto por cima, mais baixo) e cabeçalho
+  próprio dentro do card (`PostLayout.astro`: título, descrição rica, meta)
+- Sumário lateral com scrollspy (`PostLayout.astro` + `setupToc` no `ScriptSetup.astro`)
+- `<title>`/description/og:image por página (`BaseHead.astro` recebe props)
 
 ## Pendências conhecidas (TODOs do dono)
 

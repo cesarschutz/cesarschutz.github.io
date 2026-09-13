@@ -7,8 +7,10 @@ export interface Props {
   subTitle?: string;
   bannerImage?: string;
   slug?: string;
+  /** true = só a imagem, sem texto por cima, com altura reduzida */
+  plain?: boolean;
 }
-const { title, subTitle, bannerImage, slug } = Astro.props;
+const { title, subTitle, bannerImage, slug, plain } = Astro.props;
 
 const hasTitle = title !== undefined || subTitle !== undefined;
 const hasHeaderImg = bannerImage !== undefined || slug !== undefined;
@@ -17,7 +19,11 @@ let carouselImgsList = YukinaConfig.banners;
 const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 ---
 
-<div id="banner" class="banner onload-animation-fade-in">
+<div
+  id="banner"
+  class="banner onload-animation-fade-in"
+  style={plain ? "--banner-height: 34vh" : undefined}
+>
   <div class="transition-main banner-inner h-full w-full">
     {
       !hasHeaderImg && (
@@ -45,21 +51,23 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
         </div>
       )
     }
-    <div class="relative h-[95%] w-full">
-      <div
-        class="absolute left-1/2 top-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 lg:w-3/4"
-      >
-        <div class="flex flex-col">
-          <h1
-            class:list={[hasTitle ? "title-normal" : "title-index"]}
-            class="title"
-          >
-            {title ?? YukinaConfig.title}
-          </h1>
-          <h2 class="subtitle">{subTitle ?? YukinaConfig.subTitle}</h2>
+    {
+      !plain && (
+        <div class="relative h-[95%] w-full">
+          <div class="absolute left-1/2 top-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 lg:w-3/4">
+            <div class="flex flex-col">
+              <h1
+                class:list={[hasTitle ? "title-normal" : "title-index"]}
+                class="title"
+              >
+                {title ?? YukinaConfig.title}
+              </h1>
+              <h2 class="subtitle">{subTitle ?? YukinaConfig.subTitle}</h2>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )
+    }
   </div>
   <div class="waves" id="header-waves">
     <svg

@@ -26,7 +26,7 @@ const { chips, title, subTitle, bannerImage, slug } = Astro.props;
             href={chip.slug}
             class="chip flex select-none flex-row items-center justify-between rounded-lg px-4 py-2 transition-all hover:bg-[var(--primary-color-lighten)]"
           >
-            <p class="chip-name truncate pl-0 text-lg text-[var(--text-color)] transition-all">
+            <p class="chip-name break-words pl-0 text-lg leading-snug text-[var(--text-color)] transition-all">
               {chip.name}
             </p>
             {chip.subChip && (
