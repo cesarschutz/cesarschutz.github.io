@@ -47,6 +47,7 @@
 
   // handle click outside to closed search pannel
   document.addEventListener("click", (event) => {
+    if (!resultPannel || !searchBar || !searchButton) return; // antes do mount
     if (
       !resultPannel.contains(event.target as any) &&
       !searchBar.contains(event.target as any) &&

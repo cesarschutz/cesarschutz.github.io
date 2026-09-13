@@ -79,7 +79,9 @@ export async function GetArchives() {
 
   for (const post of allBlogPosts) {
     const date = new Date(post.data.published);
-    const year = date.getFullYear();
+    // ano em UTC: datas do frontmatter são meia-noite UTC, e o fuso local
+    // (ex.: Brasil) jogaria posts de 1º de janeiro para o ano anterior
+    const year = date.getUTCFullYear();
     if (!archives.has(year)) {
       archives.set(year, []);
     }

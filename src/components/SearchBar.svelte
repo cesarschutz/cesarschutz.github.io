@@ -46,6 +46,7 @@
 
   // handle click outside to closed result pannel
   document.addEventListener("click", (event) => {
+    if (!resultPannel || !searchBar) return; // antes do mount, refs não existem
     if (
       !resultPannel.contains(event.target as any) &&
       !searchBar.contains(event.target as any)

@@ -24,6 +24,8 @@
   flex-direction: row;
   align-items: center;
   position: relative;
+  /* âncoras (sumário, links de heading) não podem parar embaixo da navbar fixa */
+  scroll-margin-top: 5.5rem;
 }
 
 .article h1::before,
