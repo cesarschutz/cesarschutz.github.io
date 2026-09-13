@@ -69,7 +69,8 @@ Conteúdo em Markdown...
 - **Código**: ` ```java title="Arquivo.java" {3-5} ` (destaque), `del={}/ins={}` (diff),
   `showLineNumbers`, `collapse={1-10}` (recolher trechos)
 - **Diagramas**: bloco ` ```mermaid ` — flowchart, sequence, class, state, ER…
-  (re-renderiza sozinho ao alternar claro/escuro)
+  (re-renderiza sozinho ao alternar claro/escuro). ⚠️ `mindmap` NÃO renderiza
+  (módulo lazy do Mermaid não carrega) — use flowchart radial no lugar
 - **Matemática**: `$inline$` e `$$bloco$$`
 - **Toggle colapsável** (estilo Notion, estilizado em `markdown.css`): use
   `<details>` + `<summary>Título</summary>`, linha em branco, conteúdo em
