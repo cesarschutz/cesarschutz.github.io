@@ -68,6 +68,23 @@ Conteúdo em Markdown...
    - Imagem própria de capa: colocar em `public/covers/` e referenciar `/covers/arquivo.webp`
    - Template completo em `.claude/templates/post.md`
 
+### ⚠️ Regra das capas (crop-safe)
+
+A capa NUNCA aparece inteira: o banner do post corta topo/base (34vh + ondas) e
+o card da home corta em diagonal. Por isso capa é **decoração, não informação**:
+
+- Canvas 1600×800, fundo padrão do site: gradiente `#01131b → #04283d → #01131b`,
+  pattern de grid celeste, elipse de glow central
+- **UM motivo grande e centralizado** na zona segura (x ≈ 400–1200, y ≈ 200–600);
+  nada encostado nas bordas
+- Texto só se for grande (≥ 40px) e parte do motivo (ex.: "15", "JWT");
+  proibido texto pequeno, legendas ou diagramas com vários rótulos
+- Diagramas informativos vão no **corpo do post** (`public/posts/<slug>/`,
+  fundo branco, estilo ByteByteGo) — o lightbox amplia no clique
+- Exceção que segue outro padrão: `covers/java/*` (xícara + "JAVA NN"; número
+  centrado em x=1130 e selo LTS logo abaixo dele — ambos dentro da zona
+  segura do card) e `banners/*` (arte do hero da home, nunca cortada em card)
+
 ## Recursos disponíveis nos posts (usar sem medo)
 
 - **Código**: ` ```java title="Arquivo.java" {3-5} ` (destaque), `del={}/ins={}` (diff),

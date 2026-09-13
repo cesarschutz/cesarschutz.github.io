@@ -16,49 +16,33 @@
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- lago: forma orgânica com dados soltos -->
+  <!-- lago: blob orgânico (dado bruto) — faixa segura y 260-540 -->
+  <g transform="translate(0,25)">
+    <path d="M480 380 C480 290 560 240 650 250 C700 200 800 210 830 270
+             C900 260 940 320 920 380 C950 440 880 500 800 490
+             C740 540 620 530 580 470 C510 460 480 430 480 380 Z"
+          fill="#032c42" stroke="#00a0e5" stroke-width="9"/>
+    <path d="M560 380 q40 -26 80 0 t80 0 t80 0" fill="none" stroke="#7fd4f5" stroke-width="7" stroke-linecap="round" opacity="0.8"/>
+    <path d="M590 430 q40 -26 80 0 t80 0" fill="none" stroke="#7fd4f5" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
+  </g>
+
+  <!-- seta -->
+  <path d="M950 400 H1010" stroke="#7fd4f5" stroke-width="9" stroke-linecap="round"/>
+  <path d="M1032 400 l-24 -15 v30 Z" fill="#7fd4f5"/>
+
+  <!-- warehouse: grade organizada (dado estruturado) -->
   <g>
-    <path d="M180 460 C180 360 300 320 420 340 C540 300 640 360 640 440 C640 540 520 580 400 565 C280 590 180 550 180 460 Z"
-          fill="#032c42" stroke="#00a0e5" stroke-width="6"/>
-    <g font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.85">
-      <text x="260" y="420">json</text>
-      <text x="360" y="380">csv</text>
-      <text x="470" y="430">img</text>
-      <text x="300" y="500">logs</text>
-      <text x="430" y="510">parquet</text>
+    <rect x="1060" y="290" width="220" height="220" rx="20" fill="#032c42" stroke="#2e9e5b" stroke-width="9"/>
+    <g stroke="#2e9e5b" stroke-width="5" opacity="0.85">
+      <path d="M1060 363 H1280"/><path d="M1060 437 H1280"/>
+      <path d="M1133 290 V510"/><path d="M1207 290 V510"/>
     </g>
   </g>
-  <text x="410" y="640" font-family="-apple-system, sans-serif" font-size="30" fill="#7fd4f5" opacity="0.8" text-anchor="middle">data lake · bruto</text>
-
-  <!-- seta ELT -->
-  <path d="M660 440 H900" stroke="#00a0e5" stroke-width="6" stroke-linecap="round"/>
-  <path d="M880 420 L920 440 L880 460 Z" fill="#00a0e5"/>
-  <text x="790" y="405" font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.75" text-anchor="middle">ELT</text>
-
-  <!-- warehouse: prateleiras organizadas -->
-  <g>
-    <rect x="950" y="270" width="460" height="330" rx="20" fill="#032c42" stroke="#00a0e5" stroke-width="6"/>
-    <g stroke="#00a0e5" stroke-width="4" stroke-opacity="0.6">
-      <line x1="950" y1="380" x2="1410" y2="380"/>
-      <line x1="950" y1="490" x2="1410" y2="490"/>
-      <line x1="1180" y1="270" x2="1180" y2="600"/>
-    </g>
-    <g fill="#00577e" stroke="#7fd4f5" stroke-width="3">
-      <rect x="990" y="310" width="150" height="44" rx="8"/>
-      <rect x="1220" y="310" width="150" height="44" rx="8"/>
-      <rect x="990" y="420" width="150" height="44" rx="8"/>
-      <rect x="1220" y="420" width="150" height="44" rx="8"/>
-      <rect x="990" y="525" width="150" height="44" rx="8"/>
-      <rect x="1220" y="525" width="150" height="44" rx="8"/>
-    </g>
-  </g>
-  <text x="1180" y="655" font-family="-apple-system, sans-serif" font-size="30" fill="#7fd4f5" opacity="0.8" text-anchor="middle">data warehouse · estruturado</text>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="240" cy="150" r="2.5"/><circle cx="900" cy="120" r="2"/>
-    <circle cx="1480" cy="680" r="2.5"/><circle cx="1520" cy="180" r="2"/>
-    <circle cx="140" cy="680" r="2.5"/><circle cx="700" cy="700" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1340" cy="270" r="2"/>
+    <circle cx="1400" cy="520" r="2.5"/><circle cx="300" cy="520" r="2"/>
   </g>
 </svg>

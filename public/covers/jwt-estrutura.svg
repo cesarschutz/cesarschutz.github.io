@@ -16,41 +16,27 @@
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- token em três blocos -->
-  <g font-family="ui-monospace, monospace" text-anchor="middle">
-    <g>
-      <rect x="220" y="320" width="360" height="160" rx="20" fill="#032c42" stroke="#7fd4f5" stroke-width="6"/>
-      <text x="400" y="390" font-size="36" fill="#7fd4f5">header</text>
-      <text x="400" y="440" font-size="24" fill="#7fd4f5" opacity="0.7">alg · typ · kid</text>
-    </g>
-    <text x="610" y="420" font-size="60" fill="#00a0e5">.</text>
-    <g>
-      <rect x="640" y="320" width="360" height="160" rx="20" fill="#00577e" stroke="#00a0e5" stroke-width="6"/>
-      <text x="820" y="390" font-size="36" fill="#ffffff">payload</text>
-      <text x="820" y="440" font-size="24" fill="#cfeeff" opacity="0.9">iss · sub · aud · exp</text>
-    </g>
-    <text x="1030" y="420" font-size="60" fill="#00a0e5">.</text>
-    <g>
-      <rect x="1060" y="320" width="360" height="160" rx="20" fill="#032c42" stroke="#d9534f" stroke-width="6"/>
-      <text x="1240" y="390" font-size="36" fill="#d9534f">signature</text>
-      <text x="1240" y="440" font-size="24" fill="#d9534f" opacity="0.75">RS256 · HS256</text>
-    </g>
+  <!-- três blocos do token (faixa segura y 260-540) -->
+  <g font-family="ui-monospace, Menlo, monospace" font-size="76" font-weight="800" text-anchor="middle">
+    <rect x="505" y="290" width="170" height="170" rx="22" fill="#032c42" stroke="#00a0e5" stroke-width="9"/>
+    <text x="590" y="402" fill="#00a0e5">H</text>
+
+    <text x="712" y="410" fill="#7fd4f5" font-size="96">.</text>
+
+    <rect x="750" y="290" width="170" height="170" rx="22" fill="#0a2a1c" stroke="#2e9e5b" stroke-width="9"/>
+    <text x="835" y="402" fill="#7fe0a8">P</text>
+
+    <text x="957" y="410" fill="#7fd4f5" font-size="96">.</text>
+
+    <rect x="995" y="290" width="170" height="170" rx="22" fill="#2b1a08" stroke="#e07a1f" stroke-width="9"/>
+    <text x="1080" y="402" fill="#f5b878">S</text>
   </g>
-
-  <!-- selo base64url -->
-  <text x="800" y="560" font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.7" text-anchor="middle">base64url(header) . base64url(payload) . assinatura</text>
-
-  <!-- cadeado pequeno na assinatura -->
-  <g stroke="#d9534f" stroke-width="5" fill="#3a1518">
-    <path d="M1218 262 v-16 a22 22 0 0 1 44 0 v16" fill="none" stroke-linecap="round"/>
-    <rect x="1206" y="262" width="68" height="50" rx="10"/>
-  </g>
+  <text x="800" y="535" font-family="ui-monospace, Menlo, monospace" font-size="40" font-weight="700" fill="#7fd4f5" opacity="0.85" text-anchor="middle">JWT</text>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="240" cy="150" r="2.5"/><circle cx="900" cy="120" r="2"/>
-    <circle cx="1480" cy="660" r="2.5"/><circle cx="1520" cy="200" r="2"/>
-    <circle cx="140" cy="680" r="2.5"/><circle cx="600" cy="700" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1300" cy="300" r="2"/>
+    <circle cx="1380" cy="500" r="2.5"/><circle cx="280" cy="500" r="2"/>
   </g>
 </svg>

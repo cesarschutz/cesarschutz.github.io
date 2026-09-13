@@ -16,35 +16,34 @@
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- problema pequeno -->
+  <!-- balança (faixa segura y 260-540): problema pequeno vs solução enorme -->
+  <path d="M800 268 V540" stroke="#7fd4f5" stroke-width="10" stroke-linecap="round"/>
+  <path d="M700 540 H900" stroke="#7fd4f5" stroke-width="10" stroke-linecap="round"/>
+  <path d="M560 330 L1040 292" stroke="#00a0e5" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="800" cy="311" r="18" fill="#00a0e5"/>
+
+  <!-- prato esquerdo: um pontinho (o problema) -->
   <g>
-    <circle cx="380" cy="450" r="46" fill="#032c42" stroke="#00a0e5" stroke-width="5"/>
-    <text x="380" y="560" font-family="-apple-system, sans-serif" font-size="32" fill="#7fd4f5" text-anchor="middle">problema</text>
+    <path d="M560 330 V385" stroke="#7fd4f5" stroke-width="6"/>
+    <path d="M490 388 H630" stroke="#00a0e5" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="560" cy="368" r="15" fill="#7fd4f5"/>
   </g>
 
-  <!-- proporção quebrada -->
-  <text x="640" y="440" font-family="ui-monospace, monospace" font-size="88" font-weight="700" fill="#d9534f" text-anchor="middle" opacity="0.9">∝?</text>
-
-  <!-- solução gigante: pilha de engrenagens/camadas -->
-  <g stroke="#00a0e5" stroke-width="5" fill="#032c42">
-    <rect x="880" y="160" width="440" height="86" rx="14"/>
-    <rect x="860" y="266" width="480" height="86" rx="14"/>
-    <rect x="840" y="372" width="520" height="86" rx="14" fill="#00577e"/>
-    <rect x="860" y="478" width="480" height="86" rx="14"/>
+  <!-- prato direito: pilha enorme de caixas (a solução) -->
+  <g>
+    <path d="M1040 292 V344" stroke="#7fd4f5" stroke-width="6"/>
+    <g fill="#2b1a08" stroke="#e07a1f" stroke-width="7">
+      <rect x="995" y="352" width="90" height="50" rx="11"/>
+      <rect x="980" y="408" width="120" height="52" rx="11"/>
+      <rect x="965" y="466" width="150" height="56" rx="11"/>
+    </g>
+    <path d="M950 528 H1130" stroke="#e07a1f" stroke-width="9" stroke-linecap="round"/>
   </g>
-  <g font-family="ui-monospace, monospace" font-size="30" fill="#7fd4f5" text-anchor="middle">
-    <text x="1100" y="214">kafka</text>
-    <text x="1100" y="320">event sourcing</text>
-    <text x="1100" y="426" fill="#ffffff">kubernetes</text>
-    <text x="1100" y="532">8 microsserviços</text>
-  </g>
-  <text x="1100" y="630" font-family="-apple-system, sans-serif" font-size="32" fill="#7fd4f5" text-anchor="middle">solução</text>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="240" cy="160" r="2.5"/><circle cx="760" cy="140" r="2"/>
-    <circle cx="1460" cy="640" r="2.5"/><circle cx="1520" cy="200" r="2"/>
-    <circle cx="180" cy="680" r="2.5"/><circle cx="660" cy="700" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1300" cy="300" r="2"/>
+    <circle cx="1380" cy="500" r="2.5"/><circle cx="300" cy="500" r="2"/>
   </g>
 </svg>

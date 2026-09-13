@@ -16,38 +16,43 @@
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- muitas virtual threads (fios finos) -->
-  <g stroke="#7fd4f5" stroke-width="3" fill="none" stroke-opacity="0.65">
-    <path d="M180 180 C440 180 520 300 760 306"/>
-    <path d="M160 250 C420 250 540 316 760 322"/>
-    <path d="M190 330 C430 330 560 334 760 338"/>
-    <path d="M170 420 C430 420 560 352 760 354"/>
-    <path d="M180 500 C440 500 540 370 760 370"/>
-    <path d="M160 580 C430 580 550 388 760 386"/>
-    <path d="M190 650 C450 650 560 404 760 402"/>
+  <!-- virtual threads finas convergindo para carriers grossos; um carrier pinado
+       (zona segura x 450-1200 / y 260-540) -->
+  <g stroke="#7fd4f5" stroke-width="5" stroke-linecap="round" opacity="0.6">
+    <path d="M470 280 H640"/>
+    <path d="M500 328 H670"/>
+    <path d="M470 376 H640"/>
+    <path d="M500 424 H670"/>
+    <path d="M470 472 H640"/>
+    <path d="M500 520 H670"/>
+  </g>
+  <g stroke="#7fd4f5" stroke-width="3.5" opacity="0.45" fill="none">
+    <path d="M640 285 C740 285 740 330 810 330"/>
+    <path d="M670 335 C750 335 750 332 810 332"/>
+    <path d="M640 380 C740 380 740 398 810 398"/>
+    <path d="M670 428 C750 428 750 402 810 402"/>
+    <path d="M640 476 C740 476 740 466 810 466"/>
+    <path d="M670 524 C750 524 750 470 810 470"/>
   </g>
 
-  <!-- poucas carriers (trilhos grossos) -->
-  <g stroke="#00a0e5" stroke-width="14" stroke-linecap="round">
-    <path d="M780 320 H1280"/>
-    <path d="M780 370 H1280"/>
-    <path d="M780 420 H1180" stroke-opacity="0.45"/>
+  <!-- carriers -->
+  <g stroke="#00a0e5" stroke-width="20" stroke-linecap="round">
+    <path d="M815 331 H1130"/>
+    <path d="M815 400 H1130"/>
+    <path d="M815 468 H1130"/>
   </g>
-  <text x="1030" y="290" font-family="-apple-system, sans-serif" font-size="32" fill="#7fd4f5" opacity="0.7" text-anchor="middle">carriers</text>
 
-  <!-- alfinete pregando um trilho -->
+  <!-- alfinete vermelho pinando o carrier do meio -->
   <g>
-    <path d="M1180 420 l70 -110" stroke="#d9534f" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="1262" cy="292" r="34" fill="#d9534f"/>
-    <circle cx="1250" cy="280" r="10" fill="#ffffff" fill-opacity="0.55"/>
+    <path d="M1090 400 L1042 340" stroke="#d9534f" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="1032" cy="327" r="26" fill="#d9534f"/>
+    <circle cx="1024" cy="319" r="8" fill="#e08a86"/>
   </g>
-  <text x="1330" y="470" font-family="ui-monospace, monospace" font-size="36" fill="#d9534f" text-anchor="middle" opacity="0.9">pinned</text>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="300" cy="120" r="2.5"/><circle cx="900" cy="130" r="2"/>
-    <circle cx="1400" cy="160" r="2.5"/><circle cx="1500" cy="640" r="2"/>
-    <circle cx="500" cy="720" r="2.5"/><circle cx="140" cy="710" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1300" cy="290" r="2"/>
+    <circle cx="1380" cy="500" r="2.5"/><circle cx="300" cy="510" r="2"/>
   </g>
 </svg>

@@ -16,43 +16,35 @@
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- antes: dezenas de linhas finas espalhadas -->
-  <g stroke="#7fd4f5" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round">
-    <line x1="200" y1="220" x2="420" y2="220"/>
-    <line x1="240" y1="270" x2="500" y2="270"/>
-    <line x1="180" y1="320" x2="380" y2="320"/>
-    <line x1="260" y1="370" x2="520" y2="370"/>
-    <line x1="200" y1="420" x2="440" y2="420"/>
-    <line x1="240" y1="470" x2="460" y2="470"/>
-    <line x1="180" y1="520" x2="400" y2="520"/>
-    <line x1="260" y1="570" x2="500" y2="570"/>
+  <!-- muitas linhas finas (logs espalhados) — faixa segura y 260-540 -->
+  <g stroke="#7fd4f5" stroke-width="7" stroke-linecap="round" opacity="0.65">
+    <path d="M480 270 H670"/>
+    <path d="M510 320 H700"/>
+    <path d="M480 370 H670"/>
+    <path d="M510 420 H700"/>
+    <path d="M480 470 H670"/>
+    <path d="M510 520 H700"/>
   </g>
-  <text x="350" y="650" font-family="-apple-system, sans-serif" font-size="30" fill="#7fd4f5" opacity="0.7" text-anchor="middle">15 logs parciais</text>
-
-  <!-- seta -->
-  <path d="M600 400 H760" stroke="#00a0e5" stroke-width="6" stroke-linecap="round"/>
-  <path d="M740 380 L780 400 L740 420 Z" fill="#00a0e5"/>
-
-  <!-- depois: um evento largo e denso -->
-  <g>
-    <rect x="850" y="220" width="560" height="360" rx="20" fill="#032c42" stroke="#00a0e5" stroke-width="6"/>
-    <g font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5">
-      <text x="890" y="280">{ request_id, trace_id,</text>
-      <text x="890" y="330">  user.tier, cart.total,</text>
-      <text x="890" y="380">  payment.attempt,</text>
-      <text x="890" y="430">  error.code, flags,</text>
-      <text x="890" y="480">  duration_ms, … }</text>
-    </g>
-    <rect x="890" y="510" width="200" height="44" rx="22" fill="#00577e" stroke="#00a0e5" stroke-width="3"/>
-    <text x="990" y="540" font-family="ui-monospace, monospace" font-size="26" fill="#ffffff" text-anchor="middle">50 campos</text>
+  <g stroke="#7fd4f5" stroke-width="4" opacity="0.45" fill="none">
+    <path d="M700 300 C770 300 770 385 830 385"/>
+    <path d="M730 420 C780 420 780 398 830 398"/>
+    <path d="M700 500 C780 500 780 410 830 410"/>
   </g>
-  <text x="1130" y="650" font-family="-apple-system, sans-serif" font-size="30" fill="#7fd4f5" opacity="0.8" text-anchor="middle">1 wide event</text>
+
+  <!-- um evento largo -->
+  <rect x="830" y="342" width="320" height="108" rx="24" fill="#032c42" stroke="#00a0e5" stroke-width="10"/>
+  <g fill="#00a0e5">
+    <circle cx="890" cy="396" r="13"/>
+    <circle cx="948" cy="396" r="13"/>
+    <circle cx="1006" cy="396" r="13"/>
+    <circle cx="1064" cy="396" r="13"/>
+    <circle cx="1112" cy="396" r="13" fill="#7fd4f5"/>
+  </g>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="240" cy="140" r="2.5"/><circle cx="900" cy="120" r="2"/>
-    <circle cx="1460" cy="640" r="2.5"/><circle cx="1520" cy="200" r="2"/>
-    <circle cx="140" cy="680" r="2.5"/><circle cx="700" cy="700" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1300" cy="300" r="2"/>
+    <circle cx="1380" cy="500" r="2.5"/><circle cx="300" cy="500" r="2"/>
   </g>
 </svg>

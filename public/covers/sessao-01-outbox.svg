@@ -12,44 +12,34 @@
     <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
       <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.07" stroke-width="1"/>
     </pattern>
-    <marker id="seta" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
-      <path d="M0,0 L9,4 L0,8 Z" fill="#00a0e5"/>
-    </marker>
   </defs>
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- banco com outbox dentro (mesma transação) -->
-  <g stroke="#00a0e5" stroke-width="5" fill="#032c42">
-    <path d="M280 260 h340 v250 a170 34 0 0 1 -340 0 Z"/>
-    <ellipse cx="450" cy="260" rx="170" ry="34"/>
+  <!-- banco com outbox → relay → efeito externo (zona segura x 450-1200 / y 260-540) -->
+  <!-- cilindro do banco -->
+  <g fill="#032c42" stroke="#00a0e5" stroke-width="9">
+    <path d="M520 310 v190 a110 34 0 0 0 220 0 v-190"/>
+    <ellipse cx="630" cy="310" rx="110" ry="34"/>
   </g>
-  <g font-family="ui-monospace, monospace" font-size="30" fill="#7fd4f5">
-    <rect x="330" y="330" width="240" height="60" rx="12" fill="#01131b" stroke="#00a0e5" stroke-width="3"/>
-    <text x="450" y="370" text-anchor="middle">PENDENTE</text>
-    <rect x="330" y="410" width="240" height="60" rx="12" fill="#00577e" stroke="#00a0e5" stroke-width="3"/>
-    <text x="450" y="450" text-anchor="middle" fill="#ffffff">✉ outbox</text>
+  <!-- envelope (outbox) dentro do banco -->
+  <g>
+    <rect x="575" y="390" width="110" height="74" rx="10" fill="#04283d" stroke="#7fd4f5" stroke-width="7"/>
+    <path d="M575 396 l55 40 l55 -40" fill="none" stroke="#7fd4f5" stroke-width="7" stroke-linejoin="round"/>
   </g>
 
-  <!-- relay -->
-  <path d="M640 440 C760 440 780 400 880 400" fill="none" stroke="#00a0e5" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#seta)"/>
-  <text x="760" y="370" font-family="-apple-system, sans-serif" font-size="30" fill="#7fd4f5" opacity="0.7">relay</text>
+  <!-- relay: seta tracejada -->
+  <path d="M770 400 H960" stroke="#7fd4f5" stroke-width="9" stroke-linecap="round" stroke-dasharray="22 18"/>
+  <path d="M1002 400 l-30 -18 v36 Z" fill="#7fd4f5"/>
 
-  <!-- destino externo (nuvem) -->
-  <g stroke="#00a0e5" stroke-width="5" fill="#032c42">
-    <path d="M980 470 a70 70 0 0 1 20 -137 90 90 0 0 1 172 -20 75 75 0 0 1 58 130 60 60 0 0 1 -50 27 Z"/>
-  </g>
-  <text x="1105" y="420" font-family="-apple-system, sans-serif" font-size="34" fill="#7fd4f5" text-anchor="middle">efeito externo</text>
-
-  <!-- conciliação: volta pontilhada -->
-  <path d="M1160 500 C1100 620 700 640 560 545" fill="none" stroke="#7fd4f5" stroke-width="4" stroke-opacity="0.5" stroke-dasharray="4 12" marker-end="url(#seta)"/>
-  <text x="880" y="660" font-family="-apple-system, sans-serif" font-size="28" fill="#7fd4f5" opacity="0.55">conciliação</text>
+  <!-- nuvem (efeito externo) -->
+  <path d="M1060 470 a52 52 0 0 1 6 -103 a72 72 0 0 1 138 -18 a58 58 0 0 1 24 121 Z"
+        fill="#032c42" stroke="#00a0e5" stroke-width="9" stroke-linejoin="round"/>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="260" cy="140" r="2.5"/><circle cx="820" cy="130" r="2"/>
-    <circle cx="1360" cy="180" r="2.5"/><circle cx="1480" cy="600" r="2"/>
-    <circle cx="180" cy="640" r="2.5"/><circle cx="1300" cy="700" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1330" cy="300" r="2"/>
+    <circle cx="1380" cy="500" r="2.5"/><circle cx="300" cy="510" r="2"/>
   </g>
 </svg>

@@ -34,8 +34,8 @@
   <text x="1130" y="360" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="72" font-weight="600" fill="#ffffff" fill-opacity="0.75" text-anchor="middle" letter-spacing="14">JAVA</text>
   <text x="1130" y="590" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="270" font-weight="800" fill="#00a0e5" text-anchor="middle">11</text>
   <g>
-    <rect x="1290" y="500" width="150" height="62" rx="31" fill="#00a0e5"/>
-    <text x="1365" y="544" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="38" font-weight="800" fill="#01131b" text-anchor="middle">LTS</text>
+    <rect x="1055" y="628" width="150" height="62" rx="31" fill="#00a0e5"/>
+    <text x="1130" y="672" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="38" font-weight="800" fill="#01131b" text-anchor="middle">LTS</text>
   </g>
   <g fill="#7fd4f5" opacity="0.4">
     <circle cx="260" cy="160" r="2.5"/><circle cx="700" cy="120" r="2"/>

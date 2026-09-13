@@ -16,47 +16,31 @@
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- relógio de agenda -->
+  <!-- relógio (faixa segura y 260-540) -->
   <g>
-    <circle cx="360" cy="400" r="120" fill="#032c42" stroke="#00a0e5" stroke-width="6"/>
-    <path d="M360 400 V310 M360 400 L425 435" stroke="#00a0e5" stroke-width="8" stroke-linecap="round"/>
-    <g stroke="#7fd4f5" stroke-width="4" stroke-opacity="0.6">
-      <path d="M360 292 v18 M360 490 v18 M252 400 h18 M450 400 h18"/>
+    <circle cx="720" cy="400" r="138" fill="#032c42" stroke="#00a0e5" stroke-width="11"/>
+    <circle cx="720" cy="400" r="112" fill="none" stroke="#00a0e5" stroke-opacity="0.25" stroke-width="3"/>
+    <g stroke="#7fd4f5" stroke-width="6" stroke-linecap="round" opacity="0.7">
+      <path d="M720 292 V314"/><path d="M720 486 V508"/>
+      <path d="M612 400 H634"/><path d="M806 400 H828"/>
     </g>
+    <path d="M720 400 L720 320" stroke="#00a0e5" stroke-width="12" stroke-linecap="round"/>
+    <path d="M720 400 L786 440" stroke="#7fd4f5" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="720" cy="400" r="13" fill="#00a0e5"/>
   </g>
-  <text x="360" y="580" font-family="ui-monospace, monospace" font-size="30" fill="#7fd4f5" opacity="0.85" text-anchor="middle">*/10 * * * *</text>
 
-  <!-- linha do tempo com execuções -->
-  <path d="M560 400 H1480" stroke="#7fd4f5" stroke-opacity="0.4" stroke-width="4"/>
-
-  <!-- execução 1: rodando além do tick -->
+  <!-- cadeado: concurrencyPolicy Forbid -->
   <g>
-    <rect x="600" y="350" width="420" height="100" rx="18" fill="#00577e" stroke="#00a0e5" stroke-width="5"/>
-    <text x="810" y="410" font-family="-apple-system, sans-serif" font-size="30" fill="#ffffff" text-anchor="middle">job rodando…</text>
+    <rect x="928" y="400" width="150" height="122" rx="20" fill="#032c42" stroke="#00a0e5" stroke-width="9"/>
+    <path d="M962 400 V360 a41 41 0 0 1 82 0 V400" fill="none" stroke="#00a0e5" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="1003" cy="450" r="15" fill="#7fd4f5"/>
+    <rect x="995" y="455" width="16" height="34" rx="7" fill="#7fd4f5"/>
   </g>
-
-  <!-- tick seguinte bloqueado -->
-  <g>
-    <line x1="1120" y1="330" x2="1120" y2="470" stroke="#7fd4f5" stroke-width="4" stroke-dasharray="8 8" stroke-opacity="0.7"/>
-    <rect x="1160" y="350" width="250" height="100" rx="18" fill="#032c42" stroke="#d9534f" stroke-width="5" stroke-dasharray="12 8"/>
-    <text x="1285" y="398" font-family="-apple-system, sans-serif" font-size="28" fill="#d9534f" text-anchor="middle">pulado</text>
-    <text x="1285" y="432" font-family="ui-monospace, monospace" font-size="24" fill="#d9534f" opacity="0.8" text-anchor="middle">Forbid</text>
-  </g>
-
-  <!-- cadeado -->
-  <g stroke="#d9534f" stroke-width="6" fill="#3a1518">
-    <path d="M1095 300 v-24 a28 28 0 0 1 56 0 v24" fill="none" stroke-linecap="round"/>
-    <rect x="1080" y="300" width="86" height="66" rx="12"/>
-  </g>
-
-  <!-- deadline -->
-  <text x="810" y="530" font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.75" text-anchor="middle">activeDeadlineSeconds: 300</text>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="240" cy="150" r="2.5"/><circle cx="900" cy="120" r="2"/>
-    <circle cx="1480" cy="660" r="2.5"/><circle cx="1520" cy="200" r="2"/>
-    <circle cx="140" cy="680" r="2.5"/><circle cx="600" cy="700" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1300" cy="300" r="2"/>
+    <circle cx="1380" cy="500" r="2.5"/><circle cx="280" cy="500" r="2"/>
   </g>
 </svg>

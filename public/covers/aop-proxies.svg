@@ -12,51 +12,28 @@
     <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
       <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.07" stroke-width="1"/>
     </pattern>
-    <marker id="seta" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
-      <path d="M0,0 L9,4 L0,8 Z" fill="#00a0e5"/>
-    </marker>
   </defs>
 
   <rect width="1600" height="800" fill="url(#bg)"/>
   <rect width="1600" height="800" fill="url(#grid)"/>
-  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+  <ellipse cx="800" cy="400" rx="560" ry="280" fill="url(#glow)"/>
 
-  <!-- chamador -->
-  <g>
-    <rect x="180" y="350" width="240" height="100" rx="18" fill="#032c42" stroke="#00a0e5" stroke-width="5"/>
-    <text x="300" y="410" font-family="-apple-system, sans-serif" font-size="32" fill="#7fd4f5" text-anchor="middle">caller</text>
+  <!-- objeto real no centro, envolto pelo anel tracejado do proxy
+       (faixa segura y 260-540) -->
+  <circle cx="800" cy="400" r="134" fill="none" stroke="#00a0e5" stroke-width="11" stroke-dasharray="26 20" stroke-linecap="round"/>
+  <rect x="692" y="336" width="216" height="128" rx="22" fill="#032c42" stroke="#7fd4f5" stroke-width="9"/>
+  <g stroke="#7fd4f5" stroke-width="10" stroke-linecap="round" opacity="0.85">
+    <path d="M730 378 H870"/>
+    <path d="M730 424 H820"/>
   </g>
 
-  <path d="M430 400 H570" stroke="#00a0e5" stroke-width="6" marker-end="url(#seta)"/>
-
-  <!-- proxy envolvendo o alvo (anéis) -->
-  <g>
-    <rect x="600" y="200" width="640" height="400" rx="28" fill="none" stroke="#00a0e5" stroke-width="6" stroke-dasharray="16 10"/>
-    <text x="920" y="260" font-family="ui-monospace, monospace" font-size="32" fill="#00a0e5" text-anchor="middle">proxy</text>
-    <rect x="680" y="300" width="480" height="220" rx="20" fill="#032c42" stroke="#7fd4f5" stroke-width="5"/>
-    <text x="920" y="380" font-family="-apple-system, sans-serif" font-size="34" fill="#ffffff" text-anchor="middle">@Service alvo</text>
-    <text x="920" y="440" font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.8" text-anchor="middle">lógica de negócio limpa</text>
-  </g>
-
-  <!-- advices em volta -->
-  <g font-family="ui-monospace, monospace" font-size="26" text-anchor="middle">
-    <rect x="640" y="620" width="220" height="56" rx="28" fill="#00577e" stroke="#00a0e5" stroke-width="3"/>
-    <text x="750" y="657" fill="#ffffff">@Before</text>
-    <rect x="980" y="620" width="220" height="56" rx="28" fill="#00577e" stroke="#00a0e5" stroke-width="3"/>
-    <text x="1090" y="657" fill="#ffffff">@Around</text>
-  </g>
-
-  <!-- rótulos JDK/CGLIB -->
-  <g font-family="ui-monospace, monospace" font-size="28" text-anchor="middle">
-    <rect x="1300" y="300" width="200" height="60" rx="14" fill="#032c42" stroke="#00a0e5" stroke-width="4"/>
-    <text x="1400" y="340" fill="#7fd4f5">JDK Proxy</text>
-    <rect x="1300" y="400" width="200" height="60" rx="14" fill="#032c42" stroke="#00a0e5" stroke-width="4"/>
-    <text x="1400" y="440" fill="#7fd4f5">CGLIB</text>
-  </g>
+  <!-- chamada que atravessa o anel antes de chegar no objeto -->
+  <path d="M440 400 H600" stroke="#e07a1f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M642 400 l-30 -18 v36 Z" fill="#e07a1f"/>
+  <circle cx="565" cy="400" r="13" fill="#e07a1f"/>
 
   <g fill="#7fd4f5" opacity="0.4">
-    <circle cx="240" cy="150" r="2.5"/><circle cx="900" cy="120" r="2"/>
-    <circle cx="1460" cy="660" r="2.5"/><circle cx="1520" cy="200" r="2"/>
-    <circle cx="140" cy="680" r="2.5"/><circle cx="500" cy="710" r="2"/>
+    <circle cx="330" cy="300" r="2.5"/><circle cx="1300" cy="300" r="2"/>
+    <circle cx="1380" cy="500" r="2.5"/><circle cx="300" cy="500" r="2"/>
   </g>
 </svg>
