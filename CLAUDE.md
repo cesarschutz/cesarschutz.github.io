@@ -54,7 +54,8 @@ Conteúdo em Markdown...
 
 2. Convenções:
    - Nome do arquivo = slug da URL (`slugMode: RAW`): use kebab-case, sem acentos
-   - Categorias em uso: `Arquitetura`, `Java` (crie novas com moderação; tags são livres)
+   - Categorias em uso: `Arquitetura`, `Java`, `Observabilidade`, `DevOps`,
+     `Segurança`, `Dados` (crie novas com moderação; tags são livres)
    - A série "atualizações do Java" (java-8.md … java-26.md + guia-atualizacoes-java.md)
      foi migrada do antigo repo knowledge-base (apagado; backup local em
      `../knowledge-base-backup`) — novas versões do Java entram como java-NN.md
