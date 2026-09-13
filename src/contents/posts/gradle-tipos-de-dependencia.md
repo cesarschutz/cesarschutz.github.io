@@ -26,12 +26,7 @@ testImplementation 'org.springframework.boot:spring-boot-starter-test'
 testImplementation 'ch.qos.logback:logback-classic'
 ```
 
-```mermaid
-flowchart LR
-  D["dependência"] --> CO["compileOnly compila o código · não vai pro runtime"]
-  D --> AP["annotationProcessor ferramenta do compilador · gera metadados"]
-  D --> TI["testImplementation compila e roda só os testes"]
-```
+![A mesma dependência entra em classpaths diferentes: compileOnly, annotationProcessor e testImplementation](/posts/gradle-tipos-de-dependencia/tres-classpaths.svg)
 
 ## `compileOnly`
 

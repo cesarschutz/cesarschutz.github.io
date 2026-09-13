@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 330" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="330" fill="#ffffff"/>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">As três partes de um JWT</text>
+
+<!-- header -->
+<rect x="50" y="90" width="250" height="130" rx="14" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="3"/>
+<text x="175" y="130" font-size="17" font-weight="800" fill="#2b7fc4" text-anchor="middle">header</text>
+<text x="175" y="156" font-size="13" fill="#6b7280" text-anchor="middle">JOSE · como foi assinado</text>
+<text x="175" y="182" font-size="13.5" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">alg · typ · kid</text>
+
+<text x="322" y="170" font-size="42" font-weight="800" fill="#9ca3af" text-anchor="middle">.</text>
+
+<!-- payload -->
+<rect x="345" y="90" width="250" height="130" rx="14" fill="#fdf1e3" stroke="#e07a1f" stroke-width="3"/>
+<text x="470" y="130" font-size="17" font-weight="800" fill="#e07a1f" text-anchor="middle">payload</text>
+<text x="470" y="156" font-size="13" fill="#6b7280" text-anchor="middle">claims · o conteúdo</text>
+<text x="470" y="182" font-size="13.5" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">iss · sub · aud · exp · jti</text>
+
+<text x="617" y="170" font-size="42" font-weight="800" fill="#9ca3af" text-anchor="middle">.</text>
+
+<!-- signature -->
+<rect x="640" y="90" width="250" height="130" rx="14" fill="#fdecea" stroke="#d9534f" stroke-width="3"/>
+<text x="765" y="130" font-size="17" font-weight="800" fill="#d9534f" text-anchor="middle">signature</text>
+<text x="765" y="156" font-size="13" fill="#6b7280" text-anchor="middle">sobre header.payload</text>
+<text x="765" y="182" font-size="13.5" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">RS256 · HS256 · ES256</text>
+
+<text x="470" y="262" font-size="13.5" fill="#6b7280" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">base64url(header) . base64url(payload) . assinatura</text>
+<text x="470" y="296" font-size="13" fill="#6b7280" text-anchor="middle">codificado ≠ criptografado: qualquer pessoa com o token lê o payload — a assinatura só garante integridade</text>
+</svg>

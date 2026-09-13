@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="470" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mb" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2b7fc4"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">O modelo central do ledger</text>
+
+<!-- Transaction -->
+<rect x="330" y="70" width="280" height="72" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="470" y="100" font-size="17" font-weight="700" fill="#1f2937" text-anchor="middle">TRANSACTION</text>
+<text x="470" y="124" font-size="13" fill="#6b7280" text-anchor="middle">evento atômico · tudo-ou-nada</text>
+
+<!-- setas para entries -->
+<path d="M400 145 C340 175 300 190 265 205" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<path d="M540 145 C600 175 640 190 675 205" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<!-- Entry débito -->
+<rect x="90" y="210" width="280" height="72" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="230" y="240" font-size="17" font-weight="700" fill="#1f2937" text-anchor="middle">ENTRY · débito</text>
+<text x="230" y="264" font-size="13" fill="#6b7280" text-anchor="middle">imutável · nunca sofre UPDATE</text>
+
+<!-- Entry crédito -->
+<rect x="570" y="210" width="280" height="72" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="710" y="240" font-size="17" font-weight="700" fill="#1f2937" text-anchor="middle">ENTRY · crédito</text>
+<text x="710" y="264" font-size="13" fill="#6b7280" text-anchor="middle">imutável · balanceia o débito</text>
+
+<!-- setas para accounts -->
+<path d="M230 285 V325" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<path d="M710 285 V325" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<!-- Accounts (cilindros) -->
+<g>
+<path d="M130 345 h200 v62 a100 14 0 0 1 -200 0 Z" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<ellipse cx="230" cy="345" rx="100" ry="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="230" y="390" font-size="15" font-weight="600" fill="#1f2937" text-anchor="middle">ACCOUNT origem</text>
+</g>
+<g>
+<path d="M610 345 h200 v62 a100 14 0 0 1 -200 0 Z" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<ellipse cx="710" cy="345" rx="100" ry="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="710" y="390" font-size="15" font-weight="600" fill="#1f2937" text-anchor="middle">ACCOUNT destino</text>
+</g>
+
+<!-- saldo derivado -->
+<path d="M335 380 H420" fill="none" stroke="#2b7fc4" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#mb)"/>
+<path d="M605 380 H520" fill="none" stroke="#2b7fc4" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#mb)"/>
+<rect x="425" y="355" width="90" height="50" rx="25" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="376" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">saldo</text>
+<text x="470" y="393" font-size="12" fill="#2b7fc4" text-anchor="middle">SUM(entries)</text>
+
+<text x="470" y="447" font-size="13" fill="#6b7280" text-anchor="middle">o saldo é sempre derivado das entries — nunca um campo mutável solto</text>
+</svg>

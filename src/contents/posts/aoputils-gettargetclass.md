@@ -63,11 +63,7 @@ Isso quebra qualquer código que dependa da identidade da classe real:
 - **Mapas do tipo `Map<Class<?>, Handler>`** que usam a classe como chave.
 - Descoberta de metadados, `BeanPostProcessor`s, listeners de evento.
 
-```mermaid
-flowchart LR
-  B["bean injetado (proxy)"] -->|"getClass()"| P["MeuServico$$SpringCGLIB$$0 ✗"]
-  B -->|"AopUtils.getTargetClass()"| R["MeuServico ✓"]
-```
+![getClass devolve a classe do proxy; AopUtils.getTargetClass desembrulha e devolve a classe real](/posts/aoputils-gettargetclass/getclass-vs-gettargetclass.svg)
 
 ## O utilitário: `AopUtils.getTargetClass(Object)`
 

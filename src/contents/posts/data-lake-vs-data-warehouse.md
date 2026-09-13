@@ -12,13 +12,7 @@ draft: false
 
 **Data Lake** armazena dados **brutos** em qualquer formato (estruturado, semi-estruturado, não-estruturado). Segue o esquema *schema-on-read* — a estrutura é definida apenas **na hora da leitura**. Ideal para exploração, machine learning e big data.
 
-```mermaid
-flowchart LR
-  F["Fontes apps · logs · eventos"] --> L[("Data Lake bruto · schema-on-read")]
-  L -->|"ELT: transforma depois"| W[("Data Warehouse estruturado · schema-on-write")]
-  W --> BI["BI · dashboards"]
-  L --> ML["ML · exploração"]
-```
+![Fontes alimentam o Data Lake bruto; o ELT leva ao Data Warehouse estruturado que serve o BI; o ML explora direto do lake](/posts/data-lake-vs-data-warehouse/lake-para-warehouse.svg)
 
 ## O comparativo
 

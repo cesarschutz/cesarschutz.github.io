@@ -34,15 +34,7 @@ Eles controlam três coisas fundamentais:
 
 Isso importa principalmente quando o processamento altera dados, envia eventos, faz conciliação, processa pagamentos ou recalcula saldos — tarefas que **não devem duplicar efeito**.
 
-```mermaid
-flowchart TD
-  T["chegou o horário do schedule"] --> C{"execução anterior ainda ativa?"}
-  C -->|"não"| R["nova execução inicia"]
-  C -->|"sim + Forbid"| S["execução pulada"]
-  R --> D{"passou de activeDeadlineSeconds?"}
-  D -->|"sim"| K["K8s encerra e marca como falho (não bloqueia os próximos ciclos)"]
-  D -->|"não"| F["terminou — sucesso ou falha (backoffLimit decide retry)"]
-```
+![Forbid pula execuções concorrentes e o activeDeadlineSeconds impede que um job travado bloqueie a agenda](/posts/kubernetes-cronjob-concorrencia/forbid-e-deadline.svg)
 
 ## `concurrencyPolicy: Forbid`
 

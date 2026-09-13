@@ -20,15 +20,7 @@ Os dois conceitos são relacionados, mas operam em planos distintos: overhead é
 
 Considerar só runtime é o erro clássico. Hardware é barato; o que sai caro é tudo o que não aparece em dashboard de APM.
 
-```mermaid
-flowchart TD
-  O((Overhead)) --> R["Runtime CPU · memória · latência"]
-  O --> D["Desenvolvimento código · testes · setup"]
-  O --> C["Cognitivo camadas · indireção"]
-  O --> M["Manutenção dependências · CVEs"]
-  O --> OP["Operacional deploy · observabilidade"]
-  O --> ORG["Organizacional times · reuniões · handoffs"]
-```
+![As seis dimensões do overhead: runtime, desenvolvimento, cognitivo, manutenção, operacional e organizacional](/posts/overhead-vs-overkill/seis-dimensoes-overhead.svg)
 
 **a) Runtime** (o mais óbvio)
 

@@ -18,18 +18,7 @@ Logging tradicional foi desenhado para uma era de monólitos e single-server. Ho
 
 **Structured logging (JSON) é necessário mas não suficiente** — ter logs em JSON sem disciplina arquitetural ainda gera 15 eventos parciais por request em vez de 1 evento completo.
 
-```mermaid
-flowchart LR
-  subgraph T["Logging tradicional"]
-    R1[Request] --> L1["log.info ×15 espalhados pelo código"]
-    L1 --> G["grep + regex para montar o contexto"]
-  end
-  subgraph W["Wide events"]
-    R2[Request] --> MW["middleware acumula contexto no lifecycle"]
-    MW --> E1["1 evento com 50 campos no final da request"]
-    E1 --> Q["uma query responde tudo"]
-  end
-```
+![Logging tradicional com 15 logs parciais e grep, contra um wide event com 50 campos emitido no final](/posts/wide-events-canonical-log-lines/tradicional-vs-wide-event.svg)
 
 ## 2. Vocabulário fundamental
 

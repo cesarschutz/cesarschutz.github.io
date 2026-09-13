@@ -139,9 +139,59 @@
   @apply my-4;
 }
 
-/* Imagens dentro de posts (diagramas etc.) */
+/* Imagens dentro de posts (diagramas etc.) — clique abre o lightbox */
 .article img {
   @apply mx-auto my-4 rounded-xl;
+  cursor: zoom-in;
+}
+
+/* Lightbox de imagens */
+#img-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(1, 10, 15, 0.9);
+}
+
+#img-lightbox.open {
+  display: flex;
+}
+
+#img-lightbox img {
+  max-width: 96vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  cursor: default;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+#img-lightbox .lb-close {
+  position: fixed;
+  top: 1rem;
+  right: 1.25rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  line-height: 1;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#img-lightbox .lb-close:hover {
+  background: rgba(255, 255, 255, 0.28);
 }
 
 /* Blocos colapsáveis (<details>) — estilo toggle do Notion */
@@ -187,18 +237,6 @@ mark {
   font-weight: 600;
 }
 
-/* Diagramas Mermaid (renderizados no cliente) */
-.article pre.mermaid {
-  @apply my-6 flex justify-center overflow-x-auto rounded-xl p-4;
-  background-color: var(--card-color);
-  border: 1px solid var(--primary-color-transparent);
-  color: var(--text-color-lighten);
-}
-
-.article pre.mermaid svg {
-  max-width: 100%;
-  height: auto;
-}
 
 .article p {
   margin-top: 0.75rem;

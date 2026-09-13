@@ -56,45 +56,46 @@
     });
   };
 
-  // render mermaid diagrams (client-side, lazy — só carrega a lib se a página tiver diagrama)
-  const setupMermaid = async () => {
-    const blocks = document.querySelectorAll<HTMLElement>("pre.mermaid");
-    if (blocks.length === 0) return;
+  // lightbox: clicar numa imagem de post abre em tela cheia
+  // (fecha no botão ×, clicando fora da imagem ou com Esc)
+  const setupLightbox = () => {
+    if ((window as any).__lightboxReady) return;
+    (window as any).__lightboxReady = true;
 
-    const { default: mermaid } = await import("mermaid");
+    const overlay = document.createElement("div");
+    overlay.id = "img-lightbox";
+    overlay.innerHTML = `<button class="lb-close" aria-label="Fechar">×</button><img alt="" />`;
+    document.body.appendChild(overlay);
 
-    // guarda o código-fonte para poder re-renderizar ao trocar o tema
-    blocks.forEach((el) => {
-      if (!el.dataset.source) el.dataset.source = el.textContent ?? "";
-    });
-
-    const render = async () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      const nodes = document.querySelectorAll<HTMLElement>("pre.mermaid");
-      if (nodes.length === 0) return;
-      nodes.forEach((el) => {
-        el.removeAttribute("data-processed");
-        el.textContent = el.dataset.source ?? "";
-      });
-      mermaid.initialize({
-        startOnLoad: false,
-        theme: isDark ? "dark" : "neutral",
-      });
-      await mermaid.run({ nodes });
+    const imgEl = overlay.querySelector("img") as HTMLImageElement;
+    const close = () => {
+      overlay.classList.remove("open");
+    };
+    const open = (src: string, alt: string) => {
+      imgEl.src = src;
+      imgEl.alt = alt;
+      overlay.classList.add("open");
     };
 
-    await render();
-
-    // re-renderiza quando o usuário alterna claro/escuro
-    if (!(window as any).__mermaidThemeObserver) {
-      (window as any).__mermaidThemeObserver = new MutationObserver(() => {
-        render();
-      });
-      (window as any).__mermaidThemeObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["data-theme"],
-      });
-    }
+    overlay.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).tagName !== "IMG") close();
+    });
+    overlay.querySelector(".lb-close")!.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+    document.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      if (
+        t.tagName === "IMG" &&
+        t.closest(".article") &&
+        !t.closest("#img-lightbox") &&
+        !t.closest("a")
+      ) {
+        const img = t as HTMLImageElement;
+        open(img.currentSrc || img.src, img.alt);
+      }
+    });
   };
 
   // sumário lateral dos posts: destaca a seção visível durante a rolagem
@@ -137,7 +138,7 @@
     setupUrlAnchor();
     setupLozad();
     setupScrollBar();
-    setupMermaid();
+    setupLightbox();
     setupToc();
   };
 

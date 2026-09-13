@@ -28,13 +28,7 @@ Na assinatura SQS, você configura o Filter Policy (JSON):
 
 Resultado: somente mensagens com `eventType = OrderCreatedEvent` chegam a essa fila. Outros tipos publicados no mesmo tópico SNS são descartados antes de chegar ao SQS.
 
-```mermaid
-flowchart LR
-  P[Produtor] --> T((Tópico SNS))
-  T -->|"eventType = A ✓"| Q1[SQS · consumidor A]
-  T -->|"eventType = B ✓"| Q2[SQS · consumidor B]
-  T -.->|"outros tipos ✗"| X["descartadas no SNS"]
-```
+![O SNS entrega a cada fila só o eventType do filtro; o resto é descartado antes do SQS](/posts/sns-filter-policy/filter-policy-fanout.svg)
 
 ## Por que isso importa
 

@@ -9,7 +9,10 @@ blog de estudos + portfólio de projetos. Publicado no GitHub Pages em
 - **Astro 5** + tema [Yukina](https://github.com/WhitePaper233/yukina) (adaptado)
 - **Tailwind CSS** (v3) + Svelte 5 (componentes interativos)
 - **Expressive Code** — blocos de código avançados
-- **Mermaid** — diagramas (renderizados no cliente, sem custo no build)
+- **Diagramas em SVG artesanal** (estilo ByteByteGo) — NÃO usamos Mermaid
+  (removido em 13/09/2026 por erros de parse em alguns navegadores)
+- **Lightbox** — toda imagem de post abre em tela cheia ao clicar
+  (fecha no ×, clicando fora ou com Esc) — `setupLightbox` no ScriptSetup
 - **KaTeX** — fórmulas matemáticas
 - **MDX** — posts com componentes interativos
 - **Busca própria** com frase exata — índice em `src/pages/search-index.json.ts`,
@@ -69,9 +72,13 @@ Conteúdo em Markdown...
 
 - **Código**: ` ```java title="Arquivo.java" {3-5} ` (destaque), `del={}/ins={}` (diff),
   `showLineNumbers`, `collapse={1-10}` (recolher trechos)
-- **Diagramas**: bloco ` ```mermaid ` — flowchart, sequence, class, state, ER…
-  (re-renderiza sozinho ao alternar claro/escuro). ⚠️ `mindmap` NÃO renderiza
-  (módulo lazy do Mermaid não carrega) — use flowchart radial no lugar
+- **Diagramas**: SVG artesanal em `public/posts/<slug>/<nome>.svg`, referenciado
+  com `![alt descritivo](/posts/<slug>/<nome>.svg)`. Padrão visual (estilo
+  ByteByteGo, igual aos das sessões): fundo `#ffffff`, viewBox ~940 de largura,
+  título 21px bold `#111827`, caixas rx=12 com pares fill/stroke —
+  azul `#eaf3fb`/`#2b7fc4`, laranja `#fdf1e3`/`#e07a1f`, verde `#eaf7ef`/`#2e9e5b`,
+  vermelho `#fdecea`/`#d9534f`, cinza `#f3f4f6`/`#6b7280` — setas `#4b5563` com
+  marker, fonte Inter/system. O lightbox amplia no clique; NÃO usar Mermaid
 - **Matemática**: `$inline$` e `$$bloco$$`
 - **Toggle colapsável** (estilo Notion, estilizado em `markdown.css`): use
   `<details>` + `<summary>Título</summary>`, linha em branco, conteúdo em

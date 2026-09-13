@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="430" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mb" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2b7fc4"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">O traceparent viaja com o evento, do produtor ao consumidor</text>
+
+<!-- etiqueta do trace -->
+<rect x="150" y="75" width="640" height="46" rx="23" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="104" font-size="14.5" font-weight="700" fill="#2b7fc4" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">traceparent: 00-4bf92f35…-01  (um por lote)</text>
+<g stroke="#2b7fc4" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="4 5">
+<path d="M190 121 V175"/><path d="M470 121 V175"/><path d="M760 121 V175"/>
+</g>
+
+<!-- lanes -->
+<g>
+<rect x="60" y="180" width="180" height="76" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="150" y="212" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Job produtor</text>
+<text x="150" y="234" font-size="12.5" fill="#6b7280" text-anchor="middle">gera trace_id por lote</text>
+</g>
+<g>
+<path d="M290 190 h150 v52 a75 12 0 0 1 -150 0 Z" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<ellipse cx="365" cy="190" rx="75" ry="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="365" y="222" font-size="14" font-weight="700" fill="#1f2937" text-anchor="middle">outbox</text>
+<text x="365" y="240" font-size="12" fill="#6b7280" text-anchor="middle">evento + trace_id</text>
+</g>
+<g>
+<rect x="490" y="180" width="140" height="76" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="560" y="212" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Relay</text>
+<text x="560" y="234" font-size="12.5" fill="#6b7280" text-anchor="middle">PublishBatch</text>
+</g>
+<g>
+<rect x="680" y="180" width="120" height="76" rx="38" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="740" y="212" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">SNS/SQS</text>
+<text x="740" y="234" font-size="12.5" fill="#6b7280" text-anchor="middle">MessageAttribute</text>
+</g>
+<g>
+<rect x="60" y="320" width="740" height="76" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="430" y="352" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Consumidor — lê o atributo, coloca no MDC, e todos os logs saem correlacionados</text>
+<text x="430" y="376" font-size="13" fill="#6b7280" text-anchor="middle">a ferramenta de observabilidade une a linha do tempo inteira com uma busca por um único trace-id</text>
+</g>
+
+<!-- fluxo numerado -->
+<path d="M242 218 H278" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<path d="M442 218 H478" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<path d="M632 218 H668" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<path d="M740 258 C740 290 600 300 470 308" fill="none" stroke="#2b7fc4" stroke-width="2.5" marker-end="url(#mb)"/>
+
+<g font-size="12.5" font-weight="700" fill="#4b5563">
+<text x="258" y="205">1</text>
+<text x="458" y="205">2</text>
+<text x="648" y="205">3</text>
+<text x="700" y="295" fill="#2b7fc4">4</text>
+</g>
+</svg>

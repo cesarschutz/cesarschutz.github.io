@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 440" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="440" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Logging tradicional vs wide events</text>
+
+<!-- painel tradicional -->
+<rect x="40" y="70" width="420" height="340" rx="14" fill="#fdecea" fill-opacity="0.35" stroke="#d9534f" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="250" y="102" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">tradicional</text>
+
+<rect x="80" y="120" width="150" height="52" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="155" y="152" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">Request</text>
+<path d="M232 146 H280" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<g font-family="ui-monospace, Menlo, monospace" font-size="11.5" fill="#6b7280">
+<rect x="285" y="112" width="150" height="22" rx="5" fill="#ffffff" stroke="#d1d5db"/><text x="295" y="127">log.info("iniciando…")</text>
+<rect x="285" y="140" width="150" height="22" rx="5" fill="#ffffff" stroke="#d1d5db"/><text x="295" y="155">log.info("validou…")</text>
+<rect x="285" y="168" width="150" height="22" rx="5" fill="#ffffff" stroke="#d1d5db"/><text x="295" y="183">log.info("chamou…")</text>
+<text x="355" y="212" font-size="13" text-anchor="middle">× 15 espalhados</text>
+</g>
+
+<path d="M250 235 V270" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<rect x="95" y="275" width="310" height="70" rx="12" fill="#ffffff" stroke="#d9534f" stroke-width="2"/>
+<text x="250" y="305" font-size="14" font-weight="700" fill="#1f2937" text-anchor="middle">grep + regex frágil</text>
+<text x="250" y="327" font-size="12.5" fill="#6b7280" text-anchor="middle">horas montando o quebra-cabeça</text>
+
+<!-- painel wide -->
+<rect x="480" y="70" width="420" height="340" rx="14" fill="#eaf7ef" fill-opacity="0.4" stroke="#2e9e5b" stroke-width="2"/>
+<text x="690" y="102" font-size="15" font-weight="700" fill="#2e9e5b" text-anchor="middle">wide events</text>
+
+<rect x="520" y="120" width="150" height="52" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="595" y="152" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">Request</text>
+<path d="M672 146 H716" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<rect x="720" y="112" width="150" height="70" rx="10" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="795" y="140" font-size="13" font-weight="700" fill="#1f2937" text-anchor="middle">middleware</text>
+<text x="795" y="160" font-size="12" fill="#6b7280" text-anchor="middle">acumula contexto</text>
+<text x="795" y="176" font-size="12" fill="#6b7280" text-anchor="middle">no lifecycle</text>
+
+<path d="M795 185 C795 215 740 225 700 232" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<rect x="530" y="238" width="330" height="88" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="695" y="268" font-size="14" font-weight="700" fill="#1f2937" text-anchor="middle">1 evento · 50 campos</text>
+<text x="695" y="290" font-size="12.5" fill="#6b7280" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">{ user.tier, cart.total, error.code… }</text>
+<text x="695" y="312" font-size="12.5" fill="#6b7280" text-anchor="middle">emitido uma vez, no final</text>
+
+<path d="M695 330 V355" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<rect x="565" y="360" width="260" height="40" rx="20" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="695" y="386" font-size="13.5" font-weight="700" fill="#2e9e5b" text-anchor="middle">uma query responde tudo ✓</text>
+</svg>

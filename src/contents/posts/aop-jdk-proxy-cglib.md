@@ -42,12 +42,7 @@ Cada um corresponde a uma anotação dentro de uma classe `@Aspect`:
 
 Diferente do AspectJ puro, que faz **bytecode weaving**, o **Spring AOP é proxy-based em runtime**: quando um bean tem advices aplicáveis, o container devolve um *proxy* no lugar da instância original. O proxy implementa/estende o tipo do bean e intercepta cada chamada, executando o advice antes/depois de delegar para o alvo real.
 
-```mermaid
-flowchart LR
-  C[Caller] -->|"chamada externa"| P["Proxy (advices rodam ✓)"]
-  P --> T["Bean alvo"]
-  T -.->|"this.outroMetodo() self-invocation ✗ (advice NÃO roda)"| T
-```
+![Chamadas externas passam pelo proxy e os advices rodam; self-invocation via this não passa](/posts/aop-jdk-proxy-cglib/proxy-e-self-invocation.svg)
 
 Consequências do modelo:
 

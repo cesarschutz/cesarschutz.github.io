@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="470" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mg" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2e9e5b"/></marker>
+<marker id="mr" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#d9534f"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">O ciclo de término de um pod</text>
+
+<!-- terminating -->
+<rect x="330" y="70" width="280" height="60" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+<text x="470" y="107" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">Pod entra em Terminating</text>
+
+<!-- duas trilhas -->
+<path d="M400 132 C330 155 290 168 260 180" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<path d="M540 132 C610 155 650 168 680 180" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<text x="470" y="160" font-size="12.5" fill="#6b7280" text-anchor="middle">duas trilhas em paralelo</text>
+
+<rect x="70" y="185" width="330" height="76" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="235" y="214" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Trilha de rede</text>
+<text x="235" y="238" font-size="12.5" fill="#6b7280" text-anchor="middle">sai dos endpoints do Service — tráfego para</text>
+
+<rect x="540" y="185" width="330" height="76" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="705" y="214" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Trilha de container</text>
+<text x="705" y="238" font-size="12.5" fill="#6b7280" text-anchor="middle">preStop hook → SIGTERM ao PID 1</text>
+
+<!-- grace period -->
+<path d="M705 263 V295" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<rect x="540" y="300" width="330" height="60" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+<text x="705" y="326" font-size="14.5" font-weight="700" fill="#1f2937" text-anchor="middle">terminationGracePeriodSeconds</text>
+<text x="705" y="347" font-size="12.5" fill="#6b7280" text-anchor="middle">default 30s · orçamento compartilhado</text>
+
+<!-- desfechos -->
+<path d="M620 362 C540 395 480 405 420 410" fill="none" stroke="#2e9e5b" stroke-width="2.5" marker-end="url(#mg)"/>
+<text x="530" y="382" font-size="12.5" font-weight="700" fill="#2e9e5b">processo saiu a tempo</text>
+<rect x="120" y="386" width="290" height="56" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="265" y="410" font-size="14.5" font-weight="700" fill="#1f2937" text-anchor="middle">encerrado limpo ✓</text>
+<text x="265" y="431" font-size="12.5" fill="#6b7280" text-anchor="middle">exit 0 ou 143</text>
+
+<path d="M790 362 C810 385 815 395 818 402" fill="none" stroke="#d9534f" stroke-width="2.5" marker-end="url(#mr)"/>
+<text x="855" y="385" font-size="12.5" font-weight="700" fill="#d9534f" text-anchor="end">período estourou</text>
+<rect x="640" y="406" width="270" height="56" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2.5"/>
+<text x="775" y="430" font-size="14.5" font-weight="700" fill="#1f2937" text-anchor="middle">SIGKILL ✗</text>
+<text x="775" y="451" font-size="12.5" fill="#6b7280" text-anchor="middle">exit 137 · sem cleanup</text>
+</svg>

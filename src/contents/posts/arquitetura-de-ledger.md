@@ -12,15 +12,7 @@ Todo sistema que movimenta valor — dinheiro, créditos, pontos — esbarra no 
 
 Este post resume 12 artigos sobre o assunto (a série *How to Scale a Ledger* e *Accounting for Developers*, da Modern Treasury, entre outros), com os exemplos de código convertidos para Java. O modelo central que todos compartilham:
 
-```mermaid
-flowchart LR
-  T["TRANSACTION (evento atômico)"] --> E1["ENTRY débito (imutável)"]
-  T --> E2["ENTRY crédito (imutável)"]
-  E1 --> A1[("ACCOUNT origem")]
-  E2 --> A2[("ACCOUNT destino")]
-  A1 -.->|"SUM(entries)"| S1["saldo derivado"]
-  A2 -.->|"SUM(entries)"| S2["saldo derivado"]
-```
+![O modelo central do ledger: Transaction agrupa entries imutáveis que debitam e creditam accounts](/posts/arquitetura-de-ledger/modelo-account-transaction-entry.svg)
 
 ## 1. Ledger confiável em sistema event-driven, sem transações gigantes
 
@@ -282,14 +274,7 @@ public List<Entry> findEntriesAt(String accountId, Instant timestamp) throws SQL
   2. **Desligar automaticamente** as leituras de cache para contas que sofreram drift.
   3. Prover **ferramentas de backfill** e um runbook para o plantão triar e corrigir drift.
 
-```mermaid
-flowchart LR
-  J[Job de conciliação] --> C{"SUM(entries) == saldo cacheado?"}
-  C -->|sim| OK[conta saudável]
-  C -->|não| D[drift detectado]
-  D --> OFF[desliga leitura de cache da conta]
-  D --> AL[alerta + backfill]
-```
+![O job de conciliação compara a soma das entries com o saldo cacheado e reage ao drift](/posts/arquitetura-de-ledger/job-de-conciliacao.svg)
 
 - **Tópicos avançados de escala:** account categories (agregação em grafo) para relatórios; busca flexível de transações (paginação por cursor, não offset); **write-ahead queues** para alto throughput (> 5.000 QPS); sharding de contas entre bancos (Spanner/CockroachDB) — com o desafio de manter a atomicidade double-entry entre shards.
 
@@ -443,16 +428,7 @@ public class Entry {
 
 **A stack de referência:**
 
-```mermaid
-flowchart TD
-  PE[Posting engine valida double-entry] --> PG[("PostgreSQL journal append-only")]
-  PE -->|JournalEntryPosted| K[(Kafka)]
-  K --> BM[Balance materializer três saldos]
-  BM --> R[(Redis contas quentes)]
-  EXT[Arquivos externos processador · banco] --> RP[Reconciliation pipeline Airflow / Dagster]
-  PG --> RP
-  RP --> EX[Tabela de exceções + alertas]
-```
+![Stack de referência: posting engine, journal no PostgreSQL, Kafka, balance materializer com Redis e pipeline de conciliação](/posts/arquitetura-de-ledger/stack-de-referencia.svg)
 
 **Build vs buy:** construa se o ledger é diferencial competitivo ou se os requisitos excedem um Ledger-as-a-Service; use LaaS ou open-source (Formance Ledger, Blnk) se o ledger é infraestrutura e time-to-market importa mais. A maioria começa melhor com LaaS/open-source e migra para custom quando a plataforma não atende um requisito.
 

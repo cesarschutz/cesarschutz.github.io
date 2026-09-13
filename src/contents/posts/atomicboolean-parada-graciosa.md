@@ -32,19 +32,7 @@ Há **duas threads diferentes** acessando o mesmo valor:
 - **Thread principal do job** — roda o loop de processamento (queries, batches) e periodicamente chama `stopping.get()` para decidir se continua.
 - **Thread do shutdown hook** — criada pela JVM quando o Kubernetes envia `SIGTERM` (deadline atingido, eviction, deploy). Executa o `stopping.set(true)`.
 
-```mermaid
-sequenceDiagram
-  participant K as Kubernetes
-  participant H as Thread do hook
-  participant F as AtomicBoolean
-  participant J as Thread do job
-  K->>H: SIGTERM
-  H->>F: set(true)
-  J->>F: get() no próximo check
-  F-->>J: true
-  J->>J: commita o batch atual e encerra
-  Note over J: exit 0 — antes do SIGKILL
-```
+![Sequência do SIGTERM ao exit 0: o hook seta o AtomicBoolean e o loop do job encerra limpo](/posts/atomicboolean-parada-graciosa/fluxo-sigterm-atomicboolean.svg)
 
 ## Por que não usar um `boolean` comum?
 

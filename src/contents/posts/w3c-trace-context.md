@@ -35,20 +35,7 @@ E para correlacionar todos os lotes de uma mesma execução ("quantos lotes roda
 
 ## Como o outbox pattern usa na prática
 
-```mermaid
-sequenceDiagram
-  participant P as Job produtor
-  participant O as Tabela outbox
-  participant R as Relay
-  participant S as SNS/SQS
-  participant C as Consumidor
-  P->>O: grava evento + trace_id novo (por lote)
-  R->>O: lê eventos pendentes
-  R->>S: PublishBatch com traceparent no MessageAttribute
-  S->>C: entrega a mensagem
-  C->>C: lê o atributo e coloca no MDC
-  Note over P,C: a ferramenta de observabilidade une a linha do tempo inteira por um único trace-id
-```
+![O traceparent gravado no outbox viaja pelo relay e SNS até o MDC do consumidor](/posts/w3c-trace-context/propagacao-traceparent.svg)
 
 1. O serviço produtor gera um novo `traceparent` **por lote** e grava junto do evento na tabela de outbox.
 2. O job de relay lê o campo e envia como `MessageAttribute` no `PublishBatch` do SNS.

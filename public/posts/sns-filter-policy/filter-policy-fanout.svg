@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 400" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="400" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mg" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2e9e5b"/></marker>
+<marker id="mr" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#d9534f"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Filter Policy: o SNS decide antes de a fila receber</text>
+
+<!-- produtor -->
+<rect x="50" y="170" width="180" height="70" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="140" y="200" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">Produtor</text>
+<text x="140" y="222" font-size="12.5" fill="#6b7280" text-anchor="middle">publica com eventType</text>
+<path d="M232 205 H295" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<!-- tópico -->
+<circle cx="380" cy="205" r="72" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="380" y="198" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">Tópico</text>
+<text x="380" y="220" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">SNS</text>
+
+<!-- entregas -->
+<path d="M448 168 C540 120 590 105 660 100" fill="none" stroke="#2e9e5b" stroke-width="2.5" marker-end="url(#mg)"/>
+<rect x="500" y="65" width="130" height="30" rx="15" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="565" y="85" font-size="12.5" font-weight="700" fill="#2e9e5b" text-anchor="middle">eventType = A ✓</text>
+<rect x="670" y="70" width="220" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="780" y="97" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">SQS · consumidor A</text>
+<text x="780" y="119" font-size="12.5" fill="#6b7280" text-anchor="middle">só recebe o que interessa</text>
+
+<path d="M452 220 C540 230 590 232 660 232" fill="none" stroke="#2e9e5b" stroke-width="2.5" marker-end="url(#mg)"/>
+<rect x="500" y="200" width="130" height="30" rx="15" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="565" y="220" font-size="12.5" font-weight="700" fill="#2e9e5b" text-anchor="middle">eventType = B ✓</text>
+<rect x="670" y="200" width="220" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="780" y="227" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">SQS · consumidor B</text>
+<text x="780" y="249" font-size="12.5" fill="#6b7280" text-anchor="middle">filtro fica na assinatura</text>
+
+<!-- descarte -->
+<path d="M430 268 C500 330 560 345 640 350" fill="none" stroke="#d9534f" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#mr)"/>
+<rect x="480" y="300" width="140" height="30" rx="15" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="550" y="320" font-size="12.5" font-weight="700" fill="#d9534f" text-anchor="middle">outros tipos ✗</text>
+<rect x="650" y="322" width="240" height="56" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2.5"/>
+<text x="770" y="346" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">descartadas no SNS</text>
+<text x="770" y="366" font-size="12.5" fill="#6b7280" text-anchor="middle">nunca chegam à fila · custo zero</text>
+</svg>

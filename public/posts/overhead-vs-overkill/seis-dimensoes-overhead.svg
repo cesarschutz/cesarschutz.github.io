@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="460" fill="#ffffff"/>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">As seis dimensões do overhead</text>
+
+<!-- linhas do centro -->
+<g stroke="#9ca3af" stroke-width="2">
+<path d="M470 250 L200 130"/><path d="M470 250 L470 105"/><path d="M470 250 L740 130"/>
+<path d="M470 250 L200 375"/><path d="M470 250 L470 400"/><path d="M470 250 L740 375"/>
+</g>
+
+<!-- centro -->
+<circle cx="470" cy="250" r="72" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="3"/>
+<text x="470" y="258" font-size="18" font-weight="800" fill="#1f2937" text-anchor="middle">Overhead</text>
+
+<!-- dimensões -->
+<g>
+<rect x="70" y="90" width="260" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="200" y="117" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Runtime</text>
+<text x="200" y="139" font-size="12.5" fill="#6b7280" text-anchor="middle">CPU · memória · latência</text>
+</g>
+<g>
+<rect x="340" y="45" width="260" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="470" y="72" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Desenvolvimento</text>
+<text x="470" y="94" font-size="12.5" fill="#6b7280" text-anchor="middle">código · testes · setup</text>
+</g>
+<g>
+<rect x="610" y="90" width="260" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2.5"/>
+<text x="740" y="117" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Cognitivo</text>
+<text x="740" y="139" font-size="12.5" fill="#6b7280" text-anchor="middle">camadas · indireção · o pior</text>
+</g>
+<g>
+<rect x="70" y="352" width="260" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+<text x="200" y="379" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Manutenção</text>
+<text x="200" y="401" font-size="12.5" fill="#6b7280" text-anchor="middle">dependências · CVEs · upgrades</text>
+</g>
+<g>
+<rect x="340" y="382" width="260" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="470" y="409" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Operacional</text>
+<text x="470" y="431" font-size="12.5" fill="#6b7280" text-anchor="middle">deploy · observabilidade · infra</text>
+</g>
+<g>
+<rect x="610" y="352" width="260" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="740" y="379" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Organizacional</text>
+<text x="740" y="401" font-size="12.5" fill="#6b7280" text-anchor="middle">times · reuniões · handoffs</text>
+</g>
+</svg>

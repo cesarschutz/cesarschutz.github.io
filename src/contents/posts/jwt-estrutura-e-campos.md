@@ -10,10 +10,7 @@ draft: false
 
 Um **JWT (JSON Web Token)** é definido pela **RFC 7519** e é composto por três partes separadas por ponto: `header.payload.signature`. Cada parte é um JSON codificado em Base64URL. As specs relacionadas são a **RFC 7515 (JWS)**, a **RFC 7516 (JWE)** e a **RFC 7517 (JWK)**.
 
-```mermaid
-flowchart LR
-  H["header (JOSE)"] -->|"."| P["payload (claims)"] -->|"."| S["signature (sobre header.payload)"]
-```
+![As três partes do JWT: header, payload e signature, separadas por ponto](/posts/jwt-estrutura-e-campos/tres-partes-do-jwt.svg)
 
 ## Header (JOSE Header)
 

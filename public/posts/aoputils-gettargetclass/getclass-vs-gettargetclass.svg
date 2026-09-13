@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 360" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="360" fill="#ffffff"/>
+<defs>
+<marker id="mg" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2e9e5b"/></marker>
+<marker id="mr" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#d9534f"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">bean.getClass() mente — AopUtils.getTargetClass() desembrulha</text>
+
+<!-- bean embrulhado -->
+<rect x="60" y="100" width="330" height="180" rx="16" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5" stroke-dasharray="12 8"/>
+<text x="225" y="132" font-size="13.5" font-weight="700" fill="#2b7fc4" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">MeuServico$$SpringCGLIB$$0</text>
+<rect x="110" y="155" width="230" height="90" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="225" y="196" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">MeuServico</text>
+<text x="225" y="222" font-size="12.5" fill="#6b7280" text-anchor="middle">a classe real, com as anotações</text>
+
+<!-- getClass -->
+<path d="M392 150 C470 130 520 122 585 118" fill="none" stroke="#d9534f" stroke-width="3" marker-end="url(#mr)"/>
+<text x="470" y="112" font-size="13" font-weight="700" fill="#d9534f" font-family="ui-monospace, Menlo, monospace">bean.getClass()</text>
+<rect x="595" y="88" width="310" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2.5"/>
+<text x="750" y="114" font-size="13.5" font-weight="700" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">MeuServico$$SpringCGLIB$$0</text>
+<text x="750" y="136" font-size="12.5" fill="#d9534f" text-anchor="middle">reflection e logging quebram ✗</text>
+
+<!-- getTargetClass -->
+<path d="M392 235 C470 252 520 258 585 262" fill="none" stroke="#2e9e5b" stroke-width="3" marker-end="url(#mg)"/>
+<text x="452" y="286" font-size="13" font-weight="700" fill="#2e9e5b" font-family="ui-monospace, Menlo, monospace">AopUtils.getTargetClass(bean)</text>
+<rect x="595" y="232" width="310" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="750" y="258" font-size="14.5" font-weight="700" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">MeuServico</text>
+<text x="750" y="280" font-size="12.5" fill="#2e9e5b" text-anchor="middle">anotações, tipos e logs corretos ✓</text>
+
+<text x="470" y="335" font-size="13" fill="#6b7280" text-anchor="middle">funciona para proxy CGLIB, JDK, proxy de proxy — e nunca retorna null</text>
+</svg>

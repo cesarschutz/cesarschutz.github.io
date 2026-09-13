@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 380" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="940" height="380" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mg" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2e9e5b"/></marker>
+<marker id="mr" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#d9534f"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">O job de conciliação (drift de cache)</text>
+
+<!-- job -->
+<rect x="40" y="150" width="220" height="80" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="150" y="184" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">Job de conciliação</text>
+<text x="150" y="208" font-size="13" fill="#6b7280" text-anchor="middle">roda por conta, agendado</text>
+
+<path d="M262 190 H320" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<!-- decisão -->
+<polygon points="470,105 630,190 470,275 310,190" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="470" y="180" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">SUM(entries)</text>
+<text x="470" y="202" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">== saldo cacheado?</text>
+
+<!-- sim -->
+<path d="M470 100 C470 70 560 60 640 60" fill="none" stroke="#2e9e5b" stroke-width="2.5" marker-end="url(#mg)"/>
+<text x="545" y="55" font-size="13" font-weight="700" fill="#2e9e5b">sim</text>
+<rect x="650" y="35" width="240" height="56" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="770" y="69" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">conta saudável ✓</text>
+
+<!-- não -->
+<path d="M632 190 H700" fill="none" stroke="#d9534f" stroke-width="2.5" marker-end="url(#mr)"/>
+<text x="660" y="180" font-size="13" font-weight="700" fill="#d9534f">não</text>
+<rect x="705" y="160" width="200" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2.5"/>
+<text x="805" y="196" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">drift detectado</text>
+
+<!-- consequências -->
+<path d="M770 222 C740 260 700 280 660 292" fill="none" stroke="#d9534f" stroke-width="2" marker-end="url(#mr)"/>
+<path d="M840 222 C860 255 870 275 875 290" fill="none" stroke="#d9534f" stroke-width="2" marker-end="url(#mr)"/>
+<rect x="440" y="295" width="220" height="56" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="550" y="320" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">desliga a leitura de</text>
+<text x="550" y="340" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">cache da conta</text>
+<rect x="700" y="295" width="210" height="56" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="805" y="320" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">alerta + ferramentas</text>
+<text x="805" y="340" font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">de backfill</text>
+</svg>

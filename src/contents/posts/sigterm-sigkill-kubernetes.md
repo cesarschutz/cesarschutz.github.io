@@ -19,14 +19,7 @@ draft: false
 
 Quando um pod entra em `Terminating` (delete manual, rolling update, scale-in, eviction, `activeDeadlineSeconds` atingido), o kubelet executa **duas trilhas em paralelo**:
 
-```mermaid
-flowchart TD
-  T["Pod entra em Terminating"] --> N["Trilha de rede: remove dos endpoints do Service"]
-  T --> C["Trilha de container: preStop hook → SIGTERM ao PID 1"]
-  C --> G["terminationGracePeriodSeconds (default 30s) começa a contar"]
-  G -->|"processo saiu"| OK["encerrado limpo · exit 0/143"]
-  G -->|"período estourou"| K["SIGKILL · exit 137"]
-```
+![O ciclo de término do pod: trilhas de rede e de container em paralelo, grace period e os dois desfechos](/posts/sigterm-sigkill-kubernetes/ciclo-de-termino-do-pod.svg)
 
 1. **Trilha de rede** — o pod é removido dos endpoints do Service; kube-proxy e ingress controllers param de rotear tráfego novo.
 2. **Trilha de container** — o kubelet executa o `preStop` hook (se configurado) e depois envia `SIGTERM` ao PID 1 de cada container.

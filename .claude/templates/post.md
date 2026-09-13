@@ -22,10 +22,10 @@ public class Exemplo {
 
 ## Diagrama (se fizer sentido)
 
-```mermaid
-flowchart LR
-  A[Componente A] --> B[Componente B]
-```
+<!-- SVG artesanal estilo ByteByteGo (paleta e padrão no CLAUDE.md), salvo em
+     public/posts/<slug>/ — o lightbox amplia ao clicar. NÃO usar Mermaid. -->
+
+![Descrição do que o diagrama mostra](/posts/slug-do-post/nome-do-diagrama.svg)
 
 ## Conclusão
 
