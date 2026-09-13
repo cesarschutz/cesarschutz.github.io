@@ -32,6 +32,11 @@ const { class: className } = Astro.props;
       )
         continue;
 
+      // Blocos do Expressive Code já têm botão de copiar próprio, e os
+      // diagramas Mermaid não devem ganhar botão — pular ambos
+      if (codeBlock.closest(".expressive-code") || codeBlock.classList.contains("mermaid"))
+        continue;
+
       let wrapper = document.createElement("div");
       wrapper.className = "relative code-block";
 
