@@ -3,7 +3,8 @@ title: "Arquitetura · Sessão 00 — Cobrança duplicada no retry"
 published: 2026-09-10
 description: "Como garantir que um retry não cobre o cliente duas vezes: chave de idempotência e restrição única no banco, em vez de verificar antes de gravar. **Também caiu aqui:** condição de corrida do tipo verifica-e-age, entrega pelo menos uma vez, e as alternativas de bloqueio pessimista e otimista."
 tags: [Arquitetura, Idempotência, Pagamentos]
-category: Arquitetura
+category: Exercícios resolvidos
+enunciado: "O app do cliente envia uma cobrança de R$ 250 e a resposta se perde no timeout. O cliente não sabe se passou e reenvia. O serviço roda em várias instâncias atrás de um load balancer. Como garantir que o cliente é cobrado uma vez só?"
 cover: /covers/sessao-00-idempotencia.svg
 draft: false
 ---

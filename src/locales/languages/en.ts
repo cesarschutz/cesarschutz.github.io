@@ -14,6 +14,8 @@ export const en: Translation = {
   [key.nav_bar_search_placeholder]: "Search",
 
   [key.series_label]: "Series",
+  [key.exercises_title]: "Solved exercises",
+  [key.exercises_subtitle]: "Real architecture challenges, dissected",
   [key.continue_reading]: "Keep reading",
   [key.post_prev]: "Previous post",
   [key.post_next]: "Next post",

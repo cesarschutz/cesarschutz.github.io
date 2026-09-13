@@ -1,6 +1,7 @@
 ---
 // Component Imports
 import Main from "../layouts/MainLayout.astro";
+import PageHeader from "../components/misc/PageHeader.astro";
 
 export interface Props {
   chips: {
@@ -19,6 +20,7 @@ const { chips, title, subTitle, bannerImage, slug } = Astro.props;
 
 <Main title={title} subTitle={subTitle} bannerImage={bannerImage} slug={slug}>
   <div class="flex flex-col rounded-2xl bg-[var(--card-color)] p-6">
+    {title && <PageHeader title={title} subTitle={subTitle} />}
     <div class="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3">
       {
         chips.map((chip) => (

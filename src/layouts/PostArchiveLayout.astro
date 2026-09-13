@@ -3,6 +3,7 @@
 import Main from "../layouts/MainLayout.astro";
 import ArchiveYearTitle from "../components/misc/ArchiveYearTitle.astro";
 import ArchivePost from "../components/misc/ArchivePost.astro";
+import PageHeader from "../components/misc/PageHeader.astro";
 
 import { type Archive } from "../utils/content";
 
@@ -19,6 +20,7 @@ const { archiveMap, title, subTitle, bannerImage, slug } = Astro.props;
 
 <Main title={title} subTitle={subTitle} bannerImage={bannerImage} slug={slug}>
   <div class="archives">
+    {title && <PageHeader title={title} subTitle={subTitle} />}
     {
       archiveMap.size !== 0 &&
         [...archiveMap.keys()].map((year) => (

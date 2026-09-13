@@ -3,7 +3,8 @@ title: "Arquitetura · Sessão 02 — Virtual threads, pinning e CLOSE_WAIT"
 published: 2026-09-12
 description: "Por que um serviço com virtual threads congela sem erro no log: pinning por bloco `synchronized`, com CLOSE_WAIT como rastro. **Também caiu aqui:** socket e estados TCP, platform e carrier thread, thread dump e JFR, deslocamento de gargalo, bulkhead e circuit breaker (com código Java para rodar), backpressure, Scoped Values e lei de Little."
 tags: [Java, Virtual Threads, Resiliência]
-category: Arquitetura
+category: Exercícios resolvidos
+enunciado: "Serviço de autorização com virtual threads congela no pico da tarde, sem erro no log: a JVM está viva, o health check estoura e o Kubernetes reinicia o pod. Onde está o problema?"
 cover: /covers/sessao-02-virtual-threads.svg
 draft: false
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Java 21 (LTS) — A LTS Revolucionária"
-published: 2026-08-31
+published: 2025-07-02T02:10:00Z
 description: "Cada novidade do Java 21 (2023) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
 category: Java

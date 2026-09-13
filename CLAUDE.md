@@ -64,7 +64,18 @@ Conteúdo em Markdown...
      `../knowledge-base-backup`) — novas versões do Java entram como java-NN.md
    - Posts da série "Aprendizado de arquitetura" vêm do Notion (página "Aprendizado
      arquitetura Claude") — ATENÇÃO: as URLs de imagem do Notion expiram em ~5 min;
-     baixe os SVGs para `public/posts/<slug>/` imediatamente após o fetch
+     baixe os SVGs para `public/posts/<slug>/` imediatamente após o fetch e
+     **remova `width`/`height` da tag raiz** (mantendo o `viewBox`) — com
+     tamanho fixo o lightbox não amplia a imagem
+   - **Exercícios resolvidos**: as sessões de arquitetura usam
+     `category: Exercícios resolvidos` + campo `enunciado:` no frontmatter
+     (resumo curto do desafio). São posts normais (home, tags, busca), mas
+     ganham página própria em `/exercicios/` (src/pages/exercicios.astro:
+     cards numerados com título + enunciado + explicação do formato) e um
+     card destacado no sidebar, acima de Categorias. Os links de categoria
+     desses posts apontam para `/exercicios/` via `GetCategoryUrl()` em
+     `src/utils/content.ts`. A numeração do card vem do título
+     (`Sessão NN — ...`)
    - Imagem própria de capa: colocar em `public/covers/` e referenciar `/covers/arquivo.webp`
    - Template completo em `.claude/templates/post.md`
 

@@ -20,7 +20,8 @@ async function FormatArchiveMap() {
   const tagName = tags.get(tag)!.name;
   const archiveMap = new Map<number, Array<Archive>>();
   posts.forEach((post) => {
-    const year = post.date.getFullYear();
+    // ano em UTC: datas do frontmatter são meia-noite UTC (mesmo caso do GetArchives)
+    const year = post.date.getUTCFullYear();
     if (archiveMap.has(year)) archiveMap.get(year)!.push(post);
     else archiveMap.set(year, [post]);
   });

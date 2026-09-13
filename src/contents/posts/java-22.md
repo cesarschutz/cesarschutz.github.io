@@ -1,6 +1,6 @@
 ---
 title: "Java 22 — Foreign Function & Memory API Final"
-published: 2026-09-01
+published: 2025-07-02T02:20:00Z
 description: "Cada novidade do Java 22 (2024) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java

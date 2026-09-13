@@ -1,6 +1,6 @@
 ---
 title: "Java 25 (LTS) — Guia das Principais Novidades"
-published: 2026-09-04
+published: 2025-07-02T02:50:00Z
 description: "Cada novidade do Java 25 (2025) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
 category: Java

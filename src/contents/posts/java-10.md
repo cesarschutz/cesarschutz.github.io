@@ -1,6 +1,6 @@
 ---
 title: "Java 10 — Inferência de Tipos e Performance"
-published: 2026-08-20
+published: 2025-07-02T00:20:00Z
 description: "Cada novidade do Java 10 (2018) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java

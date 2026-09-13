@@ -14,6 +14,8 @@ const posts = defineCollection({
     cover: z.string().optional(),
     tags: z.array(z.string()).optional(),
     category: z.string().optional(),
+    /** enunciado curto do desafio — usado nos cards de /exercicios/ */
+    enunciado: z.string().optional(),
     author: z.string().optional(),
     sourceLink: z.string().optional(),
     licenseName: z.string().optional(),

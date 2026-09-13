@@ -1,6 +1,6 @@
 ---
 title: "Java 15 — Sealed Classes Preview e Text Blocks Final"
-published: 2026-08-25
+published: 2025-07-02T01:10:00Z
 description: "Cada novidade do Java 15 (2020) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
 category: Java

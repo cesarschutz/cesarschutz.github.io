@@ -7,6 +7,7 @@ import CopyRight from "../components/misc/CopyRight.astro";
 import YukinaConfig from "../../yukina.config";
 import { formatDate } from "../utils/date";
 import { IdToSlug } from "../utils/hash";
+import { GetCategoryUrl } from "../utils/content";
 import { renderInlineMd } from "../utils/inline-md";
 import { i18n } from "../locales/translation";
 import I18nKeys from "../locales/keys";
@@ -58,7 +59,7 @@ const showToc = tocHeadings.length >= 3;
         <header class="post-header">
           {
             category && (
-              <a class="post-eyebrow" href={`/categories/${IdToSlug(category)}`}>
+              <a class="post-eyebrow" href={GetCategoryUrl(category)}>
                 {category}
               </a>
             )

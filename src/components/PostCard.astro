@@ -1,5 +1,6 @@
 ---
 import { IdToSlug } from "../utils/hash";
+import { GetCategoryUrl } from "../utils/content";
 import { Icon } from "astro-icon/components";
 import PostCardInfoIcon from "./widgets/PostCardInfoIcon.astro";
 import { GetCoverURLForUnspecifiedEntry } from "../utils/cover";
@@ -90,7 +91,7 @@ const { time } = props.readingMetadata;
                 <PostCardInfoIcon name="dashicons:category" />
                 <a
                   class="select-none whitespace-nowrap rounded-md px-1.5 py-0.5 text-[var(--text-color-lighten)] transition-all hover:bg-[var(--primary-color-lighten)] hover:text-[var(--primary-color)]"
-                  href={`/categories/${IdToSlug(props.category)}`}
+                  href={GetCategoryUrl(props.category)}
                 >
                   {props.category}
                 </a>

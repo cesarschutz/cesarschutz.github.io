@@ -3,7 +3,8 @@ title: "Arquitetura · Sessão 03 — Bloqueio otimista e pessimista"
 published: 2026-09-13
 description: "As duas formas de impedir que duas gravações simultâneas se atropelem: detectar o conflito com coluna de versão, ou evitar travando a linha. Com SQL e Spring Data JPA. **Também caiu aqui:** lost update, `FOR UPDATE` com NOWAIT e SKIP LOCKED, deadlock e como preveni-lo, níveis de isolamento do Postgres, e quando um único UPDATE condicional dispensa os dois."
 tags: [Arquitetura, Banco de Dados, Concorrência]
-category: Arquitetura
+category: Exercícios resolvidos
+enunciado: "Dois clientes leem a mesma linha, calculam a partir do que leram e os dois gravam — a segunda gravação apaga a primeira sem nenhum erro. Como impedir o lost update: detectar o conflito ou prevenir?"
 cover: /covers/sessao-03-bloqueios.svg
 draft: false
 ---

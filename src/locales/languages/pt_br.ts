@@ -14,6 +14,8 @@ export const pt_BR: Translation = {
   [key.nav_bar_search_placeholder]: "Buscar",
 
   [key.series_label]: "Série",
+  [key.exercises_title]: "Exercícios resolvidos",
+  [key.exercises_subtitle]: "Desafios reais de arquitetura, dissecados",
   [key.continue_reading]: "Continue lendo",
   [key.post_prev]: "Post anterior",
   [key.post_next]: "Próximo post",
@@ -33,9 +35,9 @@ export const pt_BR: Translation = {
 
   [key.archive_year_title_count]: "{{}} artigo(s) no total",
 
-  [key.pages_categories_archive]: "Arquivo de artigos",
-  [key.pages_tags_archive]: "Arquivo de tags",
-  [key.pages_archive_archive]: "Arquivo",
+  [key.pages_categories_archive]: "Arquivo de categoria",
+  [key.pages_tags_archive]: "Arquivo de tag",
+  [key.pages_archive_archive]: "Artigos",
 
   [key.pages_tags_title]: "Tags",
   [key.pages_categories_title]: "Categorias",

@@ -2,6 +2,19 @@ import { getCollection } from "astro:content";
 import { IdToSlug } from "./hash";
 
 /**
+ * Categoria especial dos exercícios resolvidos: os posts continuam sendo
+ * posts normais (home, tags, busca), mas ganham uma página própria em
+ * /exercicios/ e destaque no sidebar, acima das categorias.
+ */
+export const EXERCISES_CATEGORY = "Exercícios resolvidos";
+
+/** URL da categoria — a especial aponta para a página própria. */
+export function GetCategoryUrl(category: string): string {
+  if (category === EXERCISES_CATEGORY) return "/exercicios/";
+  return `/categories/${IdToSlug(category)}`;
+}
+
+/**
  * Represents an archive item with a title, slug, date, and optional tags.
  */
 export interface Archive {
@@ -136,6 +149,11 @@ export async function GetTags() {
     });
   });
 
+  // listas sempre em ordem decrescente de data (como em "Artigos")
+  tags.forEach((tag) => {
+    tag.posts.sort((a, b) => b.date.getTime() - a.date.getTime());
+  });
+
   return tags;
 }
 
@@ -171,6 +189,11 @@ export async function GetCategories() {
       date: new Date(post.data.published),
       tags: post.data.tags,
     });
+  });
+
+  // listas sempre em ordem decrescente de data (como em "Artigos")
+  categories.forEach((category) => {
+    category.posts.sort((a, b) => b.date.getTime() - a.date.getTime());
   });
 
   return categories;

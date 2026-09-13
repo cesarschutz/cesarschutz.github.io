@@ -11,6 +11,8 @@ enum I18nKeys {
   nav_bar_search_placeholder = "nav_bar_search_placeholder",
 
   series_label = "series_label",
+  exercises_title = "exercises_title",
+  exercises_subtitle = "exercises_subtitle",
   continue_reading = "continue_reading",
   post_prev = "post_prev",
   post_next = "post_next",
