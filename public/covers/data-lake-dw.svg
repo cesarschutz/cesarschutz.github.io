@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#01131b"/>
+      <stop offset="0.55" stop-color="#04283d"/>
+      <stop offset="1" stop-color="#01131b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a0e5" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#00a0e5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0 H0 V80" fill="none" stroke="#00a0e5" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="800" fill="url(#bg)"/>
+  <rect width="1600" height="800" fill="url(#grid)"/>
+  <ellipse cx="800" cy="420" rx="620" ry="330" fill="url(#glow)"/>
+
+  <!-- lago: forma orgânica com dados soltos -->
+  <g>
+    <path d="M180 460 C180 360 300 320 420 340 C540 300 640 360 640 440 C640 540 520 580 400 565 C280 590 180 550 180 460 Z"
+          fill="#032c42" stroke="#00a0e5" stroke-width="6"/>
+    <g font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.85">
+      <text x="260" y="420">json</text>
+      <text x="360" y="380">csv</text>
+      <text x="470" y="430">img</text>
+      <text x="300" y="500">logs</text>
+      <text x="430" y="510">parquet</text>
+    </g>
+  </g>
+  <text x="410" y="640" font-family="-apple-system, sans-serif" font-size="30" fill="#7fd4f5" opacity="0.8" text-anchor="middle">data lake · bruto</text>
+
+  <!-- seta ELT -->
+  <path d="M660 440 H900" stroke="#00a0e5" stroke-width="6" stroke-linecap="round"/>
+  <path d="M880 420 L920 440 L880 460 Z" fill="#00a0e5"/>
+  <text x="790" y="405" font-family="ui-monospace, monospace" font-size="26" fill="#7fd4f5" opacity="0.75" text-anchor="middle">ELT</text>
+
+  <!-- warehouse: prateleiras organizadas -->
+  <g>
+    <rect x="950" y="270" width="460" height="330" rx="20" fill="#032c42" stroke="#00a0e5" stroke-width="6"/>
+    <g stroke="#00a0e5" stroke-width="4" stroke-opacity="0.6">
+      <line x1="950" y1="380" x2="1410" y2="380"/>
+      <line x1="950" y1="490" x2="1410" y2="490"/>
+      <line x1="1180" y1="270" x2="1180" y2="600"/>
+    </g>
+    <g fill="#00577e" stroke="#7fd4f5" stroke-width="3">
+      <rect x="990" y="310" width="150" height="44" rx="8"/>
+      <rect x="1220" y="310" width="150" height="44" rx="8"/>
+      <rect x="990" y="420" width="150" height="44" rx="8"/>
+      <rect x="1220" y="420" width="150" height="44" rx="8"/>
+      <rect x="990" y="525" width="150" height="44" rx="8"/>
+      <rect x="1220" y="525" width="150" height="44" rx="8"/>
+    </g>
+  </g>
+  <text x="1180" y="655" font-family="-apple-system, sans-serif" font-size="30" fill="#7fd4f5" opacity="0.8" text-anchor="middle">data warehouse · estruturado</text>
+
+  <g fill="#7fd4f5" opacity="0.4">
+    <circle cx="240" cy="150" r="2.5"/><circle cx="900" cy="120" r="2"/>
+    <circle cx="1480" cy="680" r="2.5"/><circle cx="1520" cy="180" r="2"/>
+    <circle cx="140" cy="680" r="2.5"/><circle cx="700" cy="700" r="2"/>
+  </g>
+</svg>
