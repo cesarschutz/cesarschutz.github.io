@@ -181,7 +181,9 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
   }
 
   .cover {
-    @apply absolute left-0 top-0 z-0 block h-[var(--banner-height)] w-full overflow-hidden bg-white;
+    /* mesma altura responsiva do container .banner — com altura cheia fixa,
+       a capa vazava por baixo das ondas no mobile (faixa escura) */
+    @apply absolute left-0 top-0 z-0 block h-[calc(var(--banner-height)*3/4)] w-full overflow-hidden bg-white lg:h-[var(--banner-height)];
   }
 
   .cover::before {
@@ -202,7 +204,9 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
   }
 
   .title-index {
-    @apply mb-0 text-6xl leading-[5rem] lg:mb-1 lg:text-8xl;
+    /* menor no mobile: com text-6xl o bloco (papel + título + subtítulo)
+       estourava o banner de 3/4 de altura */
+    @apply mb-0 text-4xl leading-tight lg:mb-1 lg:text-8xl;
   }
 
   .title-normal {
@@ -210,7 +214,7 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
   }
 
   .subtitle {
-    @apply text-center text-xl text-[var(--subtitle-color)] lg:text-3xl;
+    @apply text-center text-base text-[var(--subtitle-color)] sm:text-xl lg:text-3xl;
     font-family: var(--subtitle-font);
     text-shadow:
       0 2px 12px rgba(0, 0, 0, 0.7),
@@ -227,7 +231,8 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
   }
 
   .hero-topics {
-    @apply mt-4 text-center text-sm text-[var(--subtitle-color)] lg:text-lg;
+    /* no banner baixo do mobile o bloco de texto estoura — só a partir de md */
+    @apply mt-4 hidden text-center text-sm text-[var(--subtitle-color)] md:block lg:text-lg;
     letter-spacing: 0.08em;
     font-family: var(--code-font);
     text-shadow:

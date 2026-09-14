@@ -1,370 +1,228 @@
 ---
 title: "Guia de atualizações do Java"
 published: 2025-07-14
-description: "Como funciona o ciclo de releases do Java, LTS vs não-LTS, distribuições e custos, matriz de compatibilidade e um processo de migração em 5 fases."
+description: "Documentação completa de migração: ciclo de releases, distribuições e custos, matriz de compatibilidade, processo em cinco fases, segurança, performance, containers e melhores práticas — com cada ferramenta e configuração explicada."
 tags: [Java, Migração]
 category: Java
 cover: /covers/guia-java.svg
 draft: false
 ---
 
-> **🎯 Guia definitivo** para entender, planejar e executar atualizações Java com segurança e eficiência.
+Este guia reúne o que é preciso saber para **planejar e executar uma atualização de versão do Java**: como o ciclo de releases funciona, qual distribuição de JDK adotar, quanto custa, quando vale migrar e um processo em cinco fases com as ferramentas explicadas passo a passo. Ele acompanha a [série de posts versão a versão](/tags/Java) — aqui fica o *como migrar*; lá, o *o que mudou* em cada release.
 
----
+## Como funciona o ciclo de releases
 
-## 📑 Índice
+Desde 2017 (Java 9), a plataforma abandonou os lançamentos irregulares — que chegaram a levar cinco anos entre versões — e adotou um **ciclo fixo de seis meses**:
 
-### 🎯 **Fundamentos**
-1. [🚀 Como Funcionam as Atualizações](#-como-funcionam-as-atualizações-java)
-2. [📅 Cronograma e Tipos de Versão](#-cronograma-e-tipos-de-versão)
-3. [🔄 Timeline de Lançamentos](#-timeline-de-lançamentos)
+- Uma versão nova em **março** e outra em **setembro**, sempre na **terceira terça-feira** do mês.
+- O trem não atrasa: funcionalidade pronta entra; funcionalidade atrasada espera o próximo release. É por isso que algumas versões parecem "pequenas" — o valor está na previsibilidade.
+- Funcionalidades chegam primeiro como **preview** ou **incubating** (é preciso ativá-las com flag, e podem mudar entre versões) e só depois se tornam finais.
 
-### 💰 **Suporte e Fornecedores**
-4. [💼 Modelos de Suporte LTS](#-modelos-de-suporte-lts)
-5. [🏢 Fornecedores e Distribuições](#-fornecedores-e-distribuições)
-6. [💲 Custos e Licenças](#-custos-e-licenças)
+O modelo trouxe quatro benefícios concretos: **inovação contínua** em vez de anos de estagnação, **correções regulares** de segurança em datas conhecidas (os *Critical Patch Updates* trimestrais), **planejamento facilitado** — a empresa sabe hoje quando sai cada versão dos próximos anos — e **feedback rápido** da comunidade sobre features em preview antes de elas virarem definitivas.
 
-### 🔧 **Migração**
-7. [🔄 Estratégias de Migração](#-estratégias-de-migração)
-8. [📊 Matrix de Compatibilidade](#-matrix-de-compatibilidade)
-9. [🛠️ Processo de Migração em 5 Fases](#processo-de-migração-em-5-fases)
-10. [⚡ Ferramentas de Migração](#-ferramentas-de-migração)
+### LTS e feature releases
 
-### 🚀 **Aspectos Avançados**
-11. [🔒 Segurança](#-aspectos-de-segurança)
-12. [📈 Performance](#-impactos-na-performance)
-13. [🐳 DevOps e Containers](#-devops-e-containers)
-14. [🔮 Projetos Futuros](#-projetos-futuros-do-java)
+Nem toda versão recebe atualizações por muito tempo. A distinção que importa para produção:
 
-### 📈 **Recursos**
-15. [🔗 Recursos Essenciais](#-recursos-essenciais)
-16. [❓ Perguntas Frequentes](#-perguntas-frequentes)
-17. [📖 Glossário](#-glossário)
-18. [🏆 Melhores Práticas](#-melhores-práticas)
+| | LTS (Long-Term Support) | Feature release |
+|---|---|---|
+| **Exemplos** | 8, 11, 17, 21, 25 | 22, 23, 24, 26 |
+| **Frequência** | a cada 2 anos (desde o 17; antes era irregular) | a cada 6 meses |
+| **Recebe updates por** | anos (varia por fornecedor) | apenas até a versão seguinte |
+| **Uso recomendado** | produção | desenvolvimento, experimentação, quem consegue atualizar a cada 6 meses |
 
----
+Por que a LTS é a primeira escolha para produção: **estabilidade** (a base recebe só correções, não features novas), **suporte garantido** (patches de segurança por anos), **planejamento previsível** (o ciclo de upgrade da empresa pode seguir o ciclo das LTS) e **ecossistema maduro** (bibliotecas, agentes e ferramentas priorizam testar contra as LTS).
 
-## 🚀 Como Funcionam as Atualizações Java
+### Modelos de suporte
 
-### 📖 **Contexto: Ciclo de 6 Meses**
+Um detalhe que costuma confundir: **"LTS" é uma promessa do fornecedor do JDK, não do projeto OpenJDK**. O projeto OpenJDK mantém oficialmente só a versão mais recente; são fornecedores (Oracle, Eclipse Adoptium, Amazon, Azul, Red Hat…) que continuam portando correções para as LTS antigas — cada um com seu prazo. Na prática existem dois modelos:
 
-Desde 2017, Java adotou um **ciclo previsível** de lançamentos:
-- **📅 Março**: Versões com numeração ímpar (21, 23, 25...)
-- **📅 Setembro**: Versões com numeração par (22, 24, 26...)
-- **⏰ Data fixa**: Terceira quinta-feira do mês
-- **🚀 Sem adiamentos**: Features prontas entram, outras ficam para próxima versão
+- **Suporte gratuito (builds OpenJDK)** — atualizações trimestrais de segurança e correções críticas publicadas pelo fornecedor da distribuição, pelo prazo que ele definir (tipicamente 4 anos ou mais para LTS). Sem SLA: se você encontrar um bug, abre issue e espera como todo mundo.
+- **Suporte comercial (pago)** — além dos patches por 8+ anos, inclui **suporte técnico 24/7 com SLA**, patches de segurança prioritários (antes da publicação geral, em alguns contratos), **hotfixes sob demanda** para bugs que só afetam você, e consultoria de migração. Faz sentido para aplicações críticas onde "esperar o próximo patch trimestral" não é aceitável.
 
-### 🎯 **Benefícios do Novo Modelo**
-- ⚡ **Inovação contínua** vs longos períodos de estagnação
-- 🛡️ **Correções regulares** de segurança e bugs
-- 📊 **Planejamento facilitado** para empresas
-- 🧪 **Feedback rápido** da comunidade
+## Linha do tempo
 
----
-
-## 📅 Cronograma e Tipos de Versão
-
-### 🔥 **LTS (Long Term Support)**
-
-#### ❓ **O que é LTS?**
-Versões especiais com **suporte estendido por anos**, recomendadas para **produção empresarial**.
-
-#### 📊 **Características**
-- **Frequência**: A cada **3 anos** (Java 8→11→17→21→25...)
-- **Suporte gratuito**: **3 anos** no OpenJDK
-- **Suporte comercial**: **8+ anos** com fornecedores pagos
-- **Qualidade**: Testadas extensivamente pela comunidade
-- **Recomendação**: **Primeira escolha para produção**
-
-#### 🛡️ **Por que usar LTS?**
-- **Estabilidade**: Mudanças menores e bem testadas
-- **Suporte**: Correções de segurança garantidas
-- **Planejamento**: Ciclo de upgrade previsível
-- **Ecossistema**: Bibliotecas e ferramentas maduras
-
-### 📦 **Feature Releases**
-
-#### ❓ **O que são?**
-Versões com **inovações rápidas** e features experimentais.
-
-#### 📊 **Características**
-- **Frequência**: **6 meses**
-- **Suporte**: Apenas até a **próxima versão**
-- **Features**: Preview e incubating
-- **Recomendação**: **Desenvolvimento e experimentação**
-
----
-
-## 🔄 Timeline de Lançamentos
-
-### 📈 **História Simplificada**
-
-#### 🕰️ **Era Clássica (1995-2017)**
 ```
-1995 ──► Java 1.0
-2004 ──► Java 5 (Generics)
-2006 ──► Java 6
-2011 ──► Java 7
-2014 ──► Java 8 LTS (Lambdas/Streams)
+Era clássica (lançamentos irregulares)
+1995  Java 1.0
+2004  Java 5    — generics, annotations
+2014  Java 8    — lambdas e Streams (a versão que "não morre")
+
+Era moderna (ciclo de 6 meses)
+2017  Java 9    — sistema de módulos (JPMS)
+2018  Java 11   — LTS; primeira LTS do novo ciclo
+2021  Java 17   — LTS; sealed classes, records consolidados
+2023  Java 21   — LTS; virtual threads
+2025  Java 25   — LTS; compact object headers, cache AOT
+2026  Java 26   — módulos com import simplificado, HTTP/3
 ```
 
-#### 🚀 **Era Moderna (2017-presente)**
-```
-2017 ──► Java 9 (Módulos)
-2018 ──► Java 10 (var) | Java 11 LTS
-2021 ──► Java 17 LTS (Sealed classes)
-2023 ──► Java 21 LTS (Virtual Threads)
-2025 ──► Java 24 (Mar) | Java 25 LTS (Set)
-```
+### Roadmap
 
-### 🔮 **Roadmap Futuro**
+O calendário das próximas versões já é conhecido (é a vantagem do trem de 6 meses); o conteúdo de cada uma é especulação informada a partir dos projetos em andamento:
+
 ```
-📅 2025 ──► Java 24 (Mar) - **Lançado!** ✅
-📅 2025 ──► Java 25 LTS (Set) - **Próxima LTS**
-📅 2026 ──► Java 26 (Mar) - Project Leyden Features?
-📅 2026 ──► Java 27 (Set) - Project Lilliput?
-📅 2027 ──► Java 28 (Mar) - Project Valhalla Preview?
-📅 2028 ──► Java 29 LTS (Set) - **LTS seguinte**
+2026  Java 27        — set/2026; candidatos: mais Leyden (AOT), Valhalla em preview?
+2027  Java 28 e 29   — LTS seguinte é o 29 (set/2027)
 ```
 
-#### 🚀 **Principais Marcos Esperados**
-- **Java 25 LTS (Set/2025)**: Consolidação de features como Scoped Values, Structured Concurrency
-- **Java 26-27 (2026)**: AOT compilation (Project Leyden), Compact Headers (Project Lilliput)
-- **Java 28+ (2027-2028)**: Value Types (Project Valhalla), Universal Generics
+Os marcos esperados dos grandes projetos: consolidação do **cache AOT** (Project Leyden) para startup rápido, **compact headers como padrão** (Project Lilliput), e as primeiras previews de **value types** (Project Valhalla) — detalhes na seção [Projetos futuros](#projetos-futuros-do-java).
 
----
+Os saltos que a maioria das equipes enfrenta na prática são entre LTS: **8 → 11 → 17 → 21 → 25**. A dificuldade de cada um está na [matriz de compatibilidade](#matriz-de-compatibilidade).
 
-## 💼 Modelos de Suporte LTS
+## Distribuições de JDK
 
-### 🆓 **Suporte Gratuito (OpenJDK)**
-- **Duração**: 3 anos para LTS, 6 meses para feature releases
-- **Inclui**: Correções de segurança e bugs críticos
-- **Fornecido por**: Comunidade OpenJDK
-- **Limitações**: Sem SLA, suporte limitado
+Todas as distribuições modernas são construídas a partir do **mesmo código-fonte OpenJDK** e passam pelo mesmo teste de compatibilidade (TCK). A diferença está em empacotamento, prazo de suporte e licença — não em funcionalidade.
 
-### 💼 **Suporte Comercial (Pago)**
-- **Duração**: 8+ anos
-- **Inclui**: 
-  - ✅ Suporte técnico 24/7
-  - ✅ SLA garantido
-  - ✅ Patches de segurança prioritários
-  - ✅ Hotfixes personalizados
-  - ✅ Consultoria de migração
-- **Ideal para**: Aplicações críticas, grandes empresas
+### Gratuitas
 
----
+- **[Eclipse Temurin](https://adoptium.net/)** (Eclipse Foundation, ex-AdoptOpenJDK) — a escolha padrão da comunidade: binários para todas as plataformas, imagens Docker oficiais, atualizações pontuais das LTS por ~4 anos. Se não houver um motivo específico para outra, use esta.
+- **[Amazon Corretto](https://aws.amazon.com/corretto/)** — a distribuição que a Amazon usa internamente, com prazos de suporte **mais longos que a média** (inclusive para o Java 8, que a Amazon se comprometeu a manter por anos além dos outros). Natural para quem roda na AWS, funciona em qualquer lugar.
+- **[Azul Zulu](https://www.azul.com/downloads/)** — builds gratuitos com opção de suporte comercial; útil quando se precisa de combinações incomuns de plataforma/versão ou de builds com JavaFX.
 
-## 🏢 Fornecedores e Distribuições
+### Comerciais
 
-### 🆓 **Opções Gratuitas (Recomendadas)**
+- **Oracle Java SE Subscription** — suporte oficial da Oracle com SLA, o mais caro do mercado. Ideal para corporações que exigem contrato direto com o fornecedor da plataforma.
+- **Red Hat build of OpenJDK** — incluído na assinatura RHEL, sem custo adicional para quem já é cliente; integrado ao ecossistema Red Hat (OpenShift, suporte unificado).
+- **IBM Semeru** — usa a JVM **OpenJ9** em vez da HotSpot: footprint de memória menor e startup mais rápido em muitos cenários, mas comportamento de tuning diferente (flags de GC próprias, características de JIT distintas). Vale avaliar caso memória seja o gargalo — sempre com testes próprios, porque benchmarks de terceiros raramente refletem a sua carga.
 
-#### ⭐ **Eclipse Temurin** (ex-AdoptOpenJDK)
-- **Desenvolvido por**: Eclipse Foundation
-- **Recomendação**: **Melhor opção gratuita geral**
-- **Características**: Binários oficiais, testes rigorosos, multi-plataforma
-- **Suporte LTS**: 4 anos
-- **Ideal para**: Desenvolvimento, pequenas empresas
-
-#### 🛡️ **Amazon Corretto**
-- **Desenvolvido por**: Amazon Web Services
-- **Recomendação**: **Melhor opção para produção gratuita**
-- **Características**: Otimizado para nuvem, patches rápidos
-- **Suporte LTS**: 8+ anos (Java 8→2026, 11→2027, 17→2029, 21→2031)
-- **Ideal para**: Aplicações em produção, nuvem
-
-### 💼 **Opções Comerciais**
-
-#### 🏛️ **Oracle Java SE Subscription**
-- **Preço**: \$\$\$\$ (mais caro)
-- **Características**: Suporte oficial Oracle, ferramentas premium
-- **Ideal para**: Grandes corporações com necessidade de suporte premium
-
-#### 🎩 **Red Hat OpenJDK Support**
-- **Preço**: \$\$ (incluso no RHEL)
-- **Características**: Integrado ao ecossistema Red Hat
-- **Ideal para**: Ambientes Linux empresariais
-
-#### 🔵 **IBM Semeru Runtime**
-- **Preço**: \$\$\$ 
-- **Características**: JVM otimizada (OpenJ9), menor uso de memória
-- **Ideal para**: Alta performance, ambientes IBM
-
-### 🤔 **Qual Escolher?**
+### Qual escolher
 
 | Cenário | Recomendação | Motivo |
-|---------|--------------|---------|
-| **Desenvolvimento** | Eclipse Temurin | Gratuito, confiável |
-| **Startup** | Amazon Corretto | Gratuito + suporte estendido |
-| **Empresa Média** | Amazon Corretto + consultoria externa | Custo-benefício |
-| **Grande Empresa** | Suporte comercial | SLA, compliance, responsabilidade |
+|---|---|---|
+| Desenvolvimento e CI | Eclipse Temurin | gratuito, onipresente, imagens Docker oficiais |
+| Startup / produção sem contrato | Temurin ou Corretto | gratuitos com atualizações de LTS por anos |
+| Java 8 que ainda vai viver anos | Amazon Corretto | prazo de updates mais longo para o 8 |
+| Empresa média | Corretto + consultoria pontual | custo-benefício: paga-se ajuda quando precisa |
+| Grande empresa / regulado | Oracle, Red Hat ou Azul com contrato | SLA, compliance, responsabilidade contratual |
 
----
+## Custos e licenças
 
-## 💲 Custos e Licenças
+A pergunta "Java é pago?" tem resposta curta (não) e uma história longa que ainda gera auditoria e susto. O que importa saber:
 
-### 🆓 **OpenJDK (Gratuito)**
-- **Licença**: GPL com Classpath Exception
-- **Uso**: Gratuito para qualquer propósito
-- **Suporte**: Comunidade
+- **OpenJDK é gratuito para qualquer uso**, inclusive produção comercial. A licença é **GPLv2 com Classpath Exception** — o "Classpath Exception" é o detalhe que importa: ele garante que rodar a sua aplicação sobre o JDK **não** obriga a abrir o código dela (sem ele, a GPL "contaminaria" a aplicação).
+- **Oracle JDK 8 e 11** estão sob a licença **OTN**: gratuitos para desenvolvimento e teste, mas **uso comercial em produção exige assinatura paga** desde 2019. Foi essa mudança que gerou a onda de auditorias da Oracle — e a migração em massa para distribuições OpenJDK.
+- **Oracle JDK 17 em diante** usa a licença **NFTC**: gratuito inclusive em produção, **mas só até um ano após o lançamento da LTS seguinte** — depois disso, os updates daquela versão voltam a exigir assinatura. É um "gratuito com prazo de validade": quem não presta atenção fica preso entre pagar e rodar sem patches.
+- A assinatura da Oracle é cobrada **por funcionário** (modelo introduzido em 2023 — conta-se o quadro inteiro da empresa, não só quem usa Java), o que tornou o custo imprevisível para empresas grandes. Antes era por processador ou usuário nomeado.
 
-### 💼 **Oracle JDK (Comercial)**
-- **Licença**: Oracle Technology Network License
-- **Uso**: **REQUER LICENÇA PAGA** para produção
-- **Custo**: Por processador ou usuário nomeado
-- **Recomendação**: Use OpenJDK para evitar custos
+### Cenários típicos de custo
 
-### 📊 **Análise de Custos Típicos**
+| Perfil | Cenário | Custo de licença | Solução usual |
+|---|---|---|---|
+| Startup | poucos serviços, time pequeno | zero | Temurin ou Corretto |
+| Empresa média | dezenas de servidores | zero + consultoria pontual quando precisa | Corretto/Temurin + especialista contratado por projeto |
+| Corporação | centenas de cores, compliance | contrato de suporte comercial (negociado por core/funcionário/ano) | Oracle, Azul ou Red Hat com SLA |
 
-| Empresa | Cenário | Custo Anual | Solução |
-|---------|---------|-------------|---------|
-| **Startup** | 5 desenvolvedores | \$0 | Temurin/Corretto |
-| **PME** | 20 servidores | \$0-\$50k | Corretto + consultoria |
-| **Corporação** | 200 cores | \$100k-\$500k | Suporte comercial |
+A conclusão prática: **o custo de licença é evitável em praticamente todos os cenários** usando distribuições OpenJDK; o que se compra com dinheiro é SLA e responsabilidade contratual, não funcionalidade.
 
----
+## Quando migrar: estratégias
 
-## 🔄 Estratégias de Migração
+A pergunta certa não é "qual a versão mais nova?", e sim **"qual o custo de ficar para trás?"**: versões sem updates deixam de receber correção de segurança, as bibliotecas param de testar contra elas e a dívida cresce a cada release perdido — migrar de 8 para 21 dói muito mais do que quatro migrações pequenas teriam doído.
 
-### 🏢 **Por Tipo de Empresa**
+### Por perfil de empresa
 
-#### **Conservador (Grandes Empresas)**
-- **Versão atual**: Java 21 LTS
-- **Cronograma**: LTS → LTS a cada 3-6 anos
-- **Processo**: 6-12 meses de testes antes de produção
-- **Foco**: Estabilidade > Inovação
+- **Conservador** (grandes empresas, sistemas regulados) — produção sempre em LTS; migra quando a LTS seguinte já está madura, com **6 a 12 meses de validação** antes de produção. Prioriza estabilidade sobre inovação. Salto típico: LTS → LTS a cada 2–4 anos.
+- **Balanceado** (a maioria das empresas) — produção em LTS, adotando a nova LTS **3 a 6 meses** após o lançamento (tempo de o ecossistema — Spring, agentes de observabilidade, buildpacks — se alinhar); desenvolvimento experimenta as feature releases para conhecer o que vem aí.
+- **Ágil** (startups, times de produto com CI forte) — acompanha cada release de 6 meses, aceitando o custo de atualizar dependências com frequência. Exige testes automatizados confiáveis; o ganho é **nunca enfrentar uma migração grande** e usar features novas um ano antes dos concorrentes.
 
-#### **Balanceado (Empresas Médias)**
-- **Versão atual**: Java 21 LTS + testes Java 24/25
-- **Cronograma**: Adoção LTS em 3-6 meses
-- **Processo**: Produção em LTS, desenvolvimento em feature releases
-- **Foco**: Estabilidade + Inovação controlada
+### Por criticidade da aplicação
 
-#### **Ágil (Startups/Tech)**
-- **Versão atual**: Java 24/25 (mais recente estável)
-- **Cronograma**: Adoção rápida
-- **Processo**: Testes automatizados, deploy contínuo
-- **Foco**: Inovação > Estabilidade
+| Tipo | Exemplo | Versão recomendada | Estratégia |
+|---|---|---|---|
+| Crítica | core bancário, sistemas de saúde | LTS madura (21 ou 25 já validada) | conservadora: valida por meses, migra com janela e rollback ensaiado |
+| Importante | e-commerce, backoffice | LTS atual | balanceada: migra no ritmo do ecossistema |
+| Experimental | MVP, protótipo, ferramenta interna | versão mais recente | ágil: o custo de quebrar é baixo e o aprendizado é valioso |
 
-### 📊 **Por Criticidade da Aplicação**
+O mesmo portfólio pode (e deve) misturar estratégias: não faz sentido segurar um protótipo no Java 17 "por padrão corporativo", nem arrastar o core de pagamentos para cada release de 6 meses.
 
-| Tipo | Exemplo | Versão Recomendada | Estratégia |
-|------|---------|-------------------|------------|
-| **Crítica** | Banco, Hospital | Java 21 LTS | Conservador |
-| **Importante** | E-commerce | Java 21 LTS | Balanceado |
-| **Experimental** | MVP, Prototype | Java 24+ | Ágil |
+## Matriz de compatibilidade
 
----
+### Dificuldade e tempo por salto
 
-## 📊 Matrix de Compatibilidade
+Os tempos são ordens de grandeza para um projeto médio com uma equipe dedicada — o multiplicador real é a quantidade de dependências desatualizadas:
 
-### 🔄 **Facilidade de Migração**
+| De → para | Dificuldade | Tempo típico | Observações |
+|---|---|---|---|
+| **8 → 11** | Média/Alta | 2–6 meses | o salto da era clássica para a moderna: módulos, remoção do Java EE do JDK, mudanças de classloader |
+| **8 → 17** | Alta | 4–12 meses | tudo do 8→11 mais o encapsulamento forte dos internals; compensa fazer direto em vez de parar no 11 |
+| **8 → 21** | Muito alta | 6–18 meses | mudanças acumuladas de 9 anos de plataforma; exige inventário e planejamento formal |
+| **11 → 17** | Baixa/Média | 1–3 meses | poucas quebras de linguagem; o esforço é encapsulamento (`--illegal-access` deixa de funcionar) e bibliotecas |
+| **17 → 21** | Baixa | 1–2 meses | muito compatível; o trabalho típico é atualizar frameworks para aproveitar virtual threads |
+| **21 → 25** | Baixa | semanas | continuidade; atenção a agentes que usam `Unsafe` (em depreciação) e ao Security Manager (desativado no 24) |
 
-| De → Para | Dificuldade | Tempo Típico | Observações |
-|-----------|-------------|--------------|-------------|
-| **Java 8 → 11** | 🟡 Média | 2-6 meses | Módulos opcionais, algumas APIs removidas |
-| **Java 8 → 17** | 🔴 Alta | 4-12 meses | Mudanças acumuladas, módulos recomendados |
-| **Java 8 → 21** | 🔴 Muito Alta | 6-18 meses | Muitas mudanças, planejamento extenso |
-| **Java 11 → 17** | 🟢 Baixa | 1-3 meses | Compatível, poucas quebras |
-| **Java 17 → 21** | 🟢 Baixa | 1-2 meses | Muito compatível |
-| **Java 21 → 24/25** | 🟢 Muito Baixa | Semanas | Altamente compatível |
+### Pontos de atenção por salto
 
-### ⚠️ **Principais Pontos de Atenção**
+**Java 8 → 11+** — os três impactos estruturais:
 
-#### **Java 8 → 11+**
-- Módulos do Java 9
-- Remoção de Java EE
-- Mudanças no classpath
+- **Sistema de módulos (JPMS)**: você não precisa modularizar a sua aplicação (o classpath continua funcionando), mas o *JDK* foi modularizado — e isso encapsulou APIs internas que bibliotecas antigas usavam livremente.
+- **Remoção do Java EE do JDK**: `javax.xml.bind` (JAXB), `javax.annotation`, JAX-WS, CORBA e afins saíram da plataforma. A correção é adicionar as dependências explicitamente (hoje sob o namespace `jakarta.*`).
+- **Versionamento novo**: código que interpretava `java.version` esperando `1.8.x` quebra com `11.x` — um bug bobo e comum em builds antigos.
 
-#### **Java 11 → 17**
-- Deprecações finalizadas
-- Mudanças no Security Manager
+**Java 11 → 17**:
 
-#### **Java 17 → 21**
-- Preparação para Virtual Threads
-- Pattern Matching evoluído
+- **Encapsulamento forte por padrão** (JEP 396/403): o acesso reflexivo a internals do JDK, que no 11 gerava warning, passa a falhar. A flag `--illegal-access=permit` deixa de existir; casos legítimos precisam de `--add-opens` explícito — e a solução de verdade é atualizar a biblioteca que fazia isso.
+- **Depreciações concluídas**: Nashorn (JS engine) removido, Applets e Security Manager deprecados.
 
----
+**Java 17 → 21**:
 
-## 🛠️ Processo de Migração em 5 Fases
+- Quase nada quebra; o tema é **preparar-se para virtual threads** — revisar usos de `ThreadLocal` (cada virtual thread tem o seu, e milhões deles custam memória) e de `synchronized` em código de I/O (causava *pinning* até o Java 23; resolvido no 24 pelo JEP 491).
 
-### **Fase 1: Análise (20% do tempo)**
+**Java 21 → 25**:
+
+- **Security Manager desativado permanentemente** (JEP 486, Java 24): configurações com `-Djava.security.manager` impedem a JVM de subir.
+- **`sun.misc.Unsafe` em depreciação ativa** (JEP 471/498): usos passam a gerar warnings em runtime — a fonte quase sempre é uma biblioteca antiga, não seu código.
+- **JARs assinados com algoritmos fracos** (SHA-1) deixam de ser verificados.
+
+Regra empírica que se repete em todos os saltos: **quem quebra quase nunca é o seu código — são as dependências**. Bibliotecas que manipulam bytecode (ASM, ByteBuddy, cglib), agentes de APM e frameworks de injeção são os primeiros lugares para olhar.
+
+## O processo de migração em cinco fases
+
+O processo abaixo funciona para qualquer salto; o percentual indica onde o tempo realmente vai — repare que **só 30% é a migração em si**: análise e preparação bem feitas são o que impede a fase 3 de virar um pântano.
+
+### Fase 1 — Análise (≈20% do tempo)
+
+O objetivo é sair desta fase com uma **lista concreta de impedimentos**, não com uma sensação. As ferramentas estão detalhadas na seção [Ferramentas de migração](#ferramentas-de-migração); o fluxo é:
+
+1. Rodar `jdeps --jdk-internals` nos JARs da aplicação **e das dependências** — lista quem usa APIs internas do JDK que deixarão de funcionar.
+2. Rodar `jdeprscan --for-removal` — lista usos de APIs cuja remoção já está anunciada.
+3. Levantar o inventário de dependências e verificar, no changelog de cada biblioteca central (framework web, driver de banco, agente de APM), qual versão dela suporta o Java de destino:
+
 ```bash
-# Verificar dependências
-jdeps --jdk-internals myapp.jar
-
-# Analisar código
+# árvore completa de dependências com as versões resolvidas
 ./gradlew dependencies --configuration runtimeClasspath
 ```
 
-### **Fase 2: Preparação (25% do tempo)**
-- Atualizar dependências
-- Resolver warnings de deprecação
-- Configurar ambiente de teste
+O resultado da fase é o **backlog da migração**: quais bibliotecas atualizar, quais trechos de código tocar, e uma estimativa honesta de esforço.
 
-### **Fase 3: Migração (30% do tempo)**
-- Atualizar versão Java
-- Ajustar build scripts
-- Resolver incompatibilidades
+### Fase 2 — Preparação (≈25% do tempo)
 
-### **Fase 4: Testes (20% do tempo)**
-- Testes unitários e integração
-- Testes de performance
-- Validação de segurança
+A preparação acontece **ainda na versão antiga do Java** — essa é a ideia central da fase: reduzir o risco antes de trocar qualquer coisa.
 
-### **Fase 5: Deploy (5% do tempo)**
-- Deploy gradual
-- Monitoramento
-- Rollback se necessário
+1. **Atualize as dependências** para as versões que suportam o Java de destino, **uma de cada vez**, rodando a suíte de testes a cada atualização. Atualizar biblioteca junto com JVM mistura duas variáveis e torna qualquer regressão difícil de atribuir.
+2. **Zere os warnings de depreciação** apontados na análise. Ative o aviso no compilador para que novos usos não passem despercebidos:
 
-### 📊 **Estimativas de Tempo**
-
-| Tamanho do Projeto | Migração Simples | Migração Complexa |
-|-------------------|------------------|-------------------|
-| **Pequeno** | 1-4 semanas | 2-8 semanas |
-| **Médio** | 1-3 meses | 3-6 meses |
-| **Grande** | 3-6 meses | 6-18 meses |
-
----
-
-## ⚡ Ferramentas de Migração
-
-### 🔍 **Análise de Código**
-
-#### **jdeps - Analisador de Dependências**
-```bash
-# Verificar dependências internas do JDK
-jdeps --jdk-internals myapp.jar
-
-# Analisar modularidade
-jdeps --generate-module-info . myapp.jar
-
-# Verificar dependências entre JAR files
-jdeps --module-path libs/ --multi-release 21 myapp.jar
+```groovy title="build.gradle"
+tasks.withType(JavaCompile) {
+    // -Xlint:deprecation faz o javac avisar cada uso de API deprecada
+    options.compilerArgs += ["-Xlint:deprecation"]
+}
 ```
 
-#### **jdeprscan - Detector de APIs Depreciadas**
-```bash
-# Verificar APIs depreciadas
-jdeprscan --for-removal myapp.jar
+3. **Monte o ambiente de teste na versão nova** (container, agente de CI ou VM) antes de migrar o projeto — a Fase 4 depende dele.
+4. **Estabeleça a linha de base de performance**: colete métricas atuais (latência, throughput, uso de memória, startup) para ter com o que comparar depois. Sem baseline, "ficou mais lento?" vira opinião.
 
-# Verificar em diretório de classes
-jdeprscan --class-path libs/* build/classes/
-```
+### Fase 3 — Migração (≈30% do tempo)
 
-### 🛠️ **IDEs e Ferramentas**
+Com o terreno preparado, a troca em si tende a ser pequena: atualizar a versão nos builds, resolver o que sobrar e ajustar flags de JVM. Dois pontos de configuração merecem explicação.
 
-#### **Eclipse Migration Toolkit**
-- **IntelliJ IDEA**: Inspections para Java 21+
-- **Eclipse IDE**: Quick fixes para incompatibilidades
-- **VS Code**: Extensions para análise de código
+**Compile com `--release`, não com `source`/`target`.** A diferença é sutil e importante: `source`/`target` só definem a sintaxe e o formato do bytecode, mas deixam o código compilar contra a API do JDK instalado — o build passa e a aplicação quebra em runtime numa JVM mais antiga. `--release` valida **sintaxe e API** contra a versão alvo:
 
-#### **Build Tools**
-```xml
-<!-- Maven - Verificar compatibilidade -->
+```xml title="pom.xml"
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
     <configuration>
+        <!-- valida código E chamadas de API contra o Java 21 -->
         <release>21</release>
         <compilerArgs>
             <arg>-Xlint:deprecation</arg>
@@ -373,110 +231,195 @@ jdeprscan --class-path libs/* build/classes/
 </plugin>
 ```
 
+**Use toolchain no Gradle.** A toolchain desacopla o JDK que roda o Gradle do JDK que compila o projeto: o Gradle localiza (ou baixa) o JDK pedido, e o build para de depender do `JAVA_HOME` da máquina de cada pessoa:
+
 ```groovy title="build.gradle"
-// Gradle - Configuração para Java 21
 java {
     toolchain {
+        // o build usa Java 21 mesmo que o Gradle rode em outro JDK
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+```
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs += ["-Xlint:deprecation"]
+Os erros restantes nesta fase costumam ser pontuais: um agente desatualizado, uma flag de JVM que mudou de nome (as de GC mudam entre versões — valide com `java -XX:+PrintFlagsFinal -version | grep <flag>`), ou um `--add-opens` temporário para uma biblioteca atrasada.
+
+### Fase 4 — Testes (≈20% do tempo)
+
+Quatro camadas, da mais barata para a mais cara:
+
+1. **Suíte completa na versão nova** — unitários e integração.
+2. **Testes nas duas versões em paralelo** durante a transição (matriz de CI — configuração explicada em [DevOps e containers](#devops-e-containers)): protege a branch principal enquanto nem todo ambiente migrou.
+3. **Testes de carga comparando com a baseline** da Fase 2 — mesmos cenários, mesma infraestrutura, só a JVM muda.
+4. **Validação de segurança** — scan de dependências e revisão das configurações de TLS (seção [Segurança](#segurança)).
+
+Para código que só compila ou só faz sentido em versões novas, o JUnit 5 condiciona o teste ao runtime, sem quebrar o build antigo:
+
+```java
+@Test
+@EnabledOnJre(JRE.JAVA_21) // ignorado silenciosamente em JVMs mais antigas
+void virtualThreadsExecutamTarefas() {
+    try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+        // ...
+    }
+}
+
+@Test
+@DisabledOnJre({ JRE.JAVA_8, JRE.JAVA_11 }) // roda só do 17 em diante
+void textBlocksFormatamRelatorio() {
+    var texto = """
+        relatório
+        em múltiplas linhas
+        """;
+    assertThat(texto).contains("relatório");
 }
 ```
 
-### 🔬 **Testes de Compatibilidade**
+`@EnabledOnJre`/`@DisabledOnJre` leem a versão da JVM que está executando o teste — é o que permite a mesma suíte rodar na matriz de versões do CI sem `if` manual.
 
-#### **Ambiente de Teste**
+### Fase 5 — Deploy (≈5% do tempo)
+
+- **Deploy gradual**: uma instância (ou um percentual do tráfego) na versão nova, o resto na antiga. Trocar a versão da JVM é uma mudança de infraestrutura — merece o mesmo cuidado de um canary de código.
+- **Critérios de rollback definidos antes** do deploy, não durante o incidente. Exemplos objetivos: latência p99 acima de X% da baseline, taxa de erro acima de Y, pausas de GC anômalas.
+- **Janela de observação de dias, não minutos**: problemas de GC e de memória aparecem com carga acumulada, não no primeiro request.
+
+### Estimativas de tempo
+
+Ordens de grandeza (o intervalo depende de quantas dependências estão desatualizadas e de quanto código toca APIs internas):
+
+| Tamanho do projeto | Migração simples (ex.: 17→21) | Migração complexa (ex.: 8→17+) |
+|---|---|---|
+| Pequeno (1 serviço, poucas libs) | 1–4 semanas | 2–8 semanas |
+| Médio (alguns serviços) | 1–3 meses | 3–6 meses |
+| Grande (dezenas de serviços, monolito legado) | 3–6 meses | 6–18 meses |
+
+## Ferramentas de migração
+
+### Análise de código
+
+**`jdeps`** — analisador de dependências do próprio JDK. Lê o bytecode e responde "do que este JAR depende?". Os três usos que importam na migração:
+
 ```bash
-# Script de teste multi-versão
+# 1. Detectar uso de APIs internas do JDK (o uso mais importante):
+#    lista cada classe que toca um interno (sun.misc.Unsafe etc.)
+#    e sugere a API pública substituta
+jdeps --jdk-internals meu-app.jar
+
+# 2. Gerar um module-info.java sugerido, caso você queira
+#    modularizar a aplicação (opcional — classpath segue válido)
+jdeps --generate-module-info ./saida meu-app.jar
+
+# 3. Analisar considerando as dependências e JARs multi-release
+#    (JARs que embutem código específico por versão de Java)
+jdeps --module-path libs/ --multi-release 21 meu-app.jar
+```
+
+Se a saída do primeiro comando vier vazia, o risco de "API interna" não existe no projeto — rode também contra os JARs das dependências, que é onde os problemas costumam estar.
+
+**`jdeprscan`** — scanner de APIs `@Deprecated`, também embutido no JDK. A distinção entre os dois modos importa:
+
+```bash
+# só o que já tem REMOÇÃO anunciada (forRemoval=true):
+# isso vai quebrar de verdade — prioridade máxima
+jdeprscan --for-removal meu-app.jar
+
+# tudo que está deprecado (inclusive sem previsão de remoção),
+# varrendo um diretório de classes compiladas
+jdeprscan --class-path libs/* build/classes/
+```
+
+**[Java Almanac](https://javaalmanac.io/)** — compara qualquer par de versões: APIs adicionadas e removidas, flags, datas. É a melhor ferramenta para **dimensionar** um salto antes de começar.
+
+### IDEs
+
+As três grandes IDEs ajudam mais do que se costuma aproveitar:
+
+- **IntelliJ IDEA** — as *inspections* têm perfis por versão de Java: apontam API deprecada, sugerem sintaxe nova (switch expressions, records) e o *Problems view* consolida tudo. `Code → Analyze Code` no projeto inteiro gera o relatório da Fase 1.
+- **Eclipse IDE** — *quick fixes* para incompatibilidades e o compilador próprio (ECJ) que valida contra a versão alvo.
+- **VS Code** — o Extension Pack for Java traz diagnósticos equivalentes via Language Server.
+
+### Gerenciamento de JDKs
+
+**[SDKMAN!](https://sdkman.io/)** resolve o problema de conviver com várias versões na máquina de desenvolvimento:
+
+```bash
+sdk install java 21-tem     # instala o Temurin 21
+sdk use java 21-tem         # ativa no shell atual
+sdk default java 17-tem     # define o padrão da máquina
+```
+
+### Ambientes de teste multi-versão
+
+Para reproduzir localmente o que a matriz de CI faz, um script que alterna o `JAVA_HOME` e roda a suíte em cada versão:
+
+```bash title="test-multi-version.sh"
 #!/bin/bash
-for version in 11 17 21; do
-    echo "Testing with Java $version"
-    export JAVA_HOME=/opt/java/$version
+# roda a suíte completa em cada versão instalada;
+# falha no primeiro erro (set -e) para o log apontar a versão culpada
+set -e
+for version in 17 21; do
+    echo "==> Testando com Java $version"
+    export JAVA_HOME="$HOME/.sdkman/candidates/java/${version}-tem"
     ./mvnw clean test
 done
 ```
 
-#### **Containers para Teste**
-```dockerfile
-# Dockerfile para teste multi-versão
-FROM openjdk:21-slim
-COPY . /app
+E um Dockerfile descartável quando se quer testar numa versão **sem instalar nada** na máquina:
+
+```dockerfile title="Dockerfile.test"
+# imagem de teste: builda e testa dentro do container na versão alvo
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
+COPY . .
 RUN ./mvnw clean test
 ```
 
-### 📊 **Ferramentas de Monitoramento**
+`docker build -f Dockerfile.test .` compila e testa em Java 21 isoladamente — se passar, a migração do build está OK naquela versão.
 
-#### **Java Flight Recorder (JFR)**
-```bash
-# Comparar performance entre versões
-java -XX:StartFlightRecording=duration=60s,filename=app-java21.jfr MyApp
-```
+## Segurança
 
-#### **GCeasy.io**
-- Análise automática de logs do GC
-- Comparação entre versões Java
-- Recomendações de tuning
+### O que cada salto traz de segurança
 
----
+Parte do argumento para migrar é criptografia moderna — cada LTS parada é uma geração de algoritmos que a aplicação não usa:
 
-## 🔒 Aspectos de Segurança
+- **8 → 11**: **TLS 1.3** nativo (handshake mais rápido e seguro), curvas **Curve25519/Curve448**, cipher suites **ChaCha20-Poly1305** (melhores em hardware sem aceleração AES) e assinaturas **RSASSA-PSS**.
+- **11 → 17**: assinaturas **EdDSA** (RFC 8032, mais rápidas e resistentes a erros de implementação), **sealed classes** (modelagem de domínio fechada — menos superfície para extensão maliciosa) e **encapsulamento forte** dos internals do JDK por padrão, fechando uma família inteira de ataques via reflexão.
+- **17 → 21**: melhorias de performance no TLS 1.3 e a base para isolamento com virtual threads.
+- **21 → 25**: **criptografia pós-quântica** — os algoritmos **ML-KEM** (acordo de chaves) e **ML-DSA** (assinaturas), padronizados pelo NIST, chegam no Java 24; junto vem a **KDF API** (derivação de chaves). E o **Security Manager é desativado permanentemente** (JEP 486) — configurações antigas que o mencionam precisam ser removidas.
 
-### 🛡️ **Melhorias de Segurança por Versão**
+### Restringindo algoritmos fracos
 
-#### **Java 8 → 11**
-- **TLS 1.3** suporte nativo
-- **Curve25519** e **Curve448** algoritmos
-- **ChaCha20-Poly1305** cipher suites
-- **RSASSA-PSS** signature algorithm
+O arquivo `java.security` do JDK controla quais algoritmos a JVM aceita. Em vez de editar o arquivo do JDK (que se perde a cada update), aponte um arquivo próprio com as propriedades que você quer sobrescrever:
 
-#### **Java 11 → 17**
-- **EdDSA** signature algorithm (RFC 8032)
-- **Sealed Classes** para melhor encapsulamento
-- **Strong encapsulation** por padrão nos módulos
+```properties title="security.properties"
+# Desabilita protocolos e algoritmos fracos no TLS:
+# SSLv3/RC4/DES são quebrados; MD5withRSA é forjável;
+# DH < 2048 bits é vulnerável a Logjam
+jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, DH keySize < 2048
 
-#### **Java 17 → 21**
-- **Quantum-resistant** key agreement (preparação)
-- **Virtual Threads** com isolamento melhorado
-- **Enhanced** TLS 1.3 performance
-
-#### **Java 21 → 24+**
-- **Post-quantum cryptography**: ML-KEM, ML-DSA
-- **Key Derivation Functions** API
-- **Foreign Function Memory** com sandbox
-
-### 🔐 **Configurações de Segurança Recomendadas**
-
-#### **Propriedades de Segurança Críticas**
-```properties
-# java.security
-jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, DH keySize < 1024
+# Recusa certificados assinados com hash quebrado (MD2/MD5)
+# e SHA-1 quando emitido por CA pública (jdkCA)
 jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA
-jdk.security.caDistrustPolicies=SYMANTEC_TLS
 ```
 
-#### **Flags JVM Seguras**
 ```bash
-# Configuração de produção segura
+# aplica o arquivo por cima do java.security padrão
+# e força chaves DH efêmeras de 2048 bits no TLS
 java -Djava.security.properties=security.properties \
-     -Dcom.sun.net.ssl.checkRevocation=true \
      -Djdk.tls.ephemeralDHKeySize=2048 \
-     MyApp
+     -jar app.jar
 ```
 
-### ⚠️ **Vulnerabilidades e Patches**
+Importante: as versões novas do JDK **já desabilitam a maioria dos algoritmos fracos por padrão** — este mecanismo serve para endurecer além do padrão ou para manter política uniforme numa frota com versões mistas.
 
-#### **CVE Tracking**
-- Monitor [CVE database](https://cve.mitre.org/) para Java
-- Subscribe to [Oracle Security Alerts](https://www.oracle.com/security-alerts/)
-- Use ferramentas como **OWASP Dependency Check**
+### Vulnerabilidades nas dependências
 
-#### **Dependency Scanning**
-```xml
-<!-- Maven OWASP Plugin -->
+A superfície de ataque de uma aplicação Java está muito mais nas bibliotecas do que no JDK (caso Log4Shell). Duas práticas:
+
+- **Acompanhe os patches trimestrais**: a Oracle publica os *Critical Patch Updates* em datas fixas (janeiro/abril/julho/outubro) e todas as distribuições OpenJDK lançam os equivalentes em seguida — a rotina de aplicar o patch da JVM deve ser tão automática quanto a de dependências. Alertas em [oracle.com/security-alerts](https://www.oracle.com/security-alerts/).
+- **Escaneie dependências no build**: o plugin do OWASP cruza cada dependência com o banco de CVEs e **falha o build** se encontrar vulnerabilidade conhecida:
+
+```xml title="pom.xml"
 <plugin>
     <groupId>org.owasp</groupId>
     <artifactId>dependency-check-maven</artifactId>
@@ -488,96 +431,92 @@ java -Djava.security.properties=security.properties \
 </plugin>
 ```
 
----
+Alternativas com a mesma função: Snyk, GitHub Dependabot (que também abre PRs de atualização — útil na Fase 2) e `gradle dependencyCheckAnalyze`.
 
-## 📈 Impactos na Performance
+## Performance
 
-### ⚡ **Ganhos de Performance por Versão**
+### De onde vem o ganho em cada salto
 
-#### **Java 8 → 11**
-- **G1GC** como padrão: 10-15% melhor throughput
-- **String deduplication**: 5-20% redução de memória
-- **Compact Strings**: 10-15% menos uso de heap
+Números exatos dependem da sua aplicação — meça com as ferramentas de [observabilidade](#monitoramento-e-observabilidade). O que se pode afirmar com segurança é a **origem** do ganho:
 
-#### **Java 11 → 17**
-- **ZGC e Shenandoah**: Pausas < 10ms
-- **Parallel GC** melhorias: 5-10% throughput
-- **JIT optimizations**: 3-8% melhoria geral
+- **8 → 11**: **G1 vira o coletor padrão** (pausas mais previsíveis que o Parallel GC em heaps grandes); **compact strings** — strings latinas passam a ocupar 1 byte por caractere em vez de 2, tipicamente uma fatia relevante do heap; **string deduplication** no G1 elimina cópias duplicadas de strings de vida longa.
+- **11 → 17**: amadurecem **ZGC** e **Shenandoah**, coletores de pausa sub-milissegundo para quem sofre com latência; anos de otimizações de JIT que vêm "de graça" ao trocar a JVM.
+- **17 → 21**: **virtual threads** mudam o modelo de escalabilidade de I/O — milhões de threads baratas sem reescrever código bloqueante; **ZGC geracional** (no 21, `-XX:+UseZGC -XX:+ZGenerational`; do 23 em diante é o padrão) reduz drasticamente o custo de coletar objetos jovens.
+- **21 → 25**: **compact object headers** (`-XX:+UseCompactObjectHeaders`, produto no 25) reduzem o cabeçalho de cada objeto de 12 para 8 bytes — em aplicações com muitos objetos pequenos isso é heap de volta sem tocar em código; **cache AOT** (Project Leyden) corta o tempo de startup carregando classes pré-processadas; a **Vector API** acelera código numérico com instruções SIMD.
 
-#### **Java 17 → 21**
-- **Virtual Threads**: 100x+ threads concorrentes
-- **Generational ZGC**: 20-30% redução de pause times
-- **Vector API**: até 50x speedup em operações SIMD
+### Tuning por cenário
 
-### 📊 **Benchmarks Reais**
+O GC certo depende do perfil da aplicação — estas são as três configurações de partida (sempre valide com carga real):
 
-#### **Startup Time**
-| Versão | App Pequena | App Média | App Grande |
-|--------|-------------|-----------|------------|
-| Java 8 | 2.5s | 8s | 25s |
-| Java 11 | 2.2s | 7s | 22s |
-| Java 17 | 2.0s | 6.5s | 20s |
-| Java 21 | 1.8s | 6s | 18s |
-
-#### **Memory Usage**
-| Versão | Heap Base | Metaspace | Total |
-|--------|-----------|-----------|-------|
-| Java 8 | 100% | 100% | 100% |
-| Java 11 | 95% | 85% | 92% |
-| Java 17 | 90% | 80% | 87% |
-| Java 21 | 85% | 75% | 82% |
-
-### 🎯 **Tuning Recommendations**
-
-#### **Java 21 GC Tuning**
 ```bash
-# Para aplicações de baixa latência
--XX:+UseZGC -XX:+GenerationalZGC
+# Baixa latência (APIs sensíveis a p99): ZGC
+# pausas sub-milissegundo, independente do tamanho do heap
+# (no Java 21, adicione -XX:+ZGenerational; do 23 em diante é o padrão)
+JAVA_OPTS="-XX:+UseZGC"
 
-# Para alto throughput
--XX:+UseG1GC -XX:MaxGCPauseMillis=200
+# Alto throughput (batch, processamento): G1 com meta de pausa relaxada
+# MaxGCPauseMillis é uma META que o G1 persegue, não uma garantia;
+# metas maiores deixam o G1 trabalhar menos vezes e render mais
+JAVA_OPTS="-XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+UseStringDeduplication"
 
-# Para containers
--XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0
+# Containers: heap como % do limite de memória do cgroup
+# e morte rápida em OOM para o orquestrador reiniciar
+JAVA_OPTS="-XX:MaxRAMPercentage=75.0 -XX:+ExitOnOutOfMemoryError"
 ```
 
----
+Uma armadilha clássica da migração: **flags de GC mudam entre versões** — flags experimentais viram padrão, outras são removidas e derrubam a JVM na subida. Valide o conjunto com `java -XX:+PrintFlagsFinal -version` na versão nova antes do deploy.
 
-## 🐳 DevOps e Containers
+### Como medir (em vez de adivinhar)
 
-### 📦 **Docker Best Practices**
+- **JFR antes e depois** — a forma mais barata de comparar versões com carga real (detalhes em [observabilidade](#monitoramento-e-observabilidade)).
+- **[async-profiler](https://github.com/async-profiler/async-profiler)** — quando o JFR aponta que o tempo de CPU mudou, o async-profiler mostra **onde**, com flame graphs:
 
-#### **Multi-stage Build Otimizado**
-```dockerfile
-# Build stage
-FROM eclipse-temurin:21-jdk as builder
+```bash
+# grava um flame graph de CPU dos primeiros 60s da aplicação
+java -agentpath:/opt/async-profiler/lib/libasyncProfiler.so=start,event=cpu,duration=60,file=cpu.html \
+     -jar app.jar
+```
+
+- **JMH** para microbenchmarks — só quando a dúvida é sobre um trecho específico de código; benchmark de trecho sem JMH mede o JIT, não o código.
+
+## DevOps e containers
+
+### Imagem Docker
+
+O padrão recomendado é o **multi-stage build**: um estágio com JDK completo para compilar, outro só com JRE para rodar — a imagem final fica menor (menos superfície de ataque, pull mais rápido) e sem ferramentas de build:
+
+```dockerfile title="Dockerfile"
+# ---- estágio de build: JDK completo ----
+FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 COPY . .
 RUN ./mvnw clean package -DskipTests
 
-# Runtime stage
+# ---- estágio de runtime: só o JRE ----
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
-# Configuração otimizada
-ENV JAVA_OPTS="-XX:+UseContainerSupport \
-               -XX:MaxRAMPercentage=75.0 \
-               -XX:+UseZGC"
+# health check no nível do container: o Docker marca o container
+# como unhealthy se o endpoint parar de responder
+HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
+  CMD curl -f http://localhost:8080/actuator/health || exit 1
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75.0", "-XX:+ExitOnOutOfMemoryError", "-jar", "app.jar"]
 ```
 
-#### **Health Checks**
-```dockerfile
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/health || exit 1
-```
+As duas flags do `ENTRYPOINT` explicadas:
 
-### ☸️ **Kubernetes Configuration**
+- `-XX:MaxRAMPercentage=75.0` — a JVM moderna já enxerga o limite de memória do container (automático desde o Java 10); esta flag define o heap como percentual desse limite. Os 25% de folga são para o que vive **fora** do heap: metaspace, stacks de thread, buffers nativos. Sem folga, o container é morto por OOM pelo orquestrador sem nenhum erro Java no log.
+- `-XX:+ExitOnOutOfMemoryError` — derruba o processo no primeiro `OutOfMemoryError`, em vez de deixá-lo agonizando meio-vivo; num orquestrador, morrer rápido e ser reiniciado é o comportamento certo.
 
-#### **Deployment com Java 21**
-```yaml
+E o `--start-period` do health check dá à JVM tempo de subir antes de as falhas contarem.
+
+### Kubernetes
+
+Na migração, o que importa no manifesto são recursos e probes:
+
+```yaml title="deployment.yaml"
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -587,489 +526,314 @@ spec:
   template:
     spec:
       containers:
-      - name: app
-        image: myapp:java21
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
-        env:
-        - name: JAVA_OPTS
-          value: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 30
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 5
+        - name: app
+          image: myapp:java21
+          resources:
+            requests: { memory: "512Mi", cpu: "500m" }
+            limits:   { memory: "1Gi" }
+          livenessProbe:            # falhou repetidamente -> k8s REINICIA o pod
+            httpGet: { path: /health/live, port: 8080 }
+            initialDelaySeconds: 30
+          readinessProbe:           # falhou -> k8s tira o pod do balanceador
+            httpGet: { path: /health/ready, port: 8080 }
+            initialDelaySeconds: 5
 ```
 
-### 🔄 **CI/CD Pipeline**
+Três pontos que interagem com a JVM:
 
-#### **GitHub Actions**
-```yaml
-name: Java CI/CD
-on: [push, pull_request]
+- O **limite de memória** é o número que a JVM usa para calcular o heap (via `MaxRAMPercentage`). Ao migrar de versão, revalide o limite: o consumo fora do heap muda entre versões.
+- **Liveness e readiness têm papéis diferentes** — o liveness reinicia o pod (use para travamento real), o readiness só tira do balanceador (use para aquecimento e sobrecarga). Confundir os dois transforma um pico de carga em restart em cascata.
+- O `initialDelaySeconds` do liveness precisa acomodar o startup da JVM **com folga** — ou o pod entra em loop de restart justamente quando o tempo de startup variar na versão nova.
 
+### CI: testando as duas versões em paralelo
+
+Durante a transição, o CI deve rodar a suíte **na versão atual e na versão alvo** a cada push — é isso que protege a branch principal enquanto os ambientes migram aos poucos:
+
+```yaml title=".github/workflows/ci.yml"
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [17, 21, 24]
+        java: [17, 21]     # roda a suíte inteira nas duas versões
+      fail-fast: false     # uma versão falhar não cancela a outra
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: ${{ matrix.java }}
-    - run: ./mvnw clean test
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - run: ./mvnw clean verify
 ```
 
----
+Cada linha da matriz vira um job independente e paralelo. O `fail-fast: false` garante o relatório completo mesmo quando uma versão quebra — exatamente a informação que se quer durante uma migração.
 
-## 🔮 Projetos Futuros do Java
+### CI: vigiando a próxima versão
 
-### 🎯 **Project Valhalla - Value Types**
+Depois da migração, um workflow **agendado** (não a cada push, para não custar CI à toa) testa a aplicação contra a próxima versão e os builds early-access — assim a próxima migração começa com meses de avisos em vez de surpresas:
 
-#### **O que são Value Types?**
-Classes que se comportam como primitivos - **sem identidade**, **inline no memory**.
+```yaml title=".github/workflows/proxima-versao.yml"
+name: Teste contra próximas versões
+on:
+  schedule:
+    - cron: "0 2 * * 1"   # toda segunda, 02:00 — fora do horário de trabalho
 
-```java
-// Futuro Project Valhalla
-value class Point {
-    int x, y;
-    
-    Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
-// Arrays são mais eficientes
-Point[] points = new Point[1000]; // Flat memory layout!
+jobs:
+  early-access:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [25, 26-ea]  # a LTS alvo e o early-access seguinte
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - run: ./mvnw clean verify
+      - name: Relatório de compatibilidade
+        # anexa a análise de internals ao run, para consulta
+        run: jdeps --jdk-internals target/*.jar | tee compat-${{ matrix.java }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compat-${{ matrix.java }}
+          path: compat-*.txt
 ```
 
-#### **Benefícios Esperados**
-- **50-90% menos uso de memória** para arrays de objetos pequenos
-- **2-10x melhor performance** em operações matemáticas
-- **Melhor cache locality** e menos GC pressure
+Falhou na segunda-feira? É um issue tranquilo no backlog — não um incidente na semana da migração.
 
-### 🚀 **Project Leyden - AOT Compilation**
+## Monitoramento e observabilidade
 
-#### **Ahead-of-Time Compilation**
-Compilação antecipada para **startup instantâneo**.
+Comparar a versão antiga com a nova exige medir as duas do mesmo jeito. As ferramentas, da mais completa para a mais simples:
+
+**Java Flight Recorder (JFR)** — o gravador de eventos da própria JVM: registra alocações, pausas de GC, compilação JIT, I/O e locks com overhead tipicamente abaixo de 1% — dá para usar em produção. Uma gravação antes e outra depois da migração, abertas lado a lado no [Java Mission Control](https://openjdk.org/projects/jmc/), mostram objetivamente o que mudou:
 
 ```bash
-# Futuro comando AOT
-java --aot-prepare MyApp        # Treina o modelo
-java --aot-run MyApp           # Execução otimizada (~100ms startup)
+# grava 5 minutos de eventos num arquivo .jfr
+java -XX:StartFlightRecording=duration=300s,filename=antes.jfr -jar app.jar
+
+# ou com o perfil "profile" (mais detalhe, overhead ~2%)
+java -XX:StartFlightRecording=duration=300s,filename=antes.jfr,settings=profile -jar app.jar
 ```
 
-#### **Casos de Uso**
-- **Serverless functions**: Cold start < 100ms
-- **CLI tools**: Execução instantânea
-- **Microservices**: Deploy mais rápido
+**Log unificado de GC** (Java 9+; substitui as flags antigas `PrintGCDetails`/`PrintGCTimeStamps`):
 
-### 🏗️ **Project Lilliput - Compact Headers**
-
-#### **Redução de Object Headers**
-```
-Atual:  12-16 bytes por objeto
-Futuro: 4-8 bytes por objeto
+```bash
+# um evento de GC por linha, com timestamp de uptime
+java -Xlog:gc*:file=gc.log:uptime -jar app.jar
 ```
 
-#### **Impacto Estimado**
-- **20-30% redução** no heap size
-- **Melhor cache utilization**
-- **Menos GC pressure**
+O arquivo pode ser lido diretamente ou analisado no [GCeasy](https://gceasy.io/), que resume pausas, throughput e tendência de heap e **compara dois logs** — o formato ideal para o antes/depois da migração.
 
-### 🧵 **Project Loom - Continuações**
+**Métricas de aplicação** — se a aplicação exporta métricas (Micrometer/Prometheus), as três que mais revelam diferença entre versões de JVM:
 
-#### **Além de Virtual Threads**
-- **Structured Concurrency** (estável)
-- **Scoped Values** (substitui ThreadLocal)
-- **Continuations** de baixo nível
+- `jvm_gc_pause_seconds` — pausas de GC (o histograma, não só a média);
+- **heap após GC** — a medida real de memória viva (heap "usado" instantâneo mente: inclui lixo ainda não coletado);
+- **tempo de startup** — especialmente relevante em autoscaling.
 
-### 🌐 **Project Panama - Foreign Function Interface**
+**Alerta de frota mista** — durante a transição, um alerta evita que alguma instância fique esquecida na versão antiga. O Micrometer expõe a versão do runtime como tag; a regra dispara se qualquer instância reportar a versão anterior após a data de corte:
 
-#### **Vector API Estável**
+```yaml title="prometheus-rules.yml"
+groups:
+  - name: java-version
+    rules:
+      - alert: JavaVersionDesatualizada
+        # jvm_info carrega a versão como label; a regra pega quem ficou para trás
+        expr: count by (instance) (jvm_info{version=~"17.*"}) > 0
+        for: 24h        # tolera reinícios; só alerta se persistir um dia
+        labels:
+          severity: warning
+        annotations:
+          summary: "Instância {{ $labels.instance }} ainda está no Java 17"
+```
+
+## Projetos futuros do Java
+
+Os grandes projetos do OpenJDK, o que significam e como acompanhar:
+
+### Project Valhalla — value types
+
+Classes que se comportam como primitivos: **sem identidade** (dois `Point(1,2)` são indistinguíveis) e, por isso, passíveis de serem **achatadas na memória** — um array de value objects vira um bloco contíguo, sem ponteiros nem cabeçalhos por elemento:
+
 ```java
-// SIMD operations nativas
-var a = FloatVector.fromArray(species, array1, 0);
-var b = FloatVector.fromArray(species, array2, 0);
-var result = a.add(b).mul(c);  // Compiled to native SIMD
+// sintaxe proposta (preview futuro — pode mudar)
+value class Point {
+    int x;
+    int y;
+}
+
+// hoje: array de PONTEIROS para objetos espalhados no heap
+// com Valhalla: bloco contíguo de pares (x, y) — cache-friendly
+Point[] pontos = new Point[1_000_000];
 ```
 
-#### **Native Integration**
-- **Zero-copy** interop com C/C++
-- **GPU acceleration** através de OpenCL/CUDA
-- **Better performance** que JNI
+O ganho esperado: memória muito menor para coleções de objetos pequenos e acesso sequencial na velocidade de arrays de primitivos (melhor localidade de cache, menos pressão de GC). É a maior mudança de modelo de memória da história da plataforma — e por isso avança devagar.
 
----
+### Project Leyden — startup e warmup
 
-## 🔗 Recursos Essenciais
+Ataca o custo de subida da JVM processando **antecipadamente** o que hoje acontece em runtime (carga de classes, linking, perfil de JIT). O primeiro fruto já é produto: o **cache AOT** (Java 24/25) — a aplicação roda uma vez em modo "treino", grava o cache, e as execuções seguintes pulam o trabalho repetido:
 
-### 📚 **Documentação Oficial**
-- [OpenJDK.org](https://openjdk.org/) - Projeto oficial e JEPs
-- [Oracle Java](https://www.oracle.com/java/) - Distribuição comercial Oracle
-- [Java Almanac](https://javaalmanac.io/) - Comparação detalhada de versões
-- [Inside Java](https://inside.java/) - Blog oficial Oracle Java Team
-- [Java SE Specifications](https://docs.oracle.com/javase/specs/) - Especificações técnicas
-- [JCP (Java Community Process)](https://jcp.org/) - Evolução da plataforma
+```bash
+# executa uma vez gravando o cache de classes/perfis
+java -XX:AOTMode=record -XX:AOTConfiguration=app.aotconf -jar app.jar
+java -XX:AOTMode=create -XX:AOTConfiguration=app.aotconf -XX:AOTCache=app.aot
 
-### 🛠️ **Ferramentas de Migração**
-- [jdeps](https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeps.html) - Análise de dependências
-- [jdeprscan](https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeprscan.html) - Scanner de APIs depreciadas
-- [JaCoLine](https://jacoline.dev/) - Java Compatibility Line checker
-- [SDKMAN!](https://sdkman.io/) - Gerenciador de versões Java
-- [Eclipse Migration Toolkit](https://www.eclipse.org/jdt/) - Migração assistida
-
-### 📦 **Distribuições Recomendadas**
-- [Eclipse Temurin](https://adoptium.net/) - **Recomendado** para maioria dos casos
-- [Amazon Corretto](https://aws.amazon.com/corretto/) - Gratuito com suporte AWS
-- [Azul Zulu](https://www.azul.com/downloads/) - Versão comercial e gratuita  
-- [Red Hat OpenJDK](https://developers.redhat.com/products/openjdk) - Para ambientes Red Hat
-- [OpenJDK Builds](https://jdk.java.net/) - Builds oficiais Oracle
-
-### 📊 **Monitoring e Profiling**
-- [VisualVM](https://visualvm.github.io/) - Profiling e monitoring gratuito
-- [Java Mission Control](https://openjdk.org/projects/jmc/) - Advanced monitoring
-- [Eclipse MAT](https://eclipse.org/mat/) - Memory Analyzer Tool
-- [GCeasy.io](https://gceasy.io/) - Análise automática de Garbage Collection
-- [JProfiler](https://www.ej-technologies.com/products/jprofiler/) - Profiler comercial
-
-### 🌐 **Comunidades e Fóruns**
-- [r/Java](https://reddit.com/r/java) - Reddit community (200k+ membros)
-- [Stack Overflow Java](https://stackoverflow.com/questions/tagged/java) - Q&A técnico
-- [Oracle Java Community](https://community.oracle.com/tech/developers/categories/java)
-- [Foojay.io](https://foojay.io/) - Community hub e marketplace
-- [Java Discord](https://discord.gg/java) - Chat community
-
-### 📺 **Conteúdo Educational**
-- [Inside Java Newscast](https://inside.java/podcast/) - Podcast oficial Oracle
-- [Java Off Heap](https://www.javaoffheap.com/) - Podcast community
-- [Devoxx YouTube](https://www.youtube.com/c/DevoxxForever) - Conferências Java
-- [Oracle Learning](https://www.youtube.com/c/OracleUniversity) - Tutoriais oficiais
-- [Baeldung](https://www.baeldung.com/) - Tutoriais Java detalhados
-
-### 🔧 **IDE Resources**
-- [IntelliJ IDEA Java](https://www.jetbrains.com/help/idea/java.html) - Suporte Java no IntelliJ
-- [Eclipse IDE Java](https://help.eclipse.org/latest/topic/org.eclipse.jdt.doc.user/) - Java Development Tools
-- [VS Code Java](https://code.visualstudio.com/docs/java/java-tutorial) - Extension Pack for Java
-- [NetBeans Java](https://netbeans.apache.org/tutorial/main/kb/docs/java/) - Apache NetBeans
-
----
-
-## ❓ Perguntas Frequentes
-
-### **Qual versão Java usar em 2025?**
-**Resposta**: Java 21 LTS para produção, Java 24/25 para desenvolvimento e experimentação.
-
-### **Preciso pagar para usar Java?**
-**Resposta**: Não. OpenJDK é gratuito. Oracle JDK requer licença comercial.
-
-### **Como saber se minha aplicação funciona na nova versão?**
-**Resposta**: Use `jdeps` para análise, execute seus testes e monitore logs.
-
-### **Vale a pena migrar do Java 8?**
-**Resposta**: Sim. Java 8 não recebe mais atualizações gratuitas desde 2019.
-
-### **Qual a diferença entre OpenJDK e Oracle JDK?**
-**Resposta**: Funcionalidades idênticas desde Java 11. Oracle JDK é comercial, OpenJDK é gratuito.
-
----
-
-## 📖 Glossário
-
-- **LTS**: Long Term Support - versões com suporte estendido
-- **JEP**: JDK Enhancement Proposal - proposta de melhoria
-- **TCK**: Technology Compatibility Kit - testes de compatibilidade
-- **OpenJDK**: Implementação open source do Java
-- **JVM**: Java Virtual Machine - máquina virtual Java
-- **Classpath**: Caminho das classes Java
-- **Module**: Sistema de módulos introduzido no Java 9
-- **Preview Feature**: Funcionalidade experimental que pode mudar
-
----
-
-## 🏆 Melhores Práticas
-
-### ✅ **Estratégia de Versioning**
-
-#### **Para Produção**
-1. **Use sempre LTS** (atualmente Java 21)
-2. **Aguarde 6+ meses** após release LTS para produção crítica
-3. **Teste extensivamente** em ambiente staging
-4. **Implemente monitoring** detalhado
-5. **Tenha plano de rollback** testado
-
-#### **Para Desenvolvimento**
-1. **Use LTS+1 ou LTS+2** para experimentação
-2. **Feature releases** para testes de features
-3. **Preview features** apenas em dev/test
-4. **Early access builds** para feedback
-
-### 🎯 **Gestão de Dependências**
-
-#### **Estratégia de Atualização**
-```xml
-<!-- Maven: Versioning strategy -->
-<properties>
-    <!-- LTS para produção -->
-    <maven.compiler.release>21</maven.compiler.release>
-    
-    <!-- Testing com versões futuras -->
-    <maven.compiler.testRelease>24</maven.compiler.testRelease>
-</properties>
+# execuções seguintes: startup significativamente menor
+java -XX:AOTCache=app.aot -jar app.jar
 ```
 
-#### **Dependency Management**
-```xml
-<!-- Maven: Controle de versões -->
+Casos de uso: serverless (cold start), CLIs em Java e autoscaling agressivo.
+
+### Project Lilliput — objetos menores
+
+Reduz o **cabeçalho** que toda instância carrega: eram 12–16 bytes; os *compact object headers* (experimentais no 24, produto no 25 com `-XX:+UseCompactObjectHeaders`) reduzem para **8 bytes**, e a meta de longo prazo é 4. Em aplicações típicas — milhões de objetos pequenos — isso se traduz em heap menor e melhor uso de cache **sem mudar uma linha de código**.
+
+### Project Loom — depois das virtual threads
+
+As virtual threads (21) foram só a primeira entrega. Na sequência: **Scoped Values** (final no 25) — o substituto moderno do `ThreadLocal`, imutável e barato para milhões de threads — e **Structured Concurrency** (ainda em preview), que trata um grupo de tarefas concorrentes como uma unidade com escopo e cancelamento próprios.
+
+### Project Panama — interop nativa
+
+Duas frentes: a **FFM API** (final no 22) substitui o JNI para chamar código nativo — sem código-cola em C, com segurança de memória gerenciada — e a **Vector API** (ainda incubating) expõe instruções SIMD:
+
+```java
+// soma dois arrays usando instruções vetoriais da CPU
+var species = FloatVector.SPECIES_PREFERRED;
+var va = FloatVector.fromArray(species, a, 0);
+var vb = FloatVector.fromArray(species, b, 0);
+va.add(vb).intoArray(resultado, 0); // compila para SIMD nativo
+```
+
+Para o planejamento de migrações, a leitura conjunta é: **os saltos de LTS tendem a continuar ficando mais baratos** — as quebras estruturais (módulos, encapsulamento) ficaram no passado, e os projetos atuais entregam ganhos que não exigem mudança de código.
+
+## Melhores práticas
+
+### Estratégia de versionamento
+
+**Para produção:**
+
+1. **Use sempre LTS** — hoje, 25 (ou 21 enquanto o ecossistema que você usa não a suportar por completo).
+2. **Espere o ecossistema** — 3 a 6 meses após o lançamento de uma LTS, frameworks e agentes já a suportam oficialmente; para sistemas críticos, espere mais.
+3. **Teste em staging com carga real** antes de produção — a seção de [processo](#o-processo-de-migração-em-cinco-fases) detalha como.
+4. **Monitore a frota** — o alerta de versão da seção de [observabilidade](#monitoramento-e-observabilidade) pega instâncias esquecidas.
+5. **Tenha rollback ensaiado** — não "um plano no papel": a imagem anterior a um comando de distância.
+
+**Para desenvolvimento:** experimente as feature releases (elas mostram o que vem na próxima LTS), use preview features apenas em código descartável — elas **mudam ou somem** entre versões — e rode os early-access builds no CI agendado para dar feedback cedo.
+
+### Gestão de dependências
+
+Use **BOMs** (Bill of Materials) para versionar famílias de bibliotecas em bloco — o BOM garante que todos os artefatos do Spring (ou Jackson, ou JUnit) venham de versões testadas juntas, o que elimina a classe de bug "versões incompatíveis entre si na mesma família":
+
+```xml title="pom.xml"
 <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-framework-bom</artifactId>
-            <version>6.1.0</version>
+            <version>6.2.0</version>
             <type>pom</type>
-            <scope>import</scope>
+            <scope>import</scope>  <!-- importa as versões do BOM -->
         </dependency>
     </dependencies>
 </dependencyManagement>
 ```
 
-### 🔧 **Pipeline de Migração**
+Complete com **Dependabot/Renovate** abrindo PRs de atualização continuamente — dependência atualizada aos poucos é exatamente o que torna a Fase 2 da próxima migração curta.
 
-#### **Automação CI/CD**
-```yaml
-# .github/workflows/java-migration.yml
-name: Java Migration Test
-on:
-  schedule:
-    - cron: '0 2 * * 1'  # Weekly test
+### Playbook de migração
 
-jobs:
-  migration-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [21, 24, 25-ea]
-        fail-fast: false
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: ${{ matrix.java }}
-    
-    - name: Run migration tests
-      run: |
-        ./mvnw clean test -Dtest=MigrationTest*
-        
-    - name: Generate compatibility report
-      run: |
-        jdeps --jdk-internals target/*.jar > compatibility-${{ matrix.java }}.txt
-        
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: compatibility-report-${{ matrix.java }}
-        path: compatibility-*.txt
+Documente o processo num playbook vivo — o template abaixo cabe num README e transforma a migração de "projeto heroico" em rotina repetível:
+
+```markdown title="MIGRATION-PLAYBOOK.md"
+## Checklist pré-migração
+- [ ] Análise de compatibilidade (jdeps/jdeprscan) executada e triada
+- [ ] Dependências atualizadas para versões compatíveis
+- [ ] Baseline de performance coletada (JFR + métricas)
+- [ ] Plano de rollback documentado E testado
+- [ ] Time ciente das mudanças da versão alvo
+
+## Ordem dos ambientes
+1. Desenvolvimento -> 2. CI/testes -> 3. Staging -> 4. Produção (canary)
+
+## Critérios de aprovação
+- [ ] Suíte completa verde nas duas versões
+- [ ] Performance dentro de 5% da baseline
+- [ ] Sem regressão de segurança (scan de dependências verde)
+- [ ] 72h de produção canary sem alerta
+
+## Gatilhos de rollback
+- Degradação de latência p99 > 10% sustentada
+- Qualquer erro novo recorrente atribuível à JVM
+- Pausas de GC fora do padrão da baseline
 ```
 
-### 📊 **Monitoramento e Observabilidade**
+### Melhoria contínua
 
-#### **Key Metrics**
-```java
-// Custom metrics para migração
-@Component
-public class JavaVersionMetrics {
-    private final MeterRegistry meterRegistry;
-    
-    @EventListener
-    public void onApplicationReady(ApplicationReadyEvent event) {
-        // Track Java version em uso
-        Gauge.builder("jvm.version")
-            .description("Java Runtime Version")
-            .register(meterRegistry, 
-                () -> Double.parseDouble(
-                    System.getProperty("java.specification.version")));
-                    
-        // Memory usage patterns
-        Gauge.builder("jvm.memory.efficiency")
-            .register(meterRegistry, this::calculateMemoryEfficiency);
-    }
-}
-```
+A primeira migração é a mais cara; as seguintes só ficam baratas se o aprendizado for capturado: **colete métricas** durante e depois, **documente as lições** no playbook (qual biblioteca surpreendeu? qual flag mudou?), **compartilhe com os outros times** — numa empresa com vários serviços, o segundo time a migrar não deveria redescobrir nada — e **mantenha o radar ligado**: a assinatura do [Inside Java](https://inside.java/) e o CI agendado contra early-access fazem o trabalho de vigia.
 
-#### **Alerting Strategy**
-```yaml
-# Prometheus alerting rules
-groups:
-- name: java-version
-  rules:
-  - alert: JavaVersionOutdated
-    expr: jvm_version < 21
-    for: 24h
-    labels:
-      severity: warning
-    annotations:
-      summary: "Java version is outdated"
-      description: "Application {{ $labels.instance }} is using Java {{ $value }}"
-```
+## Perguntas frequentes
 
-### 🛡️ **Security Best Practices**
+**Qual versão usar em produção hoje?**
+Java 25 LTS para projetos novos e para quem já está no 21. Quem está no 17 ou anterior deve mirar direto na LTS mais recente que o seu framework suportar — não há motivo para migrar para uma LTS intermediária.
 
-#### **Secure Configuration**
-```properties
-# security.properties - Custom security config
-# Disable weak algorithms
-jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, DH keySize < 2048, \
-    EC keySize < 224, 3DES_EDE_CBC, anon, NULL
+**Preciso pagar para usar Java?**
+Não. Distribuições OpenJDK (Temurin, Corretto, Zulu…) são gratuitas inclusive para produção. Pagamento só entra se você quiser **suporte comercial** — ou se usar Oracle JDK 8/11 em produção, que exige licença ([detalhes acima](#custos-e-licenças)).
 
-# Enable only strong ciphers
-jdk.tls.legacyAlgorithms=DH_anon, ECDH_anon, NULL_ENCRYPTION, RC4_128, \
-    RC4_40, DES_CBC, DES40_CBC
+**Vale a pena sair do Java 8?**
+Sim, e o argumento nem é só segurança: o ecossistema parou de olhar para trás (Spring Boot 3 exige 17+), e cada ano parado torna o salto inevitável mais caro. O caminho: Fase 1 do processo para dimensionar, e migração direto para a LTS mais recente viável.
 
-# Certificate validation
-jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA & usage TLSServer, \
-    RSA keySize < 1024, DSA keySize < 1024, EC keySize < 224
-```
+**Como sei se minha aplicação funciona na versão nova?**
+Não dá para saber sem testar — mas dá para **estimar barato**: `jdeps --jdk-internals` e `jdeprscan --for-removal` nos seus JARs e nos das dependências revelam os impedimentos estruturais em minutos.
 
-#### **Runtime Security**
-```bash
-# Production JVM flags para segurança
-JAVA_OPTS="-Djava.security.manager=default \
-           -Djava.security.policy=app.policy \
-           -Dcom.sun.net.ssl.checkRevocation=true \
-           -Djdk.tls.ephemeralDHKeySize=2048 \
-           -Djava.security.properties=security.properties"
-```
+**OpenJDK e Oracle JDK são diferentes?**
+Funcionalmente, não — desde o Java 11 o Oracle JDK é construído do mesmo código OpenJDK. As diferenças são licença e suporte.
 
-### 🚀 **Performance Optimization**
+**Preciso modularizar minha aplicação (JPMS)?**
+Não. O classpath tradicional continua plenamente suportado. Módulos são opcionais para aplicações; o impacto do JPMS na migração vem do *JDK* ter sido modularizado, não de uma obrigação para o seu código.
 
-#### **JVM Tuning por Cenário**
-```bash
-# Microservices (low latency)
-JAVA_OPTS="-XX:+UseZGC \
-           -XX:+GenerationalZGC \
-           -XX:MaxGCPauseMillis=10 \
-           -XX:+UnlockExperimentalVMOptions \
-           -XX:+UseTransparentHugePages"
+## Glossário
 
-# Batch Processing (high throughput)
-JAVA_OPTS="-XX:+UseG1GC \
-           -XX:MaxGCPauseMillis=200 \
-           -XX:G1HeapRegionSize=32m \
-           -XX:+UseStringDeduplication"
+- **LTS** (Long-Term Support) — versão que recebe atualizações por anos; as demais só até a versão seguinte.
+- **JEP** (JDK Enhancement Proposal) — documento que especifica cada mudança da plataforma; "JEP 444" é a referência canônica de virtual threads, por exemplo.
+- **TCK** (Technology Compatibility Kit) — bateria oficial de testes que certifica que uma distribuição é Java de verdade.
+- **OpenJDK** — o projeto open source que é a implementação de referência do Java; todas as distribuições modernas derivam dele.
+- **Preview feature** — funcionalidade completa mas sujeita a mudança, ativada com `--enable-preview`; não use em produção.
+- **Incubating** — API distribuída em módulo separado para colher feedback; ainda mais instável que preview.
+- **Classpath / Module path** — os dois mecanismos de resolução de classes; o primeiro é o tradicional, o segundo veio com o JPMS no Java 9.
+- **Early-access (EA)** — builds da versão ainda em desenvolvimento, publicados em [jdk.java.net](https://jdk.java.net/) para teste.
+- **CPU** (Critical Patch Update) — o pacote trimestral de correções de segurança da plataforma.
 
-# Container environments
-JAVA_OPTS="-XX:+UseContainerSupport \
-           -XX:MaxRAMPercentage=75.0 \
-           -XX:+ExitOnOutOfMemoryError"
-```
+## Referências
 
-#### **Profiling Strategy**
-```bash
-# JFR profiling durante migração
-java -XX:StartFlightRecording=duration=60s,filename=migration-profile.jfr \
-     -XX:FlightRecorderOptions=settings=profile \
-     MyApplication
+Curadoria com o motivo de cada link:
 
-# Async profiler para CPU hotspots
-java -javaagent:async-profiler.jar=start,event=cpu,file=cpu-profile.html \
-     MyApplication
-```
+**Documentação e acompanhamento**
 
-### 🧪 **Testing Strategy**
+- [OpenJDK](https://openjdk.org/) — a fonte primária: JEPs, projetos e cronogramas de release.
+- [Java Almanac](https://javaalmanac.io/) — compara qualquer par de versões (APIs, flags, datas); a melhor ferramenta para dimensionar um salto.
+- [Inside Java](https://inside.java/) — blog, podcast e newscast do time de Java da Oracle; anúncios técnicos de primeira mão.
+- [Foojay.io](https://foojay.io/) — hub da comunidade OpenJDK, com calendário de EOL por distribuição.
 
-#### **Multi-Version Testing**
-```java
-// JUnit 5 - Parameterized tests para múltiplas versões
-@ParameterizedTest
-@ValueSource(strings = {"11", "17", "21", "24"})
-void testCompatibilityAcrossJavaVersions(String javaVersion) {
-    // Test logic que deve funcionar em todas as versões
-    ProcessBuilder pb = new ProcessBuilder(
-        "java", "-version");
-    pb.environment().put("JAVA_HOME", "/opt/java/" + javaVersion);
-    
-    Process process = pb.start();
-    assertEquals(0, process.waitFor());
-}
-```
+**Ferramentas**
 
-#### **Regression Testing**
-```java
-@Test
-@DisabledOnJre({JRE.JAVA_8, JRE.JAVA_11}) // Apenas Java 17+
-void testNewJavaFeatures() {
-    // Test features específicas de versões mais novas
-    var text = """
-        Multi-line string
-        with proper indentation
-        """;
-    
-    assertThat(text).contains("Multi-line");
-}
-```
+- [jdeps](https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeps.html) e [jdeprscan](https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeprscan.html) — manuais oficiais das ferramentas de análise da Fase 1.
+- [SDKMAN!](https://sdkman.io/) — instala e alterna múltiplos JDKs na máquina de desenvolvimento.
+- [OWASP Dependency-Check](https://owasp.org/www-project-dependency-check/) — scanner de CVEs nas dependências.
 
-### 📚 **Documentation Standards**
+**Distribuições**
 
-#### **Migration Playbook Template**
-```markdown
-# Java Migration Playbook
+- [Eclipse Temurin](https://adoptium.net/) · [Amazon Corretto](https://aws.amazon.com/corretto/) · [Azul Zulu](https://www.azul.com/downloads/) — downloads e calendários de suporte das gratuitas.
+- [jdk.java.net](https://jdk.java.net/) — builds oficiais de referência e early-access.
 
-## Pre-Migration Checklist
-- [ ] Dependency compatibility analysis
-- [ ] Security configuration review
-- [ ] Performance baseline established
-- [ ] Rollback plan documented
-- [ ] Team training completed
+**Diagnóstico e performance**
 
-## Migration Steps
-1. **Phase 1**: Development environment
-2. **Phase 2**: Testing environment  
-3. **Phase 3**: Staging validation
-4. **Phase 4**: Production deployment
-
-## Validation Criteria
-- [ ] All tests pass
-- [ ] Performance within 5% of baseline
-- [ ] No security regressions
-- [ ] Monitoring shows healthy metrics
-
-## Rollback Triggers
-- Critical performance degradation (>10%)
-- Security vulnerabilities detected
-- Major functionality breaks
-```
-
-### 🔄 **Continuous Improvement**
-
-#### **Feedback Loop**
-1. **Collect metrics** durante e após migração
-2. **Document lessons learned**
-3. **Update playbook** com nova experiência
-4. **Share knowledge** com outras equipes
-5. **Plan next migration** baseado em learnings
-
-#### **Stay Updated**
-- **Subscribe** to OpenJDK mailing lists
-- **Follow** Inside Java blog
-- **Attend** Java conferences (JavaOne, Devoxx)
-- **Participate** in community discussions
-- **Test** early access builds
+- [Java Mission Control](https://openjdk.org/projects/jmc/) — abre e compara gravações JFR.
+- [GCeasy](https://gceasy.io/) — análise e comparação de logs de GC.
+- [async-profiler](https://github.com/async-profiler/async-profiler) — flame graphs de CPU/alocação com baixo overhead.
+- [VisualVM](https://visualvm.github.io/) — inspeção rápida de heap e threads em desenvolvimento.
+- [Eclipse MAT](https://eclipse.dev/mat/) — análise post-mortem de heap dumps.
 
 ---
 
-*Este guia é atualizado regularmente para refletir as mudanças na plataforma Java. Última atualização: Janeiro 2025* 📅
+*Guia revisado em setembro de 2026, com a plataforma no Java 25 LTS / Java 26.*
