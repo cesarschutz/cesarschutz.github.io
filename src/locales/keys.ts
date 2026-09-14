@@ -13,6 +13,8 @@ enum I18nKeys {
   series_label = "series_label",
   exercises_title = "exercises_title",
   exercises_subtitle = "exercises_subtitle",
+  java_series_title = "java_series_title",
+  java_series_subtitle = "java_series_subtitle",
   continue_reading = "continue_reading",
   post_prev = "post_prev",
   post_next = "post_next",

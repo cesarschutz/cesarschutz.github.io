@@ -16,6 +16,8 @@ export const pt_BR: Translation = {
   [key.series_label]: "Série",
   [key.exercises_title]: "Exercícios resolvidos",
   [key.exercises_subtitle]: "Desafios reais de arquitetura, dissecados",
+  [key.java_series_title]: "Atualizações do Java",
+  [key.java_series_subtitle]: "A plataforma versão a versão, do 8 em diante",
   [key.continue_reading]: "Continue lendo",
   [key.post_prev]: "Post anterior",
   [key.post_next]: "Próximo post",

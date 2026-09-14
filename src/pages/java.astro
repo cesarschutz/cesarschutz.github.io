@@ -1,0 +1,175 @@
+---
+import Main from "../layouts/MainLayout.astro";
+import PageHeader from "../components/misc/PageHeader.astro";
+import { GetSortedPosts } from "../utils/content";
+import { IdToSlug } from "../utils/hash";
+import { i18n } from "../locales/translation";
+import I18nKeys from "../locales/keys";
+
+// Versões LTS da série (atualizar quando sair uma nova LTS: 29 em set/2027)
+const LTS = new Set([8, 11, 17, 21, 25]);
+
+// Ano de lançamento real de cada versão (a data `published` dos posts é a
+// da escrita da série, não a do release)
+const anoDeLancamento = (v: number): number => {
+  if (v === 8) return 2014;
+  if (v === 9) return 2017;
+  // desde o 10: versões pares em março, ímpares em setembro, 2 por ano
+  return 2018 + Math.floor((v - 10) / 2);
+};
+
+const posts = await GetSortedPosts();
+
+// java-8.md … java-NN.md — um post novo na série aparece aqui sozinho
+const versoes = posts
+  .filter((post) => /^java-\d+$/.test(IdToSlug(post.id)))
+  .map((post) => {
+    const numero = Number(IdToSlug(post.id).replace("java-", ""));
+    const match = post.data.title.match(/^Java \d+(?: \(LTS\))? — (.*)$/);
+    return {
+      numero,
+      titulo: match?.[1] ?? post.data.title,
+      lts: LTS.has(numero),
+      ano: anoDeLancamento(numero),
+      url: `/posts/${IdToSlug(post.id)}/`,
+    };
+  })
+  .sort((a, b) => b.numero - a.numero); // mais recente primeiro
+
+const guia = posts.find((post) => IdToSlug(post.id) === "guia-atualizacoes-java");
+---
+
+<Main
+  title={i18n(I18nKeys.java_series_title)}
+  subTitle={i18n(I18nKeys.java_series_subtitle)}
+>
+  <div class="space-y-4">
+    <!-- introdução + guia -->
+    <section
+      class="intro onload-animation"
+      style="animation-delay: var(--onload-animation-delay);"
+    >
+      <PageHeader
+        title={i18n(I18nKeys.java_series_title)}
+        subTitle={i18n(I18nKeys.java_series_subtitle)}
+      />
+      <p class="intro-text">
+        Cada release do Java explicado: o que é cada novidade, por que ela
+        importa e exemplos de código — do 8 (2014) até a versão mais recente. A
+        série cresce a cada lançamento: sai uma versão nova em março e outra em
+        setembro, e o post dela entra aqui.
+      </p>
+      {
+        guia && (
+          <a class="guia" href={`/posts/${IdToSlug(guia.id)}/`}>
+            <span class="guia-eyebrow">Comece por aqui</span>
+            <span class="guia-title">{guia.data.title}</span>
+            <span class="guia-desc">
+              Como o ciclo de releases funciona, qual distribuição de JDK usar
+              e como migrar com segurança — a base para ler as versões.
+            </span>
+          </a>
+        )
+      }
+    </section>
+
+    <!-- grade de versões -->
+    <section
+      class="grade onload-animation"
+      style="animation-delay: calc(var(--onload-animation-delay) + 1 * var(--onload-animation-interval));"
+    >
+      {
+        versoes.map((v) => (
+          <a class="versao" href={v.url}>
+            <div class="flex items-baseline justify-between">
+              <span class="versao-num">{v.numero}</span>
+              {v.lts && <span class="versao-lts">LTS</span>}
+            </div>
+            <p class="versao-titulo">{v.titulo}</p>
+            <p class="versao-ano">{v.ano}</p>
+          </a>
+        ))
+      }
+    </section>
+  </div>
+</Main>
+
+<style>
+  .intro {
+    @apply mx-3 rounded-3xl bg-[var(--card-color)] p-6 lg:mx-0 lg:p-8;
+  }
+
+  .intro-text {
+    @apply text-sm leading-relaxed lg:text-base;
+    color: var(--text-color);
+    font-family: var(--primary-font);
+  }
+
+  .guia {
+    @apply mt-5 block rounded-xl p-4 transition-all;
+    border: 1px solid var(--primary-color-transparent);
+  }
+
+  .guia:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-transparent);
+  }
+
+  .guia-eyebrow {
+    @apply block text-[0.65rem] font-bold uppercase;
+    letter-spacing: 0.25em;
+    color: var(--primary-color);
+  }
+
+  .guia-title {
+    @apply mt-1 block text-lg font-bold;
+    color: var(--text-color);
+    font-family: var(--title-font);
+  }
+
+  .guia-desc {
+    @apply mt-1 block text-sm leading-snug;
+    color: var(--text-color-lighten);
+  }
+
+  .grade {
+    @apply mx-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:mx-0 xl:grid-cols-4;
+  }
+
+  .versao {
+    @apply rounded-2xl bg-[var(--card-color)] p-5 transition-all;
+    border: 1px solid transparent;
+  }
+
+  .versao:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  .versao-num {
+    @apply text-4xl font-extrabold leading-none;
+    color: var(--primary-color);
+    font-family: var(--code-font);
+  }
+
+  .versao-lts {
+    @apply rounded-md px-2 py-0.5 text-xs font-bold;
+    color: var(--card-color);
+    background-color: var(--primary-color);
+  }
+
+  .versao-titulo {
+    @apply mt-3 text-sm font-semibold leading-snug;
+    color: var(--text-color);
+  }
+
+  .versao:hover .versao-titulo {
+    color: var(--primary-color);
+  }
+
+  .versao-ano {
+    @apply mt-2 text-xs;
+    color: var(--text-color-lighten);
+    font-family: var(--code-font);
+  }
+</style>

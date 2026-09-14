@@ -16,6 +16,8 @@ export const zh_CN: Translation = {
   [key.series_label]: "系列",
   [key.exercises_title]: "解题练习",
   [key.exercises_subtitle]: "真实架构挑战，深入剖析",
+  [key.java_series_title]: "Java 版本更新",
+  [key.java_series_subtitle]: "从 Java 8 起逐版本讲解",
   [key.continue_reading]: "继续阅读",
   [key.post_prev]: "上一篇",
   [key.post_next]: "下一篇",

@@ -60,8 +60,12 @@ Conteúdo em Markdown...
    - Categorias em uso: `Arquitetura`, `Java`, `Observabilidade`, `DevOps`,
      `Segurança`, `Dados` (crie novas com moderação; tags são livres)
    - A série "atualizações do Java" (java-8.md … java-26.md + guia-atualizacoes-java.md)
-     foi migrada do antigo repo knowledge-base (apagado; backup local em
-     `../knowledge-base-backup`) — novas versões do Java entram como java-NN.md
+     tem página própria em `/java/` (src/pages/java.astro: grade de versões +
+     guia em destaque) e card no sidebar. **Nova versão do Java = criar
+     java-NN.md** — a página deriva a lista do padrão de slug `java-\d+` e
+     atualiza sozinha; ao sair uma nova LTS, atualizar o set `LTS` e a
+     função de ano em java.astro. As datas `published` da série são as da
+     escrita original (jul/2025, do repo knowledge-base)
    - Posts da série "Aprendizado de arquitetura" vêm do Notion (página "Aprendizado
      arquitetura Claude") — ATENÇÃO: as URLs de imagem do Notion expiram em ~5 min;
      baixe os SVGs para `public/posts/<slug>/` imediatamente após o fetch e

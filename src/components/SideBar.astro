@@ -17,6 +17,12 @@ const categoryKeys = [...categories.keys()].filter(
   (key) => categories.get(key)!.name !== EXERCISES_CATEGORY,
 );
 const tagKeys = [...tags.keys()];
+
+// série "Atualizações do Java": conta os posts java-NN (a página /java/
+// deriva a lista do mesmo padrão de slug)
+const javaCategory = [...categories.values()].find((c) => c.name === "Java");
+const javaSeriesCount =
+  javaCategory?.posts.filter((p) => /\/java-\d+$/.test(p.id)).length ?? 0;
 ---
 
 <div class="flex w-full flex-row justify-center">
@@ -74,6 +80,31 @@ const tagKeys = [...tags.keys()];
           <p class="exercises-desc">
             {i18n(I18nKeys.exercises_subtitle)}
           </p>
+        </a>
+      )
+    }
+
+    <!-- atualizações do java -->
+    {
+      javaSeriesCount > 0 && (
+        <a
+          href="/java/"
+          class="exercises-card onload-animation"
+          style="animation-delay: calc(var(--onload-animation-delay) + 1.5 * var(--onload-animation-interval));"
+        >
+          <div class="flex flex-row items-center justify-between">
+            <div class="flex flex-row items-center gap-x-2">
+              <Icon
+                name="mdi:coffee-outline"
+                class="h-5 w-5 text-[var(--primary-color)]"
+              />
+              <p class="exercises-title">{i18n(I18nKeys.java_series_title)}</p>
+            </div>
+            <span class="rounded-md bg-[var(--primary-color-lighten)] px-2.5 py-0.5 text-[var(--primary-color)]">
+              {javaSeriesCount}
+            </span>
+          </div>
+          <p class="exercises-desc">{i18n(I18nKeys.java_series_subtitle)}</p>
         </a>
       )
     }
