@@ -1,6 +1,5 @@
 ---
 import Icon from "./Icon.astro";
-import RisingTiles from "./RisingTiles.astro";
 import { AREAS, SITE } from "../config";
 
 interface Props {
@@ -53,18 +52,11 @@ const { stats } = Astro.props;
       </div>
     </div>
   </div>
-
-  <div class="id-stage">
-    <RisingTiles count={18} baseDur={17} />
-  </div>
 </section>
 
 <style>
   .identity {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 36%);
-    min-height: 300px;
     overflow: hidden;
     border-radius: 22px;
   }
@@ -186,32 +178,6 @@ const { stats } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-  }
-
-  .id-stage {
-    position: relative;
-    border-left: 1px solid var(--divider);
-    background: linear-gradient(90deg, color-mix(in srgb, var(--card-bg-alt) 35%, transparent), transparent);
-  }
-
-  @media (max-width: 1180px) {
-    .id-stats {
-      display: none;
-    }
-  }
-
-  @media (max-width: 860px) {
-    .identity {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .id-stage {
-      height: 150px;
-      border-left: none;
-      border-top: 1px solid var(--divider);
-    }
-    .id-stats {
-      display: flex;
-    }
   }
 
   @media (max-width: 560px) {

@@ -40,9 +40,9 @@ Deploy preso na fila: `gh run cancel <id>` e `gh workflow run deploy.yml`.
 
 ### Peças herdadas do DEV NOTE
 
-- **Ícones subindo** (`src/components/RisingTiles.astro`, dados em `src/data/tiles.ts`): só no
-  card de identidade da home e na página 404 — de propósito, para não poluir o site.
-  Pausa fora da tela. Para trocar os ícones, editar `tiles.ts`
+- **Ícones subindo** (`src/components/RisingTiles.astro`, dados em `src/data/tiles.ts`): só na
+  página 404 (removidos do card da home a pedido). Pausa fora da tela. Para trocar os ícones,
+  editar `tiles.ts`
 - **Frases de autores** (`src/components/QuoteCard.astro`, dados em `src/data/quotes.json`,
   132 frases): só no topo da home (reembaralhadas a cada carregamento, nunca repetindo a última exibida; setas navegam)
 
