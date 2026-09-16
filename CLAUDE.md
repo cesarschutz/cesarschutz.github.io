@@ -44,7 +44,7 @@ Deploy preso na fila: `gh run cancel <id>` e `gh workflow run deploy.yml`.
   card de identidade da home e na página 404 — de propósito, para não poluir o site.
   Pausa fora da tela. Para trocar os ícones, editar `tiles.ts`
 - **Frases de autores** (`src/components/QuoteCard.astro`, dados em `src/data/quotes.json`,
-  132 frases): só no topo da home (embaralhadas por sessão, com setas)
+  132 frases): só no topo da home (reembaralhadas a cada carregamento, nunca repetindo a última exibida; setas navegam)
 
 ## Estrutura
 
