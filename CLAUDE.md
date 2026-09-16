@@ -84,12 +84,33 @@ Post de série: `series: <chave>` no frontmatter e **sem** `category` — nos ca
 "Séries › Nome da série" no lugar da categoria. Índice em `/series/`; série sem página própria
 ganha `/series/<chave>/` (lista em ordem de leitura). Série nova = item no cadastro + posts.
 
-### Série "Atualizações do Java" (`series: java`)
+### Série "Atualizações do Java" (`series: java`) — só LTS
 
-`java-8.md` … `java-NN.md` + `guia-atualizacoes-java.md`. A página própria `/java/`
-monta a grade sozinha pelo padrão de slug `java-\d+`. Nova versão = criar `java-NN.md`
-(título `Java NN — subtítulo` ou `Java NN (LTS) — subtítulo`) e a capa `covers/java/java-NN.svg`.
-Nova LTS: atualizar o set `LTS` em `src/pages/java.astro`.
+Um post por LTS (`java-8`, `java-11`, `java-17`, `java-21`, `java-25`) + `java-29` ("Rumo à próxima
+LTS", atualizado a cada release intermediária) + `guia-atualizacoes-java.md`. Cada post reúne o que
+as versões intermediárias trouxeram desde a LTS anterior e segue o mesmo esqueleto:
+
+- introdução (data, período coberto, para quem migra de qual LTS) e `## Linha do tempo` com diagrama
+- seções por tema; em cada recurso a linha `**Chegou em:** Java 14 (preview, [JEP 359](…)) → Java 16 (final, [JEP 395](…))`,
+  explicação, código e diagrama quando ajudar
+- recursos ainda em preview/incubadora, cuidados de migração
+- `## Todas as JEPs, versão a versão` com h3 **exatamente** `### Java NN` (âncoras `#java-NN` usadas
+  pelos redirecionamentos) e tabela `| JEP | Título | Tipo |` — célula JEP só com o número linkado,
+  título oficial em inglês, Tipo com vocabulário fechado: Final, Preview, Incubadora, Experimental,
+  Depreciação, Remoção, Plataforma, Interno
+- rótulos da linha "Chegou em": final, preview, 2ª preview…, incubadora, experimental, depreciado, removido
+- exceção: o Java 8 (primeiro da série) usa `## Visão geral` no lugar da linha do tempo e tabela com coluna Área
+- `## Fontes` — toda afirmação sustentada por fonte oficial (openjdk.org/jeps, páginas do projeto JDK,
+  release notes, Javadoc, roadmap da Oracle)
+
+Dados da página `/java/` em `src/data/java.ts` (`JAVA_LTS` e `ABSORBED`). Os posts antigos das
+versões intermediárias foram removidos; `/posts/java-NN/` redireciona para `/posts/java-<LTS>/#java-NN`
+(gerado em `astro.config.mjs` a partir de `ABSORBED`).
+
+**Nova release intermediária** (ex.: Java 28): atualizar `java-29.md` (seções + `### Java 28` na
+tabela), adicionar `28: 29` em `ABSORBED` e ajustar `covers` em `JAVA_LTS`.
+**Nova LTS lançada** (ex.: Java 29): tirar `upcoming` em `JAVA_LTS`, revisar `java-29.md` como LTS e
+criar `java-33.md` como próxima, com capa `covers/java/java-33.svg` (copiar de `java-29.svg`).
 
 ### ⚠️ Regra das capas (crop-safe)
 
@@ -134,4 +155,3 @@ Recurso novo adotado → documentar a sintaxe na seção acima.
 ## Pendências do dono
 
 - Completar a trajetória profissional e contatos (LinkedIn/e-mail) em `src/pages/about.astro`
-- Títulos provisórios "Java 23/24/26 — o que mudou" podem ganhar subtítulo descritivo

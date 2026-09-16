@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 888" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="888" fill="#ffffff"/>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Do Java 21 ao Java 25: a trajetória dos principais recursos</text>
+<rect x="335.0" y="70" width="108" height="46" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="389.0" y="90" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 21</text>
+<text x="389.0" y="107" font-size="13" fill="#4b5563" text-anchor="middle">set/2023 · LTS</text>
+<rect x="453.0" y="70" width="108" height="46" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="507.0" y="90" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 22</text>
+<text x="507.0" y="107" font-size="13" fill="#4b5563" text-anchor="middle">mar/2024</text>
+<rect x="571.0" y="70" width="108" height="46" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="625.0" y="90" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 23</text>
+<text x="625.0" y="107" font-size="13" fill="#4b5563" text-anchor="middle">set/2024</text>
+<rect x="689.0" y="70" width="108" height="46" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="743.0" y="90" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 24</text>
+<text x="743.0" y="107" font-size="13" fill="#4b5563" text-anchor="middle">mar/2025</text>
+<rect x="807.0" y="70" width="108" height="46" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="861.0" y="90" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 25</text>
+<text x="861.0" y="107" font-size="13" fill="#4b5563" text-anchor="middle">set/2025 · LTS</text>
+<text x="24" y="150" font-size="13" font-weight="700" fill="#6b7280" letter-spacing="0.5">LINGUAGEM</text>
+<line x1="24" y1="158" x2="916" y2="158" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="189.0" font-size="14" fill="#111827">Arquivos compactos e main de instância</text>
+<line x1="389.0" y1="184.0" x2="861.0" y2="184.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="339.0" y="171.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="389.0" y="189.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="457.0" y="171.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="507.0" y="189.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="575.0" y="171.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="189.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="171.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="743.0" y="189.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="811.0" y="171.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="861.0" y="189.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="225.0" font-size="14" fill="#111827">Corpos de construtor flexíveis</text>
+<line x1="507.0" y1="220.0" x2="861.0" y2="220.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="457.0" y="207.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="507.0" y="225.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="575.0" y="207.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="225.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="207.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="743.0" y="225.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="811.0" y="207.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="861.0" y="225.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="261.0" font-size="14" fill="#111827">Import de módulos</text>
+<line x1="625.0" y1="256.0" x2="861.0" y2="256.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="575.0" y="243.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="261.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="243.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="743.0" y="261.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="811.0" y="243.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="861.0" y="261.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="297.0" font-size="14" fill="#111827">Variáveis e padrões sem nome</text>
+<line x1="389.0" y1="292.0" x2="507.0" y2="292.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="339.0" y="279.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="389.0" y="297.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="457.0" y="279.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="507.0" y="297.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="333.0" font-size="14" fill="#111827">Tipos primitivos em padrões</text>
+<line x1="625.0" y1="328.0" x2="861.0" y2="328.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="575.0" y="315.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="333.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="315.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="743.0" y="333.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="811.0" y="315.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="861.0" y="333.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<text x="24" y="369.0" font-size="14" fill="#111827">String Templates</text>
+<line x1="389.0" y1="364.0" x2="625.0" y2="364.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="339.0" y="351.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="389.0" y="369.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="457.0" y="351.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="507.0" y="369.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="575.0" y="351.0" width="100" height="26" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="625.0" y="369.0" font-size="13" font-weight="600" fill="#d9534f" text-anchor="middle">retirado</text>
+<text x="24" y="404" font-size="13" font-weight="700" fill="#6b7280" letter-spacing="0.5">BIBLIOTECAS E CONCORRÊNCIA</text>
+<line x1="24" y1="412" x2="916" y2="412" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="443.0" font-size="14" fill="#111827">Scoped Values</text>
+<line x1="389.0" y1="438.0" x2="861.0" y2="438.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="339.0" y="425.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="389.0" y="443.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="457.0" y="425.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="507.0" y="443.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="575.0" y="425.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="443.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="425.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="743.0" y="443.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="811.0" y="425.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="861.0" y="443.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="479.0" font-size="14" fill="#111827">Structured Concurrency</text>
+<line x1="389.0" y1="474.0" x2="861.0" y2="474.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="339.0" y="461.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="389.0" y="479.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="457.0" y="461.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="507.0" y="479.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="575.0" y="461.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="479.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="461.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="743.0" y="479.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="811.0" y="461.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="861.0" y="479.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<text x="24" y="515.0" font-size="14" fill="#111827">Stream Gatherers</text>
+<line x1="507.0" y1="510.0" x2="743.0" y2="510.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="457.0" y="497.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="507.0" y="515.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="575.0" y="497.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="515.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="497.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="743.0" y="515.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="551.0" font-size="14" fill="#111827">Class-File API</text>
+<line x1="507.0" y1="546.0" x2="743.0" y2="546.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="457.0" y="533.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="507.0" y="551.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="575.0" y="533.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="625.0" y="551.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="693.0" y="533.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="743.0" y="551.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="587.0" font-size="14" fill="#111827">Foreign Function &amp; Memory API</text>
+<line x1="389.0" y1="582.0" x2="507.0" y2="582.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="339.0" y="569.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="389.0" y="587.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="457.0" y="569.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="507.0" y="587.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="623.0" font-size="14" fill="#111827">Key Derivation Function API</text>
+<line x1="743.0" y1="618.0" x2="861.0" y2="618.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="693.0" y="605.0" width="100" height="26" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="743.0" y="623.0" font-size="13" font-weight="600" fill="#e07a1f" text-anchor="middle">preview</text>
+<rect x="811.0" y="605.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="861.0" y="623.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="658" font-size="13" font-weight="700" fill="#6b7280" letter-spacing="0.5">JVM E PLATAFORMA</text>
+<line x1="24" y1="666" x2="916" y2="666" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="697.0" font-size="14" fill="#111827">Compact Object Headers</text>
+<line x1="743.0" y1="692.0" x2="861.0" y2="692.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="693.0" y="679.0" width="100" height="26" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="743.0" y="697.0" font-size="13" font-weight="600" fill="#2b7fc4" text-anchor="middle">experimental</text>
+<rect x="811.0" y="679.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="861.0" y="697.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="733.0" font-size="14" fill="#111827">Shenandoah geracional</text>
+<line x1="743.0" y1="728.0" x2="861.0" y2="728.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="693.0" y="715.0" width="100" height="26" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="743.0" y="733.0" font-size="13" font-weight="600" fill="#2b7fc4" text-anchor="middle">experimental</text>
+<rect x="811.0" y="715.0" width="100" height="26" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="861.0" y="733.0" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">final</text>
+<text x="24" y="769.0" font-size="14" fill="#111827">ZGC não geracional</text>
+<line x1="625.0" y1="764.0" x2="743.0" y2="764.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="575.0" y="751.0" width="100" height="26" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="625.0" y="769.0" font-size="13" font-weight="600" fill="#6b7280" text-anchor="middle">depreciado</text>
+<rect x="693.0" y="751.0" width="100" height="26" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="743.0" y="769.0" font-size="13" font-weight="600" fill="#d9534f" text-anchor="middle">removido</text>
+<text x="24" y="805.0" font-size="14" fill="#111827">Security Manager</text>
+<line x1="389.0" y1="800.0" x2="743.0" y2="800.0" stroke="#9ca3af" stroke-width="2"/>
+<rect x="339.0" y="787.0" width="100" height="26" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="389.0" y="805.0" font-size="13" font-weight="600" fill="#6b7280" text-anchor="middle">depreciado</text>
+<rect x="693.0" y="787.0" width="100" height="26" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="743.0" y="805.0" font-size="13" font-weight="600" fill="#d9534f" text-anchor="middle">desativado</text>
+<rect x="24" y="836" width="892" height="44" rx="12" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+<rect x="44" y="851" width="26" height="14" rx="6" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="78" y="863" font-size="13" fill="#374151">preview: --enable-preview</text>
+<rect x="264" y="851" width="26" height="14" rx="6" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="298" y="863" font-size="13" fill="#374151">experimental: flag da JVM</text>
+<rect x="480" y="851" width="26" height="14" rx="6" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="514" y="863" font-size="13" fill="#374151">final / produto</text>
+<rect x="636" y="851" width="26" height="14" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="670" y="863" font-size="13" fill="#374151">depreciado</text>
+<rect x="770" y="851" width="26" height="14" rx="6" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="804" y="863" font-size="13" fill="#374151">removido/retirado</text>
+</svg>

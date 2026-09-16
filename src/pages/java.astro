@@ -2,54 +2,39 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Icon from "../components/Icon.astro";
-import { getPosts, JAVA_VERSION } from "../utils/posts";
-
-// Versões LTS (atualizar quando sair uma nova LTS: Java 29, set/2027)
-const LTS = new Set([8, 11, 17, 21, 25]);
-
-// Ano de lançamento real (o `published` dos posts é a data de escrita)
-const releaseYear = (v: number): number => {
-  if (v === 8) return 2014;
-  if (v === 9) return 2017;
-  // desde o 10: duas versões por ano, março (par) e setembro (ímpar)
-  return 2018 + Math.floor((v - 10) / 2);
-};
+import { getPosts } from "../utils/posts";
+import { JAVA_LTS, RELEASED_LTS } from "../data/java";
 
 const posts = await getPosts();
-const versions = posts
-  .filter((post) => post.data.series === "java" && JAVA_VERSION.test(post.id))
-  .map((post) => {
-    const number = Number(post.id.replace("java-", ""));
-    const match = post.data.title.match(/^Java \d+(?: \(LTS\))? — (.*)$/);
-    return {
-      number,
-      subtitle: match?.[1] ?? post.data.title,
-      lts: LTS.has(number),
-      year: releaseYear(number),
-      url: `/posts/${post.id}/`,
-    };
-  })
-  .sort((a, b) => b.number - a.number);
+const versions = JAVA_LTS.map((lts) => {
+  const post = posts.find((p) => p.id === `java-${lts.version}`);
+  const match = post?.data.title.match(/^Java \d+(?: \(LTS\))? — (.*)$/);
+  return {
+    ...lts,
+    subtitle: match?.[1] ?? post?.data.title ?? "",
+    url: post ? `/posts/${post.id}/` : undefined,
+  };
+}).filter((v) => v.url);
 
 const guide = posts.find((post) => post.id === "guia-atualizacoes-java");
-const latest = versions[0];
+const next = JAVA_LTS.find((v) => v.upcoming);
 ---
 
 <BaseLayout
   title="Atualizações do Java"
-  description="Cada versão do Java explicada: o que mudou, por que importa e exemplos de código, do Java 8 à versão mais recente."
+  description="Cada versão LTS do Java explicada: o que mudou desde a LTS anterior, em qual versão cada recurso chegou, com exemplos de código e fontes oficiais."
 >
   <PageHeader
     eyebrow="Séries"
     title="Atualizações do Java"
-    description="Cada versão explicada: o que mudou, por que importa e exemplos de código, do Java 8 à versão mais recente. Uma versão nova sai em março e outra em setembro, e cada uma ganha seu artigo aqui."
+    description="Uma leitura por versão LTS. Cada artigo reúne o que as versões intermediárias trouxeram desde a LTS anterior, mostra em qual versão cada recurso chegou e traz exemplos de código, diagramas e fontes oficiais."
     icon="coffee"
     color="#f8981d"
   >
     <div class="java-kpis">
-      <span><strong>{versions.length}</strong> versões</span>
-      <span><strong>{[...LTS].length}</strong> LTS</span>
-      {latest && <span>mais recente: <strong>Java {latest.number}</strong></span>}
+      <span><strong>{RELEASED_LTS.length}</strong> LTS lançadas</span>
+      <span>mais recente: <strong>Java {RELEASED_LTS[0].version}</strong></span>
+      {next && <span>próxima: <strong>Java {next.version}</strong> ({next.release})</span>}
     </div>
   </PageHeader>
 
@@ -64,7 +49,7 @@ const latest = versions[0];
           <span class="guide-title">{guide.data.title}</span>
           <span class="guide-desc">
             Como o ciclo de releases funciona, qual distribuição de JDK usar e como migrar com segurança: a base para
-            ler as versões.
+            ler as LTS.
           </span>
         </span>
         <Icon name="arrowRight" size={20} class="guide-arrow" />
@@ -72,16 +57,19 @@ const latest = versions[0];
     )
   }
 
-  <section class="versions" aria-label="Versões">
+  <section class="versions" aria-label="Versões LTS">
     {
       versions.map((v, i) => (
-        <a class:list={["version card rise", { lts: v.lts }]} href={v.url} style={`--i:${Math.min(i + 2, 10)}`}>
+        <a class:list={["version card rise", { upcoming: v.upcoming }]} href={v.url} style={`--i:${i + 2}`}>
           <span class="v-top">
-            <span class="v-num">{v.number}</span>
-            {v.lts && <span class="v-lts">LTS</span>}
+            <span class="v-num">{v.version}</span>
+            <span class="v-badge">{v.upcoming ? "Próxima LTS" : "LTS"}</span>
           </span>
           <span class="v-title">{v.subtitle}</span>
-          <span class="v-year">{v.year}</span>
+          <span class="v-meta">
+            <span class="v-covers">{v.covers}</span>
+            <span class="v-year">{v.release}</span>
+          </span>
         </a>
       ))
     }
@@ -161,16 +149,17 @@ const latest = versions[0];
 
   .versions {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: var(--col-gap);
     margin-top: var(--col-gap);
   }
 
   .version {
     display: flex;
     flex-direction: column;
-    padding: 18px 18px 16px;
-    border-radius: var(--radius-md);
+    padding: 22px 22px 20px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(160deg, color-mix(in srgb, #f8981d 9%, var(--card-bg)), var(--card-bg) 60%);
     transition:
       transform 0.2s var(--ease-out),
       border-color 0.2s ease;
@@ -181,8 +170,10 @@ const latest = versions[0];
     border-color: color-mix(in srgb, #f8981d 50%, var(--border));
   }
 
-  .version.lts {
-    background: linear-gradient(160deg, color-mix(in srgb, #f8981d 9%, var(--card-bg)), var(--card-bg) 60%);
+  .version.upcoming {
+    background: var(--card-bg);
+    border-style: dashed;
+    border-color: color-mix(in srgb, #f8981d 45%, var(--border));
   }
 
   .v-top {
@@ -193,40 +184,57 @@ const latest = versions[0];
 
   .v-num {
     font-family: var(--font-mono);
-    font-size: 40px;
+    font-size: 52px;
     font-weight: 600;
     line-height: 1;
     letter-spacing: -0.04em;
     color: #f8981d;
   }
 
-  .v-lts {
-    padding: 2px 8px;
-    border-radius: 6px;
+  .v-badge {
+    padding: 3px 10px;
+    border-radius: 980px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: #1c1c1e;
     background: #f8981d;
   }
 
+  .upcoming .v-badge {
+    color: #f8981d;
+    background: color-mix(in srgb, #f8981d 14%, transparent);
+  }
+
   .v-title {
-    margin-top: 12px;
-    font-size: var(--fs-body);
+    margin-top: 14px;
+    font-family: var(--font-serif);
+    font-size: 20px;
     font-weight: 600;
-    line-height: 1.35;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    text-wrap: pretty;
   }
 
   .version:hover .v-title {
     color: var(--blue);
   }
 
-  .v-year {
+  .v-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px 12px;
     margin-top: auto;
-    padding-top: 10px;
+    padding-top: 16px;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .v-year {
     font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--text-dim);
   }
 
   @media (max-width: 560px) {

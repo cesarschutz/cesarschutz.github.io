@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="560" fill="#ffffff"/>
+
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Do Java 7 ao Java 8: os grandes blocos de mudança</text>
+<text x="30" y="68" font-size="14" fill="#6b7280">JDK 8 · disponibilidade geral em 18/03/2014 · 55 JEPs entregues</text>
+
+<!-- Linguagem -->
+<rect x="30" y="92" width="205" height="262" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="46" y="122" font-size="16" font-weight="700" fill="#2b7fc4">Linguagem</text>
+<line x1="46" y1="134" x2="219" y2="134" stroke="#2b7fc4" stroke-opacity="0.35"/>
+<g font-size="14" fill="#111827">
+<text x="46" y="160">• Expressões lambda</text>
+<text x="46" y="187">• Method references</text>
+<text x="46" y="214">• Default/static methods</text>
+<text x="46" y="241">• Inferência pelo alvo</text>
+<text x="46" y="268">• Type annotations</text>
+<text x="46" y="295">• Repeating annotations</text>
+<text x="46" y="322">• Nomes de parâmetros</text>
+</g>
+
+<!-- APIs -->
+<rect x="255" y="92" width="205" height="262" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="271" y="122" font-size="16" font-weight="700" fill="#2e9e5b">APIs</text>
+<line x1="271" y1="134" x2="444" y2="134" stroke="#2e9e5b" stroke-opacity="0.35"/>
+<g font-size="14" fill="#111827">
+<text x="271" y="160">• Stream API</text>
+<text x="271" y="187">• java.util.function</text>
+<text x="271" y="214">• Optional</text>
+<text x="271" y="241">• java.time (JSR 310)</text>
+<text x="271" y="268">• CompletableFuture</text>
+<text x="271" y="295">• LongAdder, StampedLock</text>
+<text x="271" y="322">• Base64</text>
+</g>
+
+<!-- JVM -->
+<rect x="480" y="92" width="205" height="262" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="496" y="122" font-size="16" font-weight="700" fill="#e07a1f">JVM (HotSpot)</text>
+<line x1="496" y1="134" x2="669" y2="134" stroke="#e07a1f" stroke-opacity="0.35"/>
+<g font-size="14" fill="#111827">
+<text x="496" y="160">• PermGen removido</text>
+<text x="496" y="187">• Metaspace nativo</text>
+<text x="496" y="214">• Combinações de GC</text>
+<text x="508" y="232" fill="#4b5563">raras depreciadas</text>
+<text x="496" y="259">• Intrinsics de AES</text>
+<text x="496" y="286">• Compact Profiles</text>
+</g>
+
+<!-- Ferramentas -->
+<rect x="705" y="92" width="205" height="262" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="721" y="122" font-size="16" font-weight="700" fill="#4b5563">Ferramentas</text>
+<line x1="721" y1="134" x2="894" y2="134" stroke="#6b7280" stroke-opacity="0.35"/>
+<g font-size="14" fill="#111827">
+<text x="721" y="160">• jdeps</text>
+<text x="721" y="187">• Nashorn + jjs</text>
+<text x="721" y="214">• javac -parameters</text>
+<text x="721" y="241">• javac -h (JNI)</text>
+<text x="721" y="268">• DocLint</text>
+<text x="721" y="295">• DocTree API</text>
+</g>
+
+<!-- Segurança -->
+<rect x="30" y="374" width="880" height="72" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="46" y="402" font-size="16" font-weight="700" fill="#4b5563">Segurança</text>
+<text x="46" y="428" font-size="14" fill="#111827">TLS 1.1/1.2 ligados no cliente · SNI no servidor · AEAD (AES/GCM) · PBE com AES · SHA-224 · SecureRandom forte · URLPermission</text>
+
+<!-- Removidos -->
+<rect x="30" y="462" width="880" height="72" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="46" y="490" font-size="16" font-weight="700" fill="#d9534f">Removido ou substituído</text>
+<text x="46" y="516" font-size="14" fill="#111827">PermGen e flags PermSize/MaxPermSize · ferramenta apt · ponte JDBC-ODBC · Rhino (trocado pelo Nashorn) · Solaris 32 bits</text>
+</svg>

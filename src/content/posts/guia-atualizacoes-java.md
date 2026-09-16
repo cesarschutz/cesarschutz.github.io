@@ -8,7 +8,7 @@ cover: /covers/guia-java.svg
 draft: false
 ---
 
-Este guia reúne o que é preciso saber para **planejar e executar uma atualização de versão do Java**: como o ciclo de releases funciona, qual distribuição de JDK adotar, quanto custa, quando vale migrar e um processo em cinco fases com as ferramentas explicadas passo a passo. Ele acompanha a [série de posts versão a versão](/tags/Java) — aqui fica o *como migrar*; lá, o *o que mudou* em cada release.
+Este guia reúne o que é preciso saber para **planejar e executar uma atualização de versão do Java**: como o ciclo de releases funciona, qual distribuição de JDK adotar, quanto custa, quando vale migrar e um processo em cinco fases com as ferramentas explicadas passo a passo. Ele acompanha a [série sobre cada versão LTS](/java/) — aqui fica o *como migrar*; lá, o *o que mudou* em cada LTS.
 
 ## Como funciona o ciclo de releases
 

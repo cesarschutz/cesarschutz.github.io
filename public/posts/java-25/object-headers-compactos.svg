@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="470" fill="#ffffff"/>
+<defs><marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#4b5563"/></marker></defs>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Cabeçalho de objeto na HotSpot de 64 bits: padrão x compacto</text>
+<text x="24" y="84" font-size="15" font-weight="700" fill="#374151" text-anchor="start">Padrão (com compressed class pointers): 96 bits = 12 bytes</text>
+<rect x="24" y="98" width="594.6666666666666" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="321.3333333333333" y="125.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">mark word: 64 bits</text>
+<text x="321.3333333333333" y="143.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">hash (31) · idade GC (4) · tag (2) · bits não usados</text>
+<rect x="618.6666666666666" y="98" width="297.3333333333333" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="767.3333333333333" y="125.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">class pointer comprimido</text>
+<text x="767.3333333333333" y="143.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">32 bits</text>
+<text x="24" y="198" font-size="15" font-weight="700" fill="#374151" text-anchor="start">Compacto (-XX:+UseCompactObjectHeaders): 64 bits = 8 bytes</text>
+<rect x="24" y="212" width="172" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="110.0" y="239.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">class pointer</text>
+<text x="110.0" y="257.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">22 bits</text>
+<rect x="196" y="212" width="200" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="296.0" y="239.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">hash de identidade</text>
+<text x="296.0" y="257.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">31 bits</text>
+<rect x="396" y="212" width="74" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="433.0" y="239.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">Valhalla</text>
+<text x="433.0" y="257.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">4 bits</text>
+<rect x="470" y="212" width="58" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="499.0" y="239.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">idade</text>
+<text x="499.0" y="257.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">4 bits</text>
+<rect x="528" y="212" width="42" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="549.0" y="239.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">SF</text>
+<text x="549.0" y="257.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">1</text>
+<rect x="570" y="212" width="48" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="594.0" y="239.5" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">tag</text>
+<text x="594.0" y="257.7" font-size="13" font-weight="400" fill="#111827" text-anchor="middle">2</text>
+<rect x="622" y="212" width="294" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="769.0" y="239.1" font-size="14" font-weight="400" fill="#2e9e5b" text-anchor="middle">4 bytes a menos</text>
+<text x="769.0" y="258.7" font-size="14" font-weight="400" fill="#2e9e5b" text-anchor="middle">por objeto</text>
+<rect x="24" y="304" width="434" height="144" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="44" y="332" font-size="15" font-weight="700" fill="#111827" text-anchor="start">Como cabe em 64 bits</text>
+<text x="44" y="362" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• class pointer vai para o mark word, com 22 bits</text>
+<text x="44" y="386" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• locking não sobrescreve mais o cabeçalho</text>
+<text x="44" y="410" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• SF: tag de self-forwarding usada pelo GC</text>
+<text x="44" y="434" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• 4 bits reservados para o Projeto Valhalla</text>
+<rect x="482" y="304" width="434" height="144" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="502" y="332" font-size="15" font-weight="700" fill="#111827" text-anchor="start">Resultados citados no JEP 519</text>
+<text x="502" y="362" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• SPECjbb2015: 22% menos heap e 8% menos CPU</text>
+<text x="502" y="386" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• SPECjbb2015: 15% menos coletas (G1 e Parallel)</text>
+<text x="502" y="410" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• parser JSON paralelo: 10% menos tempo</text>
+<text x="502" y="434" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• ainda desligado por padrão no Java 25</text>
+</svg>

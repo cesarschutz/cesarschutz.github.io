@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 640" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="640" fill="#ffffff"/>
+<defs><marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker></defs>
+<text x="20" y="38" font-size="21" font-weight="700" fill="#111827">StructuredTaskScope no Java 27: um escopo, três desfechos</text>
+<text x="20" y="62" font-size="14" fill="#6b7280">JEP 533 (7ª preview) · desfechos com os Joiners prontos · nenhuma subtarefa sobrevive ao bloco try</text>
+<rect x="250" y="86" width="440" height="68" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="114" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Thread dona do escopo</text>
+<text x="470" y="135" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">try (var scope = StructuredTaskScope.open(...))</text>
+<line x1="470" y1="156" x2="170" y2="196" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="60" y="200" width="220" height="62" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="170" y="226" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">fork(() -> buscarCliente())</text>
+<text x="170" y="247" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">roda em virtual thread</text>
+<line x1="170" y1="264" x2="470" y2="306" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<line x1="470" y1="156" x2="470" y2="196" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="360" y="200" width="220" height="62" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="470" y="226" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">fork(() -> contarItens())</text>
+<text x="470" y="247" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">roda em virtual thread</text>
+<line x1="470" y1="264" x2="470" y2="306" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<line x1="470" y1="156" x2="770" y2="196" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="660" y="200" width="220" height="62" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="770" y="226" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">fork(() -> consultarEstoque())</text>
+<text x="770" y="247" font-size="13" font-weight="400" fill="#6b7280" text-anchor="middle">roda em virtual thread</text>
+<line x1="770" y1="264" x2="470" y2="306" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="300" y="310" width="340" height="62" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="336" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">scope.join()</text>
+<text x="470" y="357" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">o Joiner decide o desfecho</text>
+<line x1="470" y1="374" x2="165" y2="416" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="20" y="420" width="290" height="112" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="165" y="450" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Todas deram certo</text>
+<text x="165" y="471" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">join() devolve o resultado:</text>
+<text x="165" y="492" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">null, T ou List&lt;T&gt;,</text>
+<text x="165" y="513" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">conforme o Joiner</text>
+<line x1="470" y1="374" x2="470" y2="416" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="325" y="420" width="290" height="112" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="470" y="450" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Uma subtarefa falhou</text>
+<text x="470" y="471" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">as demais são canceladas</text>
+<text x="470" y="492" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">join() lança ExecutionException</text>
+<text x="470" y="513" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">causa: exceção da subtarefa</text>
+<line x1="470" y1="374" x2="775" y2="416" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="630" y="420" width="290" height="112" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="775" y="450" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">O prazo estourou</text>
+<text x="775" y="471" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">withTimeout(...) cancela tudo</text>
+<text x="775" y="492" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">join() lança ExecutionException</text>
+<text x="775" y="513" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">causa: CancelledByTimeoutException</text>
+<rect x="20" y="556" width="900" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="470" y="582" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">close(), no fim do try, sempre espera as threads das subtarefas terminarem.</text>
+<text x="470" y="603" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">No Java 26 (JEP 525) as exceções eram FailedException e TimeoutException; no 27, o tipo é parametrizado (R_X).</text>
+</svg>

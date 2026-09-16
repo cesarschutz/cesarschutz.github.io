@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 754" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="754" fill="#ffffff"/>
+<defs><marker id="seta" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#4b5563"/></marker></defs>
+<text x="24" y="42" font-size="21" font-weight="700" fill="#111827">Do Java 17 ao Java 21: como cada recurso evoluiu</text>
+<text x="24" y="66" font-size="14" fill="#4b5563">Status em cada versão. O Java 17 aparece só como ponto de partida; o período coberto é 18 a 21.</text>
+<text x="24" y="115" font-size="14" font-weight="700" fill="#6b7280">Recurso</text>
+<rect x="250" y="86" width="124" height="46" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="312.0" y="105" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 17</text>
+<text x="312.0" y="123" font-size="13" fill="#4b5563" text-anchor="middle">set/2021 · LTS</text>
+<rect x="386" y="86" width="124" height="46" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="448.0" y="105" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 18</text>
+<text x="448.0" y="123" font-size="13" fill="#4b5563" text-anchor="middle">mar/2022</text>
+<rect x="522" y="86" width="124" height="46" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="584.0" y="105" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 19</text>
+<text x="584.0" y="123" font-size="13" fill="#4b5563" text-anchor="middle">set/2022</text>
+<rect x="658" y="86" width="124" height="46" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="720.0" y="105" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 20</text>
+<text x="720.0" y="123" font-size="13" fill="#4b5563" text-anchor="middle">mar/2023</text>
+<rect x="794" y="86" width="124" height="46" rx="12" fill="#ffffff" stroke="#111827" stroke-width="2.5"/>
+<text x="856.0" y="105" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 21</text>
+<text x="856.0" y="123" font-size="13" fill="#4b5563" text-anchor="middle">set/2023 · LTS</text>
+<line x1="24" y1="198" x2="916" y2="198" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="168" font-size="14" font-weight="700" fill="#111827">Pattern matching (switch)</text>
+<text x="24" y="186" font-size="13" fill="#6b7280">linguagem</text>
+<rect x="250" y="150" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="312.0" y="168" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">Preview</text>
+<text x="312.0" y="184" font-size="13" fill="#111827" text-anchor="middle">JEP 406</text>
+<line x1="375" y1="171.0" x2="383" y2="171.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="386" y="150" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="448.0" y="168" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">2ª preview</text>
+<text x="448.0" y="184" font-size="13" fill="#111827" text-anchor="middle">JEP 420</text>
+<line x1="511" y1="171.0" x2="519" y2="171.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="522" y="150" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="584.0" y="168" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">3ª preview</text>
+<text x="584.0" y="184" font-size="13" fill="#111827" text-anchor="middle">JEP 427</text>
+<line x1="647" y1="171.0" x2="655" y2="171.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="658" y="150" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="720.0" y="168" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">4ª preview</text>
+<text x="720.0" y="184" font-size="13" fill="#111827" text-anchor="middle">JEP 433</text>
+<line x1="783" y1="171.0" x2="791" y2="171.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="794" y="150" width="124" height="42" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="856.0" y="168" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">Final</text>
+<text x="856.0" y="184" font-size="13" fill="#111827" text-anchor="middle">JEP 441</text>
+<line x1="24" y1="252" x2="916" y2="252" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="222" font-size="14" font-weight="700" fill="#111827">Record patterns</text>
+<text x="24" y="240" font-size="13" fill="#6b7280">linguagem</text>
+<rect x="522" y="204" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="584.0" y="222" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">Preview</text>
+<text x="584.0" y="238" font-size="13" fill="#111827" text-anchor="middle">JEP 405</text>
+<line x1="647" y1="225.0" x2="655" y2="225.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="658" y="204" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="720.0" y="222" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">2ª preview</text>
+<text x="720.0" y="238" font-size="13" fill="#111827" text-anchor="middle">JEP 432</text>
+<line x1="783" y1="225.0" x2="791" y2="225.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="794" y="204" width="124" height="42" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="856.0" y="222" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">Final</text>
+<text x="856.0" y="238" font-size="13" fill="#111827" text-anchor="middle">JEP 440</text>
+<line x1="24" y1="306" x2="916" y2="306" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="276" font-size="14" font-weight="700" fill="#111827">Virtual threads</text>
+<text x="24" y="294" font-size="13" fill="#6b7280">concorrência</text>
+<rect x="522" y="258" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="584.0" y="276" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">Preview</text>
+<text x="584.0" y="292" font-size="13" fill="#111827" text-anchor="middle">JEP 425</text>
+<line x1="647" y1="279.0" x2="655" y2="279.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="658" y="258" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="720.0" y="276" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">2ª preview</text>
+<text x="720.0" y="292" font-size="13" fill="#111827" text-anchor="middle">JEP 436</text>
+<line x1="783" y1="279.0" x2="791" y2="279.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="794" y="258" width="124" height="42" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="856.0" y="276" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">Final</text>
+<text x="856.0" y="292" font-size="13" fill="#111827" text-anchor="middle">JEP 444</text>
+<line x1="24" y1="360" x2="916" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="330" font-size="14" font-weight="700" fill="#111827">Structured concurrency</text>
+<text x="24" y="348" font-size="13" fill="#6b7280">concorrência</text>
+<rect x="522" y="312" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="584.0" y="330" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">Incubadora</text>
+<text x="584.0" y="346" font-size="13" fill="#111827" text-anchor="middle">JEP 428</text>
+<line x1="647" y1="333.0" x2="655" y2="333.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="658" y="312" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="720.0" y="330" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">2ª incubadora</text>
+<text x="720.0" y="346" font-size="13" fill="#111827" text-anchor="middle">JEP 437</text>
+<line x1="783" y1="333.0" x2="791" y2="333.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="794" y="312" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="856.0" y="330" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">Preview</text>
+<text x="856.0" y="346" font-size="13" fill="#111827" text-anchor="middle">JEP 453</text>
+<line x1="24" y1="414" x2="916" y2="414" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="384" font-size="14" font-weight="700" fill="#111827">Scoped values</text>
+<text x="24" y="402" font-size="13" fill="#6b7280">concorrência</text>
+<rect x="658" y="366" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="720.0" y="384" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">Incubadora</text>
+<text x="720.0" y="400" font-size="13" fill="#111827" text-anchor="middle">JEP 429</text>
+<line x1="783" y1="387.0" x2="791" y2="387.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="794" y="366" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="856.0" y="384" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">Preview</text>
+<text x="856.0" y="400" font-size="13" fill="#111827" text-anchor="middle">JEP 446</text>
+<line x1="24" y1="468" x2="916" y2="468" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="438" font-size="14" font-weight="700" fill="#111827">Foreign Function &amp; Memory</text>
+<text x="24" y="456" font-size="13" fill="#6b7280">acesso a código nativo</text>
+<rect x="250" y="420" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="312.0" y="438" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">Incubadora</text>
+<text x="312.0" y="454" font-size="13" fill="#111827" text-anchor="middle">JEP 412</text>
+<line x1="375" y1="441.0" x2="383" y2="441.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="386" y="420" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="448.0" y="438" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">2ª incubadora</text>
+<text x="448.0" y="454" font-size="13" fill="#111827" text-anchor="middle">JEP 419</text>
+<line x1="511" y1="441.0" x2="519" y2="441.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="522" y="420" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="584.0" y="438" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">Preview</text>
+<text x="584.0" y="454" font-size="13" fill="#111827" text-anchor="middle">JEP 424</text>
+<line x1="647" y1="441.0" x2="655" y2="441.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="658" y="420" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="720.0" y="438" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">2ª preview</text>
+<text x="720.0" y="454" font-size="13" fill="#111827" text-anchor="middle">JEP 434</text>
+<line x1="783" y1="441.0" x2="791" y2="441.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="794" y="420" width="124" height="42" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="856.0" y="438" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">3ª preview</text>
+<text x="856.0" y="454" font-size="13" fill="#111827" text-anchor="middle">JEP 442</text>
+<line x1="24" y1="522" x2="916" y2="522" stroke="#e5e7eb" stroke-width="1"/>
+<text x="24" y="492" font-size="14" font-weight="700" fill="#111827">Vector API</text>
+<text x="24" y="510" font-size="13" fill="#6b7280">desempenho (SIMD)</text>
+<rect x="250" y="474" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="312.0" y="492" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">2ª incubadora</text>
+<text x="312.0" y="508" font-size="13" fill="#111827" text-anchor="middle">JEP 414</text>
+<line x1="375" y1="495.0" x2="383" y2="495.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="386" y="474" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="448.0" y="492" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">3ª incubadora</text>
+<text x="448.0" y="508" font-size="13" fill="#111827" text-anchor="middle">JEP 417</text>
+<line x1="511" y1="495.0" x2="519" y2="495.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="522" y="474" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="584.0" y="492" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">4ª incubadora</text>
+<text x="584.0" y="508" font-size="13" fill="#111827" text-anchor="middle">JEP 426</text>
+<line x1="647" y1="495.0" x2="655" y2="495.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="658" y="474" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="720.0" y="492" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">5ª incubadora</text>
+<text x="720.0" y="508" font-size="13" fill="#111827" text-anchor="middle">JEP 438</text>
+<line x1="783" y1="495.0" x2="791" y2="495.0" stroke="#4b5563" stroke-width="1.8" marker-end="url(#seta)"/>
+<rect x="794" y="474" width="124" height="42" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="856.0" y="492" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">6ª incubadora</text>
+<text x="856.0" y="508" font-size="13" fill="#111827" text-anchor="middle">JEP 448</text>
+<rect x="24" y="546" width="288" height="152" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="40" y="572" font-size="14" font-weight="700" fill="#111827">Java 18: finais sem preview</text>
+<text x="40" y="598" font-size="13" fill="#111827">JEP 400 · UTF-8 por padrão</text>
+<text x="40" y="620" font-size="13" fill="#111827">JEP 408 · Simple Web Server</text>
+<text x="40" y="642" font-size="13" fill="#111827">JEP 413 · @snippet no Javadoc</text>
+<text x="40" y="664" font-size="13" fill="#111827">JEP 416 · reflexão via method handles</text>
+<text x="40" y="686" font-size="13" fill="#111827">JEP 418 · SPI de resolução de endereços</text>
+<rect x="326" y="546" width="288" height="152" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="342" y="572" font-size="14" font-weight="700" fill="#111827">Java 21: finais sem preview</text>
+<text x="342" y="598" font-size="13" fill="#111827">JEP 431 · Sequenced Collections</text>
+<text x="342" y="620" font-size="13" fill="#111827">JEP 439 · ZGC geracional</text>
+<text x="342" y="642" font-size="13" fill="#111827">JEP 452 · API de KEM</text>
+<text x="342" y="664" font-size="13" fill="#111827">JEP 451 · aviso para agentes dinâmicos</text>
+<rect x="628" y="546" width="288" height="152" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="644" y="572" font-size="14" font-weight="700" fill="#111827">Java 21: estreias em preview</text>
+<text x="644" y="598" font-size="13" fill="#111827">JEP 430 · String Templates</text>
+<text x="644" y="620" font-size="13" fill="#111827">JEP 443 · padrões e variáveis _</text>
+<text x="644" y="642" font-size="13" fill="#111827">JEP 445 · classes sem nome</text>
+<rect x="24" y="719" width="28" height="18" rx="6" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="62" y="733" font-size="13" fill="#4b5563">Incubadora (módulo jdk.incubator.*)</text>
+<rect x="350.0" y="719" width="28" height="18" rx="6" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="388.0" y="733" font-size="13" fill="#4b5563">Preview (--enable-preview)</text>
+<rect x="611.2" y="719" width="28" height="18" rx="6" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="649.2" y="733" font-size="13" fill="#4b5563">Final</text>
+</svg>

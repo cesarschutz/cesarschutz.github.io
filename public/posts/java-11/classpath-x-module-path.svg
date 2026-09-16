@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 640" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="640" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+<marker id="setaVermelha" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#d9534f"/></marker>
+</defs>
+
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Classpath x module path</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">O mesmo sistema de pedidos, antes e depois do sistema de módulos (JEP 261)</text>
+
+<!-- Painel esquerdo: classpath -->
+<rect x="24" y="88" width="428" height="400" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="44" y="118" font-size="16" font-weight="700" fill="#111827">Java 8: classpath</text>
+<text x="44" y="140" font-size="13" fill="#4b5563">uma lista plana de JARs, sem dependências declaradas</text>
+
+<rect x="64" y="162" width="348" height="44" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="238" y="189" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">pedidos.jar</text>
+<rect x="64" y="216" width="348" height="44" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="238" y="243" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">estoque.jar  (api + interno)</text>
+<rect x="64" y="270" width="348" height="44" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="238" y="297" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">rt.jar  (todo o JDK, inclusive sun.*)</text>
+
+<rect x="64" y="334" width="348" height="134" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="84" y="362" font-size="14" font-weight="700" fill="#d9534f">Consequências</text>
+<text x="84" y="388" font-size="13" fill="#111827">• toda classe public é visível para todos</text>
+<text x="84" y="412" font-size="13" fill="#111827">• pacote "interno" do estoque é usável</text>
+<text x="84" y="436" font-size="13" fill="#111827">• JAR ausente só aparece em tempo de</text>
+<text x="96" y="456" font-size="13" fill="#111827">execução (NoClassDefFoundError)</text>
+
+<!-- Painel direito: module path -->
+<rect x="488" y="88" width="428" height="400" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="508" y="118" font-size="16" font-weight="700" fill="#111827">Java 9+: module path</text>
+<text x="508" y="140" font-size="13" fill="#4b5563">um grafo de módulos lido do module-info.java</text>
+
+<rect x="592" y="160" width="220" height="44" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="702" y="187" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">com.exemplo.pedidos</text>
+
+<!-- estoque -->
+<rect x="508" y="248" width="236" height="112" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="626" y="272" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">com.exemplo.estoque</text>
+<rect x="524" y="284" width="96" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="572" y="309" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">api</text>
+<text x="572" y="329" font-size="13" fill="#2e9e5b" text-anchor="middle">exportado</text>
+<rect x="632" y="284" width="96" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="680" y="309" font-size="13" font-weight="600" fill="#d9534f" text-anchor="middle">interno</text>
+<text x="680" y="329" font-size="13" fill="#d9534f" text-anchor="middle">oculto</text>
+
+<!-- java.logging -->
+<rect x="770" y="272" width="130" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="835" y="299" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">java.logging</text>
+
+<!-- java.base -->
+<rect x="622" y="410" width="160" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="702" y="437" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">java.base</text>
+
+<!-- setas requires -->
+<path d="M 624 204 L 542 244" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="508" y="222" font-size="13" font-weight="600" fill="#4b5563">requires</text>
+<path d="M 756 204 L 820 268" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="796" y="236" font-size="13" font-weight="600" fill="#4b5563">requires</text>
+<path d="M 732 204 L 716 278" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#setaVermelha)"/>
+<text x="738" y="246" font-size="16" font-weight="700" fill="#d9534f">✕</text>
+<path d="M 626 360 L 672 404" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<path d="M 835 316 L 740 404" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="508" y="476" font-size="13" fill="#4b5563">todo módulo lê java.base implicitamente</text>
+
+<!-- rodapé -->
+<rect x="24" y="512" width="892" height="104" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="44" y="540" font-size="14" font-weight="700" fill="#2e9e5b">O que o module path garante</text>
+<text x="44" y="566" font-size="13" fill="#111827">• Configuração confiável: um módulo requerido que não existe faz a aplicação falhar ao iniciar, não no meio da execução.</text>
+<text x="44" y="590" font-size="13" fill="#111827">• Encapsulamento forte: só pacotes exportados são acessíveis; usar "interno" é erro de compilação.</text>
+</svg>

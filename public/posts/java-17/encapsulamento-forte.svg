@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="560" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+</defs>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Encapsulamento forte dos internos do JDK</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">O que acontece quando código do classpath usa reflexão em um membro não público do JDK</text>
+
+<rect x="24" y="88" width="892" height="56" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="113" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">String.class.getDeclaredField("value").setAccessible(true)</text>
+<text x="470" y="134" font-size="14" fill="#2b7fc4" text-anchor="middle">mesmo código, três comportamentos diferentes conforme a versão</text>
+
+<line x1="165" y1="148" x2="165" y2="178" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<line x1="470" y1="148" x2="470" y2="178" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<line x1="775" y1="148" x2="775" y2="178" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+
+<rect x="24" y="184" width="282" height="220" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="44" y="214" font-size="16" font-weight="700" fill="#e07a1f">Java 9 a 15</text>
+<text x="44" y="242" font-size="14" fill="#111827">padrão: --illegal-access=permit</text>
+<text x="44" y="272" font-size="14" font-weight="700" fill="#111827">Funciona</text>
+<text x="44" y="296" font-size="14" fill="#111827">pacotes que existiam no JDK 8</text>
+<text x="44" y="318" font-size="14" fill="#111827">ficam abertos ao classpath</text>
+<text x="44" y="348" font-size="14" fill="#111827">aviso só no primeiro acesso</text>
+<text x="44" y="370" font-size="14" fill="#111827">ilegal (Java 11 incluído)</text>
+
+<rect x="329" y="184" width="282" height="220" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="349" y="214" font-size="16" font-weight="700" fill="#d9534f">Java 16 · JEP 396</text>
+<text x="349" y="242" font-size="14" fill="#111827">padrão: --illegal-access=deny</text>
+<text x="349" y="272" font-size="14" font-weight="700" fill="#111827">Falha por padrão</text>
+<text x="349" y="296" font-size="14" fill="#111827">InaccessibleObjectException</text>
+<text x="349" y="326" font-size="14" fill="#111827">escape temporário:</text>
+<text x="349" y="348" font-size="14" fill="#111827">--illegal-access=permit</text>
+<text x="349" y="370" font-size="14" fill="#111827">ou --add-opens</text>
+
+<rect x="634" y="184" width="282" height="220" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="654" y="214" font-size="16" font-weight="700" fill="#d9534f">Java 17 · JEP 403</text>
+<text x="654" y="242" font-size="14" fill="#111827">--illegal-access é obsoleta</text>
+<text x="654" y="272" font-size="14" font-weight="700" fill="#111827">Falha sem opção global</text>
+<text x="654" y="296" font-size="14" fill="#111827">a opção só gera um aviso</text>
+<text x="654" y="326" font-size="14" fill="#111827">paliativo: abrir pacotes</text>
+<text x="654" y="348" font-size="14" fill="#111827">um a um com --add-opens ou</text>
+<text x="654" y="370" font-size="14" fill="#111827">Add-Opens no manifesto do JAR</text>
+
+<rect x="24" y="428" width="892" height="108" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="44" y="458" font-size="15" font-weight="700" fill="#2e9e5b">Continua acessível no Java 17</text>
+<text x="44" y="484" font-size="14" fill="#111827">• sun.misc e sun.reflect, exportados e abertos pelo módulo jdk.unsupported (inclui sun.misc.Unsafe)</text>
+<text x="44" y="508" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">• java --add-opens java.base/java.lang=ALL-UNNAMED -jar app.jar</text>
+</svg>

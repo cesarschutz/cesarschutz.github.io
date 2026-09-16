@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 690" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="690" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#4b5563"/></marker>
+</defs>
+
+<text x="24" y="42" font-size="21" font-weight="700" fill="#111827">Sequenced Collections no Java 21 (JEP 431)</text>
+<text x="24" y="66" font-size="14" fill="#4b5563">Três interfaces novas encaixadas na hierarquia existente; a seta aponta para o supertipo</text>
+
+<line x1="610" y1="90" x2="610" y2="420" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+<!-- setas (desenhadas antes das caixas) -->
+<g stroke="#4b5563" stroke-width="2" fill="none">
+<line x1="204" y1="186" x2="188" y2="146" marker-end="url(#seta)"/>
+<line x1="450" y1="186" x2="270" y2="144" marker-end="url(#seta)"/>
+<line x1="84" y1="276" x2="150" y2="236" marker-end="url(#seta)"/>
+<line x1="224" y1="276" x2="224" y2="236" marker-end="url(#seta)"/>
+<line x1="400" y1="276" x2="300" y2="236" marker-end="url(#seta)"/>
+<line x1="470" y1="276" x2="468" y2="236" marker-end="url(#seta)"/>
+<line x1="375" y1="366" x2="410" y2="326" marker-end="url(#seta)"/>
+<line x1="535" y1="366" x2="495" y2="326" marker-end="url(#seta)"/>
+<line x1="770" y1="186" x2="770" y2="146" marker-end="url(#seta)"/>
+<line x1="705" y1="276" x2="740" y2="236" marker-end="url(#seta)"/>
+<line x1="858" y1="276" x2="815" y2="236" marker-end="url(#seta)"/>
+</g>
+
+<g font-size="14" text-anchor="middle">
+<rect x="84" y="96" width="200" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="184" y="123" fill="#111827">Collection</text>
+<rect x="380" y="186" width="160" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="460" y="213" fill="#111827">Set</text>
+<rect x="84" y="186" width="240" height="44" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="204" y="213" font-weight="700" fill="#111827">SequencedCollection</text>
+
+<rect x="24" y="276" width="120" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="84" y="303" fill="#111827">List</text>
+<rect x="164" y="276" width="120" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="224" y="303" fill="#111827">Deque</text>
+<rect x="340" y="276" width="200" height="44" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="440" y="303" font-weight="700" fill="#111827">SequencedSet</text>
+
+<rect x="296" y="366" width="158" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="375" y="393" fill="#111827">LinkedHashSet</text>
+<rect x="470" y="366" width="130" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="535" y="393" fill="#111827">SortedSet</text>
+
+<rect x="680" y="96" width="180" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="770" y="123" fill="#111827">Map</text>
+<rect x="660" y="186" width="220" height="44" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="770" y="213" font-weight="700" fill="#111827">SequencedMap</text>
+<rect x="630" y="276" width="156" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="708" y="303" fill="#111827">LinkedHashMap</text>
+<rect x="800" y="276" width="116" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="858" y="303" fill="#111827">SortedMap</text>
+</g>
+
+<!-- métodos -->
+<g font-size="13" fill="#111827">
+<rect x="24" y="440" width="284" height="186" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="40" y="466" font-size="14" font-weight="700">SequencedCollection&lt;E&gt;</text>
+<text x="40" y="492">reversed()  → visão invertida</text>
+<text x="40" y="514">addFirst(E) / addLast(E)</text>
+<text x="40" y="536">getFirst() / getLast()</text>
+<text x="40" y="558">removeFirst() / removeLast()</text>
+<text x="40" y="584" fill="#4b5563">add*, get* e remove* vieram de Deque</text>
+<text x="40" y="606" fill="#4b5563">get* e remove* em vazia: exceção</text>
+
+<rect x="324" y="440" width="284" height="186" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="340" y="466" font-size="14" font-weight="700">SequencedSet&lt;E&gt;</text>
+<text x="340" y="492">reversed() devolve SequencedSet</text>
+<text x="340" y="518" fill="#4b5563">LinkedHashSet: addFirst/addLast</text>
+<text x="340" y="540" fill="#4b5563">movem um elemento já presente</text>
+<text x="340" y="566" fill="#4b5563">SortedSet: addFirst/addLast lançam</text>
+<text x="340" y="588" fill="#4b5563">UnsupportedOperationException</text>
+
+<rect x="620" y="440" width="296" height="186" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="632" y="466" font-size="14" font-weight="700">SequencedMap&lt;K,V&gt;</text>
+<text x="632" y="492">reversed()</text>
+<text x="632" y="514">sequencedKeySet() / sequencedValues()</text>
+<text x="632" y="536">sequencedEntrySet()</text>
+<text x="632" y="558">putFirst(K,V) / putLast(K,V)</text>
+<text x="632" y="580">firstEntry() / lastEntry()</text>
+<text x="632" y="602">pollFirstEntry() / pollLastEntry()</text>
+</g>
+
+<g font-size="13" fill="#4b5563">
+<rect x="24" y="650" width="28" height="18" rx="6" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="62" y="664">interface nova no Java 21</text>
+<rect x="260" y="650" width="28" height="18" rx="6" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.8"/>
+<text x="298" y="664">tipo existente que ganhou o novo supertipo</text>
+<rect x="620" y="650" width="28" height="18" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="658" y="664">interface existente, sem mudança</text>
+</g>
+</svg>

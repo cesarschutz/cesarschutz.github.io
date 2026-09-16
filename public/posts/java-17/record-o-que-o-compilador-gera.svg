@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="560" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+</defs>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Record: uma linha de declaração, a classe inteira gerada</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">O que o compilador deriva do cabeçalho do record (JEP 395, final no Java 16)</text>
+
+<rect x="24" y="96" width="330" height="170" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="44" y="126" font-size="15" font-weight="700" fill="#2b7fc4">Você escreve</text>
+<text x="44" y="164" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">record Dinheiro(</text>
+<text x="64" y="188" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">BigDecimal valor,</text>
+<text x="64" y="212" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">String moeda</text>
+<text x="44" y="236" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">) {}</text>
+
+<line x1="362" y1="181" x2="404" y2="181" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+
+<rect x="414" y="96" width="502" height="290" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="434" y="126" font-size="15" font-weight="700" fill="#2e9e5b">O compilador gera</text>
+
+<rect x="434" y="142" width="462" height="40" rx="10" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.2"/>
+<text x="450" y="167" font-size="14" fill="#111827"><tspan font-weight="700">final class</tspan> Dinheiro <tspan font-weight="700">extends</tspan> java.lang.Record</text>
+<rect x="434" y="190" width="462" height="40" rx="10" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.2"/>
+<text x="450" y="215" font-size="14" fill="#111827">campos <tspan font-weight="700">private final</tspan> valor e moeda</text>
+<rect x="434" y="238" width="462" height="40" rx="10" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.2"/>
+<text x="450" y="263" font-size="14" fill="#111827">construtor canônico Dinheiro(BigDecimal, String)</text>
+<rect x="434" y="286" width="462" height="40" rx="10" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.2"/>
+<text x="450" y="311" font-size="14" fill="#111827">acessores públicos valor() e moeda(), sem prefixo get</text>
+<rect x="434" y="334" width="462" height="40" rx="10" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.2"/>
+<text x="450" y="359" font-size="14" fill="#111827">equals, hashCode e toString baseados nos componentes</text>
+
+<rect x="24" y="290" width="330" height="96" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="44" y="320" font-size="15" font-weight="700" fill="#e07a1f">Você ainda pode declarar</text>
+<text x="44" y="346" font-size="14" fill="#111827">construtor compacto, métodos, membros</text>
+<text x="44" y="368" font-size="14" fill="#111827">static e implements de interfaces</text>
+
+<rect x="24" y="410" width="892" height="126" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="44" y="440" font-size="15" font-weight="700" fill="#d9534f">Restrições</text>
+<text x="44" y="468" font-size="14" fill="#111827">• sem cláusula extends: a superclasse é sempre java.lang.Record</text>
+<text x="44" y="492" font-size="14" fill="#111827">• implicitamente final e não pode ser abstract</text>
+<text x="44" y="516" font-size="14" fill="#111827">• não declara campos de instância extras nem inicializadores de instância</text>
+<text x="540" y="468" font-size="14" fill="#111827">• os campos derivados dos componentes são final</text>
+<text x="540" y="492" font-size="14" fill="#111827">• não pode declarar métodos native</text>
+</svg>

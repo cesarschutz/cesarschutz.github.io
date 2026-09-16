@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 684" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="684" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#4b5563"/></marker>
+</defs>
+
+<text x="24" y="42" font-size="21" font-weight="700" fill="#111827">Record patterns aninhados: desmontar e extrair em um passo</text>
+<text x="24" y="66" font-size="14" fill="#4b5563">O padrão espelha a forma do objeto; cada nível chama o acessor do componente e testa o subpadrão</text>
+
+<rect x="24" y="86" width="892" height="50" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="44" y="117" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">obj instanceof <tspan fill="#2b7fc4" font-weight="700">Retangulo</tspan>(<tspan fill="#e07a1f" font-weight="700">PontoColorido</tspan>(<tspan fill="#2e9e5b" font-weight="700">Ponto</tspan>(var x, var y), Cor cor), var inferior)</text>
+
+<!-- objeto -->
+<text x="24" y="170" font-size="15" font-weight="700" fill="#111827">Objeto em memória</text>
+<rect x="24" y="184" width="560" height="344" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="44" y="210" font-size="14" font-weight="700" fill="#2b7fc4">Retangulo</text>
+
+<text x="44" y="238" font-size="13" fill="#4b5563">superiorEsquerdo()</text>
+<rect x="44" y="246" width="520" height="166" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="60" y="270" font-size="14" font-weight="700" fill="#e07a1f">PontoColorido</text>
+<text x="60" y="294" font-size="13" fill="#4b5563">ponto()</text>
+<rect x="60" y="302" width="300" height="36" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="76" y="325" font-size="14" fill="#111827"><tspan font-weight="700" fill="#2e9e5b">Ponto</tspan>    x = 0    y = 10</text>
+<text x="60" y="362" font-size="13" fill="#4b5563">cor()</text>
+<rect x="60" y="370" width="230" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="76" y="393" font-size="14" fill="#111827">VERMELHO</text>
+
+<text x="44" y="438" font-size="13" fill="#4b5563">inferiorDireito()</text>
+<rect x="44" y="446" width="520" height="66" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="60" y="470" font-size="14" font-weight="700" fill="#e07a1f">PontoColorido</text>
+<text x="60" y="496" font-size="14" fill="#111827">Ponto(4, 2), AZUL</text>
+
+<!-- variaveis -->
+<text x="640" y="170" font-size="15" font-weight="700" fill="#111827">Variáveis de padrão</text>
+<rect x="640" y="302" width="130" height="36" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="705" y="325" font-size="14" fill="#111827" text-anchor="middle">int x = 0</text>
+<rect x="786" y="302" width="130" height="36" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.8"/>
+<text x="851" y="325" font-size="14" fill="#111827" text-anchor="middle">int y = 10</text>
+<rect x="640" y="370" width="276" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="778" y="393" font-size="14" fill="#111827" text-anchor="middle">Cor cor = VERMELHO</text>
+<rect x="640" y="452" width="276" height="54" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.8"/>
+<text x="778" y="475" font-size="14" fill="#111827" text-anchor="middle">PontoColorido inferior</text>
+<text x="778" y="494" font-size="13" fill="#4b5563" text-anchor="middle">var inferido; não é desmontado</text>
+
+<line x1="361" y1="320" x2="636" y2="320" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<line x1="291" y1="388" x2="636" y2="388" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<line x1="565" y1="479" x2="636" y2="479" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+
+<!-- regras -->
+<rect x="24" y="552" width="892" height="112" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="44" y="578" font-size="14" font-weight="700" fill="#111827">Como o casamento acontece</text>
+<text x="44" y="602" font-size="13" fill="#111827">1. obj é Retangulo? Se não for (ou for null), o padrão inteiro falha e nenhuma variável é criada.</text>
+<text x="44" y="624" font-size="13" fill="#111827">2. Para cada componente, o Java chama o acessor e testa o subpadrão: PontoColorido, depois Ponto, depois Cor.</text>
+<text x="44" y="646" font-size="13" fill="#111827">3. var x, var y e Cor cor têm o tipo exato do componente: são incondicionais e não fazem teste extra.</text>
+</svg>

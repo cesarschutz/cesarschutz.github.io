@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="560" fill="#ffffff"/>
+<defs><marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker></defs>
+<text x="20" y="38" font-size="21" font-weight="700" fill="#111827">Dois padrões da JVM que mudam no Java 27</text>
+<text x="20" y="62" font-size="14" fill="#6b7280">Valem quando você não passa a flag explicitamente na linha de comando</text>
+<text x="20" y="102" font-size="16" font-weight="700" fill="#111827">1 · Coletor escolhido sem -XX:+Use...GC (JEP 523)</text>
+<text x="235" y="132" font-size="14" font-weight="700" fill="#2b7fc4" text-anchor="middle">Até o Java 26</text>
+<rect x="60" y="144" width="350" height="62" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="235" y="170" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">2 ou mais CPUs e</text>
+<text x="235" y="191" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">1792 MB ou mais de memória?</text>
+<line x1="160" y1="208" x2="130" y2="252" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="116" y="236" font-size="13" font-weight="600" fill="#4b5563" text-anchor="middle">sim</text>
+<line x1="310" y1="208" x2="340" y2="252" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="358" y="236" font-size="13" font-weight="600" fill="#4b5563" text-anchor="middle">não</text>
+<rect x="40" y="256" width="180" height="50" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="130" y="287" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">G1</text>
+<rect x="250" y="256" width="180" height="50" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="340" y="287" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Serial</text>
+<line x1="470" y1="120" x2="470" y2="320" stroke="#e5e7eb" stroke-width="2"/>
+<text x="700" y="132" font-size="14" font-weight="700" fill="#2e9e5b" text-anchor="middle">Java 27</text>
+<rect x="525" y="144" width="350" height="62" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="700" y="170" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">qualquer quantidade de CPUs</text>
+<text x="700" y="191" font-size="14" font-weight="600" fill="#111827" text-anchor="middle">e de memória</text>
+<line x1="700" y1="208" x2="700" y2="252" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="610" y="256" width="180" height="50" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="700" y="287" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">G1</text>
+<text x="470" y="340" font-size="13" fill="#4b5563" text-anchor="middle">Container pequeno (1 CPU ou menos de 1792 MB) que antes rodava Serial passa a rodar G1. Para voltar: -XX:+UseSerialGC</text>
+<text x="20" y="386" font-size="16" font-weight="700" fill="#111827">2 · Cabeçalho de cada objeto em 64 bits (JEP 534)</text>
+<text x="20" y="424" font-size="14" font-weight="600" fill="#374151">Até o Java 26</text>
+<rect x="170" y="404" width="720" height="32" rx="8" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="530" y="425" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">96 bits (padrão; 64 só com -XX:+UseCompactObjectHeaders)</text>
+<text x="20" y="470" font-size="14" font-weight="600" fill="#374151">Java 27</text>
+<rect x="170" y="450" width="480" height="32" rx="8" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="410" y="471" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">64 bits (padrão)</text>
+<rect x="658" y="450" width="232" height="32" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="774" y="471" font-size="13" fill="#6b7280" text-anchor="middle">32 bits a menos por objeto</text>
+<rect x="20" y="500" width="900" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="470" y="527" font-size="13" font-weight="400" fill="#374151" text-anchor="middle">Para voltar ao layout antigo: -XX:-UseCompactObjectHeaders (planejada para depreciação e remoção futuras)</text>
+</svg>

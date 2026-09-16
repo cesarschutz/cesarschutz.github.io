@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 610" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="610" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+<marker id="setav" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#d9534f"/></marker>
+</defs>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Sealed classes: o autor decide quem pode estender</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">Hierarquia do exemplo Forma (JEP 409, final no Java 17). As setas apontam para o supertipo.</text>
+
+<rect x="300" y="88" width="340" height="72" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="116" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">sealed interface Forma</text>
+<text x="470" y="140" font-size="14" fill="#2b7fc4" text-anchor="middle">permits Circulo, Quadrado, Poligono</text>
+
+<rect x="24" y="220" width="250" height="72" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="149" y="249" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">record Circulo</text>
+<text x="149" y="273" font-size="14" fill="#2e9e5b" text-anchor="middle">final (implícito no record)</text>
+
+<rect x="345" y="220" width="250" height="72" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="470" y="249" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">record Quadrado</text>
+<text x="470" y="273" font-size="14" fill="#2e9e5b" text-anchor="middle">final (implícito no record)</text>
+
+<rect x="666" y="220" width="250" height="72" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="791" y="249" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">abstract class Poligono</text>
+<text x="791" y="273" font-size="14" fill="#e07a1f" text-anchor="middle">non-sealed: reabre a hierarquia</text>
+
+<path d="M149 216 L149 190 L400 190 L400 166" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<line x1="470" y1="216" x2="470" y2="166" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<path d="M791 216 L791 190 L540 190 L540 166" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+
+<rect x="560" y="352" width="170" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="645" y="380" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Triangulo</text>
+<text x="645" y="402" font-size="14" fill="#2e9e5b" text-anchor="middle">final class</text>
+
+<rect x="746" y="352" width="170" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="831" y="380" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">qualquer classe</text>
+<text x="831" y="402" font-size="14" fill="#6b7280" text-anchor="middle">pode estender</text>
+
+<path d="M645 348 L645 322 L760 322 L760 298" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<path d="M831 348 L831 322 L822 322 L822 298" fill="none" stroke="#4b5563" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#seta)"/>
+
+<rect x="24" y="352" width="490" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="44" y="380" font-size="15" font-weight="700" fill="#d9534f">Fora de permits: erro de compilação</text>
+<text x="44" y="403" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">record Hexagono(double l) implements Forma {}</text>
+
+<rect x="24" y="446" width="892" height="140" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="44" y="476" font-size="15" font-weight="700" fill="#111827">Regras</text>
+<text x="44" y="504" font-size="14" fill="#111827">• cada subtipo permitido declara exatamente um modificador: final, sealed ou non-sealed (um record já é final)</text>
+<text x="44" y="530" font-size="14" fill="#111827">• sealed e subtipos no mesmo módulo; se o código estiver no módulo sem nome, no mesmo pacote</text>
+<text x="44" y="556" font-size="14" fill="#111827">• permits pode ser omitido quando os subtipos estão no mesmo arquivo-fonte · reflexão: Class::isSealed e getPermittedSubclasses</text>
+</svg>

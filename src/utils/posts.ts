@@ -84,10 +84,3 @@ export async function getTags(): Promise<Group[]> {
 export async function getSeriesPosts(key: string): Promise<PostSummary[]> {
   return (await getSummaries()).filter((p) => p.series === key);
 }
-
-/** Versões da série do Java: posts java-8 … java-NN. */
-export const JAVA_VERSION = /^java-\d+$/;
-
-export async function getJavaVersionCount(): Promise<number> {
-  return (await getPosts()).filter((p) => JAVA_VERSION.test(p.id)).length;
-}

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="560" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+</defs>
+
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">jlink: um runtime só com os módulos que a aplicação usa</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">O jlink parte do módulo raiz, segue os requires e copia só o que foi alcançado (JEP 282)</text>
+
+<!-- JDK completo -->
+<rect x="24" y="92" width="340" height="252" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="44" y="120" font-size="15" font-weight="700" fill="#111827">JDK 11 instalado ($JAVA_HOME/jmods)</text>
+
+<rect x="44" y="136" width="146" height="36" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="117" y="159" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">java.base</text>
+<rect x="198" y="136" width="146" height="36" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="271" y="159" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">java.logging</text>
+
+<rect x="44" y="180" width="146" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="117" y="203" font-size="13" fill="#4b5563" text-anchor="middle">java.sql</text>
+<rect x="198" y="180" width="146" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="271" y="203" font-size="13" fill="#4b5563" text-anchor="middle">java.desktop</text>
+
+<rect x="44" y="224" width="146" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="117" y="247" font-size="13" fill="#4b5563" text-anchor="middle">java.net.http</text>
+<rect x="198" y="224" width="146" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="271" y="247" font-size="13" fill="#4b5563" text-anchor="middle">java.xml</text>
+
+<rect x="44" y="268" width="146" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="117" y="291" font-size="13" fill="#4b5563" text-anchor="middle">jdk.compiler</text>
+<rect x="198" y="268" width="146" height="36" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="271" y="291" font-size="13" fill="#4b5563" text-anchor="middle">jdk.jshell</text>
+<text x="194" y="330" font-size="13" fill="#4b5563" text-anchor="middle">… e dezenas de outros módulos</text>
+
+<!-- Módulos da aplicação -->
+<rect x="24" y="364" width="340" height="120" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="44" y="392" font-size="15" font-weight="700" fill="#111827">Módulos da aplicação (out/)</text>
+<rect x="44" y="408" width="300" height="30" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="194" y="428" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">com.exemplo.pedidos (raiz)</text>
+<rect x="44" y="444" width="300" height="30" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="194" y="464" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">com.exemplo.estoque</text>
+
+<!-- jlink -->
+<path d="M 364 218 L 404 272" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<path d="M 364 424 L 404 344" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="408" y="240" width="176" height="132" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="496" y="270" font-size="17" font-weight="700" fill="#e07a1f" text-anchor="middle">jlink</text>
+<text x="496" y="296" font-size="13" fill="#111827" text-anchor="middle">--add-modules</text>
+<text x="496" y="314" font-size="13" fill="#111827" text-anchor="middle">com.exemplo.pedidos</text>
+<text x="496" y="340" font-size="13" fill="#111827" text-anchor="middle">--launcher</text>
+<text x="496" y="358" font-size="13" fill="#111827" text-anchor="middle">--strip-debug</text>
+<path d="M 584 306 L 626 306" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+
+<!-- runtime -->
+<rect x="630" y="92" width="286" height="392" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="650" y="120" font-size="15" font-weight="700" fill="#111827">runtime/  (imagem gerada)</text>
+
+<text x="650" y="152" font-size="13" font-weight="700" fill="#2e9e5b">bin/</text>
+<rect x="650" y="162" width="246" height="30" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="773" y="182" font-size="13" fill="#111827" text-anchor="middle">java</text>
+<rect x="650" y="198" width="246" height="30" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="773" y="218" font-size="13" fill="#111827" text-anchor="middle">pedidos  (script de lançamento)</text>
+
+<text x="650" y="260" font-size="13" font-weight="700" fill="#2e9e5b">módulos incluídos</text>
+<rect x="650" y="270" width="246" height="30" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="773" y="290" font-size="13" fill="#111827" text-anchor="middle">com.exemplo.pedidos</text>
+<rect x="650" y="306" width="246" height="30" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="773" y="326" font-size="13" fill="#111827" text-anchor="middle">com.exemplo.estoque</text>
+<rect x="650" y="342" width="246" height="30" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="773" y="362" font-size="13" fill="#111827" text-anchor="middle">java.logging</text>
+<rect x="650" y="378" width="246" height="30" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="773" y="398" font-size="13" fill="#111827" text-anchor="middle">java.base</text>
+<text x="650" y="436" font-size="13" fill="#4b5563">não precisa de JDK/JRE instalado</text>
+<text x="650" y="456" font-size="13" fill="#4b5563">na máquina ou imagem de destino</text>
+
+<rect x="24" y="504" width="892" height="40" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="470" y="529" font-size="13" fill="#111827" text-anchor="middle">Atenção: só entram módulos alcançados pelos requires; provedores de serviço (ex.: jdk.crypto.ec) pedem --add-modules ou --bind-services.</text>
+</svg>

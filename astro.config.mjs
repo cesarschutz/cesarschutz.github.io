@@ -1,4 +1,6 @@
 import { defineConfig } from "astro/config";
+import { existsSync } from "node:fs";
+import { ABSORBED } from "./src/data/java.ts";
 import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -18,6 +20,12 @@ export default defineConfig({
   // a antiga página de exercícios virou posts normais
   redirects: {
     "/exercicios": "/",
+    // série do Java só com LTS: versões intermediárias apontam para a seção na LTS
+    ...Object.fromEntries(
+      Object.entries(ABSORBED)
+        .filter(([v]) => !existsSync(`./src/content/posts/java-${v}.md`))
+        .map(([v, lts]) => [`/posts/java-${v}`, `/posts/java-${lts}/#java-${v}`]),
+    ),
   },
   integrations: [
     // Expressive Code precisa vir antes do MDX
