@@ -10,7 +10,7 @@ export const SITE = {
   homeTitle: "Cesar Schutz · Arquitetura de Software",
   /** frase do card de identidade da home e do rodapé */
   headline:
-    "Análises sobre arquitetura de software, sistemas distribuídos e o ecossistema Java, a partir de problemas reais e das decisões que eles exigem.",
+    "Estudos de arquitetura e engenharia de software, organizados para consulta.",
   /** meta description padrão (SEO e redes sociais) */
   description:
     "Artigos de Cesar Schutz, arquiteto de solução, sobre arquitetura de software, sistemas distribuídos e o ecossistema Java.",
