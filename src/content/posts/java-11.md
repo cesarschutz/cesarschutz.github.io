@@ -3,7 +3,7 @@ title: "Java 11 (LTS) — A Nova Era do Java"
 published: 2025-07-02T00:30:00Z
 description: "Cada novidade do Java 11 (2018) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
-category: Java
+series: java
 cover: /covers/java/java-11.svg
 draft: false
 ---

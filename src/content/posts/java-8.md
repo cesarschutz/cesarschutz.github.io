@@ -3,7 +3,7 @@ title: "Java 8 (LTS) — A Revolução Funcional"
 published: 2025-07-02T00:00:00Z
 description: "Cada novidade do Java 8 (2014) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
-category: Java
+series: java
 cover: /covers/java/java-8.svg
 draft: false
 ---

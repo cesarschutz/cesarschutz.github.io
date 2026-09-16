@@ -3,7 +3,7 @@ title: "Java 18 — UTF-8 por Padrão e Servidor Web Simples"
 published: 2025-07-02T01:40:00Z
 description: "Cada novidade do Java 18 (2022) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-18.svg
 draft: false
 ---

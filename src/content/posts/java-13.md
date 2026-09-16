@@ -3,7 +3,7 @@ title: "Java 13 — Text Blocks Preview"
 published: 2025-07-02T00:50:00Z
 description: "Cada novidade do Java 13 (2019) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-13.svg
 draft: false
 ---

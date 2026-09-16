@@ -3,7 +3,7 @@ title: "Java 19 — Virtual Threads Preview"
 published: 2025-07-02T01:50:00Z
 description: "Cada novidade do Java 19 (2022) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-19.svg
 draft: false
 ---

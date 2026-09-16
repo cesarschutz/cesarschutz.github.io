@@ -1,4 +1,5 @@
 import { getPosts } from "../utils/posts";
+import { getSeries } from "../data/series";
 
 /**
  * Índice da busca: texto integral de cada post, consumido no cliente por
@@ -20,7 +21,7 @@ export async function GET() {
   const docs = posts.map((post) => ({
     title: post.data.title,
     url: `/posts/${post.id}/`,
-    category: post.data.category,
+    category: getSeries(post.data.series)?.name ?? post.data.category,
     text: stripMarkdown(post.body ?? ""),
   }));
   return new Response(JSON.stringify(docs), {

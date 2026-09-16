@@ -95,6 +95,15 @@ const areas: { icon: IconName; color: string; title: string; text: string }[] = 
         Os artigos são escritos com apoio de inteligência artificial. Eu defino os temas, conduzo o estudo e reviso o
         conteúdo; a IA apoia a pesquisa, a organização e a redação.
       </p>
+
+      <aside class="ai-notice" aria-label="Aviso sobre o conteúdo">
+        <strong>Leia com senso crítico.</strong>
+        <p>
+          Mesmo revisado, um texto escrito com IA pode conter imprecisões, simplificações ou informações desatualizadas.
+          Trate os artigos como ponto de partida para estudo, não como referência definitiva: a base confiável são as fontes
+          citadas nos artigos e a documentação oficial. Confira nelas e teste antes de aplicar qualquer decisão em produção.
+        </p>
+      </aside>
     </section>
   </div>
 </BaseLayout>
@@ -231,6 +240,23 @@ const areas: { icon: IconName; color: string; title: string; text: string }[] = 
     color: var(--link);
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+
+  .ai-notice {
+    margin-top: 18px;
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid color-mix(in srgb, var(--amber) 35%, var(--border));
+    background: color-mix(in srgb, var(--amber) 8%, transparent);
+  }
+
+  .ai-notice strong {
+    color: var(--text);
+  }
+
+  .ai-notice p {
+    margin-top: 6px;
+    font-size: var(--fs-body);
   }
 
   @media (max-width: 560px) {

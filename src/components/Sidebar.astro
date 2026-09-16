@@ -1,6 +1,7 @@
 ---
 import Icon from "./Icon.astro";
-import { getCategories, getJavaSeriesCount, getTags } from "../utils/posts";
+import { getCategories, getSeriesPosts, getTags } from "../utils/posts";
+import { SERIES, seriesUrl } from "../data/series";
 import { categoryStyle, categoryUrl, tagUrl } from "../utils/taxonomy";
 
 interface Props {
@@ -11,22 +12,35 @@ interface Props {
 const { activeCategory, activeTag } = Astro.props;
 const categories = await getCategories();
 const tags = (await getTags()).slice(0, 14);
-const javaCount = await getJavaSeriesCount();
-const onJava = Astro.url.pathname.startsWith("/java");
+const series = await Promise.all(
+  SERIES.map(async (s) => ({ ...s, href: seriesUrl(s), count: (await getSeriesPosts(s.key)).length })),
+);
+const path = Astro.url.pathname;
 ---
 
 <aside class="sidebar" aria-label="Navegação do blog">
   <div class="sb-card">
     <section class="sb-section">
-      <h2 class="sb-title">Série</h2>
-      <a class:list={["sb-series", { active: onJava }]} href="/java/">
-        <span class="cat-ico series-ico" style="--c:#f8981d"><Icon name="coffee" size={18} /></span>
-        <span class="sb-series-text">
-          <strong>Atualizações do Java</strong>
-          <span>Do Java 8 ao mais recente</span>
-        </span>
-        <span class="sb-count">{javaCount}</span>
-      </a>
+      <h2 class="sb-title">Séries</h2>
+      <div class="sb-series-list">
+        {
+          series.map((s) => (
+            <a
+              class:list={["sb-series", { active: path.startsWith(s.href) }]}
+              href={s.href}
+              style={`--c:${s.color}`}
+            >
+              <span class="cat-ico series-ico">
+                <Icon name={s.icon} size={18} />
+              </span>
+              <span class="sb-series-text">
+                <strong>{s.name}</strong>
+              </span>
+              <span class="sb-count">{s.count}</span>
+            </a>
+          ))
+        }
+      </div>
     </section>
 
     <section class="sb-section">
@@ -119,14 +133,20 @@ const onJava = Astro.url.pathname.startsWith("/java");
     color: var(--text-dim);
   }
 
+  .sb-series-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
   .sb-series {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 10px;
     border-radius: 14px;
-    border: 1px solid color-mix(in srgb, #f8981d 26%, var(--border));
-    background: color-mix(in srgb, #f8981d 7%, var(--card-bg));
+    border: 1px solid color-mix(in srgb, var(--c) 26%, var(--border));
+    background: color-mix(in srgb, var(--c) 7%, var(--card-bg));
     transition:
       border-color 0.2s ease,
       background-color 0.2s ease;
@@ -134,8 +154,8 @@ const onJava = Astro.url.pathname.startsWith("/java");
 
   .sb-series:hover,
   .sb-series.active {
-    border-color: color-mix(in srgb, #f8981d 55%, var(--border));
-    background: color-mix(in srgb, #f8981d 12%, var(--card-bg));
+    border-color: color-mix(in srgb, var(--c) 55%, var(--border));
+    background: color-mix(in srgb, var(--c) 12%, var(--card-bg));
   }
 
   .series-ico {

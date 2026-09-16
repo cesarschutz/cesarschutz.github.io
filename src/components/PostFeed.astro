@@ -1,7 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import type { PostSummary } from "../utils/posts";
-import { categoryStyle, categoryUrl } from "../utils/taxonomy";
+import { postLabel } from "../utils/taxonomy";
 import { formatDate, isoDate, renderInlineMd } from "../utils/format";
 
 interface Props {
@@ -36,7 +36,7 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
   <div class="feed">
     {
       posts.map((post) => {
-        const style = categoryStyle(post.category);
+        const label = postLabel(post);
         return (
           <article class="fi">
             <div class="fi-cover" aria-hidden="true">
@@ -44,10 +44,10 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
             </div>
             <div class="fi-body">
               <div class="fi-meta">
-                {post.category && (
-                  <a class="fi-cat" href={categoryUrl(post.category)} style={`--c:${style.color}`}>
+                {label && (
+                  <a class="fi-cat" href={label.url} style={`--c:${label.color}`}>
                     <span class="cat-dot" />
-                    {post.category}
+                    {label.name}
                   </a>
                 )}
                 <time datetime={isoDate(post.published)}>{formatDate(post.published)}</time>
@@ -226,6 +226,7 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
 
   .fi-title {
     margin-top: 8px;
+    text-wrap: pretty;
     font-family: var(--font-serif);
     font-weight: 600;
     letter-spacing: -0.018em;
@@ -252,9 +253,6 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
     font-size: var(--fs-body);
     line-height: 1.6;
     color: var(--text-soft);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 
   .fi-desc :global(code) {
@@ -292,7 +290,7 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
     display: grid;
     grid-template-columns: minmax(0, 1fr) clamp(150px, 19vw, 232px);
     gap: clamp(16px, 2vw, 28px);
-    align-items: center;
+    align-items: start;
     padding: 22px clamp(18px, 2vw, 26px);
     transition: background-color 0.2s ease;
   }
@@ -314,10 +312,6 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
 
   .feed .fi-title {
     font-size: clamp(19px, 1.6vw, 23px);
-  }
-
-  .feed .fi-desc {
-    -webkit-line-clamp: 2;
   }
 
   /* ───────── Modo cards ───────── */
@@ -360,6 +354,7 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
 
   :global(:root[data-post-view="cards"]) .feed .fi-cover {
     order: 0;
+    width: 100%;
     aspect-ratio: 2 / 1;
     border-radius: 0;
     border: none;
@@ -375,10 +370,6 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
 
   :global(:root[data-post-view="cards"]) .feed .fi-title {
     font-size: 20px;
-  }
-
-  :global(:root[data-post-view="cards"]) .feed .fi-desc {
-    -webkit-line-clamp: 3;
   }
 
   :global(:root[data-post-view="cards"]) .feed .fi-tags {
@@ -406,9 +397,6 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
       aspect-ratio: 1;
       border-radius: 10px;
       margin-top: 4px;
-    }
-    .feed .fi-desc {
-      -webkit-line-clamp: 3;
     }
     .feed .fi-tags,
     .fi-min :global(.icon) {

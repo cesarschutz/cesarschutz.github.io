@@ -10,6 +10,7 @@ export interface PostSummary {
   description?: string;
   published: Date;
   category?: string;
+  series?: string;
   tags: string[];
   cover?: string;
   minutes: number;
@@ -39,6 +40,7 @@ export function summarize(post: Post): PostSummary {
     description: post.data.description,
     published: post.data.published,
     category: post.data.category,
+    series: post.data.series,
     tags: post.data.tags,
     cover: post.data.cover,
     minutes: readingMinutes(post),
@@ -78,9 +80,14 @@ export async function getTags(): Promise<Group[]> {
   return groupBy(await getSummaries(), (p) => p.tags);
 }
 
-/** Série "Atualizações do Java": posts java-8 … java-NN. */
-export const JAVA_SERIES = /^java-\d+$/;
+/** Posts de uma série, do mais recente ao mais antigo. */
+export async function getSeriesPosts(key: string): Promise<PostSummary[]> {
+  return (await getSummaries()).filter((p) => p.series === key);
+}
 
-export async function getJavaSeriesCount(): Promise<number> {
-  return (await getPosts()).filter((p) => JAVA_SERIES.test(p.id)).length;
+/** Versões da série do Java: posts java-8 … java-NN. */
+export const JAVA_VERSION = /^java-\d+$/;
+
+export async function getJavaVersionCount(): Promise<number> {
+  return (await getPosts()).filter((p) => JAVA_VERSION.test(p.id)).length;
 }

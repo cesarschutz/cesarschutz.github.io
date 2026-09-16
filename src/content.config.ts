@@ -12,6 +12,8 @@ const posts = defineCollection({
     cover: z.string().optional(),
     tags: z.array(z.string()).default([]),
     category: z.string().optional(),
+    /** chave de uma série de src/data/series.ts — posts de série não usam category */
+    series: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

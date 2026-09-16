@@ -1,0 +1,118 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Icon from "../../components/Icon.astro";
+import { SERIES, seriesUrl } from "../../data/series";
+import { getSeriesPosts } from "../../utils/posts";
+
+const series = await Promise.all(
+  SERIES.map(async (s) => {
+    const posts = await getSeriesPosts(s.key);
+    return { ...s, href: seriesUrl(s), posts };
+  }),
+);
+---
+
+<BaseLayout title="Séries" description="Conjuntos de artigos que cobrem um tema do começo ao fim.">
+  <PageHeader
+    eyebrow="Explorar"
+    title="Séries"
+    description="Conjuntos de artigos que cobrem um tema do começo ao fim, para ler em sequência."
+  />
+
+  <div class="series-grid">
+    {
+      series.map((s, i) => (
+        <a class="series-card card rise" href={s.href} style={`--c:${s.color};--i:${i + 1}`}>
+          <div class="sc-head">
+            <span class="cat-ico sc-ico">
+              <Icon name={s.icon} size={22} />
+            </span>
+            <span class="sc-count">
+              {s.posts.length} {s.posts.length === 1 ? "artigo" : "artigos"}
+            </span>
+          </div>
+          <h2 class="sc-name">{s.name}</h2>
+          <p class="sc-desc">{s.description}</p>
+          <span class="sc-cta">
+            Ver série <Icon name="arrowRight" size={15} />
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: var(--col-gap);
+    margin-top: var(--col-gap);
+  }
+
+  .series-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    overflow: hidden;
+    transition:
+      transform 0.25s var(--ease-out),
+      border-color 0.25s ease;
+  }
+
+  .series-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 20%, transparent));
+  }
+
+  .series-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--c) 45%, var(--border));
+  }
+
+  .sc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sc-ico {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .sc-count {
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .sc-name {
+    margin-top: 16px;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .sc-desc {
+    margin: 6px 0 0;
+    font-size: var(--fs-body-sm);
+    color: var(--text-soft);
+  }
+
+  .sc-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    font-size: var(--fs-body-sm);
+    font-weight: 600;
+    color: var(--c);
+  }
+</style>

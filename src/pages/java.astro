@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Icon from "../components/Icon.astro";
-import { getPosts, JAVA_SERIES } from "../utils/posts";
+import { getPosts, JAVA_VERSION } from "../utils/posts";
 
 // Versões LTS (atualizar quando sair uma nova LTS: Java 29, set/2027)
 const LTS = new Set([8, 11, 17, 21, 25]);
@@ -17,7 +17,7 @@ const releaseYear = (v: number): number => {
 
 const posts = await getPosts();
 const versions = posts
-  .filter((post) => JAVA_SERIES.test(post.id))
+  .filter((post) => post.data.series === "java" && JAVA_VERSION.test(post.id))
   .map((post) => {
     const number = Number(post.id.replace("java-", ""));
     const match = post.data.title.match(/^Java \d+(?: \(LTS\))? — (.*)$/);
@@ -40,7 +40,7 @@ const latest = versions[0];
   description="Cada versão do Java explicada: o que mudou, por que importa e exemplos de código, do Java 8 à versão mais recente."
 >
   <PageHeader
-    eyebrow="Série"
+    eyebrow="Séries"
     title="Atualizações do Java"
     description="Cada versão explicada: o que mudou, por que importa e exemplos de código, do Java 8 à versão mais recente. Uma versão nova sai em março e outra em setembro, e cada uma ganha seu artigo aqui."
     icon="coffee"

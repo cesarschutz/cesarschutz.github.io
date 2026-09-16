@@ -26,27 +26,40 @@ const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3)
 }
 
 <script>
-  const toc = document.querySelector("[data-toc]");
-  if (toc) {
-    const links = new Map<string, HTMLElement>();
-    toc.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((a) => links.set(a.dataset.tocLink!, a));
-    const headings = [...document.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")].filter((h) =>
-      links.has(h.id),
-    );
+  // há dois sumários na página (lateral e o recolhível do celular): atualiza os dois
+  const tocs = [...document.querySelectorAll<HTMLElement>("[data-toc]")];
+  const headings = [...document.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")];
+
+  if (tocs.length && headings.length) {
     let active = "";
     const update = () => {
-      let current = headings[0]?.id ?? "";
+      let current = headings[0].id;
       for (const h of headings) {
         if (h.getBoundingClientRect().top <= 140) current = h.id;
         else break;
       }
       if (current === active) return;
       active = current;
-      links.forEach((el, id) => el.classList.toggle("active", id === current));
-      links.get(current)?.scrollIntoView({ block: "nearest" });
+      for (const toc of tocs) {
+        let activeLink: HTMLElement | null = null;
+        toc.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((a) => {
+          const on = a.dataset.tocLink === current;
+          a.classList.toggle("active", on);
+          if (on) activeLink = a;
+        });
+        // mantém o item ativo visível dentro do card, sem rolar a página
+        const box = toc.closest<HTMLElement>(".toc-card");
+        if (box && activeLink) {
+          const link = activeLink as HTMLElement;
+          const top = link.offsetTop;
+          if (top < box.scrollTop + 40 || top > box.scrollTop + box.clientHeight - 40) {
+            box.scrollTo({ top: top - box.clientHeight / 2 });
+          }
+        }
+      }
     };
     let ticking = false;
-    document.addEventListener(
+    window.addEventListener(
       "scroll",
       () => {
         if (ticking) return;

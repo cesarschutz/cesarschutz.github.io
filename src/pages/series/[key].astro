@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import PostFeed from "../../components/PostFeed.astro";
+import { SERIES, type Series } from "../../data/series";
+import { getSeriesPosts } from "../../utils/posts";
+
+// séries com página própria (ex.: /java/) não usam esta rota
+export function getStaticPaths() {
+  return SERIES.filter((s) => !s.url).map((series) => ({ params: { key: series.key }, props: { series } }));
+}
+
+const { series } = Astro.props as { series: Series };
+// série se lê em ordem: do primeiro ao último artigo
+const posts = [...(await getSeriesPosts(series.key))].reverse();
+---
+
+<BaseLayout title={series.name} description={series.description}>
+  <div class="shell">
+    <Sidebar />
+    <div class="shell-main">
+      <PageHeader eyebrow="Série" title={series.name} description={series.description} icon={series.icon} color={series.color} />
+      <PostFeed title="Artigos da série" subtitle={`${posts.length} artigos, em ordem de leitura`} posts={posts} delay={1} />
+    </div>
+  </div>
+</BaseLayout>

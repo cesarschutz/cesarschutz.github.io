@@ -1,7 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import type { PostSummary } from "../utils/posts";
-import { categoryStyle, categoryUrl, tagUrl } from "../utils/taxonomy";
+import { postLabel, tagUrl } from "../utils/taxonomy";
 import { formatDate, isoDate, renderInlineMd } from "../utils/format";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const style = categoryStyle(post.category);
+const label = postLabel(post);
 ---
 
 <article class="featured card rise" style="--i:2">
@@ -17,10 +17,10 @@ const style = categoryStyle(post.category);
     <div class="ft-meta">
       <span class="ft-badge">Último artigo</span>
       {
-        post.category && (
-          <a class="ft-cat" href={categoryUrl(post.category)} style={`--c:${style.color}`}>
+        label && (
+          <a class="ft-cat" href={label.url} style={`--c:${label.color}`}>
             <span class="cat-dot" />
-            {post.category}
+            {label.name}
           </a>
         )
       }
@@ -114,6 +114,7 @@ const style = categoryStyle(post.category);
 
   .ft-title {
     margin-top: 14px;
+    text-wrap: pretty;
     font-family: var(--font-serif);
     font-size: clamp(26px, 2.7vw, 38px);
     font-weight: 600;

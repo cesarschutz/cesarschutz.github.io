@@ -3,7 +3,7 @@ title: "Java 9 — A Era dos Módulos"
 published: 2025-07-02T00:10:00Z
 description: "Cada novidade do Java 9 (2017) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-9.svg
 draft: false
 ---

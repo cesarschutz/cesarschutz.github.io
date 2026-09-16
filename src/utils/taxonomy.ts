@@ -1,4 +1,5 @@
 import type { IconName } from "./icons";
+import { getSeries, seriesUrl } from "../data/series";
 
 /**
  * Cor e ícone de cada categoria (mesma ideia das categorias do DEV NOTE).
@@ -19,7 +20,7 @@ const STYLES: Record<string, CategoryStyle> = {
   Java: {
     color: "#f8981d",
     icon: "coffee",
-    description: "A linguagem, a JVM e o ecossistema Spring, versão a versão.",
+    description: "A linguagem, a JVM e o ecossistema Spring.",
   },
   Observabilidade: {
     color: "#f97316",
@@ -59,4 +60,21 @@ export function categoryUrl(name: string): string {
 
 export function tagUrl(name: string): string {
   return `/tags/${encodeURIComponent(name)}/`;
+}
+
+/** Rótulo exibido nos cards e no post: a série, se houver; senão a categoria. */
+export interface PostLabel {
+  kind: "series" | "category";
+  name: string;
+  url: string;
+  color: string;
+}
+
+export function postLabel(post: { category?: string; series?: string }): PostLabel | undefined {
+  const series = getSeries(post.series);
+  if (series) return { kind: "series", name: series.name, url: seriesUrl(series), color: series.color };
+  if (post.category) {
+    return { kind: "category", name: post.category, url: categoryUrl(post.category), color: categoryStyle(post.category).color };
+  }
+  return undefined;
 }

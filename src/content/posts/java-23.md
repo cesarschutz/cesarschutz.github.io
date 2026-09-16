@@ -3,7 +3,7 @@ title: "Java 23 — o que mudou"
 published: 2025-07-02T02:30:00Z
 description: "Cada novidade do Java 23 (2024) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-23.svg
 draft: false
 ---

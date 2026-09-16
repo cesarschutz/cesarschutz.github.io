@@ -3,7 +3,7 @@ title: "Java 20 — Scoped Values e Virtual Threads Melhorados"
 published: 2025-07-02T02:00:00Z
 description: "Cada novidade do Java 20 (2023) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-20.svg
 draft: false
 ---

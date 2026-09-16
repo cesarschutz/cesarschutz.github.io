@@ -3,7 +3,7 @@ title: "Java 16 — Records e Pattern Matching Finalizados"
 published: 2025-07-02T01:20:00Z
 description: "Cada novidade do Java 16 (2021) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-16.svg
 draft: false
 ---

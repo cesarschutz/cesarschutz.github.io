@@ -3,7 +3,7 @@ title: "Java 26 — o que mudou"
 published: 2025-07-02T03:00:00Z
 description: "Cada novidade do Java 26 (2026) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java]
-category: Java
+series: java
 cover: /covers/java/java-26.svg
 draft: false
 ---

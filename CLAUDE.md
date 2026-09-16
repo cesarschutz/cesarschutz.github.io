@@ -71,14 +71,22 @@ public/posts/<slug>/          # diagramas SVG usados dentro dos posts
    (kebab-case, sem acentos). Campos: `title`, `published`, `description`, `tags`,
    `category`, `cover`, `draft`
 2. Categorias em uso: `Arquitetura`, `Java`, `Observabilidade`, `DevOps`, `Segurança`, `Dados`
-   (criar novas com moderação e registrar em `src/utils/taxonomy.ts`; tags são livres)
+   (criar novas com moderação e registrar em `src/utils/taxonomy.ts`; tags são livres).
+   Post de **série** usa `series: <chave>` em vez de `category` (ver "Séries")
 3. **Todo post tem capa** no padrão abaixo, em `public/covers/<slug>.svg`
 4. O post mais recente vira automaticamente o destaque da home
 5. Não há mais "exercícios resolvidos": tudo é post normal. `/exercicios` redireciona para a home
 
-### Série "Atualizações do Java"
+### Séries
 
-`java-8.md` … `java-NN.md` + `guia-atualizacoes-java.md`, categoria `Java`. A página `/java/`
+Cadastro em `src/data/series.ts` (chave, nome, descrição, cor, ícone, página própria opcional).
+Post de série: `series: <chave>` no frontmatter e **sem** `category` — nos cards e no post aparece
+"Séries › Nome da série" no lugar da categoria. Índice em `/series/`; série sem página própria
+ganha `/series/<chave>/` (lista em ordem de leitura). Série nova = item no cadastro + posts.
+
+### Série "Atualizações do Java" (`series: java`)
+
+`java-8.md` … `java-NN.md` + `guia-atualizacoes-java.md`. A página própria `/java/`
 monta a grade sozinha pelo padrão de slug `java-\d+`. Nova versão = criar `java-NN.md`
 (título `Java NN — subtítulo` ou `Java NN (LTS) — subtítulo`) e a capa `covers/java/java-NN.svg`.
 Nova LTS: atualizar o set `LTS` em `src/pages/java.astro`.
@@ -110,6 +118,12 @@ A capa aparece cortada em proporções diferentes: 4:1 no topo do post, ~1:1 no 
 - **Tabelas**: Markdown normal (rolam na horizontal no celular)
 - **Sumário**: gerado dos h2/h3 quando há 3 ou mais (lateral no desktop, recolhível no celular)
 - **Descrição**: aceita `` `código` `` e `**negrito**`
+
+## Aviso sobre IA
+
+Os artigos são escritos com apoio de IA. Há um aviso na página Sobre (seção "Como os artigos são
+produzidos") e uma linha no rodapé de cada post orientando a usar as fontes citadas como
+referência. Todo artigo deve terminar com uma seção **Fontes** com links confiáveis.
 
 ## Instrução permanente
 

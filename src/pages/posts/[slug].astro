@@ -7,7 +7,8 @@ import Toc from "../../components/Toc.astro";
 import QuoteCard from "../../components/QuoteCard.astro";
 import { SITE } from "../../config";
 import { getPosts, readingMinutes, type Post } from "../../utils/posts";
-import { categoryStyle, categoryUrl, tagUrl } from "../../utils/taxonomy";
+import { postLabel, tagUrl } from "../../utils/taxonomy";
+import { getSeries } from "../../data/series";
 import { formatDate, isoDate, renderInlineMd, stripInlineMd } from "../../utils/format";
 import { quoteForPost } from "../../utils/quotes";
 
@@ -28,10 +29,10 @@ interface Props {
 
 const { post, newer, older } = Astro.props;
 const { Content, headings } = await render(post);
-const { title, description, published, category, tags, cover } = post.data;
-const style = categoryStyle(category);
+const { title, description, published, category, series, tags, cover } = post.data;
+const label = postLabel(post.data);
 const minutes = readingMinutes(post);
-const quote = quoteForPost(post.id, category);
+const quote = quoteForPost(post.id, category ?? getSeries(series)?.quoteCategory);
 const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 3;
 ---
 
@@ -55,14 +56,14 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
       }
       <div class="post-head-body">
         <nav class="post-crumbs" aria-label="Trilha">
-          <a href="/archive/">Artigos</a>
+          {label?.kind === "series" ? <a href="/series/">Séries</a> : <a href="/archive/">Artigos</a>}
           {
-            category && (
+            label && (
               <>
                 <Icon name="chevRight" size={13} />
-                <a class="post-cat" href={categoryUrl(category)} style={`--c:${style.color}`}>
+                <a class="post-cat" href={label.url} style={`--c:${label.color}`}>
                   <span class="cat-dot" />
-                  {category}
+                  {label.name}
                 </a>
               </>
             )
@@ -118,6 +119,10 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
                 </div>
               )
             }
+            <p class="post-ai">
+              Artigo escrito com apoio de IA e revisado pelo autor. Pode conter imprecisões: confirme nas fontes
+              citadas e na documentação oficial antes de aplicar. <a href="/about/#site">Saiba mais</a>.
+            </p>
             <p class="post-license">
               Publicado por {SITE.name} sob a licença{" "}
               <a href={SITE.license.url} target="_blank" rel="noopener noreferrer">{SITE.license.name}</a>.
@@ -258,7 +263,8 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
 
   .post-title {
     margin-top: 12px;
-    max-width: 24ch;
+    max-width: 30ch;
+    text-wrap: pretty;
     font-family: var(--font-serif);
     font-size: clamp(32px, 4.4vw, 54px);
     font-weight: 600;
@@ -358,6 +364,21 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
     color: var(--text-dim);
   }
 
+  .post-ai {
+    margin: 16px 0 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--amber) 30%, var(--border));
+    background: color-mix(in srgb, var(--amber) 6%, transparent);
+    font-size: var(--fs-meta);
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  .post-ai a {
+    color: var(--link);
+  }
+
   .post-license {
     margin: 14px 0 0;
     font-size: var(--fs-meta);
@@ -374,6 +395,7 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
   }
 
   .toc-card {
+    position: relative;
     max-height: calc(100svh - var(--nav-height) - 40px);
     overflow-y: auto;
     padding: 18px 16px 18px 18px;

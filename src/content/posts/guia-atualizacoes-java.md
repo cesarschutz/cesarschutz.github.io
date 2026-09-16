@@ -3,7 +3,7 @@ title: "Guia de atualizações do Java"
 published: 2025-07-14
 description: "Documentação completa de migração: ciclo de releases, distribuições e custos, matriz de compatibilidade, processo em cinco fases, segurança, performance, containers e melhores práticas — com cada ferramenta e configuração explicada."
 tags: [Java, Migração]
-category: Java
+series: java
 cover: /covers/guia-java.svg
 draft: false
 ---

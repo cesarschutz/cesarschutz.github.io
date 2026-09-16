@@ -3,7 +3,7 @@ title: "Java 17 (LTS) — A LTS Moderna e Estável"
 published: 2025-07-02T01:30:00Z
 description: "Cada novidade do Java 17 (2021) explicada: o que é, por que importa e exemplos de código. Parte da série completa de atualizações do Java."
 tags: [Java, LTS]
-category: Java
+series: java
 cover: /covers/java/java-17.svg
 draft: false
 ---
