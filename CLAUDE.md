@@ -16,7 +16,7 @@ sistemas distribuídos e Java, mais portfólio de projetos. Publicado no GitHub 
   `src/scripts/search.ts` (ignora acentos; frase exata primeiro, depois todas as palavras),
   UI em `src/components/SearchDialog.astro` (atalhos ⌘K / Ctrl+K e `/`)
 - RSS (`/rss.xml`), sitemap, robots.txt
-- npm, Node 22+
+- npm, Node 24 (mínimo 22.12)
 
 ```bash
 npm run dev      # http://localhost:4321
