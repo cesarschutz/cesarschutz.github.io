@@ -1,0 +1,235 @@
+---
+import Icon from "./Icon.astro";
+import RisingTiles from "./RisingTiles.astro";
+import { SITE } from "../config";
+
+interface Props {
+  stats: { value: number; label: string }[];
+}
+
+const { stats } = Astro.props;
+---
+
+<section class="identity card rise" aria-labelledby="identity-name">
+  <div class="id-glow" aria-hidden="true"></div>
+
+  <div class="id-content">
+    <img
+      class="id-photo"
+      src={SITE.avatar}
+      alt={`Foto de ${SITE.name}`}
+      width="160"
+      height="160"
+      decoding="async"
+      fetchpriority="high"
+    />
+
+    <div class="id-text">
+      <p class="eyebrow id-role">{SITE.role}</p>
+      <h1 id="identity-name" class="id-name">{SITE.name}</h1>
+      <p class="id-headline">{SITE.headline}</p>
+
+      <ul class="id-topics" aria-label="Temas">
+        {SITE.topics.map((topic) => <li>{topic}</li>)}
+      </ul>
+
+      <div class="id-footer">
+        <dl class="id-stats">
+          {
+            stats.map((s) => (
+              <div>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <div class="id-actions">
+          <a class="btn btn-primary" href="#artigos">
+            Ler artigos <Icon name="arrowRight" size={16} />
+          </a>
+          <a class="btn btn-outline" href="/about/">Sobre mim</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="id-stage">
+    <RisingTiles count={18} baseDur={17} />
+  </div>
+</section>
+
+<style>
+  .identity {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 36%);
+    min-height: 300px;
+    overflow: hidden;
+    border-radius: 22px;
+  }
+
+  .id-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 90% at 100% 50%, color-mix(in srgb, var(--blue) 16%, transparent), transparent 70%),
+      radial-gradient(40% 60% at 0% 0%, color-mix(in srgb, var(--blue) 7%, transparent), transparent 70%);
+  }
+
+  :global([data-theme="light"]) .id-glow {
+    background: radial-gradient(60% 90% at 100% 50%, color-mix(in srgb, var(--blue) 9%, transparent), transparent 70%);
+  }
+
+  .id-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(20px, 2.6vw, 36px);
+    align-items: center;
+    padding: clamp(22px, 3vw, 40px);
+  }
+
+  .id-photo {
+    width: clamp(120px, 12vw, 160px);
+    aspect-ratio: 1;
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow:
+      0 0 0 5px color-mix(in srgb, var(--blue) 10%, transparent),
+      var(--shadow-card);
+  }
+
+  .id-text {
+    min-width: 0;
+  }
+
+  .id-role {
+    margin: 0 0 6px;
+  }
+
+  .id-name {
+    font-family: var(--font-serif);
+    font-size: clamp(34px, 4.2vw, 54px);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.028em;
+  }
+
+  .id-headline {
+    margin: 10px 0 0;
+    max-width: 52ch;
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  .id-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .id-topics li {
+    padding: 4px 10px;
+    border-radius: 980px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--card-bg-alt) 60%, transparent);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0;
+    color: var(--text-soft);
+  }
+
+  .id-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-top: 22px;
+  }
+
+  .id-stats {
+    display: flex;
+    gap: 22px;
+    margin: 0;
+  }
+
+  .id-stats div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .id-stats dd {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .id-stats dt {
+    font-size: var(--fs-eyebrow);
+    color: var(--text-dim);
+  }
+
+  .id-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .id-stage {
+    position: relative;
+    border-left: 1px solid var(--divider);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--card-bg-alt) 35%, transparent), transparent);
+  }
+
+  @media (max-width: 1180px) {
+    .id-stats {
+      display: none;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .identity {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .id-stage {
+      height: 150px;
+      border-left: none;
+      border-top: 1px solid var(--divider);
+    }
+    .id-stats {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .id-content {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+    .id-photo {
+      width: 88px;
+      border-radius: 16px;
+    }
+    .id-footer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .id-actions .btn {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+</style>

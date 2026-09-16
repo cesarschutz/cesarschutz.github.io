@@ -1,14 +1,13 @@
-# Caderno Público
+# cesarschutz.github.io
 
-Meu site pessoal: blog de estudos sobre arquitetura e desenvolvimento de software + portfólio de projetos.
+Blog técnico de **Cesar Schutz**, arquiteto de solução: artigos sobre arquitetura de software,
+sistemas distribuídos e engenharia Java.
 
-> O repositório se chama `cesarschutz.github.io` porque é o nome exigido pelo GitHub Pages para publicar na raiz do endereço — mas o projeto atende por **Caderno Público**.
-
-**No ar em:** <https://cesarschutz.github.io>
+🌐 <https://cesarschutz.github.io>
 
 ## Stack
 
-[Astro](https://astro.build) + tema [Yukina](https://github.com/WhitePaper233/yukina) (adaptado), Expressive Code, Mermaid, KaTeX e MDX. Deploy automático no GitHub Pages via Actions.
+Astro · TypeScript · Expressive Code · KaTeX · GitHub Pages
 
 ## Rodando localmente
 
@@ -17,10 +16,6 @@ npm install
 npm run dev
 ```
 
-## Criando conteúdo
+## Licença
 
-Posts são arquivos Markdown em `src/contents/posts/`. Convenções, template e recursos disponíveis estão documentados no [CLAUDE.md](./CLAUDE.md).
-
-## Créditos
-
-Tema base: [Yukina](https://github.com/WhitePaper233/yukina), de [WhitePaper233](https://github.com/WhitePaper233) (MIT).
+Código sob MIT. Conteúdo dos artigos sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br).

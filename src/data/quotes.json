@@ -1,0 +1,794 @@
+[
+  {
+    "text": "Qualquer pessoa consegue escrever código que o computador entenda. Bons programadores escrevem código que pessoas também conseguem entender.",
+    "author": "Martin Fowler",
+    "context": "Leia 'Beck Design Rules' — Martin Fowler sobre legibilidade e design simples",
+    "url": "https://martinfowler.com/bliki/BeckDesignRules.html"
+  },
+  {
+    "text": "Se você tem medo de implantar na sexta-feira, o problema não é a sexta-feira — é o seu processo de entrega.",
+    "author": "Jez Humble",
+    "context": "Leia 'Continuous Delivery' de Humble e Farley",
+    "url": "https://continuousdelivery.com/2015/02/why-enterprises-must-adopt-devops-to-enable-continuous-delivery/"
+  },
+  {
+    "text": "Dívida técnica não é o problema. O problema é dívida técnica invisível, sem dono e sem plano de pagamento.",
+    "author": "Martin Fowler",
+    "context": "Leia sobre o quadrante de dívida técnica — blog de Fowler",
+    "url": "https://martinfowler.com/bliki/TechnicalDebtQuadrant.html"
+  },
+  {
+    "text": "Teste manual repetitivo não garante qualidade; ele só adia a automação que deveria proteger o time.",
+    "author": "Lisa Crispin",
+    "context": "Leia 'Agile Testing Condensed' de Crispin e Gregory",
+    "url": "https://lisacrispin.com/2018/08/22/whole-team-approach-to-test-automation/"
+  },
+  {
+    "text": "Todo mundo quer escalabilidade. Pouca gente quer pagar o preço em complexidade que ela exige.",
+    "author": "Martin Kleppmann",
+    "context": "Leia 'Designing Data-Intensive Applications' de Kleppmann",
+    "url": "https://dataintensive.net/"
+  },
+  {
+    "text": "Você não tem apenas um problema de microsserviços. Você tem um problema de domínio que agora ficou espalhado em dezenas de serviços.",
+    "author": "Sam Newman",
+    "context": "Leia 'Building Microservices' de Sam Newman",
+    "url": "https://samnewman.io/books/building_microservices_2nd_edition/"
+  },
+  {
+    "text": "Zero Trust significa não confiar nem na rede interna. Se isso incomoda, talvez o time ainda não tenha lido relatórios suficientes de vazamento.",
+    "author": "John Kindervag",
+    "context": "Leia o paper original de Kindervag que criou o modelo Zero Trust",
+    "url": "https://www.forrester.com/report/No-More-Chewy-Centers-The-Zero-Trust-Model-Of-Information-Security/RES56682"
+  },
+  {
+    "text": "Observabilidade não é um painel bonito; é a capacidade de fazer perguntas que você ainda não sabia que precisaria fazer.",
+    "author": "Charity Majors",
+    "context": "Leia o manifesto de observabilidade da Honeycomb",
+    "url": "https://www.honeycomb.io/blog/observability-a-manifesto"
+  },
+  {
+    "text": "Se você só testa em produção, produção virou seu ambiente de teste — e seus clientes viraram os QAs.",
+    "author": "Michael Feathers",
+    "context": "Leia 'Working Effectively with Legacy Code' de Michael Feathers",
+    "url": "https://michaelfeathers.silvrback.com/characterization-testing"
+  },
+  {
+    "text": "Código que você tem medo de mudar é código que você ainda não entende. E software que não muda, cedo ou tarde, morre.",
+    "author": "Kent Beck",
+    "context": "Leia 'Extreme Programming Explained' de Kent Beck",
+    "url": "https://www.oreilly.com/library/view/extreme-programming-explained/0201616416/"
+  },
+  {
+    "text": "Mover rápido quebrando coisas é uma ilusão. A conta chega com juros — e costuma ser cobrada em plantões.",
+    "author": "Nicole Forsgren",
+    "context": "Leia 'Accelerate' de Forsgren, Humble e Kim",
+    "url": "https://itrevolution.com/product/accelerate/"
+  },
+  {
+    "text": "Organizações que projetam sistemas são limitadas a produzir designs que são cópias de suas estruturas de comunicação.",
+    "author": "Melvin Conway",
+    "context": "Leia o paper original de Conway — 1968",
+    "url": "https://www.melconway.com/Home/Committees_Paper.html"
+  },
+  {
+    "text": "Otimização prematura é a raiz de muitos males. Mas ignorar desempenho até o último minuto também mata produtos.",
+    "author": "Donald Knuth",
+    "context": "Leia 'Structured Programming with go to Statements' de Knuth",
+    "url": "https://web.archive.org/web/20130731202547/http://pplab.snu.ac.kr/courses/adv_pl05/papers/p261-knuth.pdf"
+  },
+  {
+    "text": "Simplicidade é pré-requisito para confiabilidade.",
+    "author": "Edsger Dijkstra",
+    "context": "Leia EWD648 de Dijkstra — notas manuscritas digitalizadas",
+    "url": "https://www.cs.utexas.edu/users/EWD/transcriptions/EWD06xx/EWD648.html"
+  },
+  {
+    "text": "Não existe arquitetura sem trade-off. Quando alguém mostra uma solução sem custo, provavelmente está omitindo a conta.",
+    "author": "Mark Richards",
+    "context": "Leia 'Fundamentals of Software Architecture' de Richards e Ford",
+    "url": "https://www.oreilly.com/library/view/fundamentals-of-software/9781492043447/"
+  },
+  {
+    "text": "Comece com um monólito. Só particione depois que o domínio provar que a separação é necessária.",
+    "author": "Martin Fowler",
+    "context": "Leia 'MonolithFirst' — blog de Martin Fowler",
+    "url": "https://martinfowler.com/bliki/MonolithFirst.html"
+  },
+  {
+    "text": "DDD não é sobre tabelas ou entidades. É sobre fazer o software falar a mesma língua do negócio.",
+    "author": "Eric Evans",
+    "context": "Leia a referência de DDD — Eric Evans",
+    "url": "https://www.domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf"
+  },
+  {
+    "text": "Event sourcing é fácil de explicar e difícil de operar. Não use porque está na moda; use quando a auditoria do estado for parte do problema.",
+    "author": "Greg Young",
+    "context": "Leia sobre CQRS e Event Sourcing — Greg Young",
+    "url": "https://cqrs.wordpress.com/documents/cqrs-and-event-sourcing-synergy/"
+  },
+  {
+    "text": "A rede é confiável, a latência é zero e a largura de banda é infinita: são mentiras convenientes que o código acredita até falhar.",
+    "author": "Peter Deutsch",
+    "context": "Leia sobre as 8 Falácias da Computação Distribuída",
+    "url": "https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing"
+  },
+  {
+    "text": "Idempotência não é luxo em sistemas distribuídos; é a diferença entre uma retentativa segura e uma catástrofe repetida.",
+    "author": "Pat Helland",
+    "context": "Leia 'Idempotence Is Not a Medical Condition' — Pat Helland",
+    "url": "https://pathelland.substack.com/p/idempotence-is-not-a-medical-condition"
+  },
+  {
+    "text": "Consistência eventual não é desculpa para design preguiçoso. É um convite para pensar invariantes com mais cuidado.",
+    "author": "Pat Helland",
+    "context": "Leia 'Life Beyond Distributed Transactions' — paper de Pat Helland",
+    "url": "https://www.ics.uci.edu/~cs223/papers/cidr07p15.pdf"
+  },
+  {
+    "text": "O log é a estrutura de dados mais subestimada da engenharia de software.",
+    "author": "Jay Kreps",
+    "context": "Leia 'The Log' — ensaio de Jay Kreps no LinkedIn Engineering",
+    "url": "https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying"
+  },
+  {
+    "text": "Kafka não é simplesmente uma fila. Tratar Kafka como fila comum é um atalho para um sistema distribuído quebradiço.",
+    "author": "Jay Kreps",
+    "context": "Leia o post da Confluent sobre armazenar dados no Kafka",
+    "url": "https://www.confluent.io/blog/okay-store-data-apache-kafka/"
+  },
+  {
+    "text": "API é contrato. Contrato quebrado sem versionamento transforma o cliente em refém do seu erro.",
+    "author": "Roy Fielding",
+    "context": "Leia a tese de doutorado de Roy Fielding sobre REST",
+    "url": "https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm"
+  },
+  {
+    "text": "Padrões de integração existem porque boa parte do software corporativo ainda é mover dados entre sistemas sem quebrar o negócio.",
+    "author": "Gregor Hohpe",
+    "context": "Veja o catálogo 'Enterprise Integration Patterns' de Hohpe e Woolf",
+    "url": "https://www.enterpriseintegrationpatterns.com/"
+  },
+  {
+    "text": "Arquitetura é sobre as coisas que são caras de mudar. Se é fácil de mudar, não é arquitetura — é código.",
+    "author": "Ralph Johnson",
+    "context": "Leia 'Who Needs an Architect?' — Martin Fowler citando Ralph Johnson",
+    "url": "https://martinfowler.com/ieeeSoftware/whoNeedsArchitect.pdf"
+  },
+  {
+    "text": "Arquitetos que se recusam a escrever código correm o risco de desenhar sistemas que ninguém consegue construir.",
+    "author": "Robert C. Martin",
+    "context": "Leia 'Clean Architecture' de Robert C. Martin",
+    "url": "https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html"
+  },
+  {
+    "text": "A regra de ouro da inversão de dependência é simples: dependa de abstrações, não de detalhes voláteis.",
+    "author": "Robert C. Martin",
+    "context": "Leia o paper original sobre Dependency Inversion Principle",
+    "url": "https://web.archive.org/web/20110714224327/http://www.objectmentor.com/resources/articles/dip.pdf"
+  },
+  {
+    "text": "Arquitetura como código não é luxo; é uma forma prática de manter a documentação perto da verdade enquanto o sistema muda.",
+    "author": "Simon Brown",
+    "context": "Leia 'Diagrams as Code 2.0' de Simon Brown no DEV Community",
+    "url": "https://dev.to/simonbrown/diagrams-as-code-2-0-82k"
+  },
+  {
+    "text": "O melhor código explica a intenção pelo próprio desenho. Comentário demais costuma ser sintoma de design confuso.",
+    "author": "Kent Beck",
+    "context": "Leia 'Smalltalk Best Practice Patterns' de Kent Beck",
+    "url": "https://www.informit.com/store/smalltalk-best-practice-patterns-9780132802406"
+  },
+  {
+    "text": "Se deploy ainda é um evento especial, você perdeu. Deploy deveria ser frequente, previsível e sem drama.",
+    "author": "Charity Majors",
+    "context": "Leia o post de Charity Majors sobre frequência de deploy",
+    "url": "https://charity.wtf/2020/08/19/how-often-should-you-deploy/"
+  },
+  {
+    "text": "Kubernetes é poderoso, mas não é ponto de partida. Escolhê-lo sem necessidade troca simplicidade por operação permanente.",
+    "author": "Kelsey Hightower",
+    "context": "Veja 'Kubernetes The Hard Way' de Kelsey Hightower",
+    "url": "https://github.com/kelseyhightower/kubernetes-the-hard-way"
+  },
+  {
+    "text": "Engenharia de plataforma não é DevOps rebatizado. É reconhecer que nem todo time deveria virar especialista em Kubernetes.",
+    "author": "Gregor Hohpe",
+    "context": "Leia 'The Software Architect Elevator' de Gregor Hohpe",
+    "url": "https://architectelevator.com/book/"
+  },
+  {
+    "text": "A melhor forma de escalar um time é aumentar a capacidade de cada engenheiro tomar boas decisões, não multiplicar aprovações.",
+    "author": "Nicole Forsgren",
+    "context": "Veja o State of DevOps Report da Google Cloud",
+    "url": "https://cloud.google.com/devops/state-of-devops"
+  },
+  {
+    "text": "Chaos Engineering começa aceitando que o sistema vai falhar. A escolha é descobrir isso no laboratório ou na frente do cliente.",
+    "author": "Nora Jones",
+    "context": "Veja os Principles of Chaos Engineering",
+    "url": "https://principlesofchaos.org/"
+  },
+  {
+    "text": "SLO sem orçamento de erro vira número decorativo. O orçamento de erro é o que transforma confiabilidade em decisão de produto.",
+    "author": "Liz Fong-Jones",
+    "context": "Leia sobre error budgets no SRE Book do Google",
+    "url": "https://sre.google/sre-book/embracing-risk/"
+  },
+  {
+    "text": "Alerta em que ninguém age é ruído. E ruído treina o time a ignorar justamente o alerta que importa.",
+    "author": "Cindy Sridharan",
+    "context": "Leia 'Distributed Systems Observability' de Cindy Sridharan",
+    "url": "https://copyconstruct.medium.com/monitoring-in-the-time-of-cloud-native-c87c7a5bfa3e"
+  },
+  {
+    "text": "Logs sem correlação entre serviços são diário de bordo. Para diagnosticar produção, você precisa de contexto atravessando fronteiras.",
+    "author": "Cindy Sridharan",
+    "context": "Leia o post de Cindy Sridharan sobre logs e métricas",
+    "url": "https://copyconstruct.medium.com/logs-and-metrics-6d34d3026e38"
+  },
+  {
+    "text": "Segurança é propriedade emergente de um sistema bem desenhado, não uma camada que se cola no final.",
+    "author": "Bruce Schneier",
+    "context": "Veja os livros de Bruce Schneier sobre criptografia e segurança",
+    "url": "https://www.schneier.com/books/"
+  },
+  {
+    "text": "Senha dentro do código é a versão digital da chave embaixo do tapete — só que um crawler pode copiar em segundos.",
+    "author": "Bruce Schneier",
+    "context": "Leia o blog de Schneier sobre roubo de credenciais",
+    "url": "https://www.schneier.com/blog/archives/2016/09/stealing_credentials_.html"
+  },
+  {
+    "text": "Ataques à cadeia de suprimentos só surpreendem quem nunca olhou com cuidado para a própria árvore de dependências.",
+    "author": "Kelly Shortridge",
+    "context": "Leia 'Security Chaos Engineering' — livro de Kelly Shortridge sobre resiliência em segurança",
+    "url": "https://www.oreilly.com/library/view/security-chaos-engineering/9781098113070/"
+  },
+  {
+    "text": "A melhor senha é aquela que nunca precisa existir. Autenticação sem senha não é moda; é correção de um erro antigo.",
+    "author": "Troy Hunt",
+    "context": "Leia o post de Troy Hunt sobre autenticação moderna",
+    "url": "https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/"
+  },
+  {
+    "text": "IA generativa é probabilística. Tratar resposta de LLM como verdade é projetar um sistema que erra com confiança.",
+    "author": "Andrej Karpathy",
+    "context": "Leia 'Software 2.0' — artigo de Andrej Karpathy",
+    "url": "https://karpathy.medium.com/software-2-0-a64152b37c35"
+  },
+  {
+    "text": "RAG é admitir que o modelo sozinho não sabe tudo que você precisa. Isso não é fraqueza; é honestidade arquitetural.",
+    "author": "Patrick Lewis",
+    "context": "Leia o paper original de RAG — Lewis et al., 2020",
+    "url": "https://arxiv.org/abs/2005.11401"
+  },
+  {
+    "text": "Ferramentas de código com IA não substituem julgamento. Elas amplificam o julgamento do usuário — bom ou ruim.",
+    "author": "Simon Willison",
+    "context": "Leia o post de Simon Willison sobre o mundo estranho dos LLMs",
+    "url": "https://simonwillison.net/2023/Aug/3/weird-world-of-llms/"
+  },
+  {
+    "text": "IA generativa é cara: não só em dinheiro, mas em ciclos de engenharia que poderiam resolver problemas mais importantes.",
+    "author": "Simon Willison",
+    "context": "Leia o retrospecto anual de Simon Willison sobre LLMs em 2024",
+    "url": "https://simonwillison.net/2024/Dec/31/llms-in-2024/"
+  },
+  {
+    "text": "Aprisionamento em cloud não é usar serviço proprietário. É não saber quanto tempo levaria para sair se fosse necessário.",
+    "author": "Gregor Hohpe",
+    "context": "Leia 'Cloud Strategy' de Gregor Hohpe",
+    "url": "https://architectelevator.com/cloud/cloud-strategy-book/"
+  },
+  {
+    "text": "Migração direta para cloud sem refatoração entrega o pior dos dois mundos: custo de cloud com arquitetura de datacenter.",
+    "author": "Adrian Cockcroft",
+    "context": "Leia 'Cloud Native Computing' — post de Adrian Cockcroft sobre migração e arquitetura cloud",
+    "url": "https://adrianco.medium.com/cloud-native-computing-5f0f41a982bf"
+  },
+  {
+    "text": "Serverless não elimina servidores. Ele muda quem opera os servidores — e decisões ruins continuam custando caro em escala.",
+    "author": "Werner Vogels",
+    "context": "Leia o post de Werner Vogels sobre o lançamento do AWS Lambda em 2014",
+    "url": "https://www.allthingsdistributed.com/2014/11/aws-lambda.html"
+  },
+  {
+    "text": "Cloud não é apenas o datacenter de outra pessoa. É um sistema distribuído gigante do qual você aluga uma parte.",
+    "author": "Werner Vogels",
+    "context": "Leia 'The Frugal Architect' — princípios de design para cloud",
+    "url": "https://www.allthingsdistributed.com/2024/02/the-frugal-architect.html"
+  },
+  {
+    "text": "Otimização de custo na AWS não começa na fatura. Começa na decisão arquitetural que ninguém revisou três meses atrás.",
+    "author": "Corey Quinn",
+    "context": "Veja 'Last Week in AWS' — curadoria de Corey Quinn",
+    "url": "https://www.lastweekinaws.com/"
+  },
+  {
+    "text": "Bancos de dados são mais difíceis de substituir do que linguagens de programação. Escolha com calma e humildade.",
+    "author": "Martin Kleppmann",
+    "context": "Leia 'Designing Data-Intensive Applications' de Kleppmann",
+    "url": "https://dataintensive.net/"
+  },
+  {
+    "text": "NoSQL não significa ausência de schema. Significa que o schema vive no seu código — muitas vezes em mais de um lugar.",
+    "author": "Rick Houlihan",
+    "context": "Assista a talk de Rick Houlihan sobre DynamoDB data modeling",
+    "url": "https://www.youtube.com/watch?v=HaEPXoXVf2k"
+  },
+  {
+    "text": "Migração de banco assusta porque tratamos dados como se fossem código. Não são: dados carregam história.",
+    "author": "Mike Hadlow",
+    "context": "Leia o blog de Mike Hadlow sobre mudanças de schema em produção",
+    "url": "https://mikehadlow.blogspot.com/"
+  },
+  {
+    "text": "OWASP Top 10 existe porque os mesmos erros continuam sendo cometidos. Leia como espelho, não como checklist.",
+    "author": "Jim Manico",
+    "context": "Veja o OWASP Top 10 — referência em application security",
+    "url": "https://owasp.org/www-project-top-ten/"
+  },
+  {
+    "text": "SQL injection hoje não é genialidade do atacante; é negligência do desenvolvimento e falha de processo.",
+    "author": "Jim Manico",
+    "context": "Veja a cheat sheet de prevenção de SQL Injection do OWASP",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+  },
+  {
+    "text": "OIDC não é só autenticação. É a decisão coletiva de parar de manter sistemas caseiros de identidade.",
+    "author": "Nat Sakimura",
+    "context": "Leia a especificação OpenID Connect Core",
+    "url": "https://openid.net/specs/openid-connect-core-1_0.html"
+  },
+  {
+    "text": "Faça commits cedo e com frequência — e nunca reescreva a história de uma branch compartilhada.",
+    "author": "Linus Torvalds",
+    "context": "Leia sobre Git Branching and Rebasing no Pro Git",
+    "url": "https://git-scm.com/book/en/v2/Git-Branching-Rebasing"
+  },
+  {
+    "text": "Desenvolvimento baseado em trunk não é perigoso. Perigosas são branches longas escondendo integração por semanas.",
+    "author": "Paul Hammant",
+    "context": "Veja trunkbaseddevelopment.com — referência essencial",
+    "url": "https://trunkbaseddevelopment.com/"
+  },
+  {
+    "text": "Merge ou rebase é guerra santa. Escolha um padrão no time; o problema real costuma ser o tamanho dos PRs.",
+    "author": "Scott Chacon",
+    "context": "Leia 'Pro Git' de Scott Chacon — livro canônico do Git",
+    "url": "https://git-scm.com/book/en/v2"
+  },
+  {
+    "text": "Contêiner é empacotamento. Orquestração é resolver o problema operacional que aparece depois que você empacota tudo.",
+    "author": "Kelsey Hightower",
+    "context": "Veja 'Kubernetes The Hard Way' de Kelsey Hightower",
+    "url": "https://github.com/kelseyhightower/kubernetes-the-hard-way"
+  },
+  {
+    "text": "Docker Compose é excelente para desenvolvimento. O perigo começa quando o mesmo YAML vira produção sem revisão operacional.",
+    "author": "Bret Fisher",
+    "context": "Veja os recursos de Bret Fisher sobre Docker em produção",
+    "url": "https://www.bretfisher.com/"
+  },
+  {
+    "text": "Imagem base Alpine é ótima até o dia em que você precisa depurar libc. Escolha por conhecimento, não por moda.",
+    "author": "Solomon Hykes",
+    "context": "Leia 'Au Revoir' — post de despedida de Solomon Hykes ao deixar o Docker",
+    "url": "https://www.docker.com/blog/au-revoir/"
+  },
+  {
+    "text": "Spring Boot resolve boa parte do que times Java reinventavam. O desafio é documentar os 20% que ainda são decisão sua.",
+    "author": "Josh Long",
+    "context": "Assista 'Spring Boot in a Nutshell' — talk de Josh Long no Spring I/O",
+    "url": "https://www.youtube.com/watch?v=7cemqJAJBzQ"
+  },
+  {
+    "text": "Virtual threads ajudam em carga I/O-bound, não em CPU-bound. Entender essa diferença separa ganho real de regressão.",
+    "author": "Brian Goetz",
+    "context": "Leia o JEP 444 — Virtual Threads no OpenJDK",
+    "url": "https://openjdk.org/jeps/444"
+  },
+  {
+    "text": "Java deixou de ser linguagem de dinossauros. É linguagem de sistemas que precisam continuar funcionando por décadas.",
+    "author": "Brian Goetz",
+    "context": "Acompanhe as novidades do Java em inside.java",
+    "url": "https://inside.java/"
+  },
+  {
+    "text": "Gradle é poderoso porque é código. Também dói porque vira código de build que ninguém lembra ter escrito.",
+    "author": "Hans Dockter",
+    "context": "Veja o blog oficial do Gradle",
+    "url": "https://blog.gradle.org/"
+  },
+  {
+    "text": "Maven venceu porque ensinou que build precisava de convenção. Nem sempre o melhor vence; às vezes vence o mais previsível.",
+    "author": "Jason van Zyl",
+    "context": "Leia 'Philosophy of Maven' — o documento canônico sobre convenção sobre configuração",
+    "url": "https://maven.apache.org/background/philosophy-of-maven.html"
+  },
+  {
+    "text": "IDE não é editor com autocomplete. É um ambiente que entende o projeto, o compilador e as relações do código.",
+    "author": "Sergey Dmitriev",
+    "context": "Veja o blog da JetBrains",
+    "url": "https://blog.jetbrains.com/"
+  },
+  {
+    "text": "Postman virou padrão porque testar API manualmente com curl escala mal depois do terceiro endpoint.",
+    "author": "Abhinav Asthana",
+    "context": "Leia 'The API-First World' — manifesto de Abhinav Asthana sobre desenvolvimento orientado a APIs",
+    "url": "https://blog.postman.com/the-api-first-world/"
+  },
+  {
+    "text": "OpenAPI é documentação útil porque pode ser validada. A melhor documentação é a que quebra o build quando mente.",
+    "author": "Erik Wilde",
+    "context": "Veja a especificação oficial da OpenAPI Initiative",
+    "url": "https://www.openapis.org/"
+  },
+  {
+    "text": "MongoDB não é só banco de dados. É um modelo de dados que aceita que JSON venceu muitas integrações — para o bem e para o mal.",
+    "author": "Eliot Horowitz",
+    "context": "Veja o blog da MongoDB Company",
+    "url": "https://www.mongodb.com/company/blog"
+  },
+  {
+    "text": "PostgreSQL continua forte porque não tenta ser tudo. Ser relacional, extensível e confiável ainda é vantagem competitiva.",
+    "author": "Simon Riggs",
+    "context": "Veja os press releases do PostgreSQL",
+    "url": "https://www.postgresql.org/about/press/"
+  },
+  {
+    "text": "Lakehouse é a aposta de que data lake e data warehouse estavam tentando resolver partes do mesmo problema.",
+    "author": "Matei Zaharia",
+    "context": "Leia 'What is a Data Lakehouse?' — Databricks Blog",
+    "url": "https://www.databricks.com/blog/2020/01/30/what-is-a-data-lakehouse.html"
+  },
+  {
+    "text": "ChatGPT não é inteligente no sentido humano; ele é convincente. Confundir essas coisas derruba projetos de IA em produção.",
+    "author": "Emily Bender",
+    "context": "Leia 'Stochastic Parrots' — paper de Bender et al.",
+    "url": "https://dl.acm.org/doi/10.1145/3442188.3445922"
+  },
+  {
+    "text": "IDE com IA embutida não é só um recurso. É uma mudança na forma como o desenvolvedor explora, edita e revisa código.",
+    "author": "Aman Sanger",
+    "context": "Leia 'The Problems We're Working On' — Aman Sanger sobre a visão de produto do Cursor",
+    "url": "https://cursor.com/blog/problems-2024"
+  },
+  {
+    "text": "VS Code venceu porque tratou extensões como parte central do produto, não como detalhe de personalização.",
+    "author": "Erich Gamma",
+    "context": "Assista a talk de Erich Gamma sobre o design e arquitetura do VS Code",
+    "url": "https://www.youtube.com/watch?v=uLrnQtAq5ps"
+  },
+  {
+    "text": "O problema de uma CVE não é a lista ser longa; é descobrir tarde que você depende de algo que nunca mapeou.",
+    "author": "Kim Zetter",
+    "context": "Leia o Substack de Kim Zetter sobre segurança",
+    "url": "https://zetter.substack.com/"
+  },
+  {
+    "text": "Python vence porque é prático. Elegância ajuda, mas produção recompensa clareza, biblioteca e comunidade.",
+    "author": "Guido van Rossum",
+    "context": "Leia o Zen do Python — PEP 20",
+    "url": "https://peps.python.org/pep-0020/"
+  },
+  {
+    "text": "JavaScript é criticado por todos e usado por quase todos. Isso diz muito sobre a força da distribuição na tecnologia.",
+    "author": "Brendan Eich",
+    "context": "Leia 'A Brief History of JavaScript' — post de Brendan Eich sobre a criação da linguagem",
+    "url": "https://brendaneich.com/2010/07/a-brief-history-of-javascript/"
+  },
+  {
+    "text": "PlantUML ganhou espaço porque diagrama virou texto. E texto tem diff, revisão e histórico — imagem solta não tem.",
+    "author": "Arnaud Roques",
+    "context": "Leia a entrevista com Arnaud Roques sobre a criação do PlantUML no Modeling Languages",
+    "url": "https://modeling-languages.com/interview-plantuml/"
+  },
+  {
+    "text": "Reinventar o terminal faz sentido quando a ferramenta mais usada pelo time ficou décadas sem acompanhar o fluxo real de trabalho.",
+    "author": "Zach Lloyd",
+    "context": "Leia 'Building a better terminal' — sobre a visão de produto do Warp",
+    "url": "https://www.warp.dev/blog/how-warp-works"
+  },
+  {
+    "text": "GitHub não é apenas Git hospedado. É a camada social que colocou Git no fluxo diário de milhões de desenvolvedores.",
+    "author": "Chris Wanstrath",
+    "context": "Leia 'How GitHub uses GitHub to build GitHub' — Chris Wanstrath sobre 10 anos da plataforma",
+    "url": "https://github.blog/engineering/how-github-uses-github-to-build-github/"
+  },
+  {
+    "text": "Observabilidade pronta parece cara. Observabilidade artesanal em escala também custa — só que em engenharia e incidentes longos.",
+    "author": "Bernd Greifeneder",
+    "context": "Veja o blog da Dynatrace",
+    "url": "https://www.dynatrace.com/news/blog/"
+  },
+  {
+    "text": "MySQL continua vivo não só por mérito técnico, mas porque legado também é força de mercado.",
+    "author": "Monty Widenius",
+    "context": "Conheça a MariaDB — fork do MySQL por seu criador original",
+    "url": "https://mariadb.org/about/"
+  },
+  {
+    "text": "DBeaver cresceu porque ninguém quer complicação para consultar dados. Simplicidade vence muita complexidade comercial.",
+    "author": "Serge Rider",
+    "context": "Leia a história do DBeaver — de projeto open source a ferramenta usada por milhões",
+    "url": "https://dbeaver.com/2023/09/25/dbeaver-the-story-of-a-successful-open-source-project/"
+  },
+  {
+    "text": "Muitos sistemas distribuídos em produção são centralizados disfarçados: carregam a latência do distribuído e a fragilidade do centralizado.",
+    "author": "Tim Bray",
+    "context": "Leia o blog de Tim Bray — ex-arquiteto AWS",
+    "url": "https://www.tbray.org/ongoing/"
+  },
+  {
+    "text": "Não existe bala de prata. Nem framework milagroso, nem reescrita heroica, nem IA que pense por você. Engenharia continua sendo engenharia.",
+    "author": "Fred Brooks",
+    "context": "Leia 'No Silver Bullet' — ensaio clássico de Fred Brooks",
+    "url": "https://worrydream.com/refs/Brooks_1986_-_No_Silver_Bullet.pdf"
+  },
+  {
+    "text": "Adicionar pessoas a um projeto atrasado geralmente o atrasa ainda mais. A Lei de Brooks continua cobrando sua conta.",
+    "author": "Fred Brooks",
+    "context": "Leia 'The Mythical Man-Month' de Fred Brooks",
+    "url": "https://archive.org/details/MythicalManMonth"
+  },
+  {
+    "text": "Refatorar sem testes é reformar casa sem planta: você descobre o que era estrutural quando a parede cai.",
+    "author": "Michael Feathers",
+    "context": "Leia 'Working Effectively with Legacy Code' de Michael Feathers",
+    "url": "https://www.oreilly.com/library/view/working-effectively-with/0131177052/"
+  },
+  {
+    "text": "REST venceu SOAP porque deixou a web participar da integração. Simplicidade de adoção também é decisão arquitetural.",
+    "author": "Roy Fielding",
+    "context": "Leia a tese de doutorado de Roy Fielding sobre REST",
+    "url": "https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"
+  },
+  {
+    "text": "Sidecars são elegantes no papel. Em produção, também dobram superfície de falha, consumo e pontos de observabilidade.",
+    "author": "Christian Posta",
+    "context": "Leia 'Istio as an Example of When Not to Do Microservices' — Christian Posta sobre sidecars e complexidade",
+    "url": "https://www.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/"
+  },
+  {
+    "text": "O que muitos chamam de microsserviços é simplesmente um sistema distribuído. A diferença é se o time assumiu a complexidade.",
+    "author": "Tyler Treat",
+    "context": "Leia 'Service-Disoriented Architecture' — Tyler Treat sobre os riscos de microsserviços",
+    "url": "https://bravenewgeek.com/service-disoriented-architecture/"
+  },
+  {
+    "text": "Se você não mede SLO, está gerenciando confiabilidade por sensação — e sensação não escala em produção.",
+    "author": "Benjamin Treynor Sloss",
+    "context": "Leia a introdução ao SRE Book do Google",
+    "url": "https://sre.google/sre-book/introduction/"
+  },
+  {
+    "text": "Toda arquitetura parece boa até encontrar o primeiro requisito não funcional sério.",
+    "author": "Neal Ford",
+    "context": "Leia 'Building Evolutionary Architectures' de Ford, Parsons e Kua",
+    "url": "https://nealford.com/books/evolutionaryarchitectures.html"
+  },
+  {
+    "text": "ADRs existem porque a memória humana é menor que o ciclo de vida do software. Escreva decisões ou reviva discussões.",
+    "author": "Michael Nygard",
+    "context": "Leia o post original de Nygard sobre Architecture Decision Records",
+    "url": "https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions"
+  },
+  {
+    "text": "Circuit breaker não é só falhar rápido. É falhar com dignidade e dar tempo para o sistema respirar.",
+    "author": "Michael Nygard",
+    "context": "Leia 'Release It!' de Michael Nygard",
+    "url": "https://pragprog.com/titles/mnee2/release-it-second-edition/"
+  },
+  {
+    "text": "TOGAF é vocabulário compartilhado, não religião. Use como dicionário; não como camisa de força.",
+    "author": "Jan Hoogervorst",
+    "context": "Veja o framework TOGAF do The Open Group",
+    "url": "https://www.opengroup.org/togaf"
+  },
+  {
+    "text": "A melhor arquitetura é aquela que o time consegue explicar com clareza — se precisa de teatro, talvez esteja complexa demais.",
+    "author": "Ward Cunningham",
+    "context": "Veja as reflexões de Ward Cunningham sobre simplicidade e arquitetura",
+    "url": "http://wiki.c2.com/?SimplicityAndStrictness"
+  },
+  {
+    "text": "Consumidor idempotente é padrão essencial em sistemas orientados a eventos. Ignorar duplicidade é convidar bugs para produção.",
+    "author": "Chris Richardson",
+    "context": "Veja o padrão Idempotent Consumer em microservices.io",
+    "url": "https://microservices.io/patterns/communication-style/idempotent-consumer.html"
+  },
+  {
+    "text": "Saga não elimina o problema das transações distribuídas. Ela torna o fluxo explícito, observável e negociável no domínio.",
+    "author": "Chris Richardson",
+    "context": "Veja o padrão Saga em microservices.io",
+    "url": "https://microservices.io/patterns/data/saga.html"
+  },
+  {
+    "text": "Arquitetura orientada a eventos não elimina acoplamento. Ela muda onde o acoplamento aparece — e se ele fica visível.",
+    "author": "Sam Newman",
+    "context": "Leia 'Building Microservices' de Sam Newman",
+    "url": "https://samnewman.io/"
+  },
+  {
+    "text": "Depois da primeira correção emergencial em produção no sábado, CI/CD deixa de ser teoria. Depois da segunda, flags de funcionalidade também.",
+    "author": "David Farley",
+    "context": "Veja o site de Continuous Delivery de Humble e Farley",
+    "url": "https://continuousdelivery.com/"
+  },
+  {
+    "text": "Clean Code é aspiração, não checklist. Quando vira dogma, o código fica bonito no ritual e rígido na prática.",
+    "author": "Dan North",
+    "context": "Leia 'CUPID — for joyful coding' de Dan North — alternativa ao Clean Code",
+    "url": "https://dannorth.net/cupid-for-joyful-coding/"
+  },
+  {
+    "text": "Simples e fácil não são sinônimos. Fácil é familiar; simples é sem partes entrelaçadas.",
+    "author": "Rich Hickey",
+    "context": "Assista 'Simple Made Easy' — talk seminal de Rich Hickey",
+    "url": "https://github.com/matthiasn/talk-transcripts/blob/master/Hickey_Rich/SimpleMadeEasy.md"
+  },
+  {
+    "text": "A melhor experiência de desenvolvimento é a que o time quase não percebe. O atrito invisível é o que mata produtividade em escala.",
+    "author": "Kathryn Koehler",
+    "context": "Leia sobre Developer Experience na Netflix — como a equipe mede e melhora produtividade",
+    "url": "https://thenewstack.io/how-netflix-thinks-about-developer-experience/"
+  },
+  {
+    "text": "Nenhum framework salva um time que não entende o domínio. Ele só permite construir a coisa errada mais rápido.",
+    "author": "Vaughn Vernon",
+    "context": "Leia 'Implementing Domain-Driven Design' de Vaughn Vernon — Addison-Wesley",
+    "url": "https://www.oreilly.com/library/view/implementing-domain-driven-design/9780133039900/"
+  },
+  {
+    "text": "GraphQL resolve algumas dores do REST e cria outras. Toda abstração que aumenta poder também aumenta responsabilidade operacional.",
+    "author": "Lee Byron",
+    "context": "Leia 'GraphQL: A Data Query Language' — anúncio original do Facebook Engineering",
+    "url": "https://engineering.fb.com/2015/09/14/core-infra/graphql-a-data-query-language/"
+  },
+  {
+    "text": "gRPC costuma ganhar em latência; REST costuma ganhar em evolução pública. A decisão depende do contrato, não da moda.",
+    "author": "Martin Fowler",
+    "context": "Leia 'Microservices' — artigo seminal de Martin Fowler",
+    "url": "https://martinfowler.com/articles/microservices.html"
+  },
+  {
+    "text": "A documentação mais confiável é a que o compilador ou o contrato automatizado consegue verificar.",
+    "author": "Joshua Bloch",
+    "context": "Leia 'Effective Java' de Joshua Bloch",
+    "url": "https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/"
+  },
+  {
+    "text": "TDD é uma forma de administrar o medo durante a programação.",
+    "author": "Kent Beck",
+    "context": "Leia 'Test-Driven Development: By Example' de Kent Beck",
+    "url": "https://www.oreilly.com/library/view/test-driven-development/0321146530/"
+  },
+  {
+    "text": "Testes integrados são uma armadilha quando apenas dizem que algo quebrou, mas não mostram onde quebrou.",
+    "author": "J.B. Rainsberger",
+    "context": "Assista 'Integrated Tests Are A Scam' — palestra de J.B. Rainsberger",
+    "url": "https://vimeo.com/80533536"
+  },
+  {
+    "text": "TDD morreu. Viva os testes.",
+    "author": "David Heinemeier Hansson",
+    "context": "Leia o post polêmico de DHH que reacendeu o debate sobre TDD",
+    "url": "https://dhh.dk/2014/tdd-is-dead-long-live-testing.html"
+  },
+  {
+    "text": "Desempenho é uma funcionalidade.",
+    "author": "Addy Osmani",
+    "context": "Leia 'Performance is a Feature' — artigo de Addy Osmani",
+    "url": "https://addyosmani.com/blog/performance-is-a-feature/"
+  },
+  {
+    "text": "Não estamos desenhando páginas; estamos desenhando sistemas de componentes.",
+    "author": "Brad Frost",
+    "context": "Leia 'Atomic Web Design' de Brad Frost",
+    "url": "https://bradfrost.com/blog/post/atomic-web-design/"
+  },
+  {
+    "text": "Concorrência não é paralelismo.",
+    "author": "Rob Pike",
+    "context": "Assista 'Concurrency is Not Parallelism' — palestra de Rob Pike",
+    "url": "https://go.dev/blog/waza-talk"
+  },
+  {
+    "text": "Um sistema distribuído é aquele em que a falha de um computador que você nem sabia que existia pode tornar o seu próprio computador inutilizável.",
+    "author": "Leslie Lamport",
+    "context": "Veja os papers e trabalhos de Leslie Lamport sobre sistemas distribuídos",
+    "url": "https://lamport.azurewebsites.net/pubs/pubs.html"
+  },
+  {
+    "text": "O problema das linguagens orientadas a objetos é o ambiente implícito que elas carregam: você queria uma banana, mas recebeu um gorila segurando a banana e a floresta inteira junto.",
+    "author": "Joe Armstrong",
+    "context": "Leia 'Coders at Work' — entrevista com Joe Armstrong",
+    "url": "https://codersatwork.com/"
+  },
+  {
+    "text": "Há dois modos de construir software: simples o bastante para não haver deficiências óbvias, ou complicado o bastante para que as deficiências não sejam óbvias. O primeiro é muito mais difícil.",
+    "author": "Tony Hoare",
+    "context": "Leia 'The Emperor's Old Clothes' — Turing Lecture de Tony Hoare",
+    "url": "https://dl.acm.org/doi/10.1145/358549.358561"
+  },
+  {
+    "text": "A estrutura dos times precisa combinar com a arquitetura desejada, ou a organização produzirá designs indesejados.",
+    "author": "Matthew Skelton & Manuel Pais",
+    "context": "Leia 'Team Topologies' de Matthew Skelton e Manuel Pais",
+    "url": "https://teamtopologies.com/book"
+  },
+  {
+    "text": "Configuração é tudo que tende a variar entre deploys. Guarde configuração no ambiente.",
+    "author": "Adam Wiggins",
+    "context": "Veja o Twelve-Factor App — fator III: Configuração",
+    "url": "https://12factor.net/config"
+  },
+  {
+    "text": "Design é um ato de comunicação; por isso exige entender profundamente a pessoa com quem o design se comunica.",
+    "author": "Don Norman",
+    "context": "Leia 'The Design of Everyday Things' de Don Norman",
+    "url": "https://jnd.org/the-design-of-everyday-things-revised-and-expanded-edition/"
+  },
+  {
+    "text": "Se você gerencia infraestrutura aplicando mudanças manualmente, sua infraestrutura vira um floco de neve: única, frágil e difícil de reproduzir.",
+    "author": "Kief Morris",
+    "context": "Leia 'Infrastructure as Code' de Kief Morris",
+    "url": "https://infrastructure-as-code.com/book/"
+  },
+  {
+    "text": "A universalidade da Web é a sua essência. A capacidade de ligar qualquer documento a qualquer outro é o que a torna poderosa.",
+    "author": "Tim Berners-Lee",
+    "context": "Leia 'Weaving the Web' de Tim Berners-Lee",
+    "url": "https://www.w3.org/People/Berners-Lee/Weaving/"
+  },
+  {
+    "text": "Programadores ruins se preocupam com o código. Bons programadores se preocupam com estruturas de dados e seus relacionamentos.",
+    "author": "Linus Torvalds",
+    "context": "Veja a thread original de Linus Torvalds sobre design de dados",
+    "url": "https://lwn.net/Articles/193245/"
+  },
+  {
+    "text": "Abstração prematura é pior que otimização prematura: uma função lenta pode ser medida e corrigida; uma abstração errada contamina o sistema inteiro.",
+    "author": "Sandi Metz",
+    "context": "Assista 'All the Little Things' — palestra de Sandi Metz na RailsConf",
+    "url": "https://www.youtube.com/watch?v=8bZh5LMaSmE"
+  },
+  {
+    "text": "O problema real é que programadores gastam tempo demais se preocupando com eficiência nos lugares e momentos errados.",
+    "author": "Donald Knuth",
+    "context": "Leia 'Computer Programming as an Art' — Turing Lecture de Knuth",
+    "url": "https://dl.acm.org/doi/10.1145/361604.361612"
+  },
+  {
+    "text": "Duplicação costuma ser mais barata do que a abstração errada.",
+    "author": "Sandi Metz",
+    "context": "Leia 'The Wrong Abstraction' — blog de Sandi Metz",
+    "url": "https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction"
+  },
+  {
+    "text": "Microsserviços não consertam uma cultura quebrada. Eles apenas distribuem essa cultura quebrada pela rede.",
+    "author": "Camille Fournier",
+    "context": "Leia 'The Manager's Path' de Camille Fournier",
+    "url": "https://www.oreilly.com/library/view/the-managers-path/9781491973882/"
+  },
+  {
+    "text": "O objetivo da arquitetura de software é reduzir o esforço humano necessário para construir e manter o sistema exigido.",
+    "author": "Robert C. Martin",
+    "context": "Leia 'Clean Architecture' de Robert C. Martin",
+    "url": "https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/"
+  },
+  {
+    "text": "Depurar é duas vezes mais difícil do que escrever o código. Se você escreve da forma mais esperta possível, não será esperto o bastante para depurá-lo.",
+    "author": "Brian Kernighan",
+    "context": "Leia 'The Elements of Programming Style' de Kernighan e Plauger",
+    "url": "https://www.amazon.com/Elements-Programming-Style-2nd/dp/0070342075"
+  },
+  {
+    "text": "Não é um defeito; é uma funcionalidade não documentada.",
+    "author": "Rich Kulawiec",
+    "context": "Veja a origem da expressão no Jargon File — o glossário hacker",
+    "url": "https://www.catb.org/jargon/html/B/bug.html"
+  }
+]

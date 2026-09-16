@@ -1,0 +1,324 @@
+---
+import Icon from "./Icon.astro";
+import { QUOTES, type Quote } from "../utils/quotes";
+
+interface Props {
+  /** frase fixa (fim do post). Sem ela, o card rotaciona todas as frases. */
+  quote?: Quote;
+  label?: string;
+}
+
+const { quote, label = "Frase do dia" } = Astro.props;
+const rotating = !quote;
+const initial = quote ?? QUOTES[0];
+const domain = (url: string) => {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return "";
+  }
+};
+---
+
+<aside class:list={["qbar", { "is-static": !rotating }]} data-quote-card={rotating ? "" : undefined} data-ready={rotating ? "false" : "true"} aria-label={label}>
+  <span class="qbar-mark" aria-hidden="true">”</span>
+
+  <div class="qbar-body" data-quote-body>
+    <p class="eyebrow qbar-label">{label}</p>
+    <blockquote class="qbar-text" data-quote-text>{initial.text}</blockquote>
+    <p class="qbar-author" data-quote-author>— {initial.author}</p>
+    <a class="qbar-ctx" data-quote-link href={initial.url} target="_blank" rel="noopener noreferrer">
+      <img
+        class="qbar-favicon"
+        data-quote-favicon
+        src={`https://www.google.com/s2/favicons?sz=32&domain=${domain(initial.url)}`}
+        alt=""
+        width="14"
+        height="14"
+        loading="lazy"
+      />
+      <span data-quote-context>{initial.context}</span>
+      <Icon name="arrowUpRight" size={13} />
+    </a>
+  </div>
+
+  {
+    rotating && (
+      <div class="qbar-actions">
+        <button type="button" class="qbar-btn" data-quote-prev aria-label="Frase anterior">
+          <Icon name="chevLeft" size={16} />
+        </button>
+        <button type="button" class="qbar-btn" data-quote-next aria-label="Próxima frase">
+          <Icon name="chevRight" size={16} />
+        </button>
+      </div>
+    )
+  }
+
+  {rotating && <script is:inline type="application/json" data-quotes set:html={JSON.stringify(QUOTES).replace(/</g, "\\u003c")} />}
+  {
+    rotating && (
+      <noscript>
+        <style>{`.qbar[data-ready="false"] .qbar-body { opacity: 1 !important; }`}</style>
+      </noscript>
+    )
+  }
+</aside>
+
+<script>
+  interface Quote {
+    text: string;
+    author: string;
+    context: string;
+    url: string;
+  }
+
+  const card = document.querySelector<HTMLElement>("[data-quote-card]");
+  if (card) {
+    const quotes: Quote[] = JSON.parse(card.querySelector("[data-quotes]")!.textContent ?? "[]");
+    const $ = <T extends HTMLElement>(sel: string) => card.querySelector<T>(sel)!;
+    const body = $("[data-quote-body]");
+
+    // ordem embaralhada uma vez por sessão (igual ao DEV NOTE)
+    let order: number[] = [];
+    let pos = 0;
+    try {
+      order = JSON.parse(sessionStorage.getItem("cs-quote-order") ?? "[]");
+      pos = Number(sessionStorage.getItem("cs-quote-pos") ?? 0);
+    } catch {}
+    if (order.length !== quotes.length) {
+      order = [...quotes.keys()];
+      for (let i = order.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      pos = 0;
+    }
+
+    const render = () => {
+      const q = quotes[order[((pos % order.length) + order.length) % order.length]];
+      $("[data-quote-text]").textContent = q.text;
+      $("[data-quote-author]").textContent = `— ${q.author}`;
+      $("[data-quote-context]").textContent = q.context;
+      $<HTMLAnchorElement>("[data-quote-link]").href = q.url;
+      try {
+        $<HTMLImageElement>("[data-quote-favicon]").src =
+          `https://www.google.com/s2/favicons?sz=32&domain=${new URL(q.url).hostname}`;
+        sessionStorage.setItem("cs-quote-order", JSON.stringify(order));
+        sessionStorage.setItem("cs-quote-pos", String(pos));
+      } catch {}
+    };
+
+    const go = (delta: number) => {
+      body.classList.add("is-swapping");
+      window.setTimeout(() => {
+        pos = (pos + delta + order.length) % order.length;
+        render();
+        body.classList.remove("is-swapping");
+      }, 160);
+    };
+
+    render();
+    card.dataset.ready = "true";
+    $("[data-quote-prev]").addEventListener("click", () => go(-1));
+    $("[data-quote-next]").addEventListener("click", () => go(1));
+  }
+</script>
+
+<style>
+  .qbar {
+    position: relative;
+    padding: 20px 24px 20px 26px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    overflow: clip;
+  }
+
+  .qbar::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--blue), color-mix(in srgb, var(--blue) 20%, transparent));
+  }
+
+  :global([data-theme="dark"]) .qbar::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 220px;
+    pointer-events: none;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--blue) 12%, transparent), transparent 80%);
+  }
+
+  .qbar-mark {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    font-family: var(--font-serif);
+    font-size: 110px;
+    font-weight: 700;
+    line-height: 0.8;
+    color: var(--blue);
+    opacity: 0.28;
+    pointer-events: none;
+  }
+
+  :global([data-theme="light"]) .qbar-mark {
+    opacity: 0.18;
+  }
+
+  .qbar-body {
+    position: relative;
+    z-index: 1;
+    padding-right: 96px;
+    transition:
+      opacity 0.16s ease,
+      transform 0.16s ease;
+  }
+
+  .qbar[data-ready="false"] .qbar-body,
+  .qbar-body.is-swapping {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+
+  .qbar-label {
+    margin: 0 0 6px;
+  }
+
+  .qbar-text {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 1.5vw, 21px);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+
+  .qbar-text::before {
+    content: "\201C";
+  }
+
+  .qbar-text::after {
+    content: "\201D";
+  }
+
+  .qbar-author {
+    margin: 6px 0 0;
+    font-family: var(--font-serif);
+    font-size: var(--fs-body-sm);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--blue);
+  }
+
+  .qbar-ctx {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 5px 11px 5px 8px;
+    border-radius: 980px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--card-bg-alt) 60%, transparent);
+    font-size: var(--fs-meta);
+    color: var(--text-soft);
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .qbar-ctx span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .qbar-ctx :global(.icon) {
+    flex-shrink: 0;
+    color: var(--blue);
+  }
+
+  .qbar-ctx:hover {
+    color: var(--blue);
+    border-color: color-mix(in srgb, var(--blue) 35%, var(--border));
+    background: color-mix(in srgb, var(--blue) 9%, var(--card-bg));
+  }
+
+  .qbar-favicon {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .qbar-actions {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2;
+    display: flex;
+    gap: 6px;
+  }
+
+  .qbar-btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    background: color-mix(in srgb, var(--card-bg-alt) 70%, transparent);
+    color: var(--text-soft);
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      scale 0.1s ease;
+  }
+
+  .qbar-btn::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+  }
+
+  .qbar-btn:hover {
+    color: var(--blue);
+    border-color: color-mix(in srgb, var(--blue) 40%, var(--border));
+  }
+
+  .qbar-btn:active {
+    scale: 0.96;
+  }
+
+  .qbar.is-static .qbar-body {
+    padding-right: 48px;
+  }
+
+  @media (max-width: 560px) {
+    .qbar {
+      padding: 18px 16px 64px 20px;
+    }
+    .qbar.is-static {
+      padding-bottom: 18px;
+    }
+    .qbar.is-static .qbar-body {
+      padding-right: 0;
+    }
+    .qbar-body {
+      padding-right: 0;
+    }
+    .qbar-mark {
+      display: none;
+    }
+  }
+</style>

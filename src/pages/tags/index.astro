@@ -1,17 +1,65 @@
 ---
-import ChipLayout from "../../layouts/ChipLayout.astro";
-import I18nKeys from "../../locales/keys";
-import { i18n } from "../../locales/translation";
-import { GetTags } from "../../utils/content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { getTags } from "../../utils/posts";
+import { tagUrl } from "../../utils/taxonomy";
 
-const tags = [...(await GetTags()).values()].sort();
-const chips = tags.map((tag) => {
-  return {
-    name: tag.name,
-    slug: tag.slug,
-    subChip: tag.posts.length.toString(),
-  };
-});
+const tags = (await getTags()).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
 ---
 
-<ChipLayout chips={chips} title={i18n(I18nKeys.pages_tags_title)} />
+<BaseLayout title="Tags" description="Todos os assuntos marcados nos artigos.">
+  <PageHeader eyebrow="Explorar" title="Tags" description={`${tags.length} assuntos marcados nos artigos.`} />
+
+  <div class="tag-cloud card rise" style="--i:1">
+    {
+      tags.map((tag) => (
+        <a class="tag" href={tagUrl(tag.name)}>
+          <span>#{tag.name}</span>
+          <span class="tag-count">{tag.posts.length}</span>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--col-gap);
+    padding: clamp(18px, 2.4vw, 28px);
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 8px 7px 14px;
+    border-radius: 980px;
+    border: 1px solid var(--border);
+    font-size: var(--fs-body-sm);
+    color: var(--text-soft);
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .tag:hover {
+    color: var(--blue);
+    border-color: color-mix(in srgb, var(--blue) 45%, var(--border));
+    background: color-mix(in srgb, var(--blue) 7%, transparent);
+  }
+
+  .tag-count {
+    min-width: 24px;
+    padding: 1px 7px;
+    border-radius: 980px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    background: var(--card-bg-alt);
+    color: var(--text-dim);
+  }
+</style>

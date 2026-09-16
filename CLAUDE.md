@@ -1,179 +1,123 @@
-# Caderno Público — cesarschutz.github.io
+# cesarschutz.github.io — blog técnico de Cesar Schutz
 
-Site pessoal do Cesar Schutz (arquiteto de solução), batizado de **Caderno Público**:
-blog de estudos + portfólio de projetos. Publicado no GitHub Pages em
-<https://cesarschutz.github.io> (o repo mantém o nome exigido pelo Pages para publicar na raiz).
+Blog técnico de Cesar Schutz (arquiteto de solução): artigos sobre arquitetura de software,
+sistemas distribuídos e Java, mais portfólio de projetos. Publicado no GitHub Pages em
+<https://cesarschutz.github.io>. Idioma: **pt-BR**. O nome do site é só **Cesar Schutz**
+(não usar "Caderno Público" nem textos informais como "aprendizado contínuo").
 
 ## Stack
 
-- **Astro 5** + tema [Yukina](https://github.com/WhitePaper233/yukina) (adaptado)
-- **Tailwind CSS** (v3) + Svelte 5 (componentes interativos)
-- **Expressive Code** — blocos de código avançados
-- **Diagramas em SVG artesanal** (estilo ByteByteGo) — NÃO usamos Mermaid
-  (removido em 13/09/2026 por erros de parse em alguns navegadores)
-- **Lightbox** — toda imagem de post abre em tela cheia ao clicar
-  (fecha no ×, clicando fora ou com Esc) — `setupLightbox` no ScriptSetup
-- **KaTeX** — fórmulas matemáticas
-- **MDX** — posts com componentes interativos
-- **Busca própria** com frase exata — índice em `src/pages/search-index.json.ts`,
-  motor em `src/utils/search.ts` (normaliza acentos; frase exata primeiro,
-  fallback por palavras). Funciona também no `npm run dev`. NÃO usa Pagefind.
-- Gerenciador de pacotes: **npm**
-
-## Comandos
+- **Astro 7** (site estático) + **TypeScript** — sem framework de UI, sem Tailwind
+- CSS próprio com os **tokens de design do DEV NOTE** (`src/styles/global.css`)
+- Markdown via processador `unified()` (`@astrojs/markdown-remark`): remark-math, rehype-katex,
+  rehype-slug, rehype-autolink-headings, `rehype-table-wrap` (local)
+- **Expressive Code** para blocos de código (temas github-dark/light)
+- **Busca própria** (sem Pagefind): índice `src/pages/search-index.json.ts`, motor
+  `src/scripts/search.ts` (ignora acentos; frase exata primeiro, depois todas as palavras),
+  UI em `src/components/SearchDialog.astro` (atalhos ⌘K / Ctrl+K e `/`)
+- RSS (`/rss.xml`), sitemap, robots.txt
+- npm, Node 22+
 
 ```bash
-npm run dev      # servidor de desenvolvimento (localhost:4321)
-npm run build    # build de produção + índice de busca
-npm run preview  # serve o build localmente
+npm run dev      # http://localhost:4321
+npm run build    # gera dist/
+npm run check    # astro check (tipos)
 ```
 
-Deploy: automático via GitHub Actions a cada push na `main` (`.github/workflows/deploy.yml`).
+Deploy: push na `main` → `.github/workflows/deploy.yml` publica no GitHub Pages.
+Deploy preso na fila: `gh run cancel <id>` e `gh workflow run deploy.yml`.
 
-## Identidade visual (não mudar sem pedido explícito)
+## Design (vem do DEV NOTE — manter consistente)
 
-- Paleta inspirada nas **cores oficiais do Grêmio**: azul celeste `#00A0E5`, azul-preto `#01131B`, branco — de forma **sutil e profissional** (sem escudo/brasão: é marca registrada)
-- Tudo deriva de `--hue: 230` em `src/components/GlobalStyles.astro`
-- **Modo escuro é o padrão** (fallback em `NavBar.astro` e script anti-flash em `BaseHead.astro`)
-- Idioma: **pt-BR** (traduções em `src/locales/languages/pt_br.ts`)
+- Paleta: tema escuro preto `#000` com cards `#1c1c1e`, azul `#2997ff`;
+  tema claro `#f5f7fb` com cards brancos, azul `#2563eb`. Padrão: preferência do sistema, senão escuro
+- Fontes: **Inter** (texto), **Fraunces** (títulos e citações), **JetBrains Mono** (código, chips)
+- Cards com borda de 1px e raio 16–22px; pílulas com raio 980px; `:active { scale: .96 }`
+- Cada categoria tem cor e ícone em `src/utils/taxonomy.ts` (categoria nova → adicionar lá)
+- Tema em `data-theme` no `<html>` (script anti-flash no `BaseLayout`); chave `cs-theme`
+- Modo da lista de posts (lista/cards) em `data-post-view`; chave `cs-post-view`
+- Respeitar `prefers-reduced-motion` em qualquer animação nova
+
+### Peças herdadas do DEV NOTE
+
+- **Ícones subindo** (`src/components/RisingTiles.astro`, dados em `src/data/tiles.ts`): só no
+  card de identidade da home e na página 404 — de propósito, para não poluir o site.
+  Pausa fora da tela. Para trocar os ícones, editar `tiles.ts`
+- **Frases de autores** (`src/components/QuoteCard.astro`, dados em `src/data/quotes.json`,
+  132 frases): no topo da home (embaralhadas por sessão, com setas) e no fim de cada post
+  (frase fixa escolhida pela categoria — mapa de autores em `src/utils/quotes.ts`)
+
+## Estrutura
+
+```
+src/config.ts                 # nome, cargo, textos da home, tópicos, navegação, links
+src/content/posts/            # artigos (.md/.mdx) — nome do arquivo = slug da URL
+src/content.config.ts         # schema do frontmatter
+src/data/projects.ts          # página /projects
+src/data/tiles.ts             # ícones da animação
+src/data/quotes.json          # frases de autores
+src/utils/                    # posts, taxonomia (cores/ícones), formatação, frases, ícones
+src/components/               # Nav, Sidebar, IdentityCard, QuoteCard, FeaturedPost, PostFeed…
+src/pages/                    # home paginada ([...page]), posts/[slug], archive, java,
+                              # categories, tags, projects, about, 404, rss, search-index
+public/covers/                # capas SVG dos posts (covers/java/* para a série Java)
+public/posts/<slug>/          # diagramas SVG usados dentro dos posts
+.claude/templates/            # post.md e cover.svg
+```
 
 ## Como criar um post
 
-1. Criar `src/contents/posts/<slug-do-post>.md` (ou `.mdx` se precisar de componentes):
+1. Criar `src/content/posts/<slug>.md` a partir de `.claude/templates/post.md`
+   (kebab-case, sem acentos). Campos: `title`, `published`, `description`, `tags`,
+   `category`, `cover`, `draft`
+2. Categorias em uso: `Arquitetura`, `Java`, `Observabilidade`, `DevOps`, `Segurança`, `Dados`
+   (criar novas com moderação e registrar em `src/utils/taxonomy.ts`; tags são livres)
+3. **Todo post tem capa** no padrão abaixo, em `public/covers/<slug>.svg`
+4. O post mais recente vira automaticamente o destaque da home
+5. Não há mais "exercícios resolvidos": tudo é post normal. `/exercicios` redireciona para a home
 
-```markdown
----
-title: Título do post
-published: 2026-01-31
-description: Uma frase que resume o post (aparece no card e no SEO).
-tags: [Java, Arquitetura]
-category: Estudos
-cover: /banners/tech-nodes.svg   # opcional; sem cover, usa um banner do rodízio
-draft: false                     # true = não publica em produção
----
+### Série "Atualizações do Java"
 
-Conteúdo em Markdown...
-```
-
-2. Convenções:
-   - Nome do arquivo = slug da URL (`slugMode: RAW`): use kebab-case, sem acentos
-   - Categorias em uso: `Arquitetura`, `Java`, `Observabilidade`, `DevOps`,
-     `Segurança`, `Dados` (crie novas com moderação; tags são livres)
-   - A série "atualizações do Java" (java-8.md … java-26.md + guia-atualizacoes-java.md)
-     tem página própria em `/java/` (src/pages/java.astro: grade de versões +
-     guia em destaque) e card no sidebar. **Nova versão do Java = criar
-     java-NN.md** — a página deriva a lista do padrão de slug `java-\d+` e
-     atualiza sozinha; ao sair uma nova LTS, atualizar o set `LTS` e a
-     função de ano em java.astro. As datas `published` da série são as da
-     escrita original (jul/2025, do repo knowledge-base)
-   - Posts da série "Aprendizado de arquitetura" vêm do Notion (página "Aprendizado
-     arquitetura Claude") — ATENÇÃO: as URLs de imagem do Notion expiram em ~5 min;
-     baixe os SVGs para `public/posts/<slug>/` imediatamente após o fetch e
-     **remova `width`/`height` da tag raiz** (mantendo o `viewBox`) — com
-     tamanho fixo o lightbox não amplia a imagem
-   - **Exercícios resolvidos**: as sessões de arquitetura usam
-     `category: Exercícios resolvidos` + campo `enunciado:` no frontmatter
-     (resumo curto do desafio). São posts normais (home, tags, busca), mas
-     ganham página própria em `/exercicios/` (src/pages/exercicios.astro:
-     cards numerados com título + enunciado + explicação do formato) e um
-     card destacado no sidebar, acima de Categorias. Os links de categoria
-     desses posts apontam para `/exercicios/` via `GetCategoryUrl()` em
-     `src/utils/content.ts`. A numeração do card vem do título
-     (`Sessão NN — ...`)
-   - Imagem própria de capa: colocar em `public/covers/` e referenciar `/covers/arquivo.webp`
-   - Template completo em `.claude/templates/post.md`
+`java-8.md` … `java-NN.md` + `guia-atualizacoes-java.md`, categoria `Java`. A página `/java/`
+monta a grade sozinha pelo padrão de slug `java-\d+`. Nova versão = criar `java-NN.md`
+(título `Java NN — subtítulo` ou `Java NN (LTS) — subtítulo`) e a capa `covers/java/java-NN.svg`.
+Nova LTS: atualizar o set `LTS` em `src/pages/java.astro`.
 
 ### ⚠️ Regra das capas (crop-safe)
 
-A capa NUNCA aparece inteira: o banner do post corta topo/base (34vh + ondas) e
-o card da home corta em diagonal. Por isso capa é **decoração, não informação**:
+A capa aparece cortada em proporções diferentes: 4:1 no topo do post, ~1:1 no destaque da home,
+16:10 e 1:1 na lista, 2:1 nos cards. Por isso a capa é **decoração, não informação**:
 
-- Canvas 1600×800, fundo padrão do site: gradiente `#01131b → #04283d → #01131b`,
-  pattern de grid celeste, elipse de glow central
-- **UM motivo grande e centralizado** na zona segura (x ≈ 400–1200, y ≈ 200–600);
-  nada encostado nas bordas
-- Texto só se for grande (≥ 40px) e parte do motivo (ex.: "15", "JWT");
-  proibido texto pequeno, legendas ou diagramas com vários rótulos
-- Diagramas informativos vão no **corpo do post** (`public/posts/<slug>/`,
-  fundo branco, estilo ByteByteGo) — o lightbox amplia no clique
-- Exceção que segue outro padrão: `covers/java/*` (xícara + "JAVA NN"; número
-  centrado em x=1130 e selo LTS logo abaixo dele — ambos dentro da zona
-  segura do card) e `banners/*` (arte do hero da home, nunca cortada em card)
+- Canvas **1600×800**, `preserveAspectRatio="xMidYMid slice"`, fundo padrão: gradiente
+  `#01131b → #04283d → #01131b`, grid `#00a0e5` a 7% (80px), elipse de brilho central —
+  copiar de `.claude/templates/cover.svg`
+- **Um motivo grande e centralizado dentro da zona segura x 400–1200 / y 200–600**; nada
+  importante fora dela
+- Traço `#00a0e5` (10–13px), preenchimento `#032c42`, detalhes `#7fd4f5`
+- Texto só se for grande (≥ 40px) e parte do motivo (ex.: "JWT", "1×"); nada de legendas
+- Exceção: `covers/java/*` (xícara + "JAVA NN" + selo LTS)
 
-## Recursos disponíveis nos posts (usar sem medo)
+## Recursos disponíveis nos posts
 
-- **Código**: ` ```java title="Arquivo.java" {3-5} ` (destaque), `del={}/ins={}` (diff),
-  `showLineNumbers`, `collapse={1-10}` (recolher trechos)
-- **Diagramas**: SVG artesanal em `public/posts/<slug>/<nome>.svg`, referenciado
-  com `![alt descritivo](/posts/<slug>/<nome>.svg)`. Padrão visual (estilo
-  ByteByteGo, igual aos das sessões): fundo `#ffffff`, viewBox ~940 de largura,
-  título 21px bold `#111827`, caixas rx=12 com pares fill/stroke —
-  azul `#eaf3fb`/`#2b7fc4`, laranja `#fdf1e3`/`#e07a1f`, verde `#eaf7ef`/`#2e9e5b`,
-  vermelho `#fdecea`/`#d9534f`, cinza `#f3f4f6`/`#6b7280` — setas `#4b5563` com
-  marker, fonte Inter/system. O lightbox amplia no clique; NÃO usar Mermaid
+- **Código**: ` ```java title="Arquivo.java" {3-5} `, `ins={}`/`del={}`, `showLineNumbers`, `collapse={1-10}`
+- **Diagramas**: SVG próprio em `public/posts/<slug>/`, `![alt descritivo](/posts/<slug>/nome.svg)`.
+  Padrão: fundo `#ffffff`, largura ~940, título 21px bold `#111827`, caixas `rx=12` com pares
+  fill/stroke — azul `#eaf3fb`/`#2b7fc4`, laranja `#fdf1e3`/`#e07a1f`, verde `#eaf7ef`/`#2e9e5b`,
+  vermelho `#fdecea`/`#d9534f`, cinza `#f3f4f6`/`#6b7280`; setas `#4b5563`. Remover
+  `width`/`height` da tag raiz (manter `viewBox`). Clique abre o lightbox. **Não usar Mermaid**
 - **Matemática**: `$inline$` e `$$bloco$$`
-- **Toggle colapsável** (estilo Notion, estilizado em `markdown.css`): use
-  `<details>` + `<summary>Título</summary>`, linha em branco, conteúdo em
-  Markdown normal, linha em branco, `</details>`
-- **Sumário lateral**: gerado automaticamente dos h2/h3 do post (desktop xl+,
-  com scrollspy) — nada a fazer, só usar headings bem estruturados
-- **Descrições ricas**: o campo `description` do frontmatter aceita `**negrito**`
-  e `` `código` `` — aparece no card da home e no cabeçalho do post; a convenção
-  da série de arquitetura é terminar com "**Também caiu aqui:** …"
-- **MDX + Svelte**: para demos interativas/animadas, criar componente em
-  `src/components/interactive/` e usar num post `.mdx`
+- **Toggle**: `<details><summary>Título</summary>` + linha em branco + Markdown + `</details>`
+- **Tabelas**: Markdown normal (rolam na horizontal no celular)
+- **Sumário**: gerado dos h2/h3 quando há 3 ou mais (lateral no desktop, recolhível no celular)
+- **Descrição**: aceita `` `código` `` e `**negrito**`
 
-## ⚠️ Instrução permanente para novos posts
+## Instrução permanente
 
-A cada post novo, **avalie ativamente se existe lib, componente ou recurso que
-enriqueceria o conteúdo** — e proponha ao Cesar antes de instalar. Exemplos:
-diagrama animado (Svelte + CSS/motion), player de demo, visualização de dados,
-embed interativo. O site fala de arquitetura e desenvolvimento: diagramas e
-código bonito são prioridade. Ao adicionar um recurso novo:
+A cada post novo, avaliar se algum recurso (diagrama, componente interativo em `.mdx`,
+visualização) enriqueceria o conteúdo e **propor antes de instalar** qualquer biblioteca.
+Recurso novo adotado → documentar a sintaxe na seção acima.
 
-1. Instale e configure
-2. Documente a sintaxe neste arquivo (seção "Recursos disponíveis")
+## Pendências do dono
 
-## Estrutura de pastas relevante
-
-```
-yukina.config.ts              # config central: título, nav, banners, links
-src/contents/posts/           # posts do blog (.md/.mdx)
-src/contents/specs/about.md   # página Sobre
-src/data/projects.ts          # lista de projetos (página /projects)
-src/pages/projects.astro      # página de projetos (criada por nós, não é do tema)
-src/components/GlobalStyles.astro  # cores/tokens (--hue etc.)
-src/plugins/remark-mermaid.mjs     # transforma ```mermaid em <pre class="mermaid">
-src/locales/                  # i18n (pt_br.ts é o ativo)
-public/banners/               # artes SVG do banner rotativo
-.claude/templates/post.md     # template de frontmatter para posts
-```
-
-## Operação
-
-- Deploy normal: push na main → Actions publica em ~1 min
-- **Deploy preso na fila** (já aconteceu — instabilidade do GitHub): cancele o
-  run (`gh run cancel <id>`) e dispare de novo com `gh workflow run deploy.yml`
-
-## Alterações feitas sobre o tema original (para saber onde mexer)
-
-- Página `/projects` + chaves i18n `projects_*` e `nav_bar_projects`
-- Locale `pt-BR` completo
-- Expressive Code substituiu o Shiki (config em `astro.config.mjs`;
-  CSS legado do Shiki escopado em `src/styles/markdown.css`)
-- Mermaid client-side (`remark-mermaid.mjs` + `setupMermaid` em `ScriptSetup.astro`)
-- Tema escuro padrão + anti-flash
-- Banners SVG próprios (Grêmio tech art) + capas por post em `public/covers/`
-- Pagefind REMOVIDO — busca própria (ver Stack); os componentes de busca são
-  `SearchBar.svelte` e `MobileSearchBar.svelte`
-- Posts usam banner "plain" (imagem sem texto por cima, mais baixo) e cabeçalho
-  próprio dentro do card (`PostLayout.astro`: título, descrição rica, meta)
-- Sumário lateral com scrollspy (`PostLayout.astro` + `setupToc` no `ScriptSetup.astro`)
-- `<title>`/description/og:image por página (`BaseHead.astro` recebe props)
-
-## Pendências conhecidas (TODOs do dono)
-
-- Completar a página Sobre (`src/contents/specs/about.md` tem TODOs)
-- Adicionar LinkedIn em `yukina.config.ts` (bloco comentado)
-- Nota: o card "DEV NOTE" em `src/data/projects.ts` não tem repoUrl de propósito
-  (repositório privado) — adicionar se um dia for tornado público
+- Completar a trajetória profissional e contatos (LinkedIn/e-mail) em `src/pages/about.astro`
+- Títulos provisórios "Java 23/24/26 — o que mudou" podem ganhar subtítulo descritivo

@@ -1,18 +1,18 @@
 ---
-title: Título do post
+title: "Título do artigo"
 published: 2026-01-31
-description: Uma frase que resume o post — aparece no card da home e no SEO.
+description: "Uma ou duas frases que resumem o artigo. Aparecem no card da home, no cabeçalho do post e no SEO. Aceita `código` e **negrito**."
 tags: [Tag1, Tag2]
-category: Estudos
-cover: /banners/tech-nodes.svg
+category: Arquitetura
+cover: /covers/slug-do-artigo.svg
 draft: true
 ---
 
-Introdução: por que este assunto importa / contexto em 2–3 frases.
+Introdução: o problema concreto e por que ele importa, em 2–3 frases.
 
-## Seção
+## Primeira seção
 
-Conteúdo...
+Conteúdo…
 
 ```java title="Exemplo.java" {2}
 public class Exemplo {
@@ -22,11 +22,11 @@ public class Exemplo {
 
 ## Diagrama (se fizer sentido)
 
-<!-- SVG artesanal estilo ByteByteGo (paleta e padrão no CLAUDE.md), salvo em
-     public/posts/<slug>/ — o lightbox amplia ao clicar. NÃO usar Mermaid. -->
+<!-- SVG próprio em public/posts/<slug>/ no padrão descrito no CLAUDE.md.
+     O lightbox amplia ao clicar. -->
 
-![Descrição do que o diagrama mostra](/posts/slug-do-post/nome-do-diagrama.svg)
+![Descrição do que o diagrama mostra](/posts/slug-do-artigo/diagrama.svg)
 
 ## Conclusão
 
-O que fica de aprendizado.
+O que fica de decisão ou aprendizado.

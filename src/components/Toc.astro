@@ -1,0 +1,112 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  items.length >= 3 && (
+    <nav class="toc" aria-label="Neste artigo" data-toc>
+      <p class="toc-title">Neste artigo</p>
+      <ol>
+        {items.map((h) => (
+          <li class={`d${h.depth}`}>
+            <a href={`#${h.slug}`} data-toc-link={h.slug}>
+              {h.text.replace(/#$/, "")}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<script>
+  const toc = document.querySelector("[data-toc]");
+  if (toc) {
+    const links = new Map<string, HTMLElement>();
+    toc.querySelectorAll<HTMLElement>("[data-toc-link]").forEach((a) => links.set(a.dataset.tocLink!, a));
+    const headings = [...document.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")].filter((h) =>
+      links.has(h.id),
+    );
+    let active = "";
+    const update = () => {
+      let current = headings[0]?.id ?? "";
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top <= 140) current = h.id;
+        else break;
+      }
+      if (current === active) return;
+      active = current;
+      links.forEach((el, id) => el.classList.toggle("active", id === current));
+      links.get(current)?.scrollIntoView({ block: "nearest" });
+    };
+    let ticking = false;
+    document.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          update();
+          ticking = false;
+        });
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>
+
+<style>
+  .toc {
+    font-size: var(--fs-meta);
+  }
+
+  .toc-title {
+    margin: 0 0 10px;
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--divider);
+  }
+
+  .toc a {
+    display: block;
+    margin-left: -1px;
+    padding: 5px 0 5px 14px;
+    border-left: 2px solid transparent;
+    line-height: 1.4;
+    color: var(--text-dim);
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .toc .d3 a {
+    padding-left: 26px;
+    font-size: 12.5px;
+  }
+
+  .toc a:hover {
+    color: var(--text);
+  }
+
+  .toc a.active {
+    color: var(--blue);
+    border-left-color: var(--blue);
+    font-weight: 600;
+  }
+</style>

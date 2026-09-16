@@ -1,284 +1,277 @@
 ---
-import { Icon } from "astro-icon/components";
-import YukinaConfig from "../../yukina.config";
-import I18nKeys from "../locales/keys";
-import { i18n } from "../locales/translation";
-import { GetCategories, GetTags, EXERCISES_CATEGORY } from "../utils/content";
-import SocialIcon from "./widgets/SocialIcon.astro";
+import Icon from "./Icon.astro";
+import { getCategories, getJavaSeriesCount, getTags } from "../utils/posts";
+import { categoryStyle, categoryUrl, tagUrl } from "../utils/taxonomy";
 
-const tags = await GetTags();
-const categories = await GetCategories();
+interface Props {
+  activeCategory?: string;
+  activeTag?: string;
+}
 
-// "Exercícios resolvidos" tem entrada própria acima das categorias
-const exercisesEntry = [...categories.values()].find(
-  (c) => c.name === EXERCISES_CATEGORY,
-);
-const categoryKeys = [...categories.keys()].filter(
-  (key) => categories.get(key)!.name !== EXERCISES_CATEGORY,
-);
-const tagKeys = [...tags.keys()];
-
-// série "Atualizações do Java": conta os posts java-NN (a página /java/
-// deriva a lista do mesmo padrão de slug)
-const javaCategory = [...categories.values()].find((c) => c.name === "Java");
-const javaSeriesCount =
-  javaCategory?.posts.filter((p) => /\/java-\d+$/.test(p.id)).length ?? 0;
+const { activeCategory, activeTag } = Astro.props;
+const categories = await getCategories();
+const tags = (await getTags()).slice(0, 14);
+const javaCount = await getJavaSeriesCount();
+const onJava = Astro.url.pathname.startsWith("/java");
 ---
 
-<div class="flex w-full flex-row justify-center">
-  <div class="flex flex-col space-y-3">
-    <div
-      class="onload-animation rounded-3xl bg-[var(--card-color)] p-3"
-      style=`animation-delay: var(--onload-animation-delay);`
-    >
-      <a href="/about" class="avatar-wrapper">
-        <img
-          src={YukinaConfig.avatarUrl}
-          alt="avatar"
-          class="avatar lozad select-none"
-        />
+<aside class="sidebar" aria-label="Navegação do blog">
+  <div class="sb-card">
+    <section class="sb-section">
+      <h2 class="sb-title">Série</h2>
+      <a class:list={["sb-series", { active: onJava }]} href="/java/">
+        <span class="cat-ico series-ico" style="--c:#f8981d"><Icon name="coffee" size={18} /></span>
+        <span class="sb-series-text">
+          <strong>Atualizações do Java</strong>
+          <span>Do Java 8 ao mais recente</span>
+        </span>
+        <span class="sb-count">{javaCount}</span>
       </a>
-      <div class="username mt-4">
-        <p>{YukinaConfig.username}</p>
-      </div>
-      <p class="slogan mt-2 text-center text-[var(--text-color-lighten)]">
-        {YukinaConfig.sign}
-      </p>
-      {
-        YukinaConfig.socialLinks.length > 0 && (
-          <div class="mt-1 flex flex-row justify-center">
-            <div class="flex w-[184px] flex-wrap justify-center gap-2">
-              {YukinaConfig.socialLinks.map((item) => (
-                <SocialIcon name={item.icon} link={item.link} />
-              ))}
-            </div>
-          </div>
-        )
-      }
-    </div>
+    </section>
 
-    <!-- exercícios resolvidos -->
-    {
-      exercisesEntry && (
-        <a
-          href="/exercicios/"
-          class="exercises-card onload-animation"
-          style="animation-delay: calc(var(--onload-animation-delay) + 1 * var(--onload-animation-interval));"
-        >
-          <div class="flex flex-row items-center justify-between">
-            <div class="flex flex-row items-center gap-x-2">
-              <Icon
-                name="mingcute:target-line"
-                class="h-5 w-5 text-[var(--primary-color)]"
-              />
-              <p class="exercises-title">{i18n(I18nKeys.exercises_title)}</p>
-            </div>
-            <span class="rounded-md bg-[var(--primary-color-lighten)] px-2.5 py-0.5 text-[var(--primary-color)]">
-              {exercisesEntry.posts.length}
-            </span>
-          </div>
-          <p class="exercises-desc">
-            {i18n(I18nKeys.exercises_subtitle)}
-          </p>
-        </a>
-      )
-    }
-
-    <!-- atualizações do java -->
-    {
-      javaSeriesCount > 0 && (
-        <a
-          href="/java/"
-          class="exercises-card onload-animation"
-          style="animation-delay: calc(var(--onload-animation-delay) + 1.5 * var(--onload-animation-interval));"
-        >
-          <div class="flex flex-row items-center justify-between">
-            <div class="flex flex-row items-center gap-x-2">
-              <Icon
-                name="mdi:coffee-outline"
-                class="h-5 w-5 text-[var(--primary-color)]"
-              />
-              <p class="exercises-title">{i18n(I18nKeys.java_series_title)}</p>
-            </div>
-            <span class="rounded-md bg-[var(--primary-color-lighten)] px-2.5 py-0.5 text-[var(--primary-color)]">
-              {javaSeriesCount}
-            </span>
-          </div>
-          <p class="exercises-desc">{i18n(I18nKeys.java_series_subtitle)}</p>
-        </a>
-      )
-    }
-
-    <!-- categories -->
-    {
-      categories.size !== 0 && (
-        <div
-          class="onload-animation space-y-2 rounded-3xl bg-[var(--card-color)] p-3"
-          style="animation-delay: calc(var(--onload-animation-delay) + 2 * var(--onload-animation-interval));"
-        >
-          <div class="title m-[0.375rem]">
-            <a
-              href="/categories/"
-              class="pl-4 text-xl font-bold text-[var(--text-color)] transition-colors hover:text-[var(--primary-color)]"
-            >
-              {i18n(I18nKeys.side_bar_categories)}
-            </a>
-          </div>
-          <div class="relative flex flex-col">
-            {categoryKeys
-              .slice(0, YukinaConfig.maxSidebarCategoryChip + 1)
-              .map((category) => (
+    <section class="sb-section">
+      <h2 class="sb-title">Categorias</h2>
+      <ul class="sb-list">
+        {
+          categories.map((cat) => {
+            const style = categoryStyle(cat.name);
+            return (
+              <li>
                 <a
-                  href={`/categories/${category}`}
-                  class="category flex flex-row items-center justify-between rounded-lg px-3 py-2 transition-all hover:bg-[var(--primary-color-lighten)]"
+                  class:list={["sb-item", { active: cat.name === activeCategory }]}
+                  href={categoryUrl(cat.name)}
+                  aria-current={cat.name === activeCategory ? "page" : undefined}
                 >
-                  <p class="text-[var(--text-color)] transition-all">
-                    {categories.get(category)!.name}
-                  </p>
-                  <span class="rounded-md bg-[var(--primary-color-lighten)] px-2.5 py-0.5 text-[var(--primary-color)]">
-                    {categories.get(category)!.posts.length}
+                  <span class="cat-ico" style={`--c:${style.color}`}>
+                    <Icon name={style.icon} size={15} />
                   </span>
+                  <span class="sb-item-name">{cat.name}</span>
+                  <span class="sb-count">{cat.posts.length}</span>
                 </a>
-              ))}
-            {categoryKeys.length >= YukinaConfig.maxSidebarCategoryChip + 1 && (
-              <div class="absolute bottom-0 flex h-11 w-full flex-row items-center justify-center bg-gradient-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
-                <a
-                  href="/categories/"
-                  class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
-                >
-                  <span>{i18n(I18nKeys.side_bar_view_more)}</span>
-                  <Icon name="mingcute:arrow-right-line" />
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      )
-    }
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
 
-    <!-- tags -->
-    {
-      tags.size !== 0 && (
-        <div
-          class="onload-animation space-y-2 rounded-3xl bg-[var(--card-color)] p-3"
-          style="animation-delay: calc(var(--onload-animation-delay) + 3 * var(--onload-animation-interval));"
-        >
-          <div class="title m-[0.375rem]">
+    <section class="sb-section">
+      <h2 class="sb-title">Tags</h2>
+      <div class="sb-tags">
+        {
+          tags.map((tag) => (
             <a
-              href="/tags/"
-              class="pl-4 text-xl font-bold text-[var(--text-color)] transition-colors hover:text-[var(--primary-color)]"
+              class:list={["sb-tag", { active: tag.name === activeTag }]}
+              href={tagUrl(tag.name)}
+              aria-current={tag.name === activeTag ? "page" : undefined}
             >
-              {i18n(I18nKeys.side_bar_tags)}
+              {tag.name}
             </a>
-          </div>
-          <div class="relative flex max-w-[224px] flex-row flex-wrap">
-            {tagKeys.slice(0, YukinaConfig.maxSidebarTagChip + 1).map((tag) => (
-              <a
-                href={`/tags/${tag}`}
-                class="tag m-1 grow rounded-md bg-[var(--primary-color-lighten)] px-2 py-1 transition-all hover:brightness-95"
-              >
-                <p class="text-center text-sm text-[var(--primary-color)]">
-                  {tags.get(tag)!.name}
-                </p>
-              </a>
-            ))}
-            {tagKeys.length >= YukinaConfig.maxSidebarTagChip + 1 && (
-              <div class="absolute bottom-0 flex h-10 w-full flex-row items-center justify-center bg-gradient-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
-                <a
-                  href="/tags/"
-                  class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
-                >
-                  <span>{i18n(I18nKeys.side_bar_view_more)}</span>
-                  <Icon name="mingcute:arrow-right-line" />
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      )
-    }
+          ))
+        }
+      </div>
+      <a class="sb-more" href="/tags/">
+        Todas as tags <Icon name="arrowRight" size={14} />
+      </a>
+    </section>
+
+    <a class="sb-rss" href="/rss.xml">
+      <Icon name="rss" size={15} /> Assinar via RSS
+    </a>
   </div>
-</div>
+</aside>
+
 <style>
-  .avatar-wrapper::after {
-    @apply absolute left-3 top-3 h-56 w-56 rounded-xl transition-all content-[''];
+  .sidebar {
+    position: sticky;
+    top: calc(var(--nav-height) + 20px);
+    max-height: calc(100svh - var(--nav-height) - 40px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    border-radius: var(--radius-lg);
   }
 
-  .avatar-wrapper::after:hover {
-    @apply bg-black/25 dark:bg-black/50;
-  }
-
-  .avatar {
-    @apply h-56 w-56 rounded-xl transition-all hover:cursor-pointer;
-  }
-
-  .username > p {
-    @apply text-center text-xl font-semibold text-[var(--text-color)];
-    font-family: var(--title-font);
-  }
-
-  .username > div {
-    @apply mx-auto mt-1 h-1 w-8 rounded-full bg-[var(--primary-color)];
-  }
-
-  .slogan {
-    font-family: var(--title-font);
-  }
-
-  .title {
+  .sb-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+  }
+
+  .sb-section {
+    padding: 8px 4px 10px;
+  }
+
+  .sb-section + .sb-section {
+    border-top: 1px solid var(--divider);
+    padding-top: 14px;
+  }
+
+  .sb-title {
+    margin: 0 8px 8px;
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .sb-series {
+    display: flex;
     align-items: center;
-    position: relative;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 14px;
+    border: 1px solid color-mix(in srgb, #f8981d 26%, var(--border));
+    background: color-mix(in srgb, #f8981d 7%, var(--card-bg));
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
   }
 
-  .title::before {
-    position: absolute;
-    display: block;
-    content: " ";
-    background-color: var(--primary-color);
-    top: 3px;
-    bottom: 3px;
-    width: 0.3rem;
-    border-radius: 4px;
+  .sb-series:hover,
+  .sb-series.active {
+    border-color: color-mix(in srgb, #f8981d 55%, var(--border));
+    background: color-mix(in srgb, #f8981d 12%, var(--card-bg));
   }
 
-  .title p {
-    font-family: var(--primary-font);
+  .series-ico {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
   }
 
-  .category {
-    font-family: var(--primary-font);
+  .sb-series-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
   }
 
-  .exercises-card {
-    @apply block rounded-3xl bg-[var(--card-color)] p-4 transition-all;
-    border: 1px solid var(--primary-color-transparent);
+  .sb-series-text strong {
+    font-size: var(--fs-body-sm);
+    line-height: 1.3;
+    font-weight: 600;
   }
 
-  .exercises-card:hover {
-    border-color: var(--primary-color);
+  .sb-series-text span {
+    font-size: 12px;
+    color: var(--text-dim);
   }
 
-  .exercises-title {
-    @apply font-bold text-[var(--text-color)] transition-colors;
-    font-family: var(--primary-font);
+  .sb-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
-  .exercises-card:hover .exercises-title {
-    color: var(--primary-color);
+  .sb-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    border-radius: 11px;
+    font-size: var(--fs-body);
+    color: var(--text);
+    transition: background-color 0.15s ease;
   }
 
-  .exercises-desc {
-    @apply mt-1.5 text-xs leading-snug text-[var(--text-color-lighten)];
-    font-family: var(--primary-font);
+  .sb-item:hover,
+  .sb-item.active {
+    background: var(--card-bg-alt);
   }
 
-  .category:hover > p {
-    @apply pl-2 text-[var(--primary-color)];
+  .sb-item.active .sb-item-name {
+    font-weight: 600;
   }
 
-  .tag {
-    font-family: var(--primary-font);
+  .sb-item-name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sb-count {
+    min-width: 26px;
+    padding: 1px 7px;
+    border-radius: 980px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-dim);
+    background: var(--card-bg-alt);
+  }
+
+  .sb-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 4px;
+  }
+
+  .sb-tag {
+    padding: 3px 10px;
+    border-radius: 980px;
+    border: 1px solid var(--border);
+    font-size: var(--fs-meta);
+    color: var(--text-soft);
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .sb-tag:hover,
+  .sb-tag.active {
+    color: var(--blue);
+    border-color: color-mix(in srgb, var(--blue) 45%, var(--border));
+  }
+
+  .sb-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 12px 8px 0;
+    font-size: var(--fs-meta);
+    color: var(--blue);
+  }
+
+  .sb-rss {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-top: 1px solid var(--divider);
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .sb-rss:hover {
+    color: var(--amber);
+  }
+
+  @media (max-width: 1023px) {
+    .sidebar {
+      position: static;
+      max-height: none;
+      overflow: visible;
+    }
+    .sb-card {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0 12px;
+    }
+    .sb-section + .sb-section {
+      border-top: none;
+      padding-top: 8px;
+    }
+    .sb-rss {
+      grid-column: 1 / -1;
+    }
   }
 </style>

@@ -1,38 +1,25 @@
 ---
-import PostArchiveLayout from "../../layouts/PostArchiveLayout.astro";
-import I18nKeys from "../../locales/keys";
-import { i18n } from "../../locales/translation";
-import { GetTags, type Archive } from "../../utils/content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import PostFeed from "../../components/PostFeed.astro";
+import { getTags, type Group } from "../../utils/posts";
 
 export async function getStaticPaths() {
-  const tags = await GetTags();
-  const tagList = Array.from(tags.keys());
-  return tagList.map((tag) => ({
-    params: { tag: tag },
-  }));
+  const tags = await getTags();
+  return tags.map((group) => ({ params: { tag: group.name }, props: { group } }));
 }
 
-const tags = await GetTags();
-const { tag } = Astro.params;
-
-async function FormatArchiveMap() {
-  const posts = tags.get(tag)!.posts;
-  const tagName = tags.get(tag)!.name;
-  const archiveMap = new Map<number, Array<Archive>>();
-  posts.forEach((post) => {
-    // ano em UTC: datas do frontmatter são meia-noite UTC (mesmo caso do GetArchives)
-    const year = post.date.getUTCFullYear();
-    if (archiveMap.has(year)) archiveMap.get(year)!.push(post);
-    else archiveMap.set(year, [post]);
-  });
-  return { archiveMap, tagName };
-}
-
-const { archiveMap, tagName } = await FormatArchiveMap();
+const { group } = Astro.props as { group: Group };
+const count = group.posts.length;
 ---
 
-<PostArchiveLayout
-  archiveMap={archiveMap}
-  title={tagName}
-  subTitle={i18n(I18nKeys.pages_tags_archive)}
-/>
+<BaseLayout title={`#${group.name}`} description={`Artigos marcados com ${group.name}.`}>
+  <div class="shell">
+    <Sidebar activeTag={group.name} />
+    <div class="shell-main">
+      <PageHeader eyebrow="Tag" title={`#${group.name}`} description={`${count} ${count === 1 ? "artigo marcado" : "artigos marcados"} com ${group.name}.`} icon="hash" />
+      <PostFeed title="Artigos" posts={group.posts} delay={1} />
+    </div>
+  </div>
+</BaseLayout>

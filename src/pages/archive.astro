@@ -1,13 +1,142 @@
 ---
-import PostArchiveLayout from "../layouts/PostArchiveLayout.astro";
-import I18nKeys from "../locales/keys";
-import { i18n } from "../locales/translation";
-import { GetArchives } from "../utils/content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Sidebar from "../components/Sidebar.astro";
+import { getSummaries, type PostSummary } from "../utils/posts";
+import { categoryStyle } from "../utils/taxonomy";
+import { isoDate } from "../utils/format";
 
-const archiveMap = await GetArchives();
+const posts = await getSummaries();
+const years = new Map<number, PostSummary[]>();
+for (const post of posts) {
+  const y = post.published.getUTCFullYear();
+  if (!years.has(y)) years.set(y, []);
+  years.get(y)!.push(post);
+}
+const MONTHS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 ---
 
-<PostArchiveLayout
-  archiveMap={archiveMap}
-  title={i18n(I18nKeys.pages_archive_archive)}
-/>
+<BaseLayout title="Artigos" description="Todos os artigos publicados, do mais recente ao mais antigo.">
+  <div class="shell">
+    <Sidebar />
+    <div class="shell-main">
+      <PageHeader
+        eyebrow="Arquivo"
+        title="Todos os artigos"
+        description={`${posts.length} artigos publicados, do mais recente ao mais antigo.`}
+      />
+
+      {
+        [...years.entries()].map(([year, list], i) => (
+          <section class="year card rise" style={`--i:${i + 1}`} aria-labelledby={`y${year}`}>
+            <h2 class="year-title" id={`y${year}`}>
+              {year}
+              <span>{list.length} {list.length === 1 ? "artigo" : "artigos"}</span>
+            </h2>
+            <ol class="year-list">
+              {list.map((post) => {
+                const style = categoryStyle(post.category);
+                return (
+                  <li>
+                    <a href={post.url} class="arc-row">
+                      <time datetime={isoDate(post.published)}>
+                        {String(post.published.getUTCDate()).padStart(2, "0")} {MONTHS[post.published.getUTCMonth()]}
+                      </time>
+                      <span class="arc-title">{post.title}</span>
+                      {post.category && (
+                        <span class="arc-cat" style={`--c:${style.color}`}>
+                          <span class="cat-dot" />
+                          {post.category}
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .year {
+    padding: 8px;
+  }
+
+  .year-title {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 16px 10px;
+    font-family: var(--font-serif);
+    font-size: var(--fs-section);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .year-title span {
+    font-family: var(--font-sans);
+    font-size: var(--fs-meta);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--text-dim);
+  }
+
+  .year-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .arc-row {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 16px;
+    padding: 11px 16px;
+    border-radius: 12px;
+    transition: background-color 0.15s ease;
+  }
+
+  .arc-row:hover {
+    background: var(--card-bg-alt);
+  }
+
+  .arc-row time {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0;
+    color: var(--text-dim);
+  }
+
+  .arc-title {
+    font-size: var(--fs-body-lg);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  .arc-row:hover .arc-title {
+    color: var(--blue);
+  }
+
+  .arc-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .arc-row {
+      grid-template-columns: 52px minmax(0, 1fr);
+    }
+    .arc-cat {
+      display: none;
+    }
+  }
+</style>

@@ -1,106 +1,105 @@
 ---
-import { Icon } from "astro-icon/components";
-import YukinaConfig from "../../yukina.config";
+import Brand from "./Brand.astro";
+import Icon from "./Icon.astro";
+import { NAV, SITE } from "../config";
+
+const year = new Date().getFullYear();
 ---
 
-<div class="mx-3 space-y-4">
-  <!-- Owner info card -->
-  <div class="rounded-3xl bg-[var(--card-color)] transition-all lg:hidden">
-    <div class="flex flex-row md:flex-col md:pt-4">
-      <a href="/about" class="relative h-40 w-40 md:hidden">
-        <img
-          class="lozad absolute left-0 top-0 h-40 rounded-l-3xl"
-          data-src={YukinaConfig.avatarUrl}
-          alt="Avatar"
-        />
-        <div
-          class="absolute right-0 top-0 h-40 w-20 bg-gradient-to-l from-[var(--card-color)]"
-        >
-        </div>
-      </a>
-      <a
-        class="mx-auto hidden h-40 w-40 cursor-pointer rounded-3xl transition-all hover:brightness-75 md:block"
-      >
-        <img
-          class="lozad h-40 rounded-3xl"
-          data-src={YukinaConfig.avatarUrl}
-          alt="Avatar"
-        />
-      </a>
-      <div class="flex grow flex-col justify-center space-y-4 p-4">
-        <div class="flex flex-col items-center">
-          <a
-            href="/about"
-            class="line-clamp-1 text-xl font-semibold text-[var(--text-color)]"
-          >
-            {YukinaConfig.username}
-          </a>
-          <span class="mb-2 mt-1 h-1 w-8 rounded-full bg-[var(--primary-color)]"
-          ></span>
-          <p class="line-clamp-1 text-[var(--text-color-lighten)]">
-            {YukinaConfig.sign}
-          </p>
-        </div>
-        <ul class="flex flex-row items-center justify-center space-x-6">
-          {
-            YukinaConfig.socialLinks.map((item) => (
-              <li>
-                <a href={item.link} class="text-[var(--primary-color)]">
-                  <Icon name={item.icon} size={24} />
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <Brand />
+      <p>{SITE.headline}</p>
+    </div>
+
+    <nav class="footer-links" aria-label="Rodapé">
+      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="/categories/">Categorias</a>
+      <a href="/tags/">Tags</a>
+    </nav>
+
+    <div class="footer-bottom">
+      <span>
+        © {year} {SITE.name} · Conteúdo sob{" "}
+        <a href={SITE.license.url} target="_blank" rel="noopener noreferrer">{SITE.license.name}</a>
+      </span>
+      <span class="footer-social">
+        <a href="/rss.xml" aria-label="RSS"><Icon name="rss" size={16} /></a>
+        <a href={SITE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <Icon name="github" size={16} />
+        </a>
+      </span>
     </div>
   </div>
-
-  <!-- Site footer -->
-  <footer>
-    <div
-      class="divide-y divide-dashed divide-black/25 py-4 lg:pt-0 dark:divide-white/25"
-    >
-      <div></div>
-      <div></div>
-    </div>
-    <div
-      class="flex w-full flex-col items-center space-y-1 text-sm text-[var(--text-color-lighten)]"
-    >
-      <p class="footer-name">{YukinaConfig.username}</p>
-      {
-        YukinaConfig.heroTopics && (
-          <p class="footer-topics">{YukinaConfig.heroTopics.join(" · ")}</p>
-        )
-      }
-      <p>
-        © {new Date().getFullYear()}
-        {YukinaConfig.username} · <a
-          class="link"
-          href="https://github.com/WhitePaper233/yukina">Yukina</a
-        > + <a class="link" href="https://astro.build/">Astro</a> · <a
-          class="link"
-          href="/rss.xml">RSS</a
-        >
-      </p>
-    </div>
-  </footer>
-</div>
+</footer>
 
 <style>
-  .link {
-    @apply text-[var(--primary-color)] transition-all hover:brightness-110;
+  .footer {
+    margin-top: 64px;
+    border-top: 1px solid var(--divider);
   }
 
-  .footer-name {
-    @apply text-base font-bold uppercase;
-    letter-spacing: 0.25em;
-    color: var(--text-color);
+  .footer-inner {
+    max-width: calc(var(--page-max) + 2 * var(--page-gutter));
+    margin: 0 auto;
+    padding: 36px var(--page-gutter) 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px 48px;
   }
 
-  .footer-topics {
-    @apply text-xs;
-    letter-spacing: 0.08em;
-    font-family: var(--code-font);
+  .footer-brand p {
+    margin: 12px 0 0;
+    max-width: 44ch;
+    font-size: var(--fs-body-sm);
+    color: var(--text-dim);
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 8px 36px;
+    align-content: start;
+    font-size: var(--fs-body-sm);
+  }
+
+  .footer-links a {
+    color: var(--text-soft);
+  }
+
+  .footer-links a:hover {
+    color: var(--blue);
+  }
+
+  .footer-bottom {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--divider);
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .footer-bottom a:hover {
+    color: var(--blue);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 14px;
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
   }
 </style>
