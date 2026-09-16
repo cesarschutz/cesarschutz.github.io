@@ -1,7 +1,7 @@
 # cesarschutz.github.io
 
 Blog técnico de **Cesar Schutz**, arquiteto de solução: artigos sobre arquitetura de software,
-sistemas distribuídos e engenharia Java.
+sistemas distribuídos e o ecossistema Java.
 
 🌐 <https://cesarschutz.github.io>
 

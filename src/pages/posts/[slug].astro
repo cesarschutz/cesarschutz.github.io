@@ -4,13 +4,10 @@ import "../../styles/prose.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
 import Toc from "../../components/Toc.astro";
-import QuoteCard from "../../components/QuoteCard.astro";
 import { SITE } from "../../config";
 import { getPosts, readingMinutes, type Post } from "../../utils/posts";
 import { postLabel, tagUrl } from "../../utils/taxonomy";
-import { getSeries } from "../../data/series";
 import { formatDate, isoDate, renderInlineMd, stripInlineMd } from "../../utils/format";
-import { quoteForPost } from "../../utils/quotes";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -29,10 +26,9 @@ interface Props {
 
 const { post, newer, older } = Astro.props;
 const { Content, headings } = await render(post);
-const { title, description, published, category, series, tags, cover } = post.data;
+const { title, description, published, tags, cover } = post.data;
 const label = postLabel(post.data);
 const minutes = readingMinutes(post);
-const quote = quoteForPost(post.id, category ?? getSeries(series)?.quoteCategory);
 const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 3;
 ---
 
@@ -123,14 +119,8 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
               Artigo escrito com apoio de IA e revisado pelo autor. Pode conter imprecisões: confirme nas fontes
               citadas e na documentação oficial antes de aplicar. <a href="/about/#site">Saiba mais</a>.
             </p>
-            <p class="post-license">
-              Publicado por {SITE.name} sob a licença{" "}
-              <a href={SITE.license.url} target="_blank" rel="noopener noreferrer">{SITE.license.name}</a>.
-            </p>
           </footer>
         </div>
-
-        <QuoteCard quote={quote} label="Uma frase sobre o tema" />
 
         {
           (older || newer) && (
@@ -263,7 +253,6 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
 
   .post-title {
     margin-top: 12px;
-    max-width: 30ch;
     text-wrap: pretty;
     font-family: var(--font-serif);
     font-size: clamp(32px, 4.4vw, 54px);
@@ -274,7 +263,6 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
 
   .post-desc {
     margin: 16px 0 0;
-    max-width: 70ch;
     font-size: clamp(17px, 1.5vw, 19px);
     line-height: 1.6;
     color: var(--text-soft);
@@ -365,7 +353,7 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
   }
 
   .post-ai {
-    margin: 16px 0 0;
+    margin: 14px 0 0;
     padding: 10px 14px;
     border-radius: 10px;
     border: 1px solid color-mix(in srgb, var(--amber) 30%, var(--border));
@@ -379,15 +367,6 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
     color: var(--link);
   }
 
-  .post-license {
-    margin: 14px 0 0;
-    font-size: var(--fs-meta);
-    color: var(--text-dim);
-  }
-
-  .post-license a {
-    color: var(--link);
-  }
 
   .post-aside {
     position: sticky;

@@ -44,13 +44,13 @@ Deploy preso na fila: `gh run cancel <id>` e `gh workflow run deploy.yml`.
   card de identidade da home e na página 404 — de propósito, para não poluir o site.
   Pausa fora da tela. Para trocar os ícones, editar `tiles.ts`
 - **Frases de autores** (`src/components/QuoteCard.astro`, dados em `src/data/quotes.json`,
-  132 frases): no topo da home (embaralhadas por sessão, com setas) e no fim de cada post
-  (frase fixa escolhida pela categoria — mapa de autores em `src/utils/quotes.ts`)
+  132 frases): só no topo da home (embaralhadas por sessão, com setas)
 
 ## Estrutura
 
 ```
-src/config.ts                 # nome, cargo, textos da home, tópicos, navegação, links
+src/config.ts                 # nome, cargo, frases, navegação, links e AREAS (áreas de atuação:
+                              # etiquetas do card da home + cards da página Sobre)
 src/content/posts/            # artigos (.md/.mdx) — nome do arquivo = slug da URL
 src/content.config.ts         # schema do frontmatter
 src/data/projects.ts          # página /projects
@@ -122,7 +122,7 @@ A capa aparece cortada em proporções diferentes: 4:1 no topo do post, ~1:1 no 
 ## Aviso sobre IA
 
 Os artigos são escritos com apoio de IA. Há um aviso na página Sobre (seção "Como os artigos são
-produzidos") e uma linha no rodapé de cada post orientando a usar as fontes citadas como
+produzidos") e uma linha no rodapé de cada post (o rodapé do post não mostra licença) orientando a usar as fontes citadas como
 referência. Todo artigo deve terminar com uma seção **Fontes** com links confiáveis.
 
 ## Instrução permanente

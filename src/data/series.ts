@@ -13,8 +13,6 @@ export interface Series {
   icon: IconName;
   /** página própria (ex.: /java/ com a grade de versões) */
   url?: string;
-  /** categoria usada para escolher a frase do fim dos posts */
-  quoteCategory?: string;
 }
 
 export const SERIES: Series[] = [
@@ -25,7 +23,6 @@ export const SERIES: Series[] = [
     color: "#f8981d",
     icon: "coffee",
     url: "/java/",
-    quoteCategory: "Java",
   },
 ];
 

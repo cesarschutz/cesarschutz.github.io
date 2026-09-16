@@ -1,41 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
-import { SITE } from "../config";
-import type { IconName } from "../utils/icons";
-
-const areas: { icon: IconName; color: string; title: string; text: string }[] = [
-  {
-    icon: "layers",
-    color: "#6366f1",
-    title: "Arquitetura de sistemas",
-    text: "Desenho de soluções, integrações e as decisões que custam caro para reverter.",
-  },
-  {
-    icon: "network",
-    color: "#818cf8",
-    title: "Sistemas distribuídos",
-    text: "Concorrência, mensageria, consistência e resiliência em produção.",
-  },
-  {
-    icon: "coffee",
-    color: "#f8981d",
-    title: "Java e JVM",
-    text: "Da linguagem ao runtime, com o ecossistema Spring e a evolução da plataforma.",
-  },
-  {
-    icon: "code",
-    color: "#22c55e",
-    title: "Engenharia de software",
-    text: "Código sustentável: design, testes e manutenção ao longo do tempo.",
-  },
-  {
-    icon: "sparkles",
-    color: "#a855f7",
-    title: "IA aplicada",
-    text: "Agentes, LLMs e IA como ferramenta de engenharia no dia a dia.",
-  },
-];
+import { AREAS, SITE } from "../config";
 ---
 
 <BaseLayout title="Sobre" description={`${SITE.name}, ${SITE.role.toLowerCase()}. Trajetória, áreas de atuação e contato.`}>
@@ -65,7 +31,7 @@ const areas: { icon: IconName; color: string; title: string; text: string }[] = 
       <h2 id="areas" class="section-title">Áreas de atuação</h2>
       <div class="areas">
         {
-          areas.map((a) => (
+          AREAS.map((a) => (
             <div class="area card" style={`--c:${a.color}`}>
               <span class="cat-ico area-ico">
                 <Icon name={a.icon} size={20} />
