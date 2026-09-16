@@ -1,175 +1,240 @@
 ---
-import Main from "../layouts/MainLayout.astro";
-import PageHeader from "../components/misc/PageHeader.astro";
-import { GetSortedPosts } from "../utils/content";
-import { IdToSlug } from "../utils/hash";
-import { i18n } from "../locales/translation";
-import I18nKeys from "../locales/keys";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
+import { getPosts, JAVA_SERIES } from "../utils/posts";
 
-// Versões LTS da série (atualizar quando sair uma nova LTS: 29 em set/2027)
+// Versões LTS (atualizar quando sair uma nova LTS: Java 29, set/2027)
 const LTS = new Set([8, 11, 17, 21, 25]);
 
-// Ano de lançamento real de cada versão (a data `published` dos posts é a
-// da escrita da série, não a do release)
-const anoDeLancamento = (v: number): number => {
+// Ano de lançamento real (o `published` dos posts é a data de escrita)
+const releaseYear = (v: number): number => {
   if (v === 8) return 2014;
   if (v === 9) return 2017;
-  // desde o 10: versões pares em março, ímpares em setembro, 2 por ano
+  // desde o 10: duas versões por ano, março (par) e setembro (ímpar)
   return 2018 + Math.floor((v - 10) / 2);
 };
 
-const posts = await GetSortedPosts();
-
-// java-8.md … java-NN.md — um post novo na série aparece aqui sozinho
-const versoes = posts
-  .filter((post) => /^java-\d+$/.test(IdToSlug(post.id)))
+const posts = await getPosts();
+const versions = posts
+  .filter((post) => JAVA_SERIES.test(post.id))
   .map((post) => {
-    const numero = Number(IdToSlug(post.id).replace("java-", ""));
+    const number = Number(post.id.replace("java-", ""));
     const match = post.data.title.match(/^Java \d+(?: \(LTS\))? — (.*)$/);
     return {
-      numero,
-      titulo: match?.[1] ?? post.data.title,
-      lts: LTS.has(numero),
-      ano: anoDeLancamento(numero),
-      url: `/posts/${IdToSlug(post.id)}/`,
+      number,
+      subtitle: match?.[1] ?? post.data.title,
+      lts: LTS.has(number),
+      year: releaseYear(number),
+      url: `/posts/${post.id}/`,
     };
   })
-  .sort((a, b) => b.numero - a.numero); // mais recente primeiro
+  .sort((a, b) => b.number - a.number);
 
-const guia = posts.find((post) => IdToSlug(post.id) === "guia-atualizacoes-java");
+const guide = posts.find((post) => post.id === "guia-atualizacoes-java");
+const latest = versions[0];
 ---
 
-<Main
-  title={i18n(I18nKeys.java_series_title)}
-  subTitle={i18n(I18nKeys.java_series_subtitle)}
+<BaseLayout
+  title="Atualizações do Java"
+  description="Cada versão do Java explicada: o que mudou, por que importa e exemplos de código, do Java 8 à versão mais recente."
 >
-  <div class="space-y-4">
-    <!-- introdução + guia -->
-    <section
-      class="intro onload-animation"
-      style="animation-delay: var(--onload-animation-delay);"
-    >
-      <PageHeader
-        title={i18n(I18nKeys.java_series_title)}
-        subTitle={i18n(I18nKeys.java_series_subtitle)}
-      />
-      <p class="intro-text">
-        Cada release do Java explicado: o que é cada novidade, por que ela
-        importa e exemplos de código — do 8 (2014) até a versão mais recente. A
-        série cresce a cada lançamento: sai uma versão nova em março e outra em
-        setembro, e o post dela entra aqui.
-      </p>
-      {
-        guia && (
-          <a class="guia" href={`/posts/${IdToSlug(guia.id)}/`}>
-            <span class="guia-eyebrow">Comece por aqui</span>
-            <span class="guia-title">{guia.data.title}</span>
-            <span class="guia-desc">
-              Como o ciclo de releases funciona, qual distribuição de JDK usar
-              e como migrar com segurança — a base para ler as versões.
-            </span>
-          </a>
-        )
-      }
-    </section>
+  <PageHeader
+    eyebrow="Série"
+    title="Atualizações do Java"
+    description="Cada versão explicada: o que mudou, por que importa e exemplos de código, do Java 8 à versão mais recente. Uma versão nova sai em março e outra em setembro, e cada uma ganha seu artigo aqui."
+    icon="coffee"
+    color="#f8981d"
+  >
+    <div class="java-kpis">
+      <span><strong>{versions.length}</strong> versões</span>
+      <span><strong>{[...LTS].length}</strong> LTS</span>
+      {latest && <span>mais recente: <strong>Java {latest.number}</strong></span>}
+    </div>
+  </PageHeader>
 
-    <!-- grade de versões -->
-    <section
-      class="grade onload-animation"
-      style="animation-delay: calc(var(--onload-animation-delay) + 1 * var(--onload-animation-interval));"
-    >
-      {
-        versoes.map((v) => (
-          <a class="versao" href={v.url}>
-            <div class="flex items-baseline justify-between">
-              <span class="versao-num">{v.numero}</span>
-              {v.lts && <span class="versao-lts">LTS</span>}
-            </div>
-            <p class="versao-titulo">{v.titulo}</p>
-            <p class="versao-ano">{v.ano}</p>
-          </a>
-        ))
-      }
-    </section>
-  </div>
-</Main>
+  {
+    guide && (
+      <a class="guide card rise" style="--i:1" href={`/posts/${guide.id}/`}>
+        <span class="cat-ico guide-ico" style="--c:#f8981d">
+          <Icon name="book" size={22} />
+        </span>
+        <span class="guide-text">
+          <span class="eyebrow guide-eyebrow">Comece por aqui</span>
+          <span class="guide-title">{guide.data.title}</span>
+          <span class="guide-desc">
+            Como o ciclo de releases funciona, qual distribuição de JDK usar e como migrar com segurança: a base para
+            ler as versões.
+          </span>
+        </span>
+        <Icon name="arrowRight" size={20} class="guide-arrow" />
+      </a>
+    )
+  }
+
+  <section class="versions" aria-label="Versões">
+    {
+      versions.map((v, i) => (
+        <a class:list={["version card rise", { lts: v.lts }]} href={v.url} style={`--i:${Math.min(i + 2, 10)}`}>
+          <span class="v-top">
+            <span class="v-num">{v.number}</span>
+            {v.lts && <span class="v-lts">LTS</span>}
+          </span>
+          <span class="v-title">{v.subtitle}</span>
+          <span class="v-year">{v.year}</span>
+        </a>
+      ))
+    }
+  </section>
+</BaseLayout>
 
 <style>
-  .intro {
-    @apply mx-3 rounded-3xl bg-[var(--card-color)] p-6 lg:mx-0 lg:p-8;
+  .java-kpis {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    margin-top: 16px;
+    font-size: var(--fs-body-sm);
+    color: var(--text-dim);
   }
 
-  .intro-text {
-    @apply text-sm leading-relaxed lg:text-base;
-    color: var(--text-color);
-    font-family: var(--primary-font);
+  .java-kpis strong {
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
   }
 
-  .guia {
-    @apply mt-5 block rounded-xl p-4 transition-all;
-    border: 1px solid var(--primary-color-transparent);
+  .guide {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: var(--col-gap);
+    padding: 20px 24px;
+    border-color: color-mix(in srgb, #f8981d 30%, var(--border));
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
   }
 
-  .guia:hover {
-    border-color: var(--primary-color);
-    background-color: var(--primary-color-transparent);
+  .guide:hover {
+    border-color: color-mix(in srgb, #f8981d 60%, var(--border));
+    background: color-mix(in srgb, #f8981d 6%, var(--card-bg));
   }
 
-  .guia-eyebrow {
-    @apply block text-[0.65rem] font-bold uppercase;
-    letter-spacing: 0.25em;
-    color: var(--primary-color);
+  .guide-ico {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
   }
 
-  .guia-title {
-    @apply mt-1 block text-lg font-bold;
-    color: var(--text-color);
-    font-family: var(--title-font);
+  .guide-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
   }
 
-  .guia-desc {
-    @apply mt-1 block text-sm leading-snug;
-    color: var(--text-color-lighten);
+  .guide-eyebrow {
+    color: #f8981d;
   }
 
-  .grade {
-    @apply mx-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:mx-0 xl:grid-cols-4;
+  .guide-title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
   }
 
-  .versao {
-    @apply rounded-2xl bg-[var(--card-color)] p-5 transition-all;
-    border: 1px solid transparent;
+  .guide-desc {
+    font-size: var(--fs-body-sm);
+    color: var(--text-soft);
   }
 
-  .versao:hover {
-    border-color: var(--primary-color);
+  .guide :global(.guide-arrow) {
+    flex-shrink: 0;
+    color: #f8981d;
+    transition: transform 0.2s var(--ease-out);
+  }
+
+  .guide:hover :global(.guide-arrow) {
+    transform: translateX(3px);
+  }
+
+  .versions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+    gap: 12px;
+    margin-top: var(--col-gap);
+  }
+
+  .version {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 18px 16px;
+    border-radius: var(--radius-md);
+    transition:
+      transform 0.2s var(--ease-out),
+      border-color 0.2s ease;
+  }
+
+  .version:hover {
     transform: translateY(-2px);
+    border-color: color-mix(in srgb, #f8981d 50%, var(--border));
   }
 
-  .versao-num {
-    @apply text-4xl font-extrabold leading-none;
-    color: var(--primary-color);
-    font-family: var(--code-font);
+  .version.lts {
+    background: linear-gradient(160deg, color-mix(in srgb, #f8981d 9%, var(--card-bg)), var(--card-bg) 60%);
   }
 
-  .versao-lts {
-    @apply rounded-md px-2 py-0.5 text-xs font-bold;
-    color: var(--card-color);
-    background-color: var(--primary-color);
+  .v-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .versao-titulo {
-    @apply mt-3 text-sm font-semibold leading-snug;
-    color: var(--text-color);
+  .v-num {
+    font-family: var(--font-mono);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #f8981d;
   }
 
-  .versao:hover .versao-titulo {
-    color: var(--primary-color);
+  .v-lts {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #1c1c1e;
+    background: #f8981d;
   }
 
-  .versao-ano {
-    @apply mt-2 text-xs;
-    color: var(--text-color-lighten);
-    font-family: var(--code-font);
+  .v-title {
+    margin-top: 12px;
+    font-size: var(--fs-body);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .version:hover .v-title {
+    color: var(--blue);
+  }
+
+  .v-year {
+    margin-top: auto;
+    padding-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 560px) {
+    .guide {
+      align-items: flex-start;
+    }
+    .guide :global(.guide-arrow) {
+      display: none;
+    }
   }
 </style>

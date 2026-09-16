@@ -1,33 +1,19 @@
+import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
-import { defineCollection, z } from "astro:content";
+import { z } from "astro/zod";
 
 const posts = defineCollection({
-  loader: glob({
-    pattern: "**/*.{md,mdx}",
-    base: "src/contents/posts",
-  }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/posts" }),
   schema: z.object({
     title: z.string(),
-    published: z.date(),
-    draft: z.boolean().optional(),
+    published: z.coerce.date(),
     description: z.string().optional(),
+    /** capa SVG 1600×800 em /public/covers — ver "Regra das capas" no CLAUDE.md */
     cover: z.string().optional(),
-    tags: z.array(z.string()).optional(),
+    tags: z.array(z.string()).default([]),
     category: z.string().optional(),
-    /** enunciado curto do desafio — usado nos cards de /exercicios/ */
-    enunciado: z.string().optional(),
-    author: z.string().optional(),
-    sourceLink: z.string().optional(),
-    licenseName: z.string().optional(),
-    licenseUrl: z.string().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 
-const specs = defineCollection({
-  loader: glob({
-    pattern: "**/*.md",
-    base: "src/contents/specs",
-  }),
-});
-
-export const collections = { posts, specs };
+export const collections = { posts };

@@ -1,27 +1,22 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
-import YukinaConfig from "../../yukina.config";
-import { IdToSlug } from "../utils/hash";
-import { stripInlineMd } from "../utils/inline-md";
+import type { APIContext } from "astro";
+import { SITE } from "../config";
+import { getPosts } from "../utils/posts";
+import { stripInlineMd } from "../utils/format";
 
-export async function GET(context: { site: string }) {
-  const posts = await getCollection("posts", ({ data }) => {
-    return import.meta.env.PROD ? data.draft !== true : true;
-  });
-  const sorted = posts.sort(
-    (a, b) =>
-      new Date(b.data.published).getTime() - new Date(a.data.published).getTime(),
-  );
+export async function GET(context: APIContext) {
+  const posts = await getPosts();
   return rss({
-    title: YukinaConfig.title,
-    description: YukinaConfig.description,
-    site: context.site,
-    items: sorted.map((post) => ({
+    title: SITE.name,
+    description: SITE.description,
+    site: context.site!,
+    items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.published,
       description: stripInlineMd(post.data.description),
-      link: `/posts/${IdToSlug(post.id)}/`,
+      categories: post.data.category ? [post.data.category, ...post.data.tags] : post.data.tags,
+      link: `/posts/${post.id}/`,
     })),
-    customData: `<language>pt-BR</language>`,
+    customData: "<language>pt-BR</language>",
   });
 }

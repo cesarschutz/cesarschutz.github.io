@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RisingTiles from "../components/RisingTiles.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<BaseLayout title="Página não encontrada">
+  <section class="nf card">
+    <RisingTiles count={22} baseDur={20} />
+    <div class="nf-content">
+      <p class="eyebrow">Erro 404</p>
+      <h1>Página não encontrada</h1>
+      <p>O endereço pode ter mudado ou o conteúdo não existe mais. A busca ou a lista de artigos ajudam a encontrar o que você procura.</p>
+      <div class="nf-actions">
+        <a class="btn btn-primary" href="/">Ir para o início</a>
+        <a class="btn btn-outline" href="/archive/">Ver todos os artigos <Icon name="arrowRight" size={15} /></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: min(640px, calc(100svh - var(--nav-height) - 60px));
+    padding: 32px 20px;
+    overflow: hidden;
+    border-radius: 22px;
+    text-align: center;
+  }
+
+  .nf-content {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    padding: 28px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--card-bg) 70%, transparent);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+  }
+
+  h1 {
+    margin-top: 8px;
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 600;
+    letter-spacing: -0.026em;
+  }
+
+  .nf-content > p:not(.eyebrow) {
+    margin: 12px 0 0;
+    color: var(--text-soft);
+  }
+
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+  }
+</style>

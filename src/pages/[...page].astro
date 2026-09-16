@@ -1,56 +1,65 @@
 ---
-// Component imports
-import Main from "../layouts/MainLayout.astro";
-import PostCard from "../components/PostCard.astro";
-import Pagination from "../components/controllers/Pagination.astro";
-// Utils
-import type { PaginateFunction } from "astro";
-import { GetSortedPosts } from "../utils/content";
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import IdentityCard from "../components/IdentityCard.astro";
+import QuoteCard from "../components/QuoteCard.astro";
+import Sidebar from "../components/Sidebar.astro";
+import FeaturedPost from "../components/FeaturedPost.astro";
+import PostFeed from "../components/PostFeed.astro";
+import Pagination from "../components/Pagination.astro";
+import { SITE } from "../config";
+import { getCategories, getJavaSeriesCount, getSummaries, type PostSummary } from "../utils/posts";
 
-export async function getStaticPaths({
-  paginate,
-}: {
-  paginate: PaginateFunction;
-}) {
-  const postCollections = await GetSortedPosts();
-  return paginate(postCollections, { pageSize: 6 });
-}
-const { page } = Astro.props;
+export const getStaticPaths = (async ({ paginate }) => {
+  const [featured, ...rest] = await getSummaries();
+  return paginate(rest, { pageSize: SITE.pageSize, props: { featured } });
+}) satisfies GetStaticPaths;
+
+const { page, featured } = Astro.props as {
+  page: { data: PostSummary[]; currentPage: number; lastPage: number; url: { prev?: string; next?: string } };
+  featured: PostSummary;
+};
+
+const isFirst = page.currentPage === 1;
+const total = (await getSummaries()).length;
+const stats = [
+  { value: total, label: "artigos" },
+  { value: await getJavaSeriesCount(), label: "versões do Java" },
+  { value: (await getCategories()).length, label: "categorias" },
+];
 ---
 
-<Main>
-  <div class="space-y-8">
-    <div class="w-full space-y-4">
-      {
-        page.data.map((entry, index) => (
-          <div
-            class="onload-animation"
-            style={`animation-delay: calc(var(--onload-animation-delay) + ${index + 1} * var(--onload-animation-interval));`}
-          >
-            <PostCard
-              id={entry.id}
-              title={entry.data.title}
-              published={entry.data.published}
-              category={entry.data.category}
-              tags={entry.data.tags}
-              description={entry.data.description}
-              image={entry.data.cover}
-              readingMetadata={
-                (entry.rendered!.metadata as any).frontmatter.readingMetadata
-              }
-            />
-          </div>
-        ))
-      }
-    </div>
-    <Pagination
-      class="onload-animation"
-      lastPage={page.lastPage}
-      current={page.currentPage}
-      prevURL={page.url.prev}
-      nextURL={page.url.next}
-      style={`animation-delay: calc(var(--onload-animation-delay) + ${page.data.length + 1} * var(--onload-animation-interval));`}
-    />
-  </div>
-</Main>
+<BaseLayout title={isFirst ? undefined : `Artigos — página ${page.currentPage}`}>
+  {isFirst && <IdentityCard stats={stats} />}
 
+  <div class="shell home-shell">
+    <Sidebar />
+
+    <div class="shell-main">
+      {
+        isFirst && (
+          <div class="rise" style="--i:1">
+            <QuoteCard />
+          </div>
+        )
+      }
+      {isFirst && <FeaturedPost post={featured} />}
+
+      <PostFeed
+        id="artigos"
+        title={isFirst ? "Artigos recentes" : `Artigos — página ${page.currentPage}`}
+        subtitle={`${total} artigos publicados`}
+        posts={page.data}
+        delay={isFirst ? 3 : 0}
+      />
+
+      <Pagination current={page.currentPage} last={page.lastPage} prevUrl={page.url.prev} nextUrl={page.url.next} />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .home-shell {
+    margin-top: var(--col-gap);
+  }
+</style>

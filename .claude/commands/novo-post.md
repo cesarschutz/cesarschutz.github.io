@@ -1,19 +1,22 @@
-# Novo post do blog
+# Novo artigo
 
-Crie um novo post para o blog seguindo este fluxo:
+Crie um novo artigo seguindo este fluxo:
 
-1. **Entenda o tema**: pergunte ao Cesar sobre o assunto do post se ele ainda não disse (tema, profundidade, se é nota rápida ou artigo longo).
+1. **Entenda o tema**: se o Cesar ainda não disse, pergunte o assunto, a profundidade e a categoria.
 
-2. **Crie o arquivo** em `src/contents/posts/<slug>.md` usando o template `.claude/templates/post.md`:
-   - Slug em kebab-case, sem acentos (vira a URL)
+2. **Crie o arquivo** `src/content/posts/<slug>.md` a partir de `.claude/templates/post.md`:
+   - slug em kebab-case, sem acentos (vira a URL)
    - `published` = data de hoje
-   - Escolha tags e categoria coerentes com as existentes (veja outros posts)
-   - Cover: use um banner existente de `public/banners/`, ou pergunte se ele quer uma arte nova para este post
+   - categoria entre as existentes (ver CLAUDE.md); tags livres, reaproveitando as que já existem
 
-3. **Avalie recursos** (instrução permanente do CLAUDE.md): o conteúdo pediria diagrama Mermaid? Bloco de código com destaque/diff? Fórmula? Componente Svelte interativo (post `.mdx`)? Alguma lib nova? Proponha antes de instalar qualquer coisa nova.
+3. **Crie a capa** `public/covers/<slug>.svg` a partir de `.claude/templates/cover.svg`,
+   seguindo a regra das capas do CLAUDE.md (motivo único, centralizado, na zona segura).
 
-4. **Escreva em pt-BR**, tom pessoal e direto (primeira pessoa). Código e termos técnicos em inglês quando for o natural.
+4. **Avalie recursos**: diagrama SVG no corpo? código com destaque/diff? fórmula? componente
+   interativo (post `.mdx`)? Proponha antes de instalar qualquer biblioteca nova.
 
-5. **Valide**: rode `npm run build` para confirmar que nada quebrou. Se o dev server estiver rodando, confira o visual.
+5. **Escreva em pt-BR**, tom profissional e direto. Termos técnicos em inglês quando for o natural.
+
+6. **Valide** com `npm run build`.
 
 $ARGUMENTS

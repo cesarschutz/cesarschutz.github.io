@@ -1,130 +1,133 @@
 ---
-import { Icon } from "astro-icon/components";
-import Main from "../layouts/MainLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
 import { projects } from "../data/projects";
-import { i18n } from "../locales/translation";
-import I18nKeys from "../locales/keys";
 ---
 
-<Main
-  title={i18n(I18nKeys.projects_page_title)}
-  subTitle={i18n(I18nKeys.projects_page_subtitle)}
->
-  <div class="projects-grid">
+<BaseLayout title="Projetos" description="Projetos pessoais de Cesar Schutz: agentes de IA, aplicações web e ferramentas.">
+  <PageHeader
+    eyebrow="Portfólio"
+    title="Projetos"
+    description="Projetos pessoais onde as ideias dos artigos viram código: agentes de IA, aplicações web e ferramentas."
+  />
+
+  <div class="projects">
     {
-      projects.map((project, index) => (
-        <div
-          class="project-card onload-animation"
-          style={`animation-delay: calc(var(--onload-animation-delay) + ${index + 1} * var(--onload-animation-interval));`}
-        >
-          <div class="flex items-start justify-between">
-            <span class="text-3xl leading-none">{project.emoji ?? "🧩"}</span>
-            <div class="flex flex-row space-x-1">
-              {project.repoUrl && (
-                <a
-                  href={project.repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                  aria-label={i18n(I18nKeys.projects_view_repo)}
-                  title={i18n(I18nKeys.projects_view_repo)}
-                >
-                  <Icon name="mingcute:github-line" class="h-5 w-5" />
-                </a>
-              )}
-              {project.demoUrl && (
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                  aria-label={i18n(I18nKeys.projects_view_demo)}
-                  title={i18n(I18nKeys.projects_view_demo)}
-                >
-                  <Icon name="mingcute:external-link-line" class="h-5 w-5" />
-                </a>
-              )}
-            </div>
+      projects.map((p, i) => (
+        <article class="project card rise" style={`--c:${p.color};--i:${i + 1}`}>
+          <div class="pj-head">
+            <span class="cat-ico pj-ico">
+              <Icon name={p.icon} size={22} />
+            </span>
+            <h2 class="pj-name">{p.name}</h2>
           </div>
-          <h2 class="project-name">{project.name}</h2>
-          <p class="project-description">{project.description}</p>
-          <div class="mt-auto flex flex-wrap gap-2 pt-3">
-            {project.tags.map((tag) => (
-              <span class="project-tag">{tag}</span>
+          <p class="pj-desc">{p.description}</p>
+          <ul class="pj-tags">
+            {p.tags.map((t) => (
+              <li>{t}</li>
             ))}
+          </ul>
+          <div class="pj-links">
+            {p.demoUrl && (
+              <a class="btn btn-primary" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                Abrir <Icon name="arrowUpRight" size={15} />
+              </a>
+            )}
+            {p.repoUrl && (
+              <a class="btn btn-outline" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
+                <Icon name="github" size={15} /> Código
+              </a>
+            )}
           </div>
-        </div>
+        </article>
       ))
     }
   </div>
-  <p class="projects-footer onload-animation">
-    {i18n(I18nKeys.projects_see_all)}
-    <a
-      href="https://github.com/cesarschutz"
-      target="_blank"
-      rel="noopener noreferrer">github.com/cesarschutz</a
-    >
-  </p>
-</Main>
+</BaseLayout>
 
 <style>
-  .projects-grid {
-    @apply grid grid-cols-1 gap-4 md:grid-cols-2;
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: var(--col-gap);
+    margin-top: var(--col-gap);
   }
 
-  .project-card {
-    @apply flex flex-col rounded-2xl bg-[var(--card-color)] p-6;
-    border: 1px solid transparent;
-    transition:
-      transform 0.2s ease,
-      border-color 0.2s ease;
+  .project {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
   }
 
-  .project-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary-color);
+  .project::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 15%, transparent));
   }
 
-  .project-name {
-    @apply mt-3 text-xl font-bold;
-    color: var(--text-color);
-    font-family: var(--title-font);
+  .project:hover {
+    border-color: color-mix(in srgb, var(--c) 40%, var(--border));
   }
 
-  .project-description {
-    @apply mt-2 text-sm leading-relaxed;
-    color: var(--text-color-lighten);
+  .pj-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
 
-  .project-tag {
-    @apply rounded-full px-3 py-1 text-xs font-medium;
-    color: var(--primary-color);
-    background-color: var(--primary-color-transparent);
+  .pj-ico {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
   }
 
-  .project-link {
-    @apply flex h-9 w-9 items-center justify-center rounded-lg;
-    color: var(--text-color-lighten);
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
+  .pj-name {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
-  .project-link:hover {
-    color: var(--primary-color);
-    background-color: var(--primary-color-transparent);
+  .pj-desc {
+    margin: 14px 0 0;
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--text-soft);
   }
 
-  .projects-footer {
-    @apply mt-6 text-center text-sm;
-    color: var(--text-color-lighten);
+  .pj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .projects-footer a {
-    color: var(--primary-color);
+  .pj-tags li {
+    padding: 3px 9px;
+    border-radius: 980px;
+    border: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-soft);
   }
 
-  .projects-footer a:hover {
-    text-decoration: underline;
+  .pj-links {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 20px;
+  }
+
+  .pj-links .btn {
+    font-size: var(--fs-body-sm);
+    padding: 8px 14px;
   }
 </style>

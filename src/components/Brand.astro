@@ -1,0 +1,42 @@
+---
+/** Logotipo no padrão DEV NOTE: nome + sobrenome em pílula azul. */
+---
+
+<a href="/" class="brand" aria-label="Cesar Schutz — página inicial">
+  <span class="brand-first">Cesar</span>
+  <span class="brand-pill">Schutz</span>
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+
+  .brand-first {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text);
+  }
+
+  .brand-pill {
+    padding: 5px 9px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(180deg, #4d80f0, var(--blue) 60%, #1a3ea8);
+    box-shadow:
+      0 3px 10px -3px color-mix(in srgb, var(--blue) 50%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 0.28);
+  }
+
+  :global([data-theme="dark"]) .brand-pill {
+    background: linear-gradient(180deg, #409cff, var(--blue) 60%, var(--blue-hover));
+  }
+</style>

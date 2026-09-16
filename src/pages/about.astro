@@ -1,37 +1,241 @@
 ---
-import { getEntry, render } from "astro:content";
-import Main from "../layouts/MainLayout.astro";
-import Markdown from "../components/Markdown.astro";
-import CopyRight from "../components/misc/CopyRight.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { SITE } from "../config";
+import type { IconName } from "../utils/icons";
 
-const aboutPost = await getEntry("specs", "about");
-const { Content } = await render(aboutPost!);
-interface Props {
-  title?: string;
-  subTitle?: string;
-  bannerImage?: string;
-  published?: Date;
-}
-const { title, subTitle, bannerImage, published } = Astro.props;
+const areas: { icon: IconName; color: string; title: string; text: string }[] = [
+  {
+    icon: "layers",
+    color: "#6366f1",
+    title: "Arquitetura de sistemas",
+    text: "Desenho de soluções, integrações e as decisões que custam caro para reverter.",
+  },
+  {
+    icon: "network",
+    color: "#818cf8",
+    title: "Sistemas distribuídos",
+    text: "Concorrência, mensageria, consistência e resiliência em produção.",
+  },
+  {
+    icon: "coffee",
+    color: "#f8981d",
+    title: "Java e JVM",
+    text: "Da linguagem ao runtime, com o ecossistema Spring e a evolução da plataforma.",
+  },
+  {
+    icon: "code",
+    color: "#22c55e",
+    title: "Engenharia de software",
+    text: "Código sustentável: design, testes e manutenção ao longo do tempo.",
+  },
+  {
+    icon: "sparkles",
+    color: "#a855f7",
+    title: "IA aplicada",
+    text: "Agentes, LLMs e IA como ferramenta de engenharia no dia a dia.",
+  },
+];
 ---
 
-<Main title={title} subTitle={subTitle} bannerImage={bannerImage}>
-  <!-- <Fragment set:html={tocHTMLString} /> -->
-  <div class="article-wrapper">
-    <div class="article">
-      <Markdown>
-        <Content />
-      </Markdown>
-      {published && title && <CopyRight title={title} published={published} />}
-    </div>
+<BaseLayout title="Sobre" description={`${SITE.name}, ${SITE.role.toLowerCase()}. Trajetória, áreas de atuação e contato.`}>
+  <div class="about">
+    <header class="about-hero card rise">
+      <img src={SITE.avatar} alt={`Foto de ${SITE.name}`} width="140" height="140" />
+      <div>
+        <p class="eyebrow">{SITE.role}</p>
+        <h1>{SITE.name}</h1>
+        <p class="about-lede">
+          Trabalho na interseção entre arquitetura, engenharia de software e sistemas distribuídos, conectando
+          necessidades de negócio a decisões técnicas: desenho de sistemas, integrações e escolhas que são difíceis de
+          mudar depois.
+        </p>
+        <div class="about-links">
+          <a class="btn btn-outline" href={SITE.github} target="_blank" rel="noopener noreferrer">
+            <Icon name="github" size={16} /> GitHub
+          </a>
+          <!-- TODO: adicionar LinkedIn e e-mail quando quiser -->
+        </div>
+      </div>
+    </header>
+
+    <!-- TODO: complementar com trajetória profissional (empresas, anos de experiência, especialidades) -->
+
+    <section class="about-section rise" style="--i:1" aria-labelledby="areas">
+      <h2 id="areas" class="section-title">Áreas de atuação</h2>
+      <div class="areas">
+        {
+          areas.map((a) => (
+            <div class="area card" style={`--c:${a.color}`}>
+              <span class="cat-ico area-ico">
+                <Icon name={a.icon} size={20} />
+              </span>
+              <h3>{a.title}</h3>
+              <p>{a.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="about-section about-text card rise" style="--i:2" aria-labelledby="site">
+      <h2 id="site" class="section-title">Sobre este site</h2>
+      <p>
+        Publico aqui análises técnicas sobre problemas que aparecem em sistemas reais: consistência em pagamentos,
+        concorrência e bloqueios, observabilidade, operação em Kubernetes e a evolução da plataforma Java, documentada
+        versão a versão na série <a href="/java/">Atualizações do Java</a>.
+      </p>
+      <p>
+        Cada artigo parte de um problema concreto, explica o mecanismo por trás dele e compara as soluções possíveis,
+        com os custos de cada uma.
+      </p>
+
+      <h3>Como os artigos são produzidos</h3>
+      <p>
+        Os artigos são escritos com apoio de inteligência artificial. Eu defino os temas, conduzo o estudo e reviso o
+        conteúdo; a IA apoia a pesquisa, a organização e a redação.
+      </p>
+    </section>
   </div>
-</Main>
+</BaseLayout>
 
 <style>
-  .article-wrapper {
-    @apply w-full rounded-2xl bg-[var(--card-color)] p-10;
+  .about {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--col-gap);
   }
-  .article {
-    @apply flex flex-col;
+
+  .about-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(20px, 3vw, 36px);
+    align-items: center;
+    padding: clamp(22px, 3.4vw, 44px);
+    overflow: hidden;
+    border-radius: 22px;
+  }
+
+  .about-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(50% 120% at 100% 0%, color-mix(in srgb, var(--blue) 12%, transparent), transparent 70%);
+  }
+
+  .about-hero img {
+    position: relative;
+    width: clamp(96px, 13vw, 140px);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--blue) 10%, transparent);
+  }
+
+  .about-hero > div {
+    position: relative;
+  }
+
+  .about-hero h1 {
+    margin-top: 6px;
+    font-family: var(--font-serif);
+    font-size: clamp(34px, 4vw, 50px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.028em;
+  }
+
+  .about-lede {
+    margin: 12px 0 0;
+    max-width: 62ch;
+    font-size: clamp(16px, 1.4vw, 18px);
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  .about-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: var(--fs-section);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .about-section > .section-title {
+    margin: 8px 4px 14px;
+  }
+
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 12px;
+  }
+
+  .area {
+    padding: 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .area-ico {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+  }
+
+  .area h3 {
+    margin-top: 14px;
+    font-size: var(--fs-title-sm);
+    font-weight: 600;
+  }
+
+  .area p {
+    margin: 6px 0 0;
+    font-size: var(--fs-body-sm);
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
+
+  .about-text {
+    padding: clamp(22px, 3.4vw, 44px);
+  }
+
+  .about-text > .section-title {
+    margin: 0 0 12px;
+  }
+
+  .about-text h3 {
+    margin-top: 26px;
+    font-size: var(--fs-title-sm);
+    font-weight: 600;
+  }
+
+  .about-text p {
+    margin: 10px 0 0;
+    max-width: 70ch;
+    font-size: var(--fs-body-lg);
+    line-height: 1.7;
+    color: var(--text-soft);
+  }
+
+  .about-text a {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 560px) {
+    .about-hero {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

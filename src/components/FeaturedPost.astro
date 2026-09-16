@@ -1,0 +1,200 @@
+---
+import Icon from "./Icon.astro";
+import type { PostSummary } from "../utils/posts";
+import { categoryStyle, categoryUrl, tagUrl } from "../utils/taxonomy";
+import { formatDate, isoDate, renderInlineMd } from "../utils/format";
+
+interface Props {
+  post: PostSummary;
+}
+
+const { post } = Astro.props;
+const style = categoryStyle(post.category);
+---
+
+<article class="featured card rise" style="--i:2">
+  <div class="ft-body">
+    <div class="ft-meta">
+      <span class="ft-badge">Último artigo</span>
+      {
+        post.category && (
+          <a class="ft-cat" href={categoryUrl(post.category)} style={`--c:${style.color}`}>
+            <span class="cat-dot" />
+            {post.category}
+          </a>
+        )
+      }
+      <time datetime={isoDate(post.published)}>{formatDate(post.published)}</time>
+      <span class="ft-sep" aria-hidden="true">·</span>
+      <span>{post.minutes} min de leitura</span>
+    </div>
+
+    <h2 class="ft-title">
+      <a href={post.url}>{post.title}</a>
+    </h2>
+
+    {post.description && <p class="ft-desc" set:html={renderInlineMd(post.description)} />}
+
+    <div class="ft-footer">
+      <div class="ft-tags">
+        {post.tags.map((tag) => <a class="pill" href={tagUrl(tag)}>{tag}</a>)}
+      </div>
+      <a class="btn btn-primary ft-cta" href={post.url} tabindex="-1" aria-hidden="true">
+        Ler artigo <Icon name="arrowRight" size={16} />
+      </a>
+    </div>
+  </div>
+
+  {
+    post.cover && (
+      <div class="ft-cover">
+        <img src={post.cover} alt="" loading="eager" decoding="async" width="1600" height="800" />
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .featured {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    overflow: hidden;
+    border-radius: 22px;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .featured:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-border-hover);
+  }
+
+  .ft-body {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(22px, 2.6vw, 36px);
+  }
+
+  .ft-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .ft-badge {
+    padding: 3px 10px;
+    border-radius: 980px;
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: color-mix(in srgb, var(--blue) 12%, transparent);
+  }
+
+  .ft-cat {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--c);
+  }
+
+  .ft-cat:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .ft-title {
+    margin-top: 14px;
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 2.7vw, 38px);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.024em;
+  }
+
+  .ft-title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .featured:hover .ft-title a {
+    color: var(--blue);
+  }
+
+  .ft-desc {
+    margin: 14px 0 0;
+    font-size: var(--fs-body-lg);
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  .ft-desc :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 1px 5px;
+    border-radius: 5px;
+    background: var(--card-bg-alt);
+    color: var(--text);
+  }
+
+  .ft-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 22px;
+  }
+
+  .ft-tags {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .ft-cover {
+    position: relative;
+    min-height: 100%;
+    background: #01131b;
+  }
+
+  .ft-cover img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: scale 0.6s var(--ease-out);
+  }
+
+  .featured:hover .ft-cover img {
+    scale: 1.03;
+  }
+
+  @media (max-width: 860px) {
+    .featured {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .ft-cover {
+      order: -1;
+      aspect-ratio: 2 / 1;
+    }
+    .ft-cta {
+      display: none;
+    }
+  }
+</style>

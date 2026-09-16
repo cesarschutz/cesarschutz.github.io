@@ -1,0 +1,422 @@
+---
+import Icon from "./Icon.astro";
+import type { PostSummary } from "../utils/posts";
+import { categoryStyle, categoryUrl } from "../utils/taxonomy";
+import { formatDate, isoDate, renderInlineMd } from "../utils/format";
+
+interface Props {
+  posts: PostSummary[];
+  title: string;
+  subtitle?: string;
+  id?: string;
+  /** animação de entrada começa depois dos blocos acima */
+  delay?: number;
+}
+
+const { posts, title, subtitle, id, delay = 0 } = Astro.props;
+---
+
+<section class="feed-section rise" style={`--i:${delay}`} id={id} aria-labelledby={`${id ?? "feed"}-title`}>
+  <header class="feed-head">
+    <div>
+      <h2 class="feed-title" id={`${id ?? "feed"}-title`}>{title}</h2>
+      {subtitle && <p class="feed-subtitle">{subtitle}</p>}
+    </div>
+
+    <div class="view-toggle" role="group" aria-label="Modo de exibição">
+      <button type="button" data-view="list" aria-label="Ver em lista" title="Lista">
+        <Icon name="list" size={16} /><span>Lista</span>
+      </button>
+      <button type="button" data-view="cards" aria-label="Ver em cards" title="Cards">
+        <Icon name="grid" size={16} /><span>Cards</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="feed">
+    {
+      posts.map((post) => {
+        const style = categoryStyle(post.category);
+        return (
+          <article class="fi">
+            <div class="fi-cover" aria-hidden="true">
+              {post.cover && <img src={post.cover} alt="" loading="lazy" decoding="async" width="1600" height="800" />}
+            </div>
+            <div class="fi-body">
+              <div class="fi-meta">
+                {post.category && (
+                  <a class="fi-cat" href={categoryUrl(post.category)} style={`--c:${style.color}`}>
+                    <span class="cat-dot" />
+                    {post.category}
+                  </a>
+                )}
+                <time datetime={isoDate(post.published)}>{formatDate(post.published)}</time>
+                <span class="fi-sep" aria-hidden="true">·</span>
+                <span class="fi-min">
+                  <Icon name="clock" size={13} />
+                  {post.minutes} min
+                </span>
+              </div>
+              <h3 class="fi-title">
+                <a href={post.url}>{post.title}</a>
+              </h3>
+              {post.description && <p class="fi-desc" set:html={renderInlineMd(post.description)} />}
+              {post.tags.length > 0 && (
+                <p class="fi-tags">
+                  {post.tags.slice(0, 4).map((tag) => (
+                    <span>#{tag}</span>
+                  ))}
+                </p>
+              )}
+            </div>
+          </article>
+        );
+      })
+    }
+  </div>
+</section>
+
+<script>
+  const root = document.documentElement;
+  const sync = () => {
+    const view = root.dataset.postView === "cards" ? "cards" : "list";
+    document.querySelectorAll<HTMLButtonElement>(".view-toggle button").forEach((btn) => {
+      btn.setAttribute("aria-pressed", String(btn.dataset.view === view));
+    });
+  };
+  document.querySelectorAll<HTMLButtonElement>(".view-toggle button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      root.dataset.postView = btn.dataset.view;
+      try {
+        localStorage.setItem("cs-post-view", btn.dataset.view!);
+      } catch {}
+      sync();
+    });
+  });
+  sync();
+</script>
+
+<style>
+  .feed-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    scroll-margin-top: calc(var(--nav-height) + 20px);
+  }
+
+  .feed-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 4px 0;
+  }
+
+  .feed-title {
+    font-family: var(--font-serif);
+    font-size: var(--fs-section);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .feed-subtitle {
+    margin: 4px 0 0;
+    font-size: var(--fs-body-sm);
+    color: var(--text-dim);
+  }
+
+  /* Seletor segmentado lista/cards */
+  .view-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+    padding: 3px;
+    border-radius: 980px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+  }
+
+  .view-toggle button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 980px;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: var(--fs-meta);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      scale 0.15s ease;
+  }
+
+  .view-toggle button:hover {
+    color: var(--text);
+  }
+
+  .view-toggle button:active {
+    scale: 0.96;
+  }
+
+  .view-toggle button[aria-pressed="true"] {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  /* ───────── Item (markup único para os dois modos) ───────── */
+
+  .fi {
+    position: relative;
+    min-width: 0;
+  }
+
+  .fi-cover {
+    overflow: hidden;
+    background: #01131b;
+  }
+
+  .fi-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: scale 0.5s var(--ease-out);
+  }
+
+  .fi:hover .fi-cover img {
+    scale: 1.04;
+  }
+
+  .fi-body {
+    min-width: 0;
+  }
+
+  .fi-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 9px;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .fi-cat {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--c);
+  }
+
+  .fi-cat:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .fi-min {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .fi-title {
+    margin-top: 8px;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.018em;
+    line-height: 1.2;
+  }
+
+  .fi-title a {
+    transition: color 0.15s ease;
+  }
+
+  .fi-title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .fi:hover .fi-title a {
+    color: var(--blue);
+  }
+
+  .fi-desc {
+    margin: 8px 0 0;
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--text-soft);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .fi-desc :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 1px 4px;
+    border-radius: 5px;
+    background: var(--card-bg-alt);
+    color: var(--text);
+  }
+
+  .fi-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    margin: 10px 0 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0;
+    color: var(--text-dim);
+  }
+
+  /* ───────── Modo lista (padrão) ───────── */
+
+  .feed {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    overflow: hidden;
+  }
+
+  .feed .fi {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(150px, 19vw, 232px);
+    gap: clamp(16px, 2vw, 28px);
+    align-items: center;
+    padding: 22px clamp(18px, 2vw, 26px);
+    transition: background-color 0.2s ease;
+  }
+
+  .feed .fi + .fi {
+    border-top: 1px solid var(--divider);
+  }
+
+  .feed .fi:hover {
+    background: color-mix(in srgb, var(--card-bg-alt) 55%, var(--card-bg));
+  }
+
+  .feed .fi-cover {
+    order: 2;
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  .feed .fi-title {
+    font-size: clamp(19px, 1.6vw, 23px);
+  }
+
+  .feed .fi-desc {
+    -webkit-line-clamp: 2;
+  }
+
+  /* ───────── Modo cards ───────── */
+
+  :global(:root[data-post-view="cards"]) .feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+    gap: var(--col-gap);
+    border: none;
+    border-radius: 0;
+    background: none;
+    overflow: visible;
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    transition:
+      transform 0.25s var(--ease-out),
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi + .fi {
+    border-top: 1px solid var(--border);
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-border-hover);
+    background: var(--card-bg);
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi-cover {
+    order: 0;
+    aspect-ratio: 2 / 1;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 18px 20px 20px;
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi-title {
+    font-size: 20px;
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi-desc {
+    -webkit-line-clamp: 3;
+  }
+
+  :global(:root[data-post-view="cards"]) .feed .fi-tags {
+    margin-top: auto;
+    padding-top: 14px;
+  }
+
+  /* ───────── Telas pequenas ───────── */
+
+  @media (max-width: 640px) {
+    .feed-head {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .view-toggle {
+      align-self: flex-start;
+    }
+    .feed .fi {
+      grid-template-columns: minmax(0, 1fr) 84px;
+      align-items: start;
+      gap: 14px;
+      padding: 18px 16px;
+    }
+    .feed .fi-cover {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      margin-top: 4px;
+    }
+    .feed .fi-desc {
+      -webkit-line-clamp: 3;
+    }
+    .feed .fi-tags,
+    .fi-min :global(.icon) {
+      display: none;
+    }
+    .fi-meta {
+      gap: 2px 7px;
+      font-size: 12px;
+    }
+  }
+</style>

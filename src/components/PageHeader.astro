@@ -1,0 +1,94 @@
+---
+import Icon from "./Icon.astro";
+import type { IconName } from "../utils/icons";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  icon?: IconName;
+  color?: string;
+}
+
+const { eyebrow, title, description, icon, color } = Astro.props;
+---
+
+<header class="page-header card rise" style={color ? `--c:${color}` : undefined}>
+  {
+    icon && (
+      <span class="cat-ico ph-ico">
+        <Icon name={icon} size={24} />
+      </span>
+    )
+  }
+  <div>
+    {eyebrow && <p class="eyebrow ph-eyebrow">{eyebrow}</p>}
+    <h1 class="ph-title">{title}</h1>
+    {description && <p class="ph-desc">{description}</p>}
+    <slot />
+  </div>
+</header>
+
+<style>
+  .page-header {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: clamp(22px, 2.8vw, 34px);
+    overflow: hidden;
+    border-radius: 22px;
+  }
+
+  .page-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(50% 120% at 100% 0%, color-mix(in srgb, var(--c, var(--blue)) 12%, transparent), transparent 70%);
+  }
+
+  .ph-ico {
+    --c: inherit;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
+
+  .page-header > div {
+    position: relative;
+    min-width: 0;
+  }
+
+  .ph-eyebrow {
+    margin: 0 0 6px;
+    color: var(--c, var(--blue));
+  }
+
+  .ph-title {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 3.4vw, 44px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.026em;
+  }
+
+  .ph-desc {
+    margin: 10px 0 0;
+    max-width: 64ch;
+    font-size: var(--fs-body-lg);
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
+
+  @media (max-width: 560px) {
+    .page-header {
+      flex-direction: column;
+      gap: 14px;
+    }
+    .ph-ico {
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>
