@@ -8,15 +8,21 @@ cover: /covers/java/java-17.svg
 draft: false
 ---
 
-O Java 17 chegou em disponibilidade geral em **14 de setembro de 2021** ([JDK 17](https://openjdk.org/projects/jdk/17/)) e é uma versão de suporte de longo prazo (LTS). No [Oracle Java SE Support Roadmap](https://www.oracle.com/java/technologies/java-se-support-roadmap.html), a Oracle informa Premier Support até setembro de 2026 e Extended Support até setembro de 2029 para o Java 17 (as duas datas com a ressalva "ou mais tarde") e diz que dispensa a taxa do Extended Support de outubro de 2026 a setembro de 2029. A mesma página classifica como LTS as versões 8, 11, 17, 21 e 25 e trata as versões 12 a 16 como não LTS: cada uma é substituída pela seguinte assim que ela sai.
+O Java 17 chegou em disponibilidade geral em **14 de setembro de 2021** ([JDK 17](https://openjdk.org/projects/jdk/17/)) e é uma versão de suporte de longo prazo (LTS). A LTS anterior é o Java 11, então quem migra atravessa de uma vez **seis releases**: Java 12 (março de 2019), 13 (setembro de 2019), 14 (março de 2020), 15 (setembro de 2020), 16 (março de 2021) e 17 (setembro de 2021). As datas estão nas páginas de cada release no OpenJDK ([12](https://openjdk.org/projects/jdk/12/), [13](https://openjdk.org/projects/jdk/13/), [14](https://openjdk.org/projects/jdk/14/), [15](https://openjdk.org/projects/jdk/15/), [16](https://openjdk.org/projects/jdk/16/), [17](https://openjdk.org/projects/jdk/17/)). Ao todo, foram 74 JEPs nesse período.
 
-Como a LTS anterior é o Java 11, quem migra atravessa de uma vez **seis releases**: Java 12 (março de 2019), 13 (setembro de 2019), 14 (março de 2020), 15 (setembro de 2020), 16 (março de 2021) e 17 (setembro de 2021). As datas estão nas páginas de cada release no OpenJDK ([12](https://openjdk.org/projects/jdk/12/), [13](https://openjdk.org/projects/jdk/13/), [14](https://openjdk.org/projects/jdk/14/), [15](https://openjdk.org/projects/jdk/15/), [16](https://openjdk.org/projects/jdk/16/), [17](https://openjdk.org/projects/jdk/17/)). Ao todo, foram 74 JEPs nesse período.
+Sobre o suporte: no [Oracle Java SE Support Roadmap](https://www.oracle.com/java/technologies/java-se-support-roadmap.html), a Oracle informa Premier Support até setembro de 2026 e Extended Support até setembro de 2029 para o Java 17 (as duas datas com a ressalva "ou mais tarde"), e diz que dispensa a taxa do Extended Support de outubro de 2026 a setembro de 2029. A mesma página classifica como LTS as versões 8, 11, 17, 21 e 25. As versões 12 a 16 não são LTS: cada uma é substituída pela seguinte assim que ela sai.
 
-Este artigo é para quem conhece o Java 11 e quer saber o que ganha e o que quebra ao subir para o 17. Cada recurso traz a versão em que chegou, a JEP de origem e um exemplo. No fim, há a lista completa de JEPs por versão e as fontes.
+Este artigo é para quem conhece o [Java 11](/posts/java-11/) e quer saber o que ganha e o que quebra ao subir para o 17. A ordem é esta: linha do tempo; recursos agrupados por tema (linguagem, APIs, JVM e GC, ferramentas, segurança, remoções); o que ainda estava em preview ou incubadora; os cuidados na migração; e, no fim, todas as JEPs por versão e as fontes. Cada recurso começa com a linha **Chegou em**, que mostra por quais versões ele passou até ficar pronto, e segue com o problema que resolve, o exemplo e os cuidados. O passo seguinte da série é o [Java 21](/posts/java-21/); estratégia de migração, distribuições e custos estão no [guia de atualizações do Java](/posts/guia-atualizacoes-java/).
 
 ## Linha do tempo
 
-Boa parte dos recursos de linguagem do Java 17 passou antes por uma ou duas rodadas de **preview**. Pela [JEP 12](https://openjdk.org/jeps/12), um recurso em preview está totalmente especificado e implementado, mas ainda não é permanente: fica desligado por padrão e pode mudar ou sumir na versão seguinte. APIs e ferramentas ainda não finais vêm em **módulos de incubadora** ([JEP 11](https://openjdk.org/jeps/11)), que, para aplicações no classpath, só são resolvidos com `--add-modules`. Recursos da JVM, como coletores novos, costumam entrar como **experimentais** e exigem `-XX:+UnlockExperimentalVMOptions`, como descrevem as JEPs [377](https://openjdk.org/jeps/377) e [379](https://openjdk.org/jeps/379).
+Boa parte dos recursos do Java 17 não chegou pronta de uma vez. O OpenJDK usa três estágios para colher feedback antes de tornar algo permanente:
+
+- **Preview** (recursos de linguagem): pela [JEP 12](https://openjdk.org/jeps/12), o recurso está totalmente especificado e implementado, mas ainda não é permanente. Fica desligado por padrão, exige `--enable-preview` e pode mudar ou sumir na versão seguinte.
+- **Incubadora** (APIs e ferramentas): pela [JEP 11](https://openjdk.org/jeps/11), a API vem num módulo `jdk.incubator.*` que, para aplicações no classpath, só é carregado com `--add-modules`.
+- **Experimental** (recursos da JVM, como coletores novos): só funciona com `-XX:+UnlockExperimentalVMOptions`, como descrevem as JEPs [377](https://openjdk.org/jeps/377) e [379](https://openjdk.org/jeps/379).
+
+O diagrama mostra por quais estágios passaram os principais recursos até o Java 17:
 
 ![Linha do tempo do Java 12 ao 17: switch expressions preview no 12 e 13 e final no 14; text blocks preview no 13 e 14 e final no 15; records e pattern matching para instanceof preview no 14 e 15 e finais no 16; sealed classes preview no 15 e 16 e final no 17; pattern matching para switch em preview no 17; Shenandoah e ZGC em produção no 15; jpackage final no 16; encapsulamento forte por padrão no 16 e definitivo no 17; foreign memory e Vector API ainda em incubadora no 17](/posts/java-17/linha-do-tempo-java-12-a-17.svg)
 
@@ -28,7 +34,11 @@ Na prática, tudo o que aparece como **final** ou **produção** até o Java 17 
 
 **Chegou em:** Java 12 (preview, [JEP 325](https://openjdk.org/jeps/325)) → Java 13 (2ª preview, [JEP 354](https://openjdk.org/jeps/354)) → Java 14 (final, [JEP 361](https://openjdk.org/jeps/361))
 
-O `switch` herdado do C tem três problemas conhecidos, todos listados na JEP 361: o *fall-through* por padrão (esquecer um `break` executa o caso seguinte), o escopo único para o bloco inteiro (uma variável declarada em um `case` é visível nos outros) e o fato de ser só instrução. Muito `switch` existe apenas para atribuir um valor a uma variável, e o compilador não tem como checar se todos os casos atribuíram.
+O `switch` herdado do C tem três problemas conhecidos, todos listados na JEP 361:
+
+- ***fall-through* por padrão**: esquecer um `break` faz a execução continuar no caso seguinte;
+- **escopo único** para o bloco inteiro: uma variável declarada em um `case` é visível nos outros;
+- **só existe como instrução**: muito `switch` serve apenas para atribuir um valor a uma variável, e o compilador não tem como checar se todos os casos fizeram a atribuição.
 
 A JEP 361 traz duas mudanças independentes:
 
@@ -98,8 +108,10 @@ public class SwitchExpressions {
 
 Dois detalhes da especificação merecem atenção:
 
-- **Exaustividade.** Uma *switch expression* precisa cobrir todos os valores possíveis. Com `enum`, se todas as constantes estiverem listadas, o `default` pode ficar de fora: o compilador insere um implícito, que lança `IncompatibleClassChangeError` se o enum ganhar uma constante nova entre a compilação e a execução. A JEP observa que confiar nesse `default` implícito é mais robusto do que escrever um à mão: quando o código for recompilado, o compilador acusa o caso esquecido.
-- **`yield` é um identificador restrito**, como `var`. Classes chamadas `yield` ficam proibidas, e uma chamada não qualificada a um método chamado `yield` deixa de compilar. Isso afeta, por exemplo, uma subclasse de `Thread` que chame `yield();`. No Java 17, o `javac` responde com `invalid use of a restricted identifier 'yield'` e sugere qualificar a chamada (`Thread.yield()`).
+- **Exaustividade.** Uma *switch expression* precisa cobrir todos os valores possíveis. Com `enum`, se todas as constantes estiverem listadas, o `default` pode ficar de fora. Nesse caso, o compilador insere um `default` implícito, que lança `IncompatibleClassChangeError` se o enum ganhar uma constante nova depois que o `switch` foi compilado ([JLS 17, §15.28.2](https://docs.oracle.com/javase/specs/jls/se17/html/jls-15.html#jls-15.28.2)). A JEP observa que confiar nesse `default` implícito é mais robusto do que escrever um à mão: quando o código for recompilado, o compilador acusa o caso esquecido.
+- **`yield` é um identificador restrito**, como `var`: continua valendo como nome de variável, mas classes chamadas `yield` ficam proibidas, e uma chamada não qualificada a um método chamado `yield` deixa de compilar. Isso afeta, por exemplo, uma subclasse de `Thread` que chame `yield();`. O `javac` 17 responde com `invalid use of a restricted identifier 'yield'`; a correção, indicada pela JEP, é qualificar a chamada (`Thread.yield()`).
+
+Use a forma com seta sempre que puder: ela elimina o *fall-through* acidental e deixa o compilador verificar a cobertura dos casos. No Java 17, os rótulos ainda só aceitam constantes; `case` com tipos e padrões ficou pronto no Java 21 ([pattern matching para `switch`](/posts/java-21/#pattern-matching-para-switch)).
 
 ### Text blocks
 
@@ -110,9 +122,15 @@ Colar JSON, SQL ou HTML num literal `"..."` exige concatenação, `\n` e escape 
 Como funciona:
 
 - O `"""` de abertura precisa ser seguido de quebra de linha. O conteúdo começa na linha de baixo.
-- A **indentação incidental**, que existe só para alinhar o texto ao código Java, é removida. A referência é a linha menos indentada, e o `"""` de fechamento também conta como linha.
+- A **indentação incidental**, que existe só para alinhar o texto ao código Java, é removida; a indentação além dela (a **essencial**) fica. A referência é a linha menos indentada, e a linha do `"""` de fechamento também conta.
 - Os espaços no fim das linhas são removidos, e as quebras de linha são normalizadas para `\n`.
 - Os escapes são processados depois da remoção da indentação. A segunda preview ([JEP 368](https://openjdk.org/jeps/368)) acrescentou dois: `\` no fim da linha, que junta a linha com a seguinte, e `\s`, que vira um espaço e impede que os espaços finais sejam cortados.
+
+O diagrama mostra essas regras no JSON do exemplo abaixo e o efeito de mover o `"""` de fechamento:
+
+![Diagrama: num text block com JSON, os oito espaços que alinham o texto ao código são removidos e os dois espaços extras das linhas internas são mantidos; embaixo, três casos do delimitador de fechamento: alinhado ao texto gera "olá\n", recuado duas colunas à esquerda gera dois espaços antes de "olá\n", e na mesma linha do texto gera "olá" sem quebra de linha](/posts/java-17/text-block-indentacao.svg)
+
+Na prática, a posição do `"""` de fechamento decide duas coisas. Numa linha própria, ele faz o texto terminar com `\n` e, se ficar mais à esquerda que o texto, a diferença vira indentação no resultado. Colado à última linha, o texto termina sem quebra de linha.
 
 ```java title="TextBlocks.java"
 public class TextBlocks {
@@ -150,22 +168,22 @@ public class TextBlocks {
                 Olá, %s!
                 Seu pedido %d foi confirmado.
                 """.formatted("Ana", 1234);
-        System.out.print(saudacao);
+        System.out.print(saudacao); // Olá, Ana! e Seu pedido 1234 foi confirmado. (em duas linhas)
     }
 }
 ```
 
-A JEP 378 deixa claro que text blocks **não fazem interpolação** de variáveis. Para preencher valores, ela aponta `String::formatted`, que chegou no mesmo Java 15.
+A JEP 378 deixa claro que text blocks **não fazem interpolação** de variáveis. Para preencher valores, ela aponta `String::formatted`, que chegou no mesmo Java 15. (Os String Templates, que tentaram trazer interpolação, foram preview no Java 21 e 22 e acabaram retirados; veja o [post do Java 25](/posts/java-25/#string-templates-foram-retirados).)
 
 ### Records
 
 **Chegou em:** Java 14 (preview, [JEP 359](https://openjdk.org/jeps/359)) → Java 15 (2ª preview, [JEP 384](https://openjdk.org/jeps/384)) → Java 16 (final, [JEP 395](https://openjdk.org/jeps/395))
 
-Uma classe que só carrega dados costuma precisar de construtor, getters, `equals`, `hashCode` e `toString`. É código repetitivo e fácil de dessincronizar quando alguém inclui um campo e esquece do `equals`. A JEP 395 define records como classes que são **portadores transparentes de dados imutáveis**: a declaração diz qual é o estado, e o compilador deriva o resto.
+Uma classe que só carrega dados costuma precisar de construtor, getters, `equals`, `hashCode` e `toString`. É código repetitivo e fácil de dessincronizar quando alguém inclui um campo e esquece do `equals`. A JEP 395 define records como classes que são **portadores transparentes de dados imutáveis**: a declaração diz qual é o estado (os **componentes**, listados entre parênteses), e o compilador deriva o resto, como mostra o diagrama.
 
 ![Diagrama: a declaração record Dinheiro(BigDecimal valor, String moeda) gera classe final que estende java.lang.Record, campos private final, construtor canônico, acessores valor() e moeda(), e equals, hashCode e toString; restrições: sem extends, final, sem campos de instância extras, campos final, sem métodos native](/posts/java-17/record-o-que-o-compilador-gera.svg)
 
-O **construtor compacto** é o ponto certo para validar e normalizar. Os parâmetros ficam implícitos e as atribuições aos campos acontecem sozinhas no fim do construtor. Desde a segunda preview, atribuir a um campo de instância dentro dele é erro de compilação; o que se faz é reatribuir o parâmetro, como `moeda` no exemplo.
+O **construtor canônico** é o que recebe todos os componentes, na ordem da declaração. Para validar ou normalizar valores, você não precisa reescrevê-lo inteiro: basta um **construtor compacto**, que é o canônico sem a lista de parâmetros. Os parâmetros ficam implícitos, e as atribuições aos campos acontecem sozinhas no fim do construtor. Desde a segunda preview, atribuir a um campo de instância dentro dele é erro de compilação; para normalizar, reatribua o parâmetro, como `moeda` no exemplo.
 
 ```java title="Records.java" {11-18}
 import java.math.BigDecimal;
@@ -214,7 +232,7 @@ public class Records {
         System.out.println(a.valor());     // 10.50 (acessor sem o prefixo get)
         System.out.println(a.somar(b));    // Dinheiro[valor=21.00, moeda=BRL]
 
-        // Record local (Java 16): útil para resultados intermediários
+        // Record local (declarado dentro do método): útil para resultados intermediários
         record Linha(String produto, int quantidade) {}
         List<Linha> linhas = List.of(new Linha("café", 2), new Linha("pão", 5));
         System.out.println(linhas.stream().mapToInt(Linha::quantidade).sum()); // 7
@@ -229,7 +247,7 @@ O que mudou entre as previews e a versão final, segundo o histórico da JEP 395
 
 Records não servem para classes que precisam de estado mutável ou de herança: pela própria JEP, os campos são `final` e o record não pode estender outra classe. E a imutabilidade é **rasa**, porque `final` protege a referência e não o objeto: um componente `List` continua mutável se a lista recebida for mutável. Quando isso importa, faça cópia defensiva no construtor compacto (por exemplo, com `List.copyOf`).
 
-A reflexão ganhou `Class::isRecord` e `Class::getRecordComponents`, ambos desde o Java 16 ([Javadoc de `Class`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html)).
+A reflexão ganhou `Class::isRecord` e `Class::getRecordComponents`, ambos desde o Java 16 ([Javadoc de `Class`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html)). No Java 21, os records ganharam também os [record patterns](/posts/java-21/#record-patterns), que extraem os componentes direto num `instanceof` ou num `switch`.
 
 ### Pattern matching para `instanceof`
 
@@ -289,13 +307,13 @@ public class PatternInstanceof {
 
 A variável de padrão tem **escopo por fluxo**: existe só onde o compilador consegue provar que o teste passou. Por isso `o instanceof Ponto outro && x == outro.x` compila, e com `||` não compilaria. Em `descrever`, a negação seguida de `return` faz `s` valer no restante do método.
 
-A versão final trouxe dois refinamentos em relação às previews: a variável de padrão deixou de ser implicitamente `final`, e virou erro de compilação testar uma expressão contra um tipo do qual ela já é subtipo, porque esse teste sempre seria verdadeiro.
+A versão final trouxe dois refinamentos em relação às previews. A variável de padrão deixou de ser implicitamente `final`. E virou erro de compilação usar um padrão cujo tipo a expressão já garante, porque o teste seria sempre verdadeiro: com `String s`, o `javac` 17 rejeita `s instanceof CharSequence cs` com `expression type String is a subtype of pattern type CharSequence`.
 
 ### Sealed classes
 
 **Chegou em:** Java 15 (preview, [JEP 360](https://openjdk.org/jeps/360)) → Java 16 (2ª preview, [JEP 397](https://openjdk.org/jeps/397)) → Java 17 (final, [JEP 409](https://openjdk.org/jeps/409))
 
-Antes do Java 17, uma hierarquia ficava entre dois extremos: `final` (ninguém estende) ou aberta (qualquer um estende). Não havia como dizer "uma `Forma` é um círculo, um quadrado ou um polígono, e mais nada". A JEP 409 permite que o autor de uma classe ou interface declare exatamente quais subtipos ela aceita.
+Antes do Java 17, uma hierarquia ficava entre dois extremos: `final` (ninguém estende) ou aberta (qualquer um estende). Não havia como dizer "uma `Forma` é um círculo, um quadrado ou um polígono, e mais nada". A JEP 409 permite que o autor de uma classe ou interface declare exatamente quais subtipos ela aceita. O diagrama mostra a hierarquia do exemplo abaixo:
 
 ![Diagrama: sealed interface Forma permite Circulo e Quadrado (records, final) e Poligono (non-sealed, que reabre a hierarquia para Triangulo e qualquer outra classe); um record Hexagono fora de permits causa erro de compilação](/posts/java-17/sealed-hierarquia.svg)
 
@@ -358,13 +376,15 @@ As regras da JEP 409:
 - Classes anônimas e locais não podem ser subtipos permitidos.
 - Na reflexão, `Class::isSealed` e `Class::getPermittedSubclasses` existem desde o Java 17.
 
-A JEP apresenta sealed classes também como base para a análise de exaustividade do pattern matching. No Java 17 essa parte ainda não estava pronta: o `switch` com padrões era preview ([veja abaixo](#pattern-matching-para-switch)). Por isso o exemplo usa `instanceof` e termina com um `throw` que o compilador não consegue provar inalcançável. Records e sealed classes juntos modelam tipos algébricos: records são os "produtos" e a interface selada é a "soma".
+Quando usar: em hierarquias fechadas por natureza, como os resultados possíveis de uma operação, os eventos de um domínio ou os nós de uma árvore de expressões. Juntos, records e sealed classes descrevem dados do tipo "é um destes casos, e cada caso tem estes campos" (o que a literatura chama de tipos algébricos).
+
+A JEP apresenta sealed classes também como base para a **exaustividade** no pattern matching: se o compilador conhece todos os subtipos, pode acusar erro quando um deles não foi tratado. No Java 17 essa parte ainda não estava pronta, porque o `switch` com padrões era preview ([veja abaixo](#pattern-matching-para-switch)). Por isso o exemplo usa `instanceof` e termina com um `throw` que o compilador não consegue provar inalcançável. A combinação completa ficou final no Java 21 ([pattern matching para `switch`](/posts/java-21/#pattern-matching-para-switch)).
 
 ### Semântica de ponto flutuante sempre estrita
 
 **Chegou em:** Java 17 (final, [JEP 306](https://openjdk.org/jeps/306))
 
-Desde o Java 1.2 havia dois modos de ponto flutuante: o padrão e o estrito (`strictfp`). A JEP 306 volta a ter um só modo, o estrito, que é a semântica original da linguagem. O modificador `strictfp` continua válido, mas não muda mais nada. A JEP prevê um aviso de lint do `javac` para usos desnecessários dele.
+Desde o Java 1.2 havia dois modos de ponto flutuante: o padrão e o estrito (`strictfp`). A diferença existia por limitações dos coprocessadores x87 da época, segundo a JEP. A JEP 306 volta a ter um só modo, o estrito, que é a semântica original da linguagem. O modificador `strictfp` continua válido, mas não muda mais nada, e a JEP prevê um aviso de lint do `javac` para usos desnecessários dele. No Temurin 17.0.20, esse aviso aparece sem nenhuma opção extra: `warning: [strictfp] as of release 17, all floating-point expressions are evaluated strictly and 'strictfp' is not required`.
 
 ## APIs da biblioteca padrão
 
@@ -378,24 +398,25 @@ Nem toda mudança de API vem de JEP. As abaixo estão confirmadas pelo `@since` 
 
 ```java title="NovasApisString.java"
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class NovasApisString {
     public static void main(String[] args) {
         // Java 12: indent ajusta a indentação de cada linha (e normaliza o fim de linha para \n)
-        System.out.print("linha 1\nlinha 2".indent(4));
+        System.out.print("linha 1\nlinha 2".indent(4)); // "    linha 1" e "    linha 2" (em duas linhas)
 
         // Java 12: transform aplica uma função à própria String, útil para encadear
         int tamanho = "  java  ".transform(String::strip).transform(String::length);
         System.out.println(tamanho); // 4
 
         // Java 15: stripIndent e translateEscapes, os mesmos algoritmos usados nos text blocks
-        System.out.println("   a\n     b".stripIndent().replace(' ', '.')); // a\n..b
+        System.out.println("   a\n     b".stripIndent().replace(' ', '.')); // a e ..b (em duas linhas)
         System.out.println("coluna1\\tcoluna2".translateEscapes());          // coluna1<TAB>coluna2
 
         // Java 15: CharSequence.isEmpty como default method, útil em method references
         List<StringBuilder> buffers = List.of(new StringBuilder(), new StringBuilder("x"));
-        System.out.println(buffers.stream().filter(sb -> !sb.isEmpty()).count()); // 1
+        System.out.println(buffers.stream().filter(Predicate.not(StringBuilder::isEmpty)).count()); // 1
 
         // Java 12: Collectors.teeing combina dois coletores em um único resultado
         record Resumo(long quantidade, double media) {}
@@ -415,7 +436,7 @@ public class NovasApisString {
 
 Os dois métodos estão no [Javadoc de `Stream`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html) e nas [release notes do JDK 16](https://www.oracle.com/java/technologies/javase/16-relnote-issues.html). `toList()` substitui o `collect(Collectors.toList())` na maior parte dos casos, com uma diferença importante: pelo Javadoc, a lista devolvida é **não modificável**, e qualquer método de mutação lança `UnsupportedOperationException`. Já o Javadoc de `Collectors.toList()` não dá garantia nenhuma sobre tipo ou mutabilidade da lista. Na prática, código que adiciona elementos à lista depois de coletar vai falhar se a troca for feita às cegas.
 
-`mapMulti` é uma alternativa ao `flatMap`: em vez de devolver um `Stream` por elemento, você recebe um `Consumer` e emite quantos elementos quiser.
+`mapMulti` é uma alternativa ao `flatMap`: em vez de devolver um `Stream` por elemento, você recebe um `Consumer` e emite quantos elementos quiser. Pelo Javadoc, ele é preferível quando cada elemento vira poucos elementos (ou nenhum), porque evita criar um `Stream` por grupo, e quando é mais fácil gerar os resultados com código imperativo. Com lambda, às vezes é preciso informar o tipo de saída, como o `<String>` no exemplo.
 
 ```java title="NovasApisStream.java"
 import java.util.List;
@@ -474,7 +495,7 @@ public class NovasApisDiversas {
     public static void main(String[] args) throws IOException {
         // Java 12: formatação compacta de números
         NumberFormat curto = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT);
-        System.out.println(curto.format(1_500));      // 2K
+        System.out.println(curto.format(1_500));      // 2K (arredonda)
         System.out.println(curto.format(2_000_000));  // 2M
 
         // Java 12: Files.mismatch devolve -1 se os arquivos forem iguais, ou a posição do primeiro byte diferente
@@ -605,13 +626,19 @@ public class UnixSocket {
 Os dois recursos interessam mais a quem escreve frameworks e compiladores do que ao código de aplicação:
 
 - **Hidden classes (JEP 371)** são classes que o bytecode de outras classes não consegue referenciar diretamente. São criadas com `MethodHandles.Lookup::defineHiddenClass` e podem ser descarregadas de forma independente. Servem para frameworks que geram classes em tempo de execução e as usam por reflexão. A mesma JEP depreciou o não padrão `sun.misc.Unsafe::defineAnonymousClass`, que foi removido no Java 17 ([release notes do JDK 17](https://www.oracle.com/java/technologies/javase/17-relnote-issues.html)).
-- **JVM Constants API (JEP 334)** cria o pacote `java.lang.constant`, com descrições nominais de constantes do *class file*: `ClassDesc`, `MethodTypeDesc` e afins. `String`, `Class` e outros tipos passaram a implementar `Constable`.
+- **JVM Constants API (JEP 334)** cria o pacote `java.lang.constant`, com tipos que descrevem as constantes de um *class file* só pelo nome, sem carregar classes: `ClassDesc`, `MethodTypeDesc` e afins. Serve a ferramentas que leem ou geram bytecode. `String`, `Class` e outros tipos passaram a implementar `Constable`.
 
 ### Avisos para value-based classes
 
 **Chegou em:** Java 16 (depreciado para remoção, [JEP 390](https://openjdk.org/jeps/390))
 
-A JEP 390 classifica os wrappers primitivos (`Integer`, `Long` etc.) como *value-based* e deprecia **para remoção** os seus construtores. `new Integer(42)` passa a gerar aviso de remoção; o caminho é `Integer.valueOf(42)` ou autoboxing. A JEP também cria a categoria de lint `synchronization`, ligada por padrão, que avisa quando se usa `synchronized` sobre uma instância de classe value-based. Em tempo de execução, `-XX:DiagnoseSyncOnValueBasedClasses=1` transforma essa sincronização em erro fatal e `=2` liga o registro no console e em eventos do JFR. É uma opção de diagnóstico: no Java 17, a JVM só a aceita junto com `-XX:+UnlockDiagnosticVMOptions`.
+Pela JEP 390, classes *value-based* representam objetos imutáveis cuja identidade não importa para o comportamento da classe, como `Optional` e `LocalDate`. Código que depende da identidade dessas instâncias, com `==` ou `synchronized`, está usando a classe de forma errada. A JEP prepara o terreno para o Project Valhalla, que pretende migrar essas classes para tipos sem identidade ([Project Valhalla](https://openjdk.org/projects/valhalla/)).
+
+O que a JEP 390 muda:
+
+- **Wrappers primitivos** (`Integer`, `Long` etc.) passam a ser *value-based*, e os seus construtores ficam depreciados **para remoção**. `new Integer(42)` gera aviso de remoção; o caminho é `Integer.valueOf(42)` ou autoboxing.
+- **No compilador**, a nova categoria de lint `synchronization`, ligada por padrão, avisa quando se usa `synchronized` sobre uma instância de classe value-based.
+- **Em tempo de execução**, `-XX:DiagnoseSyncOnValueBasedClasses=1` transforma essa sincronização em erro fatal, e `=2` liga o registro no console e em eventos do JFR. É uma opção de diagnóstico: no Java 17, a JVM só a aceita junto com `-XX:+UnlockDiagnosticVMOptions`.
 
 ## JVM, GC e desempenho
 
@@ -621,7 +648,7 @@ A tabela resume o que mudou na coleta de lixo. O G1 continua sendo o coletor pad
 | --- | --- | --- | --- |
 | G1 | Coletas mistas abortáveis quando podem estourar a meta de pausa | 12 | [344](https://openjdk.org/jeps/344) |
 | G1 | Devolve ao SO a memória não usada quando a aplicação está ociosa | 12 | [346](https://openjdk.org/jeps/346) |
-| G1 | Alocação consciente de NUMA | 14 | [345](https://openjdk.org/jeps/345) |
+| G1 | Alocação consciente de NUMA, ativada com `-XX:+UseNUMA` | 14 | [345](https://openjdk.org/jeps/345) |
 | G1 | *Uncommit* feito de forma concorrente, fora da pausa | 16 | [release notes](https://www.oracle.com/java/technologies/javase/16-relnote-issues.html) |
 | Shenandoah | Entra como experimental | 12 | [189](https://openjdk.org/jeps/189) |
 | Shenandoah | Vira recurso de produção | 15 | [379](https://openjdk.org/jeps/379) |
@@ -637,7 +664,9 @@ A tabela resume o que mudou na coleta de lixo. O G1 continua sendo o coletor pad
 
 **Chegou em:** Java 15 (final, [JEP 377](https://openjdk.org/jeps/377) e [JEP 379](https://openjdk.org/jeps/379))
 
-A JEP 377 torna o ZGC recurso de produção, e a JEP 379 faz o mesmo com o Shenandoah. O ZGC tinha entrado como experimental no Java 11 ([JEP 333](https://openjdk.org/jeps/333)); o Shenandoah, no Java 12 ([JEP 189](https://openjdk.org/jeps/189)). Os dois são coletores concorrentes de baixa latência: fazem quase todo o trabalho com a aplicação rodando. Pela JEP 189, as pausas do Shenandoah não dependem do tamanho do heap. No Java 11, usar o ZGC exigia `-XX:+UnlockExperimentalVMOptions -XX:+UseZGC`. A partir do Java 15, basta a flag do coletor:
+A JEP 377 torna o ZGC recurso de produção, e a JEP 379 faz o mesmo com o Shenandoah. O ZGC tinha entrado como experimental no Java 11 ([JEP 333](https://openjdk.org/jeps/333) e [post do Java 11](/posts/java-11/#recursos-em-preview-ou-incubadora-nesta-lts)); o Shenandoah, no Java 12 ([JEP 189](https://openjdk.org/jeps/189)). Os dois são coletores concorrentes de baixa latência: fazem quase todo o trabalho com a aplicação rodando, em vez de pará-la.
+
+Pela JEP 189, as pausas do Shenandoah não dependem do tamanho do heap, e o coletor é indicado para aplicações que priorizam tempo de resposta e pausas curtas e previsíveis; outros algoritmos priorizam vazão (*throughput*) ou uso de memória. Como o G1 continua sendo o padrão, adotar um dos dois é uma escolha explícita, que vale medir com a carga real da aplicação. No Java 11, usar o ZGC exigia `-XX:+UnlockExperimentalVMOptions -XX:+UseZGC`. A partir do Java 15, basta a flag do coletor:
 
 ```bash
 # Java 15+: sem UnlockExperimentalVMOptions
@@ -645,7 +674,11 @@ java -XX:+UseZGC -jar app.jar
 java -XX:+UseShenandoahGC -jar app.jar
 ```
 
-No Java 16, a [JEP 376](https://openjdk.org/jeps/376) tirou das *safepoints* o processamento por thread do ZGC, incluindo a varredura das pilhas. As operações que crescem com o tamanho do heap e do metaspace já eram concorrentes. A meta declarada na JEP é gastar menos de um milissegundo dentro das safepoints do ZGC em máquinas típicas. É uma meta de projeto, não um benchmark.
+Atenção à distribuição: o Shenandoah não vem em todo JDK. Pela [página do Shenandoah na wiki do OpenJDK](https://wiki.openjdk.org/display/shenandoah/Main), a Oracle não o inclui em nenhuma versão, nem nos builds OpenJDK nem nos proprietários; a mesma página lista distribuições que o incluem, como Amazon Corretto, Azul Zulu e os binários da AdoptOpenJDK. No Temurin 17.0.20, a JVM inicia normalmente com `-XX:+UseShenandoahGC`. Confira a distribuição antes de adotar a flag.
+
+No Java 16, a [JEP 376](https://openjdk.org/jeps/376) reduziu ainda mais as pausas do ZGC. Uma *safepoint* é um ponto em que a JVM para todas as threads da aplicação para fazer um trabalho que exige o estado congelado. As operações do ZGC que crescem com o tamanho do heap e do metaspace já rodavam fora delas; faltava o processamento por thread, como a varredura das pilhas, que cresce com o número de threads. A JEP 376 levou esse trabalho para uma fase concorrente. A meta declarada é gastar menos de um milissegundo dentro das safepoints do ZGC em máquinas típicas. É uma meta de projeto, não um benchmark.
+
+Os dois coletores continuaram evoluindo: o ZGC ganhou um modo geracional no [Java 21](/posts/java-21/#zgc-geracional), e o modo geracional do Shenandoah virou recurso de produção no [Java 25](/posts/java-25/#shenandoah-geracional).
 
 ### G1 devolvendo memória
 
@@ -657,7 +690,10 @@ Antes desta JEP, o G1 só devolvia memória do heap numa full GC ou num ciclo co
 
 **Chegou em:** Java 12 (final, [JEP 341](https://openjdk.org/jeps/341)) e Java 13 (final, [JEP 350](https://openjdk.org/jeps/350))
 
-O Class Data Sharing (CDS) guarda num arquivo classes já processadas, que a JVM reaproveita na partida. A JEP 350 cita ganhos de tempo de inicialização e de memória, mas não publica números. Desde o Java 12, o próprio build do JDK gera um arquivo com as classes da lista padrão, e ele é usado automaticamente porque `-Xshare:auto` já era o padrão desde o Java 11 (JEP 341). Para desligar, use `-Xshare:off`. O Java 13 permite gerar, ao fim de uma execução, um arquivo com as classes da **sua** aplicação:
+O Class Data Sharing (CDS) guarda num arquivo classes já carregadas e processadas, que a JVM reaproveita na partida em vez de repetir o trabalho. A JEP 350 cita ganhos de tempo de inicialização e de memória, mas não publica números. Duas mudanças simplificaram o uso:
+
+- **Java 12 (JEP 341):** o próprio build do JDK passa a gerar um arquivo com as classes de uma lista padrão. Ele é usado automaticamente, porque `-Xshare:auto` já era o padrão desde o Java 11. Para desligar, use `-Xshare:off`.
+- **Java 13 (JEP 350):** um arquivo com as classes da **sua** aplicação pode ser gerado ao fim de uma execução. No Java 11, o AppCDS exigia três passos, com uma lista de classes intermediária ([post do Java 11](/posts/java-11/#application-class-data-sharing-appcds)); agora são dois:
 
 ```bash
 # 1. gera o arquivo ao encerrar a aplicação (JEP 350)
@@ -667,11 +703,13 @@ java -XX:ArchiveClassesAtExit=app.jsa -jar app.jar
 java -XX:SharedArchiveFile=app.jsa -jar app.jar
 ```
 
+A mesma ideia de reaproveitar trabalho feito antes da partida foi ampliada pelo Projeto Leyden no Java 24 e 25, com o cache AOT ([post do Java 25](/posts/java-25/#cache-aot-inicialização-e-warmup-mais-rápidos-projeto-leyden)).
+
 ### Outras mudanças na JVM
 
 - **Elastic Metaspace** (Java 16, [JEP 387](https://openjdk.org/jeps/387)): devolve ao SO mais rápido a memória de metadados de classes (metaspace) e reduz o consumo dessa área. A motivação da JEP cita aplicações com muitos class loaders pequenos e com carga e descarga intensa de classes.
-- **Biased locking desligado** (Java 15, [JEP 374](https://openjdk.org/jeps/374)): a otimização deixa de ser habilitada por padrão e as flags relacionadas ficam depreciadas. `-XX:+UseBiasedLocking` ainda funciona, mas gera aviso. A JEP argumenta que os ganhos eram de aplicações antigas, que sincronizam em toda operação (`Hashtable`, `Vector`), e que o código de biased locking era caro de manter.
-- **Novas implementações de `Socket` e `DatagramSocket`** (Java 13, [JEP 353](https://openjdk.org/jeps/353); Java 15, [JEP 373](https://openjdk.org/jeps/373)): o código antigo, uma mistura de Java e C, foi substituído por implementações mais simples e fáceis de manter, que as JEPs descrevem como fáceis de adaptar às threads leves do Project Loom (as futuras threads virtuais). Para reduzir o risco, as JEPs mantiveram as implementações antigas acessíveis pelas propriedades `jdk.net.usePlainSocketImpl` (Java 13) e `jdk.net.usePlainDatagramSocketImpl` (Java 15).
+- **Biased locking desligado** (Java 15, [JEP 374](https://openjdk.org/jeps/374)): *biased locking* é uma otimização da HotSpot que reduz o custo de um lock sem disputa, supondo que ele continua com a mesma thread até outra tentar adquiri-lo. Ela deixa de ser habilitada por padrão, e as flags relacionadas ficam depreciadas. `-XX:+UseBiasedLocking` ainda funciona, mas gera aviso. A JEP argumenta que os ganhos eram de aplicações antigas, que sincronizam em toda operação (`Hashtable`, `Vector`), e que o código de biased locking era caro de manter. No Java 18, as flags ficaram obsoletas: geram aviso e são ignoradas ([release notes do JDK 18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html) e [post do Java 21](/posts/java-21/#outras-remoções-e-depreciações)).
+- **Novas implementações de `Socket` e `DatagramSocket`** (Java 13, [JEP 353](https://openjdk.org/jeps/353); Java 15, [JEP 373](https://openjdk.org/jeps/373)): o código antigo, uma mistura de Java e C, foi substituído por implementações mais simples e fáceis de manter, que as JEPs descrevem como fáceis de adaptar às threads leves do Project Loom. Essas threads chegaram como [virtual threads no Java 21](/posts/java-21/#virtual-threads). Para reduzir o risco, as JEPs mantiveram as implementações antigas acessíveis pelas propriedades `jdk.net.usePlainSocketImpl` (Java 13) e `jdk.net.usePlainDatagramSocketImpl` (Java 15).
 
 ## Ferramentas
 
@@ -702,13 +740,17 @@ Exception in thread "main" java.lang.NullPointerException: Cannot invoke "Helpfu
 	at HelpfulNpe.main(HelpfulNpe.java:9)
 ```
 
-Pela JEP, a mensagem só aparece em NPEs lançados pela própria JVM. Um `throw new NullPointerException()` explícito não ganha nada. Nomes de variáveis locais só aparecem se a classe foi compilada com a tabela de variáveis locais (`javac -g`); sem ela, a mensagem mostra algo como `<local4>`. A JEP também aponta que a mensagem revela detalhes do código-fonte. Se isso não for aceitável, a orientação é que a aplicação capture a exceção e descarte a mensagem, e não que o recurso seja desligado na configuração da JVM.
+Cuidados apontados pela JEP:
+
+- A mensagem só aparece em NPEs lançados pela própria JVM. Um `throw new NullPointerException()` explícito não ganha nada.
+- Nomes de variáveis locais só aparecem se a classe foi compilada com a tabela de variáveis locais (`javac -g`); sem ela, a mensagem mostra algo como `<local4>`.
+- A mensagem revela detalhes do código-fonte. A JEP admite que ela poderia ser desligada, mas recomenda outro caminho quando expor essa informação não for aceitável: a aplicação não imprime a mensagem, captura a exceção e a descarta.
 
 ### JFR Event Streaming
 
 **Chegou em:** Java 14 (final, [JEP 349](https://openjdk.org/jeps/349))
 
-Até o Java 13, consumir dados do JDK Flight Recorder exigia gravar um arquivo e depois lê-lo. A JEP 349 adiciona ao pacote `jdk.jfr.consumer` a assinatura de eventos em tempo real, direto do repositório em disco, sem gerar um arquivo de gravação. Isso abre espaço para monitoramento contínuo dentro da própria aplicação.
+O JDK Flight Recorder (JFR) registra eventos da JVM e da aplicação com baixo custo e chegou ao OpenJDK no Java 11 ([post do Java 11](/posts/java-11/#flight-recorder-no-openjdk)). Até o Java 13, porém, consumir esses dados exigia iniciar uma gravação, pará-la, gravar o conteúdo em disco e só então ler o arquivo. Isso serve para análise de desempenho, mas não para monitoramento. A JEP 349 adiciona ao pacote `jdk.jfr.consumer` a assinatura de eventos em tempo real, lidos direto do repositório em disco, sem gerar um arquivo de gravação. Com isso, a própria aplicação pode acompanhar CPU, GC e outros eventos enquanto roda.
 
 ```java title="MonitorJfr.java"
 import java.time.Duration;
@@ -733,17 +775,30 @@ public class MonitorJfr {
 }
 ```
 
+Os valores mudam a cada execução. Um exemplo de saída no Temurin 17.0.20:
+
+```text
+GC: G1Full em PT0.014564125S
+CPU da máquina: 100.0%
+CPU da máquina: 41.9%
+```
+
 `EventStream.openRepository()` e `EventStream.openFile(Path)` oferecem a mesma API para ler de outro repositório ou de um arquivo `.jfr` já gravado.
 
 ### jpackage
 
 **Chegou em:** Java 14 (incubadora, [JEP 343](https://openjdk.org/jeps/343)) → Java 16 (final, [JEP 392](https://openjdk.org/jeps/392))
 
-O `jpackage` gera instaladores nativos de aplicações Java autocontidas: `msi` e `exe` no Windows, `pkg` e `dmg` no macOS, `deb` e `rpm` no Linux. Pela JEP 392, a ferramenta ficou em incubação no 14 e no 15 e virou recurso de produção no 16. A ferramenta parte do `javapackager` do JavaFX, sem o suporte a Java Web Start ([JEP 343](https://openjdk.org/jeps/343)), e a [JEP 367](https://openjdk.org/jeps/367) a indica, junto com o `jlink`, a quem usava o Pack200 para reduzir o tamanho de aplicações. Combinada com `jlink`, que gera um runtime só com os módulos necessários, produz um pacote que não exige Java instalado na máquina.
+Pela JEP 343, muitas aplicações Java precisam ser instaladas como programas nativos do sistema, e entregar só um JAR não basta. O Oracle JDK 8 tinha o `javapackager`, mas ele saiu no JDK 11 junto com o JavaFX ([JEP 343](https://openjdk.org/jeps/343)). O `jpackage` retoma a ideia sem o suporte a Java Web Start: gera instaladores nativos de aplicações Java autocontidas, nos formatos `msi` e `exe` no Windows, `pkg` e `dmg` no macOS, e `deb` e `rpm` no Linux. Pela JEP 392, a ferramenta ficou em incubação no 14 e no 15 e virou recurso de produção no 16.
+
+"Autocontida" quer dizer que o pacote leva junto um runtime do Java: por padrão, o `jpackage` chama o `jlink` ([post do Java 11](/posts/java-11/#jlink-runtime-sob-medida)) para montar esse runtime, e a máquina de destino não precisa ter Java instalado. A [JEP 367](https://openjdk.org/jeps/367) indica essa dupla a quem usava o Pack200 para reduzir o tamanho de aplicações.
 
 ```bash
+# empacota todos os arquivos de target/ num instalador .deb; app.jar tem a classe principal
 jpackage --name minha-app --input target/ --main-jar app.jar --type deb
 ```
+
+Não há compilação cruzada: pela JEP 392, para gerar um pacote do Windows é preciso rodar o `jpackage` no Windows, e o mesmo vale para os outros sistemas.
 
 ## Segurança
 
@@ -751,7 +806,12 @@ jpackage --name minha-app --input target/ --main-jar app.jar --type deb
 
 **Chegou em:** Java 17 (final, [JEP 415](https://openjdk.org/jeps/415))
 
-A JEP 415 abre lembrando que desserializar dados não confiáveis é uma atividade inerentemente perigosa: um stream montado com cuidado pode executar código de classes arbitrárias. O Java 9 criou filtros por stream e um filtro global estático ([JEP 290](https://openjdk.org/jeps/290)). Segundo a JEP 415, o filtro por stream depende de cada criador do stream lembrar de configurá-lo, e o filtro global precisa servir a todos os contextos da aplicação, por isso acaba permissivo demais ou restritivo demais. A JEP 415 adiciona uma **fábrica de filtros** para a JVM inteira. Ela é chamada a cada `ObjectInputStream` criado e a cada `setObjectInputFilter`, e decide qual filtro vale naquele contexto. A classe `ObjectInputFilter` ganhou também `merge`, `allowFilter`, `rejectFilter` e `rejectUndecidedClass` ([Javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/ObjectInputFilter.html)).
+A JEP 415 abre lembrando que desserializar dados não confiáveis é uma atividade inerentemente perigosa: um stream montado com cuidado pode executar código de classes arbitrárias. Um **filtro de desserialização** (`ObjectInputFilter`) decide quais classes podem ser lidas. O Java 9 criou dois tipos ([JEP 290](https://openjdk.org/jeps/290)), e a JEP 415 aponta o limite de cada um:
+
+- o **filtro por stream** depende de quem cria cada `ObjectInputStream` lembrar de configurá-lo;
+- o **filtro global estático** precisa servir a todos os contextos da aplicação, por isso acaba permissivo demais ou restritivo demais.
+
+A JEP 415 adiciona uma **fábrica de filtros** para a JVM inteira. Ela é chamada a cada `ObjectInputStream` criado e a cada `setObjectInputFilter`, e decide qual filtro vale naquele contexto, por exemplo combinando o filtro pedido pelo código com uma regra mínima da aplicação. A classe `ObjectInputFilter` ganhou também `merge`, `allowFilter`, `rejectFilter` e `rejectUndecidedClass` para montar essas combinações ([Javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/ObjectInputFilter.html)).
 
 ```java title="FiltroDesserializacao.java" {19-21}
 import java.io.ByteArrayInputStream;
@@ -835,13 +895,13 @@ public class EdDsa {
 }
 ```
 
-### Padrões criptográficos mais restritos
+### Padrões de segurança mais restritos
 
-Mudanças de configuração que não são JEPs, mas quebram integrações antigas:
+Mudanças de configuração que não são JEPs, mas podem quebrar integrações antigas:
 
-- **Java 16: TLS 1.0 e 1.1 desabilitados por padrão.** Podem ser reabilitados, por sua conta e risco, removendo `TLSv1` e `TLSv1.1` de `jdk.tls.disabledAlgorithms` no `java.security` ([release notes do JDK 16](https://www.oracle.com/java/technologies/javase/16-relnote-issues.html)).
-- **Java 17: JARs assinados com SHA-1 passam a ser tratados como não assinados.** Há exceções para JARs com carimbo de tempo anterior a 1º de janeiro de 2019 e para certificados que não encadeiam até uma CA do `cacerts` padrão ([release notes do JDK 17](https://www.oracle.com/java/technologies/javase/17-relnote-issues.html)).
 - **Java 12: propriedade `java.security.manager`** passa a aceitar `allow` e `disallow`, que controlam se um Security Manager pode ser instalado em tempo de execução ([release notes do JDK 12](https://www.oracle.com/java/technologies/javase/12-relnote-issues.html)).
+- **Java 16: TLS 1.0 e 1.1 desabilitados por padrão.** Podem ser reabilitados, por sua conta e risco, removendo `TLSv1` e `TLSv1.1` de `jdk.tls.disabledAlgorithms` no `java.security` ([release notes do JDK 16](https://www.oracle.com/java/technologies/javase/16-relnote-issues.html)).
+- **Java 17: JARs assinados com SHA-1 passam a ser tratados como não assinados.** Nas [release notes do JDK 17](https://www.oracle.com/java/technologies/javase/17-relnote-issues.html), a Oracle lista duas exceções: JARs com carimbo de tempo anterior a 1º de janeiro de 2019 e certificados que não encadeiam até uma CA do `cacerts` padrão. A atualização 17.0.5 endureceu a regra e manteve só a exceção do carimbo de tempo ([release notes do JDK 17.0.5](https://www.oracle.com/java/technologies/javase/17-0-5-relnotes.html)). Nos builds do OpenJDK, a restrição não estava no 17 original e entrou justamente no 17.0.5 (compare o `java.security` das tags [jdk-17-ga](https://github.com/openjdk/jdk/blob/jdk-17-ga/src/java.base/share/conf/security/java.security) e [jdk-17.0.5-ga](https://github.com/openjdk/jdk17u/blob/jdk-17.0.5-ga/src/java.base/share/conf/security/java.security)). Em qualquer atualização recente do 17, vale a regra mais rígida.
 
 ## Removidos e depreciados
 
@@ -865,7 +925,7 @@ Cada linha traz a fonte oficial. "Depreciado para remoção" significa que o rec
 | Applet API | Depreciada para remoção | 17 | [JEP 398](https://openjdk.org/jeps/398) | — |
 | Security Manager | Depreciado para remoção, com aviso em tempo de execução | 17 | [JEP 411](https://openjdk.org/jeps/411) | — |
 
-Sobre o Security Manager, a JEP 411 define os avisos. Se ele for ligado pela linha de comando (`-Djava.security.manager`), a JVM avisa na partida. Se a aplicação chamar `System.setSecurityManager`, o aviso sai na primeira chamada de cada classe chamadora. Nos dois casos, o aviso não pode ser suprimido.
+Sobre o Security Manager, a JEP 411 define os avisos. Se ele for ligado pela linha de comando (`-Djava.security.manager`), a JVM avisa na partida. Se a aplicação chamar `System.setSecurityManager`, o aviso sai uma vez para cada classe chamadora. Nos dois casos, o aviso não pode ser suprimido. O fim dessa história está nos posts seguintes: o Security Manager foi desativado permanentemente no Java 24 ([post do Java 25](/posts/java-25/#security-manager-desativado-permanentemente)), e a Applet API foi removida no Java 26 ([post do Java 29](/posts/java-29/#applet-api-removida)).
 
 ## Recursos em preview ou incubadora nesta LTS
 
@@ -875,7 +935,14 @@ Nada desta seção é final no Java 17. Recursos em preview exigem `--enable-pre
 
 **Chegou em:** Java 17 (preview, [JEP 406](https://openjdk.org/jeps/406))
 
-A JEP 406 leva os padrões de tipo para os rótulos `case`. O seletor pode ser de qualquer tipo de referência, `case null` passa a ser permitido e, com um tipo selado, o compilador verifica se todos os subtipos foram cobertos. A preview do Java 17 introduziu os *guarded patterns* com `&&` e os padrões entre parênteses. A JEP também define **dominância**: um `case CharSequence cs` antes de `case String s` é erro de compilação. O recurso passou por mais rodadas de preview e só se tornou final no Java 21 ([JEP 441](https://openjdk.org/jeps/441)), com sintaxe diferente para as guardas (`when` no lugar de `&&`).
+A JEP 406 leva os padrões de tipo, os mesmos do `instanceof`, para os rótulos `case`. Com isso:
+
+- o valor avaliado pelo `switch` (o **seletor**) pode ser de qualquer tipo de referência, e `case null` passa a ser permitido;
+- com um tipo selado, o compilador verifica se todos os subtipos foram cobertos (**exaustividade**);
+- um **guarded pattern** junta um padrão e uma condição, como `case String s && s.isBlank()`; a JEP também traz padrões entre parênteses para resolver ambiguidades;
+- vale a regra de **dominância**: um `case` que nunca poderia ser alcançado, como `case String s` depois de `case CharSequence cs`, é erro de compilação.
+
+O recurso passou por mais rodadas de preview e só se tornou final no Java 21 ([JEP 441](https://openjdk.org/jeps/441)), com sintaxe diferente para as guardas (`when` no lugar de `&&`). Os detalhes da versão final estão no [post do Java 21](/posts/java-21/#pattern-matching-para-switch).
 
 ```java title="PatternSwitch.java"
 public class PatternSwitch {
@@ -923,13 +990,13 @@ java --enable-preview --source 17 PatternSwitch.java
 
 **Chegou em:** Java 14 (incubadora, [JEP 370](https://openjdk.org/jeps/370)) → Java 15 (2ª incubadora, [JEP 383](https://openjdk.org/jeps/383)) → Java 16 (3ª incubadora, [JEP 393](https://openjdk.org/jeps/393)) → Java 17 (incubadora, [JEP 412](https://openjdk.org/jeps/412))
 
-A proposta é substituir o JNI e o uso de `ByteBuffer` direto ou `Unsafe` para acessar memória fora do heap e chamar bibliotecas nativas, com uma API em Java puro. Até o Java 16 eram duas APIs em incubadora: a de acesso à memória (JEPs 370, 383 e 393) e a Foreign Linker API ([JEP 389](https://openjdk.org/jeps/389)). A JEP 412 junta as duas numa só, que no Java 17 ainda está no módulo de incubadora `jdk.incubator.foreign`. A API só se tornou final no Java 22 ([JEP 454](https://openjdk.org/jeps/454)). Como uma API em incubadora pode mudar ou ser removida antes de virar final ([JEP 11](https://openjdk.org/jeps/11)), este artigo não traz exemplo de código para ela.
+A proposta é substituir o JNI e o uso de `ByteBuffer` direto ou `Unsafe` para acessar memória fora do heap e chamar bibliotecas nativas, com uma API em Java puro. Até o Java 16 eram duas APIs em incubadora: a de acesso à memória (JEPs 370, 383 e 393) e a Foreign Linker API ([JEP 389](https://openjdk.org/jeps/389)). A JEP 412 junta as duas numa só, que no Java 17 ainda está no módulo de incubadora `jdk.incubator.foreign`. A API só se tornou final no Java 22 ([JEP 454](https://openjdk.org/jeps/454)), com exemplos no [post do Java 25](/posts/java-25/#foreign-function--memory-api). Como uma API em incubadora pode mudar ou ser removida antes de virar final ([JEP 11](https://openjdk.org/jeps/11)), este artigo não traz exemplo de código para ela.
 
 ### Vector API
 
 **Chegou em:** Java 16 (incubadora, [JEP 338](https://openjdk.org/jeps/338)) → Java 17 (2ª incubadora, [JEP 414](https://openjdk.org/jeps/414))
 
-A Vector API expressa cálculos vetoriais que a JVM compila, em tempo de execução, para instruções vetoriais (SIMD) das arquiteturas de CPU suportadas. No Java 17 fica no módulo `jdk.incubator.vector` e precisa de `--add-modules jdk.incubator.vector`.
+A Vector API expressa cálculos vetoriais que a JVM compila, em tempo de execução, para instruções vetoriais das arquiteturas de CPU suportadas. Essas instruções (SIMD, *single instruction, multiple data*) aplicam a mesma operação a vários valores de uma vez. No Java 17, a API fica no módulo `jdk.incubator.vector` e precisa de `--add-modules jdk.incubator.vector`. Ela continuou em incubadora nas LTS seguintes; a situação mais recente está no [post do Java 29](/posts/java-29/#vector-api).
 
 ## O que observar na migração a partir do Java 11
 
@@ -939,7 +1006,9 @@ A Vector API expressa cálculos vetoriais que a JVM compila, em tempo de execuç
 
 A JEP 396 tornou o encapsulamento forte o padrão; a JEP 403 removeu a opção que permitia relaxá-lo.
 
-Pelas [release notes do JDK 16](https://www.oracle.com/java/technologies/javase/16-relnote-issues.html), código existente que usa a maioria das classes, métodos ou campos internos do JDK deixa de rodar com essa mudança. Os módulos existem desde o Java 9, mas até o Java 15 o padrão era `--illegal-access=permit`. Com isso, código no classpath continuava acessando por reflexão os membros não públicos dos pacotes que já existiam no JDK 8, com um único aviso no primeiro acesso. No Java 16, o padrão virou `deny`. No Java 17, a opção `--illegal-access` ficou obsoleta: qualquer valor é ignorado com um aviso.
+O contexto: desde o Java 9, o JDK é dividido em módulos (o sistema de módulos, ou JPMS), e cada módulo declara quais pacotes expõe. Os elementos internos, como os pacotes não exportados e os campos privados de `java.lang.String` usados no exemplo abaixo, não deveriam ser acessíveis de fora ([post do Java 11](/posts/java-11/#encapsulamento-das-apis-internas-do-jdk)). Para não quebrar tudo de uma vez, até o Java 15 o padrão era `--illegal-access=permit`: código no classpath (o chamado *módulo sem nome*) continuava acessando por reflexão os membros não públicos dos pacotes que já existiam no JDK 8, com um único aviso no primeiro acesso. No Java 16, o padrão virou `deny`. No Java 17, a opção `--illegal-access` ficou obsoleta: qualquer valor é ignorado com um aviso. Pelas [release notes do JDK 16](https://www.oracle.com/java/technologies/javase/16-relnote-issues.html), código existente que usa a maioria das classes, métodos ou campos internos do JDK deixa de rodar com essa mudança.
+
+O diagrama compara o que acontece com a mesma chamada em cada versão:
 
 ![Diagrama: a mesma chamada setAccessible(true) em String.value funciona com aviso no Java 9 a 15, falha por padrão no Java 16 e falha sempre no Java 17; só sun.misc e sun.reflect continuam abertos e --add-opens libera pacotes específicos](/posts/java-17/encapsulamento-forte.svg)
 
@@ -1004,6 +1073,8 @@ A correção duradoura é eliminar o acesso: **atualizar a biblioteca** que o fa
 3. Rode os testes no Java 17 e procure `InaccessibleObjectException`. Para cada ocorrência, atualize a biblioteca responsável antes de recorrer a `--add-opens`.
 4. Revise as flags da JVM em Dockerfiles, scripts e manifests de deploy (CMS, `UseParallelOldGC`, PermGen, `Trace*`, biased locking, `--illegal-access`).
 5. Só então adote recursos novos como records, sealed classes e text blocks. Deixe recursos em preview fora do código de produção.
+
+Para planejar a migração como projeto, com análise, preparação, testes e implantação gradual, veja [o processo de migração em cinco fases](/posts/guia-atualizacoes-java/#o-processo-de-migração-em-cinco-fases) no guia da série.
 
 ## Todas as JEPs, versão a versão
 

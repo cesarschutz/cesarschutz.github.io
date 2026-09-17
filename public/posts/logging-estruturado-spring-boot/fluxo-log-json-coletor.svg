@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="430" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Do log.info() à consulta por campo</text>
+
+<!-- 1. código -->
+<rect x="30" y="72" width="190" height="178" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="125" y="100" font-size="13" font-weight="700" fill="#2b7fc4" text-anchor="middle">1 · CÓDIGO</text>
+<text x="125" y="124" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Aplicação</text>
+<g font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#374151" text-anchor="middle">
+<text x="125" y="156">log.info(...)</text>
+<text x="125" y="180">MDC.put(...)</text>
+<text x="125" y="204">addKeyValue(...)</text>
+</g>
+<text x="125" y="234" font-size="13" fill="#6b7280" text-anchor="middle">API SLF4J</text>
+<path d="M222 161 H256" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<!-- 2. formatador -->
+<rect x="260" y="72" width="190" height="178" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="355" y="100" font-size="13" font-weight="700" fill="#e07a1f" text-anchor="middle">2 · FORMATAÇÃO</text>
+<text x="355" y="124" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Logback</text>
+<text x="355" y="156" font-size="13" fill="#374151" text-anchor="middle">LogstashEncoder (XML)</text>
+<text x="355" y="180" font-size="13" fill="#6b7280" text-anchor="middle">ou</text>
+<text x="355" y="204" font-size="13" fill="#374151" text-anchor="middle">nativo do Boot 3.4+</text>
+<text x="355" y="228" font-size="13" fill="#6b7280" text-anchor="middle">ecs · logstash · gelf</text>
+<path d="M452 161 H486" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<!-- 3. saída -->
+<rect x="490" y="72" width="190" height="178" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="585" y="100" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">3 · SAÍDA</text>
+<text x="585" y="124" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">1 JSON por linha</text>
+<text x="585" y="156" font-size="13" fill="#374151" text-anchor="middle">console (stdout)</text>
+<text x="585" y="180" font-size="13" fill="#6b7280" text-anchor="middle">ou</text>
+<text x="585" y="204" font-size="13" fill="#374151" text-anchor="middle">arquivo (app.log)</text>
+<path d="M682 161 H716" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+
+<!-- 4. coletor -->
+<rect x="720" y="72" width="190" height="178" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="815" y="100" font-size="13" font-weight="700" fill="#4b5563" text-anchor="middle">4 · COLETA</text>
+<text x="815" y="124" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Coletor + backend</text>
+<text x="815" y="156" font-size="13" fill="#374151" text-anchor="middle">agente lê a saída</text>
+<text x="815" y="180" font-size="13" fill="#374151" text-anchor="middle">e envia para</text>
+<text x="815" y="204" font-size="13" fill="#374151" text-anchor="middle">Elasticsearch, Loki,</text>
+<text x="815" y="228" font-size="13" fill="#374151" text-anchor="middle">Graylog…</text>
+
+<!-- linha JSON e consulta -->
+<path d="M815 252 V284" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<rect x="30" y="290" width="880" height="112" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="2"/>
+<text x="50" y="318" font-size="13" font-weight="700" fill="#2e9e5b">No backend, cada chave do JSON vira um campo pesquisável (linha simplificada)</text>
+<text x="50" y="346" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#374151">{"level":"INFO","message":"Pedido processado","userId":"42","orderId":789,"amount":150.5}</text>
+<text x="50" y="380" font-size="13" fill="#6b7280">Consulta: </text>
+<text x="114" y="380" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#1f2937">userId = "42" AND orderId = 789</text>
+<text x="380" y="380" font-size="13" fill="#6b7280">— filtro por campo, sem regex sobre o texto</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 632" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="632" fill="#ffffff"/>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Versões LTS do Java 8 ao 29 e o suporte da Oracle</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">Oracle Java SE Support Roadmap, atualizado em 15/09/2026. Outros fornecedores publicam prazos próprios.</text>
+<line x1="150.0" y1="120" x2="150.0" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="150.0" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2014</text>
+<line x1="219.6" y1="120" x2="219.6" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="219.6" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2016</text>
+<line x1="289.3" y1="120" x2="289.3" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="289.3" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2018</text>
+<line x1="358.9" y1="120" x2="358.9" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="358.9" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2020</text>
+<line x1="428.5" y1="120" x2="428.5" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="428.5" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2022</text>
+<line x1="498.2" y1="120" x2="498.2" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="498.2" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2024</text>
+<line x1="567.8" y1="120" x2="567.8" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="567.8" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2026</text>
+<line x1="637.5" y1="120" x2="637.5" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="637.5" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2028</text>
+<line x1="707.1" y1="120" x2="707.1" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="707.1" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2030</text>
+<line x1="776.7" y1="120" x2="776.7" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="776.7" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2032</text>
+<line x1="846.4" y1="120" x2="846.4" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="846.4" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2034</text>
+<line x1="916.0" y1="120" x2="916.0" y2="508" stroke="#e5e7eb" stroke-width="1"/>
+<text x="916.0" y="112" font-size="13" fill="#6b7280" text-anchor="middle">2036</text>
+<line x1="592.5" y1="122" x2="592.5" y2="492" stroke="#d9534f" stroke-width="2" stroke-dasharray="5 4"/>
+<rect x="538.5" y="124" width="108" height="22" rx="6" fill="#ffffff"/>
+<text x="592.5" y="140" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">hoje: set/2026</text>
+<text x="24" y="173" font-size="16" font-weight="700" fill="#111827">Java 8</text>
+<text x="24" y="191" font-size="13" fill="#6b7280">mar/2014</text>
+<rect x="155.8" y="154" width="278.5" height="30" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<rect x="434.3" y="154" width="304.7" height="30" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="295.1" y="174" font-size="13" fill="#111827" text-anchor="middle">até mar/2022</text>
+<text x="586.7" y="174" font-size="13" fill="#111827" text-anchor="middle">até dez/2030</text>
+<circle cx="155.8" cy="169" r="5" fill="#111827"/>
+<text x="24" y="225" font-size="16" font-weight="700" fill="#111827">Java 11</text>
+<text x="24" y="243" font-size="13" fill="#6b7280">set/2018</text>
+<rect x="312.5" y="206" width="174.1" height="30" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<rect x="486.6" y="206" width="290.2" height="30" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="399.5" y="226" font-size="13" fill="#111827" text-anchor="middle">até set/2023</text>
+<text x="631.7" y="226" font-size="13" fill="#111827" text-anchor="middle">até jan/2032</text>
+<circle cx="312.5" cy="221" r="5" fill="#111827"/>
+<text x="24" y="277" font-size="16" font-weight="700" fill="#111827">Java 17</text>
+<text x="24" y="295" font-size="13" fill="#6b7280">set/2021</text>
+<rect x="416.9" y="258" width="174.1" height="30" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<rect x="591.0" y="258" width="104.5" height="30" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="504.0" y="278" font-size="13" fill="#111827" text-anchor="middle">até set/2026</text>
+<text x="643.3" y="278" font-size="13" fill="#111827" text-anchor="middle">até set/2029</text>
+<circle cx="416.9" cy="273" r="5" fill="#111827"/>
+<text x="24" y="329" font-size="16" font-weight="700" fill="#111827">Java 21</text>
+<text x="24" y="347" font-size="13" fill="#6b7280">set/2023</text>
+<rect x="486.6" y="310" width="174.1" height="30" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<rect x="660.7" y="310" width="104.5" height="30" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="573.6" y="330" font-size="13" fill="#111827" text-anchor="middle">até set/2028</text>
+<text x="712.9" y="330" font-size="13" fill="#111827" text-anchor="middle">até set/2031</text>
+<circle cx="486.6" cy="325" r="5" fill="#111827"/>
+<text x="24" y="381" font-size="16" font-weight="700" fill="#111827">Java 25</text>
+<text x="24" y="399" font-size="13" fill="#6b7280">set/2025</text>
+<rect x="556.2" y="362" width="174.1" height="30" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<rect x="730.3" y="362" width="104.5" height="30" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="643.3" y="382" font-size="13" fill="#111827" text-anchor="middle">até set/2030</text>
+<text x="782.5" y="382" font-size="13" fill="#111827" text-anchor="middle">até set/2033</text>
+<circle cx="556.2" cy="377" r="5" fill="#111827"/>
+<text x="24" y="433" font-size="16" font-weight="700" fill="#111827">Java 29</text>
+<text x="24" y="451" font-size="13" fill="#6b7280">prevista set/2027</text>
+<rect x="625.8" y="414" width="174.1" height="30" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="799.9" y="414" width="104.5" height="30" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="712.9" y="434" font-size="13" fill="#111827" text-anchor="middle">até set/2032</text>
+<text x="852.2" y="434" font-size="13" fill="#111827" text-anchor="middle">até set/2035</text>
+<circle cx="625.8" cy="429" r="5" fill="#111827"/>
+<text x="24" y="485" font-size="16" font-weight="700" fill="#111827">Não LTS</text>
+<text x="24" y="503" font-size="13" fill="#6b7280">a cada 6 meses</text>
+<rect x="278.7" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="296.1" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="330.9" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="348.3" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="365.7" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="383.1" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="400.5" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="435.3" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="452.8" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="470.2" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="505.0" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="522.4" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="539.8" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="574.6" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="592.0" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<rect x="609.4" y="470" width="15.4" height="22" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="277.8" y="510" font-size="13" fill="#6b7280">9, 10, 12 a 16, 18 a 20, 22 a 24, 26, 27 e 28: suporte só até a versão seguinte</text>
+<rect x="24" y="542" width="28" height="18" rx="5" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="62" y="556" font-size="13" fill="#111827">Premier Support (suporte pago padrão)</text>
+<rect x="330" y="542" width="28" height="18" rx="5" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="368" y="556" font-size="13" fill="#111827">Extended Support (pago, prazo estendido)</text>
+<rect x="660" y="542" width="28" height="18" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="698" y="556" font-size="13" fill="#111827">tracejado: previsto</text>
+<rect x="24" y="576" width="892" height="36" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+<text x="470" y="599" font-size="14" fill="#111827" text-anchor="middle">Premier e Extended são suporte pago da Oracle. Nas LTS a partir do 17, o roadmap diz “ou depois” após cada data.</text>
+</svg>

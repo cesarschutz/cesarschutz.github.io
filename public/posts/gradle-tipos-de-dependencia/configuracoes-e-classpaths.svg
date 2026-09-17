@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 590" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="590" fill="#ffffff"/>
+<text x="30" y="44" font-size="21" font-weight="700" fill="#111827">Onde cada configuração entra</text>
+<text x="30" y="70" font-size="14" fill="#6b7280">● = a dependência entra naquele classpath (projeto com o plugin java-library)</text>
+
+<!-- cabeçalhos de grupo -->
+<text x="365" y="106" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">código principal (src/main)</text>
+<text x="615" y="106" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">testes (src/test)</text>
+<text x="817" y="106" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">quem consome a lib</text>
+<path d="M225 116 H505 M525 116 H705 M735 116 H900" stroke="#9ca3af" stroke-width="1.5"/>
+
+<!-- cabeçalhos de coluna -->
+<g font-size="13" fill="#4b5563" text-anchor="middle">
+<text x="265" y="140">compilação</text>
+<text x="365" y="140">execução</text>
+<text x="465" y="140">processadores</text>
+<text x="565" y="140">compilação</text>
+<text x="665" y="140">execução</text>
+<text x="817" y="140">recebe a dependência em</text>
+</g>
+
+<!-- separadores -->
+<path d="M515 125 V540 M715 125 V540" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+<!-- linhas: código principal (azul) -->
+<g font-size="14" font-weight="700" font-family="ui-monospace, Menlo, monospace">
+<rect x="30" y="160" width="880" height="46" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="46" y="188" fill="#2b7fc4">api</text>
+<rect x="30" y="214" width="880" height="46" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="46" y="242" fill="#2b7fc4">implementation</text>
+<rect x="30" y="268" width="880" height="46" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="46" y="296" fill="#2b7fc4">compileOnly</text>
+<rect x="30" y="322" width="880" height="46" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="46" y="350" fill="#2b7fc4">runtimeOnly</text>
+<!-- processador (laranja) -->
+<rect x="30" y="376" width="880" height="46" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="46" y="404" fill="#e07a1f">annotationProcessor</text>
+<!-- testes (verde) -->
+<rect x="30" y="430" width="880" height="46" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="46" y="458" fill="#2e9e5b">testImplementation</text>
+<rect x="30" y="484" width="880" height="46" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="46" y="512" fill="#2e9e5b">testRuntimeOnly</text>
+</g>
+
+<!-- marcas: centros das linhas y = 183, 237, 291, 345, 399, 453, 507 -->
+<g fill="#2b7fc4">
+<circle cx="265" cy="183" r="8"/><circle cx="365" cy="183" r="8"/><circle cx="565" cy="183" r="8"/><circle cx="665" cy="183" r="8"/>
+<circle cx="265" cy="237" r="8"/><circle cx="365" cy="237" r="8"/><circle cx="565" cy="237" r="8"/><circle cx="665" cy="237" r="8"/>
+<circle cx="265" cy="291" r="8"/>
+<circle cx="365" cy="345" r="8"/><circle cx="665" cy="345" r="8"/>
+</g>
+<circle cx="465" cy="399" r="8" fill="#e07a1f"/>
+<g fill="#2e9e5b">
+<circle cx="565" cy="453" r="8"/><circle cx="665" cy="453" r="8"/>
+<circle cx="665" cy="507" r="8"/>
+</g>
+
+<!-- ausências -->
+<g stroke="#9ca3af" stroke-width="2">
+<path d="M459 183 h12"/>
+<path d="M459 237 h12"/>
+<path d="M359 291 h12 M459 291 h12 M559 291 h12 M659 291 h12"/>
+<path d="M259 345 h12 M459 345 h12 M559 345 h12"/>
+<path d="M259 399 h12 M359 399 h12 M559 399 h12 M659 399 h12"/>
+<path d="M259 453 h12 M359 453 h12 M459 453 h12"/>
+<path d="M259 507 h12 M359 507 h12 M459 507 h12 M559 507 h12"/>
+</g>
+
+<!-- consumidor -->
+<g font-size="13" text-anchor="middle">
+<text x="817" y="188" fill="#111827" font-weight="600">compilação e execução</text>
+<text x="817" y="242" fill="#111827" font-weight="600">só execução</text>
+<text x="817" y="296" fill="#6b7280">não recebe</text>
+<text x="817" y="350" fill="#111827" font-weight="600">só execução</text>
+<text x="817" y="404" fill="#6b7280">não recebe</text>
+<text x="817" y="458" fill="#6b7280">não recebe</text>
+<text x="817" y="512" fill="#6b7280">não recebe</text>
+</g>
+
+<text x="30" y="566" font-size="13" fill="#6b7280">compileOnly não chega aos testes: testImplementation herda de implementation, mas não de compileOnly.</text>
+</svg>

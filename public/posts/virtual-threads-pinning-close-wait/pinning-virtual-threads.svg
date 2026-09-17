@@ -1,77 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 830" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
-<rect width="720" height="830" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 1010" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="1010" fill="#ffffff"/>
 <defs>
-<marker id="ab" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2b7fc4"/></marker>
-<marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#d9534f"/></marker>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
 </defs>
 
-<rect x="24" y="22" width="6" height="26" fill="#2ec4a6"/>
-<text x="42" y="43" font-size="20" font-weight="700" fill="#1a1a1a">Por que o serviço congelou</text>
-<text x="696" y="41" font-size="11" fill="#9a9a9a" text-anchor="end">Sessão 02 · o incidente</text>
+<text x="470" y="46" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Por que o serviço congelou (Java 21 a 23)</text>
+<text x="470" y="72" font-size="15" fill="#6b7280" text-anchor="middle">pinning por synchronized: as poucas carriers ficam presas e nada mais executa</text>
 
-<rect x="200" y="84" width="320" height="52" rx="10" fill="#f4f9ff" stroke="#2b7fc4" stroke-width="2"/>
-<text x="360" y="106" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Pico da tarde · 10.000 requisições</text>
-<text x="360" y="124" font-size="10" fill="#6b7280" text-anchor="middle">autorização de cartão, Java 21, Spring Boot 3</text>
+<!-- pico -->
+<rect x="190" y="96" width="560" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="123" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Pico da tarde: milhares de requisições</text>
+<text x="470" y="146" font-size="14" fill="#4b5563" text-anchor="middle">autorização de cartão, Java 21, Spring Boot 3, Tomcat embarcado</text>
 
-<path d="M 360 140 L 360 172" fill="none" stroke="#2b7fc4" stroke-width="2.5" marker-end="url(#ab)"/>
+<line x1="470" y1="160" x2="470" y2="190" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<rect x="120" y="176" width="480" height="78" rx="10" fill="#eaf4fd" stroke="#2b7fc4" stroke-width="2"/>
-<text x="360" y="198" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Virtual threads — uma por requisição, custam quase nada</text>
-<rect x="146" y="210" width="80" height="28" rx="6" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="186" y="228" font-size="10" fill="#1a1a1a" text-anchor="middle">req 1</text>
-<rect x="233" y="210" width="80" height="28" rx="6" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="273" y="228" font-size="10" fill="#1a1a1a" text-anchor="middle">req 2</text>
-<rect x="320" y="210" width="80" height="28" rx="6" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="360" y="228" font-size="10" fill="#1a1a1a" text-anchor="middle">req 3</text>
-<rect x="407" y="210" width="80" height="28" rx="6" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="447" y="228" font-size="10" fill="#1a1a1a" text-anchor="middle">···</text>
-<rect x="494" y="210" width="80" height="28" rx="6" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="534" y="228" font-size="10" fill="#1a1a1a" text-anchor="middle">req 10k</text>
+<!-- virtual threads -->
+<rect x="110" y="196" width="720" height="110" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="224" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Uma virtual thread por requisição (baratas, a JVM cria quantas precisar)</text>
+<rect x="140" y="244" width="120" height="40" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="200" y="269" font-size="14" fill="#111827" text-anchor="middle">req 1</text>
+<rect x="276" y="244" width="120" height="40" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="336" y="269" font-size="14" fill="#111827" text-anchor="middle">req 2</text>
+<rect x="412" y="244" width="120" height="40" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="472" y="269" font-size="14" fill="#111827" text-anchor="middle">req 3</text>
+<rect x="548" y="244" width="120" height="40" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="608" y="269" font-size="14" fill="#111827" text-anchor="middle">…</text>
+<rect x="684" y="244" width="120" height="40" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="744" y="269" font-size="14" fill="#111827" text-anchor="middle">req 10.000</text>
 
-<path d="M 360 258 L 360 290" fill="none" stroke="#2b7fc4" stroke-width="2.5" marker-end="url(#ab)"/>
-<text x="374" y="279" font-size="11" font-weight="600" fill="#2b7fc4">montam nas carriers</text>
+<line x1="470" y1="306" x2="470" y2="350" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="486" y="333" font-size="14" font-weight="600" fill="#4b5563">para executar, cada uma precisa montar numa carrier</text>
 
-<rect x="60" y="296" width="600" height="150" rx="12" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="8 6"/>
-<text x="68" y="289" font-size="11" font-weight="700" fill="#d9534f">pinning — nenhuma consegue desmontar</text>
+<!-- janela de pinning -->
+<rect x="60" y="370" width="820" height="226" rx="12" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="8 6"/>
+<rect x="80" y="358" width="330" height="24" fill="#ffffff"/>
+<text x="90" y="376" font-size="15" font-weight="700" fill="#d9534f">pinning: nenhuma consegue desmontar</text>
 
-<rect x="120" y="310" width="480" height="76" rx="10" fill="#fdeaea" stroke="#d9534f" stroke-width="2"/>
-<text x="360" y="332" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Carrier threads — as threads reais do sistema operacional</text>
-<rect x="142" y="344" width="100" height="28" rx="6" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
-<text x="192" y="362" font-size="10" font-weight="700" fill="#d9534f" text-anchor="middle">presa</text>
-<rect x="254" y="344" width="100" height="28" rx="6" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
-<text x="304" y="362" font-size="10" font-weight="700" fill="#d9534f" text-anchor="middle">presa</text>
-<rect x="366" y="344" width="100" height="28" rx="6" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
-<text x="416" y="362" font-size="10" font-weight="700" fill="#d9534f" text-anchor="middle">presa</text>
-<rect x="478" y="344" width="100" height="28" rx="6" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
-<text x="528" y="362" font-size="10" font-weight="700" fill="#d9534f" text-anchor="middle">presa</text>
+<rect x="110" y="394" width="720" height="130" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="470" y="422" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Carrier threads: threads reais do sistema operacional</text>
+<text x="470" y="444" font-size="14" fill="#4b5563" text-anchor="middle">por padrão, uma por processador disponível (4 vCPUs = 4 carriers)</text>
+<rect x="140" y="462" width="156" height="42" rx="12" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
+<text x="218" y="488" font-size="14" font-weight="700" fill="#d9534f" text-anchor="middle">carrier 1: presa</text>
+<rect x="312" y="462" width="156" height="42" rx="12" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
+<text x="390" y="488" font-size="14" font-weight="700" fill="#d9534f" text-anchor="middle">carrier 2: presa</text>
+<rect x="484" y="462" width="156" height="42" rx="12" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
+<text x="562" y="488" font-size="14" font-weight="700" fill="#d9534f" text-anchor="middle">carrier 3: presa</text>
+<rect x="656" y="462" width="156" height="42" rx="12" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
+<text x="734" y="488" font-size="14" font-weight="700" fill="#d9534f" text-anchor="middle">carrier 4: presa</text>
 
-<text x="360" y="408" font-size="10" font-weight="600" fill="#d9534f" text-anchor="middle">cada uma bloqueou dentro de um bloco synchronized</text>
-<text x="360" y="426" font-size="10" fill="#6b7280" text-anchor="middle">a JVM não desmonta: o monitor pertence à thread do SO, não à virtual thread</text>
+<text x="470" y="552" font-size="15" font-weight="600" fill="#d9534f" text-anchor="middle">a virtual thread montada em cada uma bloqueou dentro de um synchronized</text>
+<text x="470" y="576" font-size="14" fill="#4b5563" text-anchor="middle">a JVM não a desmonta: quem consta como dono do monitor é a carrier, não a virtual thread</text>
 
-<path d="M 360 450 L 360 482" fill="none" stroke="#d9534f" stroke-width="2.5" marker-end="url(#ar)"/>
+<line x1="470" y1="596" x2="470" y2="632" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<rect x="120" y="486" width="480" height="140" rx="10" fill="#fdeaea" stroke="#ee8b8b" stroke-width="2"/>
-<rect x="120" y="486" width="480" height="34" rx="10" fill="#f4a6a6"/>
-<rect x="120" y="506" width="480" height="14" fill="#f4a6a6"/>
-<text x="360" y="508" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Estado do serviço</text>
-<rect x="142" y="532" width="436" height="28" rx="6" fill="#ffffff" stroke="#ee8b8b" stroke-width="1.5"/>
-<text x="156" y="551" font-size="10.5" fill="#1a1a1a">nenhum código roda — tudo parado esperando carrier</text>
-<rect x="142" y="568" width="436" height="28" rx="6" fill="#ffffff" stroke="#ee8b8b" stroke-width="1.5"/>
-<text x="156" y="587" font-size="10.5" fill="#1a1a1a">ninguém chega na linha que fecha o socket</text>
-<text x="360" y="614" font-size="10" font-weight="600" fill="#d9534f" text-anchor="middle">os clientes desistem e desligam do lado deles</text>
+<!-- estado do serviço -->
+<rect x="110" y="638" width="720" height="168" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="470" y="666" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Estado do serviço</text>
+<rect x="140" y="682" width="660" height="40" rx="12" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
+<text x="160" y="707" font-size="14" fill="#111827">as outras virtual threads esperam uma carrier livre, que não vem</text>
+<rect x="140" y="730" width="660" height="40" rx="12" fill="#ffffff" stroke="#d9534f" stroke-width="1.5"/>
+<text x="160" y="755" font-size="14" fill="#111827">nenhuma chega à linha que fecha o socket</text>
+<text x="470" y="792" font-size="14" font-weight="600" fill="#d9534f" text-anchor="middle">os clientes estouram o timeout e fecham a conexão do lado deles</text>
 
-<path d="M 360 630 L 360 660" fill="none" stroke="#d9534f" stroke-width="2.5" marker-end="url(#ar)"/>
+<line x1="470" y1="806" x2="470" y2="840" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<rect x="120" y="664" width="480" height="56" rx="10" fill="#fdeaea" stroke="#d9534f" stroke-width="2"/>
-<text x="360" y="686" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">Milhares de sockets em CLOSE_WAIT</text>
-<text x="360" y="704" font-size="10" fill="#6b7280" text-anchor="middle">JVM viva, CPU baixa, nenhuma exceção no log</text>
+<!-- close_wait -->
+<rect x="190" y="846" width="560" height="66" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="470" y="874" font-size="17" font-weight="700" fill="#d9534f" text-anchor="middle">Milhares de sockets em CLOSE_WAIT</text>
+<text x="470" y="897" font-size="14" fill="#4b5563" text-anchor="middle">JVM viva, CPU baixa, nenhuma exceção no log</text>
 
-<rect x="40" y="750" width="640" height="44" rx="10" fill="#fafafa" stroke="#d4d4d4" stroke-width="1.5" stroke-dasharray="5 4"/>
-<rect x="62" y="764" width="26" height="16" rx="4" fill="#eaf4fd" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="98" y="776" font-size="10" fill="#4b5563">virtual thread</text>
-<rect x="230" y="764" width="26" height="16" rx="4" fill="#fdeaea" stroke="#d9534f" stroke-width="1.5"/>
-<text x="266" y="776" font-size="10" fill="#4b5563">carrier presa</text>
-<rect x="410" y="766" width="30" height="12" rx="3" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="5 4"/>
-<text x="450" y="776" font-size="10" fill="#4b5563">janela onde tudo trava</text>
-<text x="40" y="814" font-size="9" fill="#9a9a9a">estilo inspirado em ByteByteGo</text>
+<!-- correção -->
+<rect x="110" y="934" width="720" height="58" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="470" y="959" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Java 24 em diante (JEP 491): a virtual thread desmonta mesmo dentro de synchronized</text>
+<text x="470" y="980" font-size="14" fill="#4b5563" text-anchor="middle">o Java 25 é a primeira LTS com essa correção</text>
 </svg>

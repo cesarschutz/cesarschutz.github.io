@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 610" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="610" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+</defs>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Text blocks: que espaços o compilador remove</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">Cada ponto (·) representa um espaço (JEP 378, final no Java 15)</text>
+
+<rect x="24" y="90" width="440" height="250" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="44" y="120" font-size="15" font-weight="700" fill="#2b7fc4">Você escreve</text>
+<g font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">
+<text x="44" y="154">String json = """</text>
+<text x="44" y="180"><tspan fill="#9ca3af">········</tspan>{</text>
+<text x="44" y="206"><tspan fill="#9ca3af">········</tspan><tspan fill="#e07a1f" font-weight="700">··</tspan>"id": 42,</text>
+<text x="44" y="232"><tspan fill="#9ca3af">········</tspan><tspan fill="#e07a1f" font-weight="700">··</tspan>"nome": "Ana"</text>
+<text x="44" y="258"><tspan fill="#9ca3af">········</tspan>}</text>
+<text x="44" y="284"><tspan fill="#9ca3af">········</tspan>""";</text>
+</g>
+<text x="44" y="320" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="700" fill="#9ca3af">··</text>
+<text x="68" y="320" font-size="13" fill="#374151">indentação incidental (removida)</text>
+<text x="274" y="320" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="700" fill="#e07a1f">··</text>
+<text x="298" y="320" font-size="13" fill="#374151">essencial (mantida)</text>
+
+<line x1="472" y1="215" x2="510" y2="215" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+
+<rect x="520" y="90" width="396" height="250" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="540" y="120" font-size="15" font-weight="700" fill="#2e9e5b">String resultante</text>
+<g font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">
+<text x="540" y="154">{<tspan fill="#2e9e5b">\n</tspan></text>
+<text x="540" y="180"><tspan fill="#e07a1f" font-weight="700">··</tspan>"id": 42,<tspan fill="#2e9e5b">\n</tspan></text>
+<text x="540" y="206"><tspan fill="#e07a1f" font-weight="700">··</tspan>"nome": "Ana"<tspan fill="#2e9e5b">\n</tspan></text>
+<text x="540" y="232">}<tspan fill="#2e9e5b">\n</tspan></text>
+</g>
+<text x="540" y="270" font-size="13" fill="#111827">A referência é a linha menos indentada,</text>
+<text x="540" y="290" font-size="13" fill="#111827">contando a linha do """ de fechamento.</text>
+<text x="540" y="314" font-size="13" fill="#111827">Espaços no fim das linhas também saem.</text>
+
+<text x="24" y="382" font-size="16" font-weight="700" fill="#111827">A posição do """ de fechamento muda o resultado</text>
+
+<rect x="24" y="400" width="284" height="186" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="44" y="430" font-size="15" font-weight="700" fill="#374151">Alinhado ao texto</text>
+<g font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">
+<text x="44" y="464">s = """</text>
+<text x="44" y="490"><tspan fill="#9ca3af">····</tspan>olá</text>
+<text x="44" y="516"><tspan fill="#9ca3af">····</tspan>"""</text>
+</g>
+<text x="44" y="562" font-size="14" fill="#111827">resultado: <tspan font-family="ui-monospace, SFMono-Regular, Menlo, monospace">"olá\n"</tspan></text>
+
+<rect x="328" y="400" width="284" height="186" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="348" y="430" font-size="15" font-weight="700" fill="#e07a1f">Recuado 2 colunas à esquerda</text>
+<g font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">
+<text x="348" y="464">s = """</text>
+<text x="348" y="490"><tspan fill="#9ca3af">··</tspan><tspan fill="#e07a1f" font-weight="700">··</tspan>olá</text>
+<text x="348" y="516"><tspan fill="#9ca3af">··</tspan>"""</text>
+</g>
+<text x="348" y="562" font-size="14" fill="#111827">resultado: <tspan font-family="ui-monospace, SFMono-Regular, Menlo, monospace">"<tspan fill="#e07a1f" font-weight="700">··</tspan>olá\n"</tspan></text>
+
+<rect x="632" y="400" width="284" height="186" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="652" y="430" font-size="15" font-weight="700" fill="#374151">Na mesma linha do texto</text>
+<g font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#111827">
+<text x="652" y="464">s = """</text>
+<text x="652" y="490"><tspan fill="#9ca3af">····</tspan>olá"""</text>
+</g>
+<text x="652" y="538" font-size="13" fill="#6b7280">sem quebra de linha no fim</text>
+<text x="652" y="562" font-size="14" fill="#111827">resultado: <tspan font-family="ui-monospace, SFMono-Regular, Menlo, monospace">"olá"</tspan></text>
+</svg>

@@ -79,7 +79,7 @@
 <text x="552.5" y="371" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">3ª preview</text>
 <text x="552.5" y="389" font-size="13" fill="#e07a1f" text-anchor="middle">JEP 538</text>
 <rect x="630" y="350" width="139" height="50" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="699.5" y="371" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">final (alvo)</text>
+<text x="699.5" y="371" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">final (previsto)</text>
 <text x="699.5" y="389" font-size="13" fill="#2e9e5b" text-anchor="middle">JEP 542</text>
 <rect x="12" y="404" width="761" height="58" rx="8" fill="#f9fafb"/>
 <text x="24" y="438" font-size="14" font-weight="700" fill="#111827">Vector API</text>
@@ -108,7 +108,7 @@
 <text x="24" y="554" font-size="14" font-weight="700" fill="#111827">G1 GC</text>
 <line x1="405.5" y1="549" x2="552.5" y2="549" stroke="#9ca3af" stroke-width="2"/>
 <rect x="336" y="524" width="139" height="50" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
-<text x="405.5" y="545" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">menos sincronia</text>
+<text x="405.5" y="545" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">duas card tables</text>
 <text x="405.5" y="563" font-size="13" fill="#2e9e5b" text-anchor="middle">JEP 522</text>
 <rect x="483" y="524" width="139" height="50" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
 <text x="552.5" y="545" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">padrão sempre</text>
@@ -132,7 +132,7 @@
 <text x="405.5" y="678" font-size="13" fill="#111827" text-anchor="middle">sem Applet · 504</text>
 <rect x="483" y="588" width="139" height="124" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
 <text x="552.5" y="612" font-size="13" fill="#111827" text-anchor="middle">TLS híbrido · 527</text>
-<text x="552.5" y="634" font-size="13" fill="#111827" text-anchor="middle">JFR redige · 536</text>
+<text x="552.5" y="634" font-size="13" fill="#111827" text-anchor="middle">JFR mascara · 536</text>
 <rect x="630" y="588" width="139" height="124" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 5"/>
 <text x="699.5" y="612" font-size="13" fill="#111827" text-anchor="middle">Value Objects · 401</text>
 <text x="699.5" y="634" font-size="13" fill="#111827" text-anchor="middle">JSON API · 540</text>

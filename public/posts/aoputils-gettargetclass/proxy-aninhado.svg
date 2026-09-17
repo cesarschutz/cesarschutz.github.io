@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 420" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="420" fill="#ffffff"/>
+<defs>
+<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Proxy de proxy: um nível ou até o fundo</text>
+
+<!-- proxy externo -->
+<rect x="40" y="80" width="480" height="300" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="12 8"/>
+<text x="280" y="108" font-size="14" font-weight="700" fill="#374151" text-anchor="middle">proxy externo (bean injetado)</text>
+<text x="280" y="130" font-size="14" fill="#1f2937" text-anchor="middle">jdk.proxy2.$Proxy42</text>
+
+<!-- proxy interno -->
+<rect x="75" y="150" width="410" height="205" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5" stroke-dasharray="12 8"/>
+<text x="280" y="178" font-size="14" font-weight="700" fill="#2b7fc4" text-anchor="middle">proxy interno</text>
+<text x="280" y="200" font-size="14" fill="#1f2937" text-anchor="middle">MeuServico$$SpringCGLIB$$0</text>
+
+<!-- objeto real -->
+<rect x="150" y="230" width="260" height="95" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="280" y="270" font-size="17" font-weight="700" fill="#1f2937" text-anchor="middle">MeuServico</text>
+<text x="280" y="296" font-size="13" fill="#4b5563" text-anchor="middle">objeto real (alvo singleton)</text>
+
+<!-- getTargetClass -->
+<path d="M487 190 L600 145" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="610" y="85" width="300" height="115" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="760" y="113" font-size="14" font-weight="700" fill="#e07a1f" text-anchor="middle">AopUtils.getTargetClass</text>
+<text x="760" y="139" font-size="14" font-weight="700" fill="#1f2937" text-anchor="middle">MeuServico$$SpringCGLIB$$0</text>
+<text x="760" y="165" font-size="13" fill="#4b5563" text-anchor="middle">desce só um nível e para</text>
+<text x="760" y="185" font-size="13" fill="#4b5563" text-anchor="middle">no proxy interno</text>
+
+<!-- ultimateTargetClass -->
+<path d="M412 290 L600 300" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="610" y="240" width="300" height="115" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="760" y="268" font-size="14" font-weight="700" fill="#2e9e5b" text-anchor="middle">AopProxyUtils.ultimateTargetClass</text>
+<text x="760" y="294" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">MeuServico</text>
+<text x="760" y="320" font-size="13" fill="#4b5563" text-anchor="middle">atravessa todos os níveis enquanto</text>
+<text x="760" y="340" font-size="13" fill="#4b5563" text-anchor="middle">os alvos forem singleton</text>
+</svg>

@@ -12,11 +12,15 @@ O JDK 8 chegou à disponibilidade geral em **18 de março de 2014**, segundo o [
 
 Este artigo abre a série de LTS e compara o Java 8 com o **Java 7**. Ele serve para quem ainda está migrando código Java 7, para quem mantém sistemas em Java 8 e quer conhecer bem a base que usa, e para quem vai migrar do 8 para o 11 e precisa saber de onde parte. Os exemplos foram compilados e executados no Temurin 1.8.0_502; os trechos marcados como Java 7 foram compilados com `javac -source 1.7`.
 
-Em 2014, "LTS" ainda não fazia parte do modelo de releases do OpenJDK. Em [Moving Java Forward Faster](https://mreinhold.org/blog/forward-faster) (setembro de 2017), Mark Reinhold, arquiteto-chefe da plataforma, lembra que até então as versões eram grandes, irregulares e guiadas por recursos, e que o Java 8 levou oito meses a mais para resolver problemas críticos de segurança e terminar o Project Lambda. No mesmo texto ele propôs uma *feature release* a cada seis meses e uma versão de suporte longo a cada três anos, **a partir de setembro de 2018**, que acabou sendo o Java 11. A marcação formal veio com a [JEP 322](https://openjdk.org/jeps/322) (Time-Based Release Versioning, JDK 10), que permite ao fornecedor identificar uma versão com suporte longo e exibir o sufixo `LTS` na saída de `java --version`.
+O texto começa com uma visão geral em diagrama e segue por tema: linguagem, concorrência, APIs da biblioteca padrão, JVM, ferramentas, segurança e itens removidos. Cada recurso importante mostra o problema que existia no Java 7, o que mudou, um exemplo de antes e depois e os cuidados de uso. No fim estão os pontos de atenção na migração e a tabela com as 55 JEPs.
 
-Mesmo sendo anterior a esse modelo, o Java 8 aparece como LTS no [Oracle Java SE Support Roadmap](https://www.oracle.com/java/technologies/java-se-support-roadmap.html), ao lado de 11, 17, 21 e 25 (a mesma página informa que a Oracle passou a planejar uma LTS a cada dois anos). Para o Oracle JDK 8, o roadmap informa GA em março de 2014, *Premier Support* até março de 2022 e *Extended Support* até dezembro de 2030. Desde a atualização de 16 de abril de 2019, clientes Oracle obtêm as atualizações do Java SE 8 para uso comercial pelo My Oracle Support, enquanto as atualizações públicas para uso pessoal e de desenvolvimento continuam gratuitas. Builds OpenJDK de outros fornecedores seguem calendários próprios; o próprio Reinhold escreveu que as atualizações de uma LTS podem durar mais de três anos, dependendo do fornecedor.
+Em 2014, "LTS" (*long-term support*, versão com suporte longo) ainda não fazia parte do modelo de releases do OpenJDK. Em [Moving Java Forward Faster](https://mreinhold.org/blog/forward-faster) (setembro de 2017), Mark Reinhold, arquiteto-chefe da plataforma Java na Oracle, lembra que até então as versões eram grandes, irregulares e guiadas por recursos. O Java 8, por exemplo, levou oito meses a mais para resolver problemas críticos de segurança e terminar o Project Lambda. No mesmo texto ele propôs uma *feature release* (versão com recursos novos) a cada seis meses, a partir de março de 2018, e uma LTS a cada três anos, a partir de setembro de 2018. Essa primeira LTS foi o Java 11, e o [artigo sobre o Java 11](/posts/java-11/#uma-versão-nova-a-cada-seis-meses) detalha o modelo. A marcação formal veio com a [JEP 322](https://openjdk.org/jeps/322) (Time-Based Release Versioning, JDK 10): quem distribui o JDK pode identificar uma versão com suporte longo, e o sufixo `LTS` aparece na saída de `java --version`.
+
+Mesmo sendo anterior a esse modelo, o Java 8 aparece como LTS no [Oracle Java SE Support Roadmap](https://www.oracle.com/java/technologies/java-se-support-roadmap.html), ao lado de 11, 17, 21 e 25. Para o Oracle JDK 8, o roadmap informa GA em março de 2014, *Premier Support* até março de 2022 e *Extended Support* até dezembro de 2030. Desde a atualização de 16 de abril de 2019, clientes Oracle obtêm as atualizações do Java SE 8 para uso comercial pelo My Oracle Support; para uso pessoal e de desenvolvimento, a Oracle informa que as atualizações públicas continuam gratuitas. Builds OpenJDK de outros fornecedores seguem calendários próprios: Reinhold já previa que as atualizações de uma LTS durariam pelo menos três anos, possivelmente mais, dependendo do fornecedor. O [guia de atualizações do Java](/posts/guia-atualizacoes-java/#distribuições-de-jdk) compara as distribuições.
 
 ## Visão geral
+
+O diagrama agrupa as mudanças do Java 7 para o Java 8 em blocos. Cada bloco corresponde a uma seção deste artigo.
 
 ![Diagrama com os blocos de mudança do Java 7 para o Java 8: linguagem, APIs, JVM, ferramentas, segurança e itens removidos](/posts/java-8/visao-geral-java-8.svg)
 
@@ -27,7 +31,7 @@ Os itens do diagrama estão na [página "What's New in JDK 8"](https://www.oracl
 - **APIs da biblioteca padrão**: Stream API, métodos novos nas coleções, `Optional`, `java.time`, `Base64` e `HashMap` com árvores balanceadas.
 - **JVM, GC e desempenho**: troca do PermGen pelo Metaspace, depreciação de combinações de GC, intrinsics de AES e Compact Profiles.
 - **Ferramentas**: `jdeps`, Nashorn e `jjs`, novas opções do `javac` e DocLint.
-- **Segurança, removidos e migração**: TLS 1.2 ligado no cliente por padrão, remoção do `apt` e da ponte JDBC-ODBC, e as incompatibilidades do [Compatibility Guide for JDK 8](https://www.oracle.com/java/technologies/javase/8-compatibility-guide.html).
+- **Segurança, removidos e migração**: TLS 1.1 e 1.2 ligados no cliente por padrão, remoção do `apt` e da ponte JDBC-ODBC, e as incompatibilidades do [Compatibility Guide for JDK 8](https://www.oracle.com/java/technologies/javase/8-compatibility-guide.html).
 
 ## Linguagem
 
@@ -69,7 +73,12 @@ Thread t = new Thread(() -> System.out.println("processando em segundo plano"));
 t.start();
 ```
 
-Uma lambda **não é só uma forma curta de classe anônima**. Pela [JLS 8, §15.27.2](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.27.2), `this` dentro dela tem o mesmo valor que no contexto que a envolve, e variáveis locais usadas no corpo precisam ser `final` ou *effectively final*, isto é, nunca reatribuídas. Na implementação, a JEP 126 aponta como abordagem preferida o uso de `invokedynamic` e method handles da JSR 292. O Javadoc de [`LambdaMetafactory`](https://docs.oracle.com/javase/8/docs/api/java/lang/invoke/LambdaMetafactory.html) confirma que essa classe serve de *bootstrap* para os call sites `invokedynamic` que dão suporte a lambdas e method references.
+Uma lambda **não é só uma forma curta de classe anônima**. Há duas diferenças que afetam o código, ambas definidas na [JLS 8, §15.27.2](https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.27.2):
+
+- `this` dentro da lambda tem o mesmo valor que no método onde ela foi escrita. Numa classe anônima, `this` é a própria instância anônima.
+- Variáveis locais usadas no corpo precisam ser `final` ou *effectively final*, isto é, nunca reatribuídas depois de inicializadas.
+
+A implementação também é outra. Uma classe anônima vira um arquivo `.class` próprio na compilação (`Externa$1.class`). Para lambdas, a JEP 126 aponta como abordagem preferida o `invokedynamic` e os *method handles* da JSR 292. `invokedynamic` é uma instrução de bytecode cuja ligação com o código de destino só acontece em tempo de execução. O Javadoc de [`LambdaMetafactory`](https://docs.oracle.com/javase/8/docs/api/java/lang/invoke/LambdaMetafactory.html) descreve essa classe como o *bootstrap* (o método que faz a ligação) desses pontos de chamada e diz que a ligação pode carregar dinamicamente uma classe que implementa a interface funcional.
 
 Para não obrigar cada biblioteca a declarar as próprias interfaces, o Java 8 criou o pacote [`java.util.function`](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html). As interfaces principais são `Predicate<T>` (teste), `Function<T,R>` (transformação), `Supplier<T>` (fornecedor), `Consumer<T>` (efeito colateral) e `UnaryOperator`/`BinaryOperator`, além de versões para primitivos como `IntPredicate` e `ToLongFunction`. A anotação [`@FunctionalInterface`](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html) faz o compilador verificar que a interface tem um único método abstrato.
 
@@ -156,19 +165,28 @@ class Pedido implements Auditavel, Rastreavel {
 }
 ```
 
-No Java 7, a saída seria uma classe utilitária separada (como `Collections` em relação a `Collection`) ou uma classe abstrata base, que consome a única superclasse permitida. Com default methods surge a pergunta de herança múltipla de *comportamento*. A [JLS 8, §8.4.8.4](https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.8.4) define que herdar dois métodos com assinaturas equivalentes, sendo pelo menos um default, é erro de compilação, a menos que a própria classe resolva o conflito. A classe resolve sobrescrevendo o método e, se quiser, chamando `Interface.super.metodo()`. E, como resume o [Java Tutorial](https://docs.oracle.com/javase/tutorial/java/IandI/override.html), métodos de instância herdados de classes têm preferência sobre default methods de interfaces.
+No Java 7, a saída seria uma classe utilitária separada (como `Collections` em relação a `Collection`) ou uma classe abstrata base, que consome a única superclasse permitida.
+
+Como uma classe pode implementar várias interfaces, default methods trazem a questão da herança múltipla de *comportamento*. Duas regras resolvem os conflitos:
+
+- **Dois defaults com a mesma assinatura:** pela [JLS 8, §8.4.8.4](https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.4.8.4), herdar dois métodos com assinaturas equivalentes, sendo pelo menos um default, é erro de compilação, a menos que a classe sobrescreva o método. Dentro dele, `Interface.super.metodo()` chama a versão de uma interface específica, como faz `Pedido` no exemplo.
+- **Classe vence interface:** como resume o [Java Tutorial](https://docs.oracle.com/javase/tutorial/java/IandI/override.html), métodos de instância herdados de classes têm preferência sobre default methods de interfaces.
+
+O Java 9 completou o recurso com métodos `private` em interfaces, para que os métodos com corpo de uma interface compartilhem código ([JEP 213](https://openjdk.org/jeps/213)); o [artigo sobre o Java 11](/posts/java-11/#ajustes-do-project-coin-métodos-private-em-interface-e-mais) mostra o exemplo.
 
 ### Inferência de tipos pelo tipo-alvo
 
 **Chegou em:** Java 8 ([JEP 101](https://openjdk.org/jeps/101))
 
-O Java 7 já usava o tipo declarado numa atribuição para inferir o argumento de tipo de um método genérico (`List<String> vazia = Collections.emptyList();` compila), mas não fazia o mesmo quando a chamada era argumento de outro método nem em chamadas encadeadas. A JEP 101 levou a inferência para o **contexto de argumento de método** e para **chamadas encadeadas**. Sem isso, lambdas passadas como argumento seriam pouco práticas. O caso do `addAll` abaixo vem da [documentação da Oracle](https://docs.oracle.com/javase/8/docs/technotes/guides/language/enhancements.html):
+O Java 7 já usava o tipo declarado numa atribuição para inferir o argumento de tipo de um método genérico (`List<String> vazia = Collections.emptyList();` compila), mas não fazia o mesmo quando a chamada era argumento de outro método nem em chamadas encadeadas. Nesses casos era preciso escrever o argumento de tipo explicitamente, como em `Collections.<String>emptyList()` (o chamado *type witness*). A JEP 101 levou a inferência para o **contexto de argumento de método** e para **chamadas encadeadas**. Sem isso, lambdas passadas como argumento seriam pouco práticas. O caso do `addAll` abaixo vem da [documentação da Oracle](https://docs.oracle.com/javase/8/docs/technotes/guides/language/enhancements.html):
 
 ```java title="Inferencia.java (Java 7)"
+static void imprime(List<String> itens) { System.out.println(itens); }
+
 List<String> nomes = new ArrayList<>();
-// No Java 7 a chamada aninhada precisa de "type witness" explícito
+// No Java 7 a chamada aninhada precisa do argumento de tipo explícito
 nomes.addAll(Arrays.<String>asList());
-imprime(Collections.<String>emptyList()); // imprime(List<String> itens)
+imprime(Collections.<String>emptyList());
 ```
 
 ```java title="Inferencia.java (Java 8)"
@@ -184,7 +202,9 @@ Compilada com `-source 1.7`, a versão Java 8 falha com `no suitable method foun
 
 **Chegou em:** Java 8 ([JEP 104](https://openjdk.org/jeps/104))
 
-No Java 7, anotações só podiam ficar em **declarações** (classe, método, campo, parâmetro, variável local). A JEP 104 (JSR 308) permite anotar qualquer **uso de tipo**: argumentos genéricos, `new`, casts, `implements`, `throws`. Para isso surgiu o alvo [`ElementType.TYPE_USE`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/ElementType.html). Segundo a JEP, o objetivo é permitir *pluggable type checkers*, ferramentas externas como o Checker Framework que reforçam o sistema de tipos e acham em tempo de compilação erros como `NullPointerException` e mutação de dados imutáveis. Como diz o [Java Tutorial](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html), o Java SE 8 **não traz** um framework de verificação de tipos. Ele entrega a sintaxe, o armazenamento no `.class` e a API de reflection (`java.lang.reflect.AnnotatedType`).
+No Java 7, anotações só podiam ficar em **declarações** (classe, método, campo, parâmetro, variável local). A JEP 104 (JSR 308) permite anotar qualquer **uso de tipo**: argumentos genéricos, `new`, casts, `implements`, `throws`. Para isso surgiu o alvo [`ElementType.TYPE_USE`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/ElementType.html).
+
+Segundo a JEP, o objetivo é permitir *pluggable type checkers*: verificadores plugados ao compilador, como o Checker Framework, que reforçam o sistema de tipos e acham em tempo de compilação erros de ponteiro nulo e efeitos colaterais em dados imutáveis. O cuidado é não esperar essa verificação do próprio JDK. Como diz o [Java Tutorial](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html), o Java SE 8 **não traz** um framework de verificação de tipos. Ele entrega a sintaxe, o armazenamento no `.class` e a API de reflection (`java.lang.reflect.AnnotatedType`); a anotação `@NaoNulo` abaixo, sozinha, não impede nenhum `null`.
 
 ```java title="TypeAnnotations.java"
 @Retention(RetentionPolicy.RUNTIME)
@@ -210,7 +230,7 @@ System.out.println(tipo.getAnnotatedActualTypeArguments()[0]
 
 **Chegou em:** Java 8 ([JEP 120](https://openjdk.org/jeps/120))
 
-A JEP 120 aponta um idioma comum no Java EE: criar uma anotação "contêiner" só para simular a repetição de outra. Com `@Repeatable`, a mesma anotação pode aparecer várias vezes no mesmo elemento. O compilador continua gerando o contêiner por baixo, e o método novo `getAnnotationsByType` o atravessa de forma transparente ([Java Tutorial: Repeating Annotations](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)).
+A JEP 120 aponta um padrão comum no Java EE: criar uma anotação "contêiner" só para simular a repetição de outra. Com `@Repeatable`, a mesma anotação pode aparecer várias vezes no mesmo elemento. O compilador continua gerando o contêiner por baixo, e o método novo `getAnnotationsByType` o atravessa de forma transparente ([Java Tutorial: Repeating Annotations](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)).
 
 ```java title="Agendamentos.java (Java 7)"
 @Retention(RetentionPolicy.RUNTIME)
@@ -254,7 +274,9 @@ for (Agendamento a : Relatorio.class.getAnnotationsByType(Agendamento.class)) {
 
 **Chegou em:** Java 8 ([JEP 118](https://openjdk.org/jeps/118))
 
-Código Java que conversa com sistemas de passagem de parâmetros por nome precisa dos nomes do código-fonte. Como não havia forma confiável de obtê-los por reflection, várias APIs definiam anotações redundantes do tipo `@ParameterName`, como descreve a JEP. A JEP 118 criou um atributo opcional no formato de classe 52.0 e a classe `java.lang.reflect.Parameter`, acessível por `Executable.getParameters()`. Os nomes só são gravados quando o código é compilado com `javac -parameters` ([Java Language Enhancements](https://docs.oracle.com/javase/8/docs/technotes/guides/language/enhancements.html)).
+Bibliotecas que ligam valores a parâmetros pelo nome precisam conhecer os nomes usados no código-fonte. Como a reflection do Java 7 não oferecia forma confiável de obtê-los, várias APIs definiam anotações próprias do tipo `@ParameterName`, repetindo o nome de cada parâmetro, como descreve a JEP. A JEP 118 criou um atributo opcional no `.class` do Java 8 (versão 52.0 do formato) e a classe `java.lang.reflect.Parameter`, acessível por `Executable.getParameters()`.
+
+O cuidado é que os nomes só são gravados quando o código é compilado com `javac -parameters` ([Java Language Enhancements](https://docs.oracle.com/javase/8/docs/technotes/guides/language/enhancements.html)). Sem a opção, a API devolve nomes sintéticos:
 
 ```java title="NomesParametros.java"
 public void transferir(String contaOrigem, String contaDestino, long centavos) {}
@@ -275,13 +297,13 @@ for (Parameter p : m.getParameters()) {
 
 A JEP 155 reuniu a atualização do `java.util.concurrent` (JSR 166). O guia [Concurrency Utilities Enhancements in Java SE 8](https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/changes8.html) lista as novidades:
 
-- **`CompletableFuture<T>` e `CompletionStage<T>`**: um `Future` que pode ser completado explicitamente e que aceita funções e ações disparadas na conclusão. Para obter o resultado, o `Future` do Java 5 só oferecia `get()`, que bloqueia. Combinar dois resultados, transformar um valor ou tratar erro sem bloquear exigia código manual.
-- **`LongAdder`, `LongAccumulator`, `DoubleAdder`, `DoubleAccumulator`**: contadores e acumuladores que, segundo a JEP, usam técnicas de redução de contenção e relaxam as garantias de atomicidade para escalar melhor que as variáveis `Atomic*` quando muitas threads atualizam o mesmo valor.
+- **`CompletableFuture<T>` e `CompletionStage<T>`**: o `Future` do Java 5 só oferecia `get()` para obter o resultado, e `get()` bloqueia a thread. Combinar dois resultados, transformar um valor ou tratar erro sem bloquear exigia código manual. O `CompletableFuture` é um `Future` que pode ser completado explicitamente e que aceita funções e ações disparadas quando o resultado fica pronto.
+- **`LongAdder`, `LongAccumulator`, `DoubleAdder`, `DoubleAccumulator`**: contadores e acumuladores que, segundo a JEP, usam técnicas de redução de contenção (disputa entre threads pelo mesmo dado) e relaxam as garantias de atomicidade para escalar melhor que as variáveis `Atomic*` quando muitas threads atualizam o mesmo valor.
 - **`ConcurrentHashMap`** com mais de 30 métodos novos (`forEach`, `search`, `reduce`, `mappingCount`, `newKeySet`) e `computeIfAbsent` executado de forma atômica, com a função aplicada no máximo uma vez por chave ([Javadoc](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ConcurrentHashMap.html)).
 - **`ForkJoinPool.commonPool()`**: pool comum usado por qualquer `ForkJoinTask` não submetida a um pool específico.
-- **`StampedLock`**: lock com três modos (escrita, leitura e leitura otimista), com conversões entre eles.
+- **`StampedLock`**: lock com três modos (escrita, leitura e leitura otimista) e conversões entre eles. Na leitura otimista, a thread lê sem bloquear e depois chama `validate` para saber se houve escrita no meio. O [Javadoc de `StampedLock`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/StampedLock.html) avisa que ele não é reentrante: o trecho protegido não deve chamar métodos que tentem obter o mesmo lock de novo.
 
-No exemplo a seguir, `consultarPreco` e `consultarFrete` são chamadas bloqueantes (por exemplo, a serviços remotos) que devolvem `99.90` e `16.00`.
+O primeiro exemplo busca preço e frete em paralelo e soma os dois. `consultarPreco` e `consultarFrete` são chamadas bloqueantes (por exemplo, a serviços remotos) que devolvem `99.90` e `16.00`.
 
 ```java title="Checkout.java (Java 7)"
 ExecutorService pool = Executors.newFixedThreadPool(2);
@@ -326,7 +348,9 @@ try {
 }
 ```
 
-Passar um `Executor` explícito para `supplyAsync` é uma decisão consciente. Pelo [Javadoc de `CompletableFuture`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html), os métodos `*Async` sem `Executor` rodam no `ForkJoinPool.commonPool()`, ou numa thread nova por tarefa se o pool comum tiver paralelismo menor que dois. Tarefas que bloqueiam em I/O ocupariam esse pool compartilhado.
+Passar um `Executor` explícito para `supplyAsync` é uma decisão consciente. Pelo [Javadoc de `CompletableFuture`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html), os métodos `*Async` sem `Executor` rodam no `ForkJoinPool.commonPool()`, ou numa thread nova por tarefa se o pool comum tiver paralelismo menor que dois. Tarefas que bloqueiam em I/O ocupariam esse pool compartilhado. O Java 9 acrescentou timeouts e novos métodos ao `CompletableFuture`, descritos no [artigo sobre o Java 11](/posts/java-11/#completablefuture-e-flow).
+
+O segundo exemplo conta acessos por rota com quatro threads. `computeIfAbsent` cria o contador de cada rota uma única vez, e `LongAdder` recebe os incrementos concorrentes:
 
 ```java title="Contadores.java"
 ConcurrentHashMap<String, LongAdder> acessos = new ConcurrentHashMap<>();
@@ -349,11 +373,11 @@ System.out.println(acessos.get("/pedidos").sum()); // 5000
 
 **Chegou em:** Java 8 ([JEP 107](https://openjdk.org/jeps/107))
 
-A JEP 107 descreve o objetivo como "filter/map/reduce para Java": operações em massa sobre coleções, sequenciais ou paralelas, expressas com lambdas. O resultado é o pacote [`java.util.stream`](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html). Um **stream** não é uma estrutura de dados. É uma sequência de elementos vinda de uma fonte (coleção, array, gerador, canal de I/O) sobre a qual se monta um *pipeline*. As operações não alteram a fonte: um `filter` produz um novo stream, sem remover nada da coleção original.
+A JEP 107 descreve o objetivo como "filter/map/reduce para Java": operações em massa sobre coleções, sequenciais ou paralelas, expressas com lambdas. O resultado é o pacote [`java.util.stream`](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html). Um **stream** não é uma estrutura de dados. É uma sequência de elementos vinda de uma fonte (coleção, array, gerador, canal de I/O) sobre a qual se monta um *pipeline*, uma cadeia de operações aplicadas em sequência. As operações não alteram a fonte: um `filter` produz um novo stream, sem remover nada da coleção original.
 
 O Javadoc do pacote divide as operações em dois tipos:
 
-- **Intermediárias** (`filter`, `map`, `sorted`, `distinct`, `limit`…) devolvem um novo stream e são **sempre lazy**. Nada é processado quando elas são chamadas.
+- **Intermediárias** (`filter`, `map`, `sorted`, `distinct`, `limit`…) devolvem um novo stream e são **sempre lazy** (preguiçosas): nada é processado quando elas são chamadas.
 - **Terminais** (`collect`, `forEach`, `reduce`, `count`, `findFirst`…) percorrem a fonte e produzem um resultado ou efeito colateral. Depois delas o stream está **consumido** e não pode ser reutilizado.
 
 A avaliação preguiçosa permite juntar várias operações numa única passagem e, com operações de curto-circuito como `findFirst` e `limit`, parar antes de ler todos os dados.
@@ -441,13 +465,15 @@ Três pontos da documentação que evitam problemas em produção:
 
 - **Paralelismo explícito.** Basta trocar `stream()` por `parallelStream()`. Segundo a JEP 107, a versão paralela usa o framework Fork/Join do Java 7, e pelo [guia de concorrência do Java 8](https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/changes8.html) tarefas Fork/Join não submetidas a um pool específico rodam no `ForkJoinPool.commonPool()`, um pool único para a JVM inteira.
 - **Sem interferência e sem estado.** O Javadoc do pacote exige que a fonte não seja modificada durante a execução do pipeline (exceto em fontes concorrentes) e avisa que lambdas com estado podem gerar resultados não determinísticos ou incorretos.
-- **Streams de primitivos.** `IntStream`, `LongStream` e `DoubleStream` evitam boxing e trazem `sum`, `average` e `summaryStatistics`.
+- **Streams de primitivos.** `IntStream`, `LongStream` e `DoubleStream` evitam *boxing* (a conversão de cada `int` em objeto `Integer`) e trazem `sum`, `average` e `summaryStatistics`.
+
+A API continuou crescendo nas LTS seguintes: `takeWhile`, `dropWhile` e `ofNullable` no Java 9 ([artigo sobre o Java 11](/posts/java-11/#optional-e-stream)) e `Stream.toList()` no Java 16 ([artigo sobre o Java 17](/posts/java-17/#streamtolist-e-streammapmulti)).
 
 ### Lambdas nas coleções e em outras bibliotecas
 
 **Chegou em:** Java 8 ([JEP 109](https://openjdk.org/jeps/109))
 
-A JEP 109 é o outro lado da JEP 107: adaptar as bibliotecas existentes para aceitar lambdas, na maior parte com default methods. A página [New and Enhanced APIs That Take Advantage of Lambda Expressions and Streams](https://docs.oracle.com/javase/8/docs/technotes/guides/language/lambda_api_jdk8.html) lista as classes alteradas, entre elas `Iterable`, `Collection`, `List`, `Map`, `Map.Entry`, `Comparator`, `String`, `Files`, `BufferedReader` e `Random`, e as novas `StringJoiner`, `Optional`, `Spliterator` e `IntSummaryStatistics`. Os métodos que mais somem com código repetitivo:
+A JEP 109 é o outro lado da JEP 107: adaptar as bibliotecas existentes para aceitar lambdas, na maior parte com default methods. A página [New and Enhanced APIs That Take Advantage of Lambda Expressions and Streams](https://docs.oracle.com/javase/8/docs/technotes/guides/language/lambda_api_jdk8.html) lista as classes alteradas, entre elas `Iterable`, `Collection`, `List`, `Map`, `Map.Entry`, `Comparator`, `String`, `Files`, `BufferedReader` e `Random`, e as novas `StringJoiner`, `Optional`, `Spliterator` e `IntSummaryStatistics`. O exemplo abaixo faz três tarefas comuns com uma lista de palavras (remover vazias, contar ocorrências e agrupar pela inicial) e mostra os métodos novos que mais eliminam código repetitivo:
 
 ```java title="ContaPalavras.java (Java 7)"
 List<String> palavras = new ArrayList<>(Arrays.asList("java", "", "lambda", "java", ""));
@@ -534,7 +560,9 @@ static String cidadeDoCliente(String id) {
 }
 ```
 
-Cuidados que vêm do próprio Javadoc: `get()` lança `NoSuchElementException` se o valor estiver ausente, então prefira `orElse`, `orElseGet`, `orElseThrow` e `ifPresent`. `Optional` também é uma classe *value-based*, e operações que dependem de identidade (`==`, `synchronized`, `identityHashCode`) têm resultado imprevisível. Existem ainda `OptionalInt`, `OptionalLong` e `OptionalDouble` para primitivos.
+Cuidados que vêm do próprio Javadoc: `get()` lança `NoSuchElementException` se o valor estiver ausente, então prefira `orElse`, `orElseGet`, `orElseThrow` e `ifPresent`. `Optional` também é uma classe *value-based* (definida só pelo valor que carrega, sem identidade garantida), e operações que dependem de identidade (`==`, `synchronized`, `identityHashCode`) têm resultado imprevisível. Existem ainda `OptionalInt`, `OptionalLong` e `OptionalDouble` para primitivos.
+
+Métodos que faltavam, como `ifPresentOrElse`, `or`, `stream` e `isEmpty`, chegaram entre o Java 9 e o 11 e estão no [artigo sobre o Java 11](/posts/java-11/#optional-e-stream).
 
 ### Nova API de data e hora (java.time)
 
@@ -618,7 +646,7 @@ String paraUrl = Base64.getUrlEncoder().withoutPadding()
         .encodeToString(new byte[] {(byte) 0xfb, (byte) 0xff}); // -_8
 ```
 
-Vale trocar também o `DatatypeConverter`. Ele pertence ao JAXB, que saiu do JDK no Java 11 com a [JEP 320](https://openjdk.org/jeps/320), assunto do próximo artigo da série.
+Quem migra deve trocar também o `DatatypeConverter`. Ele pertence ao JAXB, que saiu do JDK no Java 11 com a [JEP 320](https://openjdk.org/jeps/320), assunto da seção [Módulos Java EE e CORBA](/posts/java-11/#módulos-java-ee-e-corba) do próximo artigo da série.
 
 ### Outras melhorias de biblioteca
 
@@ -647,7 +675,11 @@ System.out.println(Arrays.toString(numeros));            // [1, 3, 5, 7, 9]
 
 **Chegou em:** Java 8 ([JEP 122](https://openjdk.org/jeps/122))
 
-No HotSpot, a representação interna das classes (os *metadados de classe*) ficava na **permanent generation**, uma área gerenciada pela JVM com tamanho máximo fixo, definido por `-XX:MaxPermSize`. Quando esse espaço acabava, a JVM lançava `java.lang.OutOfMemoryError: PermGen space`, erro documentado no [guia de troubleshooting do Java 7](https://docs.oracle.com/javase/7/docs/webnotes/tsg/TSG-VM/html/memleaks.html). A JEP 122, criada em 2010, descreve a permanent generation guardando também strings internadas e variáveis estáticas de classe. Parte dessa mudança chegou antes do Java 8: segundo as [notas de release do JDK 7](https://www.oracle.com/java/technologies/javase/jdk7-relnotes.html), as strings internadas já deixaram a permanent generation no JDK 7 e passaram a ser alocadas nas gerações young e old do heap. A motivação oficial da JEP 122 é a convergência entre HotSpot e JRockit, que não tinha permanent generation. O efeito prático foi acabar com a necessidade de ajustar esse tamanho.
+No HotSpot, a representação interna das classes (os *metadados de classe*) ficava na **permanent generation** (PermGen), uma área gerenciada pela JVM com tamanho máximo fixo, definido por `-XX:MaxPermSize`. Quando esse espaço acabava, a JVM lançava `java.lang.OutOfMemoryError: PermGen space`, erro documentado no [guia de troubleshooting do Java 7](https://docs.oracle.com/javase/7/docs/webnotes/tsg/TSG-VM/html/memleaks.html). Segundo a JEP 122, essa área precisava ter espaço para os metadados de todas as classes usadas pela aplicação, e o tamanho tinha de ser ajustado à mão.
+
+A JEP 122, criada em 2010, removeu a permanent generation. A motivação oficial é a convergência entre HotSpot e JRockit: o JRockit não tinha permanent generation, e seus usuários não estavam acostumados a configurá-la. O efeito prático foi acabar com a necessidade de ajustar esse tamanho.
+
+Além dos metadados, a JEP descreve a permanent generation guardando strings internadas (o pool de `String` que reúne literais e resultados de [`String.intern()`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#intern--)) e variáveis estáticas de classe. Parte dessa mudança chegou antes do Java 8: segundo as [notas de release do JDK 7](https://www.oracle.com/java/technologies/javase/jdk7-relnotes.html), as strings internadas já tinham saído da permanent generation no JDK 7 e passado para as gerações young e old do heap. O diagrama compara os dois arranjos:
 
 ![Comparação: no Java 7 o PermGen, de tamanho fixo, guarda metadados de classe e estáticos, e as strings internadas já estão no heap; no Java 8 os metadados vão para o Metaspace em memória nativa e os estáticos vão para o heap](/posts/java-8/permgen-vs-metaspace.svg)
 
@@ -679,13 +711,13 @@ Para reduzir o custo de manutenção e de testes, a JEP 173 depreciou três comb
 | `-XX:+UseParNewGC` (sem CMS) | ParNew + SerialOld | ParallelScavenge + SerialOld |
 | `-Xincgc` ou `-XX:+CMSIncrementalMode` | CMS incremental (iCMS) | CMS "normal" |
 
-As três foram removidas no JDK 9 pela [JEP 214](https://openjdk.org/jeps/214). Quem ainda usa alguma delas no Java 8 precisa trocar antes de migrar para o 9 ou superior.
+As três foram removidas no JDK 9 pela [JEP 214](https://openjdk.org/jeps/214), e o [artigo sobre o Java 11](/posts/java-11/#ferramentas-opções-e-apis-removidas) lista essa remoção. Quem ainda usa alguma delas no Java 8 precisa trocar antes de migrar para o 9 ou superior.
 
 ### Outras mudanças na JVM
 
-- **Compact Profiles** ([JEP 161](https://openjdk.org/jeps/161)): três subconjuntos da plataforma (`compact1`, `compact2`, `compact3`), em camadas, para rodar aplicações em dispositivos com poucos recursos sem o Java SE inteiro. A JEP já levava em conta uma transição futura para um sistema de módulos.
+- **Compact Profiles** ([JEP 161](https://openjdk.org/jeps/161)): três subconjuntos da plataforma (`compact1`, `compact2`, `compact3`), em camadas, para rodar aplicações em dispositivos com poucos recursos sem o Java SE inteiro. A JEP já levava em conta uma transição futura para um sistema de módulos, que chegou no Java 9 como JPMS (Java Platform Module System) e está no [artigo sobre o Java 11](/posts/java-11/#módulos-e-module-infojava).
 - **Intrinsics de AES** ([JEP 164](https://openjdk.org/jeps/164)): o compilador do HotSpot usa as instruções AES dos processadores x86 quando disponíveis. A [página What's New](https://www.oracle.com/java/technologies/javase/8-whats-new.html) cita as flags `-XX:+UseAES -XX:+UseAESIntrinsics`.
-- **Menos contenção de cache em campos** ([JEP 142](https://openjdk.org/jeps/142)): mecanismo para a JVM separar, em linhas de cache diferentes, campos muito disputados entre núcleos (*false sharing*).
+- **Menos contenção de cache em campos** ([JEP 142](https://openjdk.org/jeps/142)): quando dois núcleos usam posições de memória que caem na mesma linha de cache do processador e pelo menos um deles escreve, os dois disputam essa linha e o desempenho cai (o problema costuma ser chamado de *false sharing*). A JEP criou um mecanismo para a JVM separar, com espaço de preenchimento, campos marcados como muito disputados.
 - **Mensagens de verificação de bytecode mais detalhadas** ([JEP 136](https://openjdk.org/jeps/136)) e **representação de method handles com lambda forms** ([JEP 160](https://openjdk.org/jeps/160)), que trocou caminhos em assembly por uma representação intermediária otimizável e passou mais trabalho para código Java portável.
 
 ## Ferramentas
@@ -694,7 +726,7 @@ As três foram removidas no JDK 9 pela [JEP 214](https://openjdk.org/jeps/214). 
 
 **Chegou em:** Java 8 ([JEP 162](https://openjdk.org/jeps/162))
 
-A JEP 162 ("Prepare for Modularization") previa uma ferramenta de linha de comando para mostrar as dependências estáticas de uma aplicação, principalmente o uso de APIs internas do JDK. Ela saiu como [`jdeps`](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jdeps.html), que mostra dependências por pacote ou por classe de arquivos `.class`, diretórios e JARs. A opção `-jdkinternals` é a mais útil para preparar uma migração: ela lista o que depende de APIs internas que podem sumir. No Java 9, a maioria dessas APIs foi encapsulada pela [JEP 260](https://openjdk.org/jeps/260).
+A JEP 162 ("Prepare for Modularization") previa uma ferramenta de linha de comando para mostrar as dependências estáticas de uma aplicação, principalmente o uso de APIs internas do JDK. Ela saiu como [`jdeps`](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jdeps.html), que mostra dependências por pacote ou por classe de arquivos `.class`, diretórios e JARs. A opção `-jdkinternals` é a mais útil para preparar uma migração: ela lista o que depende de APIs internas que podem sumir. No Java 9, a maioria dessas APIs foi encapsulada pela [JEP 260](https://openjdk.org/jeps/260) (ver [Encapsulamento das APIs internas do JDK](/posts/java-11/#encapsulamento-das-apis-internas-do-jdk) no artigo sobre o Java 11). A saída abaixo analisa uma classe que usa `sun.misc.BASE64Encoder`; a ferramenta aponta a dependência e sugere o substituto:
 
 ```bash title="Saída do jdeps no JDK 8 (resumida)"
 $ jdeps -jdkinternals UsaInterna.class
@@ -721,9 +753,9 @@ Object resultado = js.eval("var valor = 250; valor * (1 + taxa);");
 System.out.println(resultado); // 275.0
 ```
 
-Antes de adotar o Nashorn, é bom saber o fim da história: ele foi depreciado para remoção no Java 11 ([JEP 335](https://openjdk.org/jeps/335)) e removido no Java 15 ([JEP 372](https://openjdk.org/jeps/372)), junto com o `jjs`. Quem depende dele no Java 8 vai precisar de outro motor numa LTS mais nova.
+Antes de adotar o Nashorn, é bom saber o fim da história: ele foi depreciado para remoção no Java 11 ([JEP 335](https://openjdk.org/jeps/335)) e removido no Java 15 ([JEP 372](https://openjdk.org/jeps/372)), junto com o `jjs`. Quem depende dele no Java 8 vai precisar de outro motor numa LTS mais nova; o [artigo sobre o Java 11](/posts/java-11/#nashorn-pack200-cms-e-applet-api) resume essa saída.
 
-### javac e javadoc
+### Outras mudanças em javac, javadoc e java
 
 Pela [página What's New in JDK 8](https://www.oracle.com/java/technologies/javase/8-whats-new.html):
 
@@ -738,9 +770,9 @@ Pela [página What's New in JDK 8](https://www.oracle.com/java/technologies/java
 A [página de melhorias de segurança do JDK 8](https://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html) e as JEPs listam as mudanças principais:
 
 - **TLS 1.1 e 1.2 habilitados por padrão no cliente** do provedor SunJSSE, configuráveis pela nova propriedade `jdk.tls.client.protocols`.
-- **SNI no servidor** ([JEP 114](https://openjdk.org/jeps/114)): o JDK 7 já enviava a extensão *Server Name Indication* do lado cliente, e o JDK 8 passou a suportá-la em aplicações servidoras.
-- **Cipher suites AEAD** ([JEP 115](https://openjdk.org/jeps/115)): `AES/GCM/NoPadding` no SunJCE e suítes AEAD no SunJSSE.
-- **Algoritmos PBE mais fortes** ([JEP 121](https://openjdk.org/jeps/121)), como `PBEWithSHA256AndAES_128`, **SHA-224** ([JEP 130](https://openjdk.org/jeps/130)) e suporte ampliado à NSA Suite B ([JEP 129](https://openjdk.org/jeps/129)).
+- **SNI no servidor** ([JEP 114](https://openjdk.org/jeps/114)): segundo a JEP, sem a extensão *Server Name Indication* um servidor HTTPS não consegue atender, em hospedagem virtual, vários domínios que compartilham o mesmo endereço IP. O JDK 7 já a habilitava no cliente, e o JDK 8 passou a suportá-la em aplicações servidoras.
+- **Cipher suites AEAD** ([JEP 115](https://openjdk.org/jeps/115)): suporte a criptografia autenticada (*Authenticated Encryption with Associated Data*), com `AES/GCM/NoPadding` no SunJCE e suítes AEAD no SunJSSE.
+- **Algoritmos PBE mais fortes** ([JEP 121](https://openjdk.org/jeps/121)), de criptografia baseada em senha (*password-based encryption*), como `PBEWithSHA256AndAES_128`, **SHA-224** ([JEP 130](https://openjdk.org/jeps/130)) e suporte ampliado à NSA Suite B ([JEP 129](https://openjdk.org/jeps/129)).
 - **Geração de números aleatórios configurável** ([JEP 123](https://openjdk.org/jeps/123)): a JEP cita aplicações travando em `SecureRandom` no Linux por falta de entropia em `/dev/random`. O Java 8 adicionou [`SecureRandom.getInstanceStrong()`](https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html#getInstanceStrong--), que usa os algoritmos da propriedade `securerandom.strongAlgorithms`.
 - **Verificação de revogação de certificados** com a nova classe `PKIXRevocationChecker` ([JEP 124](https://openjdk.org/jeps/124)) e **reforma dos keystores** JKS/JCEKS/PKCS12 ([JEP 166](https://openjdk.org/jeps/166)).
 - **`doPrivileged` limitado** ([JEP 140](https://openjdk.org/jeps/140)), **`URLPermission`** para permissões de rede por URL em vez de IP ([JEP 184](https://openjdk.org/jeps/184)) e **propriedades JAXP** para restringir os protocolos usados ao buscar DTDs, schemas e stylesheets externos ([JEP 185](https://openjdk.org/jeps/185)).
@@ -764,15 +796,15 @@ O [Compatibility Guide for JDK 8](https://www.oracle.com/java/technologies/javas
 
 ## Recursos em preview ou incubadora nesta LTS
 
-Nenhum. O Java 8 é anterior aos dois mecanismos: os módulos de incubadora foram definidos pela [JEP 11](https://openjdk.org/jeps/11), criada em 2016, e os recursos em preview pela [JEP 12](https://openjdk.org/jeps/12), introduzida por volta do JDK 12. Nenhuma das 55 JEPs do Java 8 foi entregue em caráter provisório.
+Nenhum. Recursos em *preview* e módulos de *incubadora* são formas de entregar algo ainda provisório, para coletar feedback antes de torná-lo permanente ou removê-lo. O Java 8 é anterior aos dois mecanismos: os módulos de incubadora foram definidos pela [JEP 11](https://openjdk.org/jeps/11), criada em 2016, e os recursos em preview pela [JEP 12](https://openjdk.org/jeps/12), introduzida em 2018, por volta do JDK 12. Nenhuma das 55 JEPs do Java 8 foi entregue em caráter provisório. O HTTP Client, que passou por incubadora no Java 9 e no 10, é um exemplo e está no [artigo sobre o Java 11](/posts/java-11/#http-client).
 
 ## O que observar na migração a partir do Java 7
 
 Segundo o [Compatibility Guide](https://www.oracle.com/java/technologies/javase/8-compatibility-guide.html), o Java SE 8 é fortemente compatível com as versões anteriores e quase todos os programas rodam sem alteração. Os pontos a verificar ficam nos casos de canto listados ali:
 
-1. **Formato de classe 52.0.** Classes compiladas pelo Java 8 não rodam em JVMs anteriores. Classes compiladas para o Java 7 rodam no 8. Em migração gradual, compile com `-source`/`-target` compatíveis com o runtime mais antigo que ainda existe no ambiente.
+1. **Formato de classe 52.0.** Cada versão do Java grava no `.class` um número de versão, e o do Java 8 é 52.0. Classes compiladas pelo Java 8 não rodam em JVMs anteriores. Classes compiladas para o Java 7 rodam no 8. Em migração gradual, compile com `-source`/`-target` compatíveis com o runtime mais antigo que ainda existe no ambiente.
 
-2. **Sobrecarga escolhida pode mudar.** Com a inferência pelo tipo-alvo, métodos que antes não eram aplicáveis passam a ser. O exemplo abaixo é adaptado do guia. No Temurin 1.8.0_502, compilado com `-source 1.7`, ele imprime `m(Object)` nas duas linhas; com o padrão do JDK 8, a primeira linha passa a imprimir `m(String[])`:
+2. **Sobrecarga escolhida pode mudar.** Com a inferência pelo tipo-alvo, métodos que antes não eram aplicáveis passam a ser, e o compilador pode escolher outra sobrecarga sem nenhum aviso. O exemplo abaixo é adaptado do guia. No Temurin 1.8.0_502, compilado com `-source 1.7`, ele imprime `m(Object)` nas duas linhas. Com o padrão do JDK 8, a primeira linha passa a imprimir `m(String[])`, a sobrecarga mais específica:
 
    ```java title="Sobrecarga.java"
    static void m(Object o)   { System.out.println("m(Object)"); }
@@ -786,7 +818,7 @@ Segundo o [Compatibility Guide](https://www.oracle.com/java/technologies/javase/
    }
    ```
 
-3. **Mudanças de inferência que quebram compilação.** Código que passa *raw types* a métodos genéricos e compilava no JDK 7 pode falhar no JDK 8 com `incompatible types`. Além disso, o `javac` passou a aplicar corretamente a JLS §15.21 e rejeita algumas comparações entre `Object` e primitivo que antes aceitava.
+3. **Mudanças de inferência que quebram compilação.** Código que passa *raw types* (tipos genéricos usados sem argumento de tipo, como `List` no lugar de `List<String>`) a métodos genéricos e compilava no JDK 7 pode falhar no JDK 8 com `incompatible types`. Além disso, o `javac` passou a aplicar corretamente a JLS §15.21 e rejeita algumas comparações entre `Object` e primitivo que antes aceitava.
 
 4. **Interfaces precisam estar no classpath de compilação.** Ao compilar contra uma classe que implementa uma interface definida em outro `.class`, o arquivo da interface agora precisa estar disponível para o `javac`.
 
@@ -807,6 +839,8 @@ Segundo o [Compatibility Guide](https://www.oracle.com/java/technologies/javase/
 9. **Build e Javadoc.** Com o DocLint ativo por padrão no `javadoc` ([What's New in JDK 8](https://www.oracle.com/java/technologies/javase/8-whats-new.html), JEP 172), comentários com HTML inválido ou problemas de acessibilidade passam a ser apontados na geração da documentação.
 
 10. **APIs internas.** Rode `jdeps -jdkinternals` no Java 8. O que depende de `sun.*` e de outras APIs internas não tem garantia de compatibilidade, e o Java 9 encapsulou a maioria delas ([JEP 260](https://openjdk.org/jeps/260)).
+
+O próximo salto, do Java 8 para o 11, traz mais rupturas: sistema de módulos, encapsulamento das APIs internas e remoção dos módulos Java EE. Esses pontos estão em [O que observar na migração a partir do Java 8](/posts/java-11/#o-que-observar-na-migração-a-partir-do-java-8), no artigo sobre o Java 11.
 
 ## Todas as JEPs
 

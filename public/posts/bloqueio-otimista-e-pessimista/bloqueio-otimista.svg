@@ -1,79 +1,77 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 580" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
-<rect width="720" height="580" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 800" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="800" fill="#ffffff"/>
 <defs>
-<marker id="ab" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#2b7fc4"/></marker>
-<marker id="ao" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#e07a1f"/></marker>
-<marker id="ar" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#d9534f"/></marker>
-<marker id="at" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#b9b9b9"/></marker>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mt" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#9ca3af"/></marker>
 </defs>
 
-<rect x="24" y="22" width="6" height="26" fill="#2ec4a6"/>
-<text x="42" y="42" font-size="19" font-weight="700" fill="#1a1a1a">Bloqueio otimista</text>
-<text x="205" y="42" font-size="13" fill="#8a8a8a">detectar o conflito na hora de gravar</text>
-<text x="696" y="41" font-size="11" fill="#b0b0b0" text-anchor="end">Sessão 03</text>
+<text x="40" y="42" font-size="21" font-weight="700" fill="#111827">Bloqueio otimista: detectar o conflito na hora de gravar</text>
+<text x="40" y="68" font-size="14" fill="#6b7280">ninguém trava nada; a escrita leva junto a versão que foi lida</text>
 
-<rect x="40" y="70" width="210" height="32" rx="16" fill="#eaf4fd"/>
-<text x="145" y="91" font-size="12" font-weight="700" fill="#2b7fc4" text-anchor="middle">Cliente A</text>
-<rect x="270" y="70" width="180" height="32" rx="16" fill="#f0f0ee"/>
-<text x="360" y="91" font-size="12" font-weight="700" fill="#5b5b5b" text-anchor="middle">Banco · linha id 1</text>
-<rect x="470" y="70" width="210" height="32" rx="16" fill="#fdf1e6"/>
-<text x="575" y="91" font-size="12" font-weight="700" fill="#e07a1f" text-anchor="middle">Cliente B</text>
+<!-- raias -->
+<g font-size="15" font-weight="700" text-anchor="middle">
+<rect x="40" y="92" width="280" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="180" y="120" fill="#2b7fc4">Cliente A</text>
+<rect x="360" y="92" width="220" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="470" y="120" fill="#374151">Banco · conta id 1</text>
+<rect x="620" y="92" width="280" height="44" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="760" y="120" fill="#e07a1f">Cliente B</text>
+</g>
+<g stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 6">
+<path d="M180 136 V640"/><path d="M470 136 V640"/><path d="M760 136 V640"/>
+</g>
 
-<line x1="145" y1="110" x2="145" y2="424" stroke="#e4e4e2" stroke-width="1.5" stroke-dasharray="4 5"/>
-<line x1="360" y1="110" x2="360" y2="424" stroke="#e4e4e2" stroke-width="1.5" stroke-dasharray="4 5"/>
-<line x1="575" y1="110" x2="575" y2="424" stroke="#e4e4e2" stroke-width="1.5" stroke-dasharray="4 5"/>
+<!-- eixo do tempo -->
+<path d="M20 150 V630" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
+<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(14 390) rotate(-90)">tempo</text>
 
-<line x1="22" y1="122" x2="22" y2="404" stroke="#d8d8d8" stroke-width="1.5" marker-end="url(#at)"/>
-<text x="16" y="270" font-size="9.5" fill="#b0b0b0" text-anchor="middle" transform="rotate(-90 16 270)">tempo</text>
+<!-- 1 -->
+<rect x="40" y="152" width="280" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="56" y="178" font-size="15" font-weight="700" fill="#111827">1 · lê a linha</text>
+<text x="56" y="200" font-size="13" fill="#4b5563">guarda saldo 100 e version 1</text>
+<path d="M322 184 H356" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<rect x="360" y="152" width="220" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="470" y="178" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">saldo 100</text>
+<text x="470" y="200" font-size="13" fill="#4b5563" text-anchor="middle">version 1</text>
 
-<rect x="40" y="118" width="210" height="42" rx="10" fill="#f7fbff" stroke="#cfe3f5" stroke-width="1.5"/>
-<rect x="40" y="118" width="4" height="42" rx="2" fill="#2b7fc4"/>
-<text x="58" y="136" font-size="11" font-weight="700" fill="#1a1a1a">1 · lê a linha</text>
-<text x="58" y="152" font-size="9.5" fill="#6b7280">guarda saldo 100 e version 1</text>
-<line x1="252" y1="139" x2="284" y2="139" stroke="#2b7fc4" stroke-width="2" marker-end="url(#ab)"/>
+<!-- 2 -->
+<rect x="620" y="236" width="280" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="636" y="262" font-size="15" font-weight="700" fill="#111827">2 · lê a mesma linha</text>
+<text x="636" y="284" font-size="13" fill="#4b5563">também vê version 1; nada travado</text>
+<path d="M618 268 H584" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
 
-<rect x="290" y="118" width="140" height="42" rx="10" fill="#ffffff" stroke="#d0d0cc" stroke-width="1.5"/>
-<text x="360" y="136" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">saldo 100</text>
-<text x="360" y="151" font-size="10" fill="#6b7280" text-anchor="middle">version 1</text>
+<!-- 3 -->
+<rect x="40" y="320" width="280" height="84" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="56" y="346" font-size="15" font-weight="700" fill="#111827">3 · grava</text>
+<text x="56" y="368" font-size="13" fill="#4b5563" font-family="ui-monospace, Menlo, monospace">UPDATE … WHERE version = 1</text>
+<text x="56" y="390" font-size="13" font-weight="700" fill="#2e9e5b">1 linha afetada</text>
+<path d="M322 362 H356" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<rect x="360" y="320" width="220" height="84" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="470" y="346" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">saldo 90</text>
+<text x="470" y="368" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">version 2</text>
+<text x="470" y="390" font-size="13" fill="#4b5563" text-anchor="middle">a versão mudou</text>
 
-<rect x="470" y="176" width="210" height="42" rx="10" fill="#fffaf5" stroke="#f5dcc2" stroke-width="1.5"/>
-<rect x="676" y="176" width="4" height="42" rx="2" fill="#e07a1f"/>
-<text x="662" y="194" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="end">2 · lê a mesma linha</text>
-<text x="662" y="210" font-size="9.5" fill="#6b7280" text-anchor="end">também vê version 1 — nada travado</text>
-<line x1="466" y1="197" x2="434" y2="197" stroke="#e07a1f" stroke-width="2" marker-end="url(#ao)"/>
+<!-- 4 -->
+<rect x="620" y="424" width="280" height="84" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="636" y="450" font-size="15" font-weight="700" fill="#111827">4 · tenta gravar</text>
+<text x="636" y="472" font-size="13" fill="#4b5563" font-family="ui-monospace, Menlo, monospace">UPDATE … WHERE version = 1</text>
+<text x="636" y="494" font-size="13" font-weight="700" fill="#d9534f">0 linhas afetadas</text>
+<path d="M618 466 H584" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<rect x="360" y="424" width="220" height="84" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="470" y="452" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">nada é alterado</text>
+<text x="470" y="474" font-size="13" fill="#4b5563" text-anchor="middle">nenhuma linha tem</text>
+<text x="470" y="494" font-size="13" fill="#4b5563" text-anchor="middle">mais version 1</text>
 
-<rect x="40" y="234" width="210" height="52" rx="10" fill="#f7fbff" stroke="#cfe3f5" stroke-width="1.5"/>
-<rect x="40" y="234" width="4" height="52" rx="2" fill="#2b7fc4"/>
-<text x="58" y="254" font-size="11" font-weight="700" fill="#1a1a1a">3 · grava</text>
-<text x="58" y="270" font-size="9.5" fill="#6b7280">UPDATE ... WHERE version = 1</text>
-<text x="58" y="282" font-size="9.5" font-weight="600" fill="#2a9d78">1 linha afetada</text>
-<line x1="252" y1="260" x2="284" y2="260" stroke="#2b7fc4" stroke-width="2" marker-end="url(#ab)"/>
+<!-- 5 -->
+<rect x="620" y="528" width="280" height="84" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="636" y="554" font-size="15" font-weight="700" fill="#111827">5 · B trata o conflito</text>
+<text x="636" y="576" font-size="13" fill="#4b5563">relê a linha (version 2) e tenta</text>
+<text x="636" y="596" font-size="13" fill="#4b5563">de novo, ou devolve erro</text>
 
-<rect x="290" y="234" width="140" height="52" rx="10" fill="#eaf7f1" stroke="#8fd6b8" stroke-width="1.5"/>
-<text x="360" y="254" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">saldo 90</text>
-<text x="360" y="269" font-size="10" font-weight="700" fill="#2a9d78" text-anchor="middle">version 2</text>
-<text x="360" y="281" font-size="9" fill="#6b7280" text-anchor="middle">a versão mudou</text>
+<!-- resumo -->
+<rect x="40" y="660" width="860" height="72" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="470" y="690" font-size="17" font-weight="700" fill="#2e9e5b" text-anchor="middle">Nenhuma escrita foi perdida, e ninguém esperou</text>
+<text x="470" y="715" font-size="14" fill="#4b5563" text-anchor="middle">o custo só aparece quando o conflito acontece de verdade</text>
 
-<rect x="470" y="302" width="210" height="52" rx="10" fill="#fdeaea" stroke="#eec0c0" stroke-width="1.5"/>
-<rect x="676" y="302" width="4" height="52" rx="2" fill="#d9534f"/>
-<text x="662" y="322" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="end">4 · tenta gravar</text>
-<text x="662" y="338" font-size="9.5" fill="#6b7280" text-anchor="end">UPDATE ... WHERE version = 1</text>
-<text x="662" y="350" font-size="9.5" font-weight="600" fill="#d9534f" text-anchor="end">0 linhas afetadas</text>
-<line x1="466" y1="328" x2="434" y2="328" stroke="#d9534f" stroke-width="2" marker-end="url(#ar)"/>
-
-<rect x="290" y="308" width="140" height="40" rx="10" fill="#ffffff" stroke="#eec0c0" stroke-width="1.5"/>
-<text x="360" y="325" font-size="10.5" font-weight="700" fill="#d9534f" text-anchor="middle">recusa a escrita</text>
-<text x="360" y="339" font-size="9" fill="#6b7280" text-anchor="middle">a versão já não é 1</text>
-
-<rect x="470" y="370" width="210" height="42" rx="10" fill="#eaf7f1" stroke="#8fd6b8" stroke-width="1.5"/>
-<rect x="676" y="370" width="4" height="42" rx="2" fill="#2a9d78"/>
-<text x="662" y="388" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="end">5 · B decide</text>
-<text x="662" y="404" font-size="9.5" fill="#6b7280" text-anchor="end">relê e tenta de novo, ou devolve erro</text>
-
-<rect x="40" y="450" width="640" height="54" rx="12" fill="#eaf7f1" stroke="#2a9d78" stroke-width="2"/>
-<text x="360" y="473" font-size="13" font-weight="700" fill="#2a9d78" text-anchor="middle">Nenhuma escrita foi perdida — e ninguém esperou</text>
-<text x="360" y="492" font-size="10" fill="#6b7280" text-anchor="middle">o custo só aparece quando o conflito acontece de verdade</text>
-
-<text x="360" y="532" font-size="10.5" font-weight="600" fill="#5b5b5b" text-anchor="middle">a verificação e a escrita são o mesmo comando, então não existe janela entre elas</text>
-<text x="40" y="562" font-size="9" fill="#c0c0c0">estilo inspirado em ByteByteGo</text>
+<text x="470" y="770" font-size="14" font-weight="600" fill="#4b5563" text-anchor="middle">a verificação e a escrita são o mesmo comando, então não existe janela entre elas</text>
 </svg>

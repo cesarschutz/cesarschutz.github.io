@@ -1,43 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 440" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
-<rect width="940" height="440" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="560" fill="#ffffff"/>
 <defs>
 <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
 <marker id="mb" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2b7fc4"/></marker>
 <marker id="mg" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2e9e5b"/></marker>
 </defs>
-<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Do SIGTERM ao exit 0 — o papel do AtomicBoolean</text>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Do SIGTERM ao fim da JVM — o papel do AtomicBoolean</text>
 
-<!-- lanes -->
-<g font-size="14.5" font-weight="700" fill="#1f2937" text-anchor="middle">
-<rect x="50" y="80" width="180" height="52" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
-<text x="140" y="112">Kubernetes</text>
-<rect x="290" y="80" width="180" height="52" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
-<text x="380" y="112">shutdown hook</text>
-<rect x="530" y="80" width="180" height="52" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
-<text x="620" y="105">AtomicBoolean</text>
-<text x="620" y="124" font-size="12" font-weight="400" fill="#6b7280">stopping</text>
-<rect x="770" y="80" width="140" height="52" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
-<text x="840" y="112">loop do job</text>
+<!-- participantes -->
+<g text-anchor="middle">
+<rect x="30" y="72" width="200" height="60" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+<text x="130" y="98" font-size="15" font-weight="700" fill="#1f2937">Kubernetes</text>
+<text x="130" y="119" font-size="13" fill="#6b7280">kubelet</text>
+<rect x="260" y="72" width="200" height="60" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="360" y="98" font-size="15" font-weight="700" fill="#1f2937">shutdown hook</text>
+<text x="360" y="119" font-size="13" fill="#6b7280">thread iniciada pela JVM</text>
+<rect x="490" y="72" width="200" height="60" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2.5"/>
+<text x="590" y="98" font-size="15" font-weight="700" fill="#1f2937">AtomicBoolean</text>
+<text x="590" y="119" font-size="13" fill="#6b7280" font-family="ui-monospace, Menlo, monospace">stopping</text>
+<rect x="720" y="72" width="200" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="820" y="98" font-size="15" font-weight="700" fill="#1f2937">thread do job</text>
+<text x="820" y="119" font-size="13" fill="#6b7280">loop principal</text>
 </g>
 
 <!-- linhas de vida -->
 <g stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 6">
-<path d="M140 132 V400"/><path d="M380 132 V400"/><path d="M620 132 V400"/><path d="M840 132 V400"/>
+<path d="M130 132 V440"/><path d="M360 132 V440"/><path d="M590 132 V440"/><path d="M820 132 V310"/>
 </g>
 
-<!-- mensagens -->
-<path d="M145 175 H370" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="255" y="165" font-size="13" font-weight="600" fill="#4b5563" text-anchor="middle">1 · SIGTERM</text>
+<!-- 1 · SIGTERM -->
+<path d="M135 180 H350" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="242" y="168" font-size="13" font-weight="600" fill="#4b5563" text-anchor="middle">1 · SIGTERM → JVM inicia o hook</text>
 
-<path d="M385 235 H610" fill="none" stroke="#2b7fc4" stroke-width="2.5" marker-end="url(#mb)"/>
-<text x="497" y="225" font-size="13" font-weight="600" fill="#2b7fc4" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">2 · set(true)</text>
+<!-- 2 · set(true) -->
+<path d="M368 230 H580" fill="none" stroke="#2b7fc4" stroke-width="2.5" marker-end="url(#mb)"/>
+<text x="474" y="218" font-size="13" font-weight="600" fill="#2b7fc4" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">2 · set(true)</text>
 
-<path d="M835 295 H630" fill="none" stroke="#2b7fc4" stroke-width="2.5" marker-end="url(#mb)"/>
-<text x="732" y="285" font-size="13" font-weight="600" fill="#2b7fc4" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">3 · get() → true</text>
+<!-- barra de espera do hook -->
+<rect x="352" y="244" width="16" height="182" rx="4" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="382" y="322" font-size="13" font-weight="600" fill="#1f2937">3 · espera a thread do job</text>
+<text x="382" y="342" font-size="13" fill="#e07a1f" font-family="ui-monospace, Menlo, monospace">join(25_000)</text>
 
-<rect x="740" y="330" width="200" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5" transform="translate(-30 0)"/>
-<text x="810" y="355" font-size="13.5" font-weight="700" fill="#1f2937" text-anchor="middle">4 · commita o batch</text>
-<text x="810" y="376" font-size="13" fill="#2e9e5b" text-anchor="middle">encerra limpo · exit 0</text>
+<!-- 4 · get() -->
+<path d="M815 280 H600" fill="none" stroke="#2b7fc4" stroke-width="2.5" marker-end="url(#mb)"/>
+<text x="707" y="268" font-size="13" font-weight="600" fill="#2b7fc4" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">4 · get() → true</text>
 
-<text x="470" y="425" font-size="13" fill="#6b7280" text-anchor="middle">com um boolean comum, o passo 3 poderia nunca acontecer — e o job morreria no SIGKILL no meio de um commit</text>
+<!-- 5 · encerra o loop -->
+<rect x="720" y="310" width="200" height="66" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="820" y="337" font-size="14" font-weight="700" fill="#1f2937" text-anchor="middle">5 · termina o lote</text>
+<text x="820" y="358" font-size="13" fill="#2e9e5b" text-anchor="middle">limpeza e fim do loop</text>
+<path d="M820 376 V405" fill="none" stroke="#2e9e5b" stroke-width="2" stroke-dasharray="4 6"/>
+
+<!-- 6 · join retorna -->
+<path d="M815 410 H374" fill="none" stroke="#2e9e5b" stroke-width="2.5" marker-end="url(#mg)"/>
+<rect x="452" y="384" width="276" height="20" fill="#ffffff"/>
+<text x="590" y="399" font-size="13" font-weight="600" fill="#2e9e5b" text-anchor="middle">6 · thread do job terminou: join retorna</text>
+
+<!-- 7 · fim da JVM -->
+<rect x="230" y="450" width="480" height="52" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+<text x="470" y="482" font-size="14" font-weight="700" fill="#1f2937" text-anchor="middle">7 · o hook termina → a JVM encerra (exit code 143)</text>
+
+<text x="470" y="538" font-size="13" fill="#d9534f" text-anchor="middle">sem o join do passo 3, a JVM encerra logo após o passo 2 e corta o lote em andamento</text>
 </svg>

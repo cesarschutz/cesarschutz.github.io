@@ -1,43 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 400" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
-<rect width="940" height="400" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 480" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="480" fill="#ffffff"/>
 <defs>
 <marker id="mg" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#2e9e5b"/></marker>
 <marker id="mr" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#d9534f"/></marker>
 <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
 </defs>
-<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">A chamada passa pelo proxy — menos quando é self-invocation</text>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">A chamada passa pelo proxy, menos quando é self-invocation</text>
 
-<!-- caller -->
-<rect x="50" y="150" width="170" height="70" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
-<text x="135" y="192" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">Caller</text>
+<!-- código cliente -->
+<rect x="30" y="165" width="160" height="80" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="110" y="200" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">Código cliente</text>
+<text x="110" y="222" font-size="13" fill="#4b5563" text-anchor="middle">(outro bean)</text>
 
-<!-- proxy wrapper -->
-<rect x="320" y="90" width="560" height="240" rx="16" fill="none" stroke="#2b7fc4" stroke-width="2.5" stroke-dasharray="12 8"/>
-<text x="600" y="122" font-size="14" font-weight="700" fill="#2b7fc4" text-anchor="middle">Proxy (JDK Dynamic Proxy ou CGLIB)</text>
+<!-- proxy -->
+<rect x="240" y="75" width="670" height="300" rx="12" fill="none" stroke="#2b7fc4" stroke-width="2.5" stroke-dasharray="12 8"/>
+<text x="575" y="103" font-size="15" font-weight="700" fill="#2b7fc4" text-anchor="middle">Proxy (JDK Dynamic Proxy ou CGLIB)</text>
 
 <!-- advices -->
-<rect x="350" y="145" width="120" height="40" rx="20" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="410" y="171" font-size="12.5" font-weight="700" fill="#2b7fc4" text-anchor="middle">@Before ✓</text>
-<rect x="350" y="250" width="120" height="40" rx="20" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="410" y="276" font-size="12.5" font-weight="700" fill="#2b7fc4" text-anchor="middle">@After ✓</text>
+<rect x="265" y="165" width="180" height="80" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="355" y="200" font-size="16" font-weight="700" fill="#1f2937" text-anchor="middle">Advices</text>
+<text x="355" y="222" font-size="13" fill="#4b5563" text-anchor="middle">@Around, @Before…</text>
 
 <!-- bean alvo -->
-<rect x="530" y="150" width="310 " height="140" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
-<text x="685" y="182" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Bean alvo (@Service)</text>
-<rect x="560" y="200" width="115" height="36" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
-<text x="617" y="223" font-size="12.5" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">metodoA()</text>
-<rect x="700" y="200" width="115" height="36" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
-<text x="757" y="223" font-size="12.5" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">metodoB()</text>
+<rect x="490" y="120" width="395" height="235" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="687" y="148" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Bean alvo (objeto real)</text>
+<rect x="520" y="175" width="160" height="60" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="600" y="210" font-size="15" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">metodoA()</text>
+<rect x="520" y="275" width="160" height="60" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="600" y="310" font-size="15" fill="#1f2937" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">metodoB()</text>
 
-<!-- chamada externa -->
-<path d="M222 185 C270 185 280 168 340 165" fill="none" stroke="#2e9e5b" stroke-width="3" marker-end="url(#mg)"/>
-<text x="60" y="140" font-size="12.5" font-weight="700" fill="#2e9e5b">chamada externa:</text>
-<text x="60" y="158" font-size="12.5" font-weight="700" fill="#2e9e5b">advice roda ✓</text>
-<path d="M472 165 C500 175 510 200 545 210" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#m)"/>
+<!-- 1: chamada externa -->
+<line x1="192" y1="205" x2="257" y2="205" stroke="#2e9e5b" stroke-width="3" marker-end="url(#mg)"/>
+<circle cx="216" cy="182" r="12" fill="#2e9e5b"/>
+<text x="216" y="187" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
 
-<!-- self invocation -->
-<path d="M677 236 C677 268 700 268 700 240" fill="none" stroke="#d9534f" stroke-width="3" marker-end="url(#mr)"/>
-<text x="688" y="310" font-size="12.5" font-weight="700" fill="#d9534f" text-anchor="middle">this.metodoB() — não passa pelo proxy, advice NÃO roda ✗</text>
+<!-- 2: delega -->
+<line x1="447" y1="205" x2="512" y2="205" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<circle cx="478" cy="182" r="12" fill="#4b5563"/>
+<text x="478" y="187" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
 
-<text x="470" y="372" font-size="13" fill="#6b7280" text-anchor="middle">a pegadinha clássica do @Transactional que silenciosamente não abre transação</text>
+<!-- 3: self-invocation -->
+<line x1="600" y1="237" x2="600" y2="267" stroke="#d9534f" stroke-width="3" marker-end="url(#mr)"/>
+<circle cx="624" cy="255" r="12" fill="#d9534f"/>
+<text x="624" y="260" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="700" y="250" font-size="14" font-weight="700" fill="#d9534f" font-family="ui-monospace, Menlo, monospace">this.metodoB()</text>
+<text x="700" y="272" font-size="13" fill="#d9534f">chamada direta,</text>
+<text x="700" y="291" font-size="13" fill="#d9534f">sem passar pelo proxy</text>
+
+<!-- legenda -->
+<circle cx="46" cy="408" r="12" fill="#2e9e5b"/>
+<text x="46" y="413" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="68" y="413" font-size="14" fill="#1f2937">Chamada externa entra pelo proxy e os advices rodam.</text>
+<circle cx="508" cy="408" r="12" fill="#4b5563"/>
+<text x="508" y="413" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<text x="530" y="413" font-size="14" fill="#1f2937">O proxy delega para o método do objeto real.</text>
+<circle cx="46" cy="446" r="12" fill="#d9534f"/>
+<text x="46" y="451" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="68" y="451" font-size="14" fill="#1f2937">Dentro do objeto real, <tspan font-weight="700" fill="#d9534f">this</tspan> não é o proxy: o advice de metodoB() não roda (é por isso que um @Transactional ali é ignorado).</text>
 </svg>

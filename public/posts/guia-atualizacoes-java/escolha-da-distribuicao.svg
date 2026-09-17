@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 660" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="660" fill="#ffffff"/>
+<defs><marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker></defs>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Como escolher uma distribuição de JDK para produção</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">Todas vêm do mesmo código OpenJDK: a escolha é de prazo de atualização, suporte e licença. Prazos para o Java 25.</text>
+<rect x="270" y="88" width="400" height="58" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="113" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Precisa de contrato de suporte com SLA?</text>
+<text x="470" y="134" font-size="13" fill="#2b7fc4" text-anchor="middle">atendimento com prazo, correção sob demanda</text>
+<path d="M330 148 L330 170 L242 170 L242 190" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<path d="M610 148 L610 170 L698 170 L698 190" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="286" y="166" font-size="14" font-weight="700" fill="#2e9e5b" text-anchor="middle">não</text>
+<text x="654" y="166" font-size="14" font-weight="700" fill="#e07a1f" text-anchor="middle">sim</text>
+<rect x="24" y="194" width="436" height="50" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="242" y="215" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Distribuição gratuita</text>
+<text x="242" y="234" font-size="13" fill="#2e9e5b" text-anchor="middle">atualizações sem custo, sem SLA</text>
+<rect x="24" y="266" width="128" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="88" y="303" font-size="13" fill="#111827" text-anchor="middle">roda na AWS</text>
+<line x1="154" y1="298" x2="173" y2="298" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="178" y="266" width="282" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="192" y="293" font-size="15" font-weight="700" fill="#111827">Amazon Corretto</text>
+<text x="192" y="314" font-size="13" fill="#374151">Java 25: fim de vida em out/2032</text>
+<rect x="24" y="346" width="128" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="88" y="383" font-size="13" fill="#111827" text-anchor="middle">roda no Azure</text>
+<line x1="154" y1="378" x2="173" y2="378" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="178" y="346" width="282" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="192" y="373" font-size="15" font-weight="700" fill="#111827">Microsoft Build of OpenJDK</text>
+<text x="192" y="394" font-size="13" fill="#374151">Java 25: suporte até pelo menos set/2030</text>
+<rect x="24" y="426" width="128" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="88" y="463" font-size="13" fill="#111827" text-anchor="middle">demais casos</text>
+<line x1="154" y1="458" x2="173" y2="458" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="178" y="426" width="282" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="192" y="453" font-size="15" font-weight="700" fill="#111827">Eclipse Temurin</text>
+<text x="192" y="474" font-size="13" fill="#374151">Java 25: até pelo menos set/2031</text>
+<rect x="480" y="194" width="436" height="50" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="698" y="215" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Suporte comercial</text>
+<text x="698" y="234" font-size="13" fill="#e07a1f" text-anchor="middle">contrato com o fornecedor do JDK</text>
+<rect x="480" y="266" width="128" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="544" y="294" font-size="13" fill="#111827" text-anchor="middle">já assina</text>
+<text x="544" y="312" font-size="13" fill="#111827" text-anchor="middle">RHEL/OpenShift</text>
+<line x1="610" y1="298" x2="629" y2="298" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="634" y="266" width="282" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="648" y="293" font-size="15" font-weight="700" fill="#111827">Red Hat build of OpenJDK</text>
+<text x="648" y="314" font-size="13" fill="#374151">incluído na assinatura do RHEL</text>
+<rect x="480" y="346" width="128" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="544" y="374" font-size="13" fill="#111827" text-anchor="middle">já é cliente</text>
+<text x="544" y="392" font-size="13" fill="#111827" text-anchor="middle">Oracle</text>
+<line x1="610" y1="378" x2="629" y2="378" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="634" y="346" width="282" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="648" y="373" font-size="15" font-weight="700" fill="#111827">Oracle JDK + assinatura</text>
+<text x="648" y="394" font-size="13" fill="#374151">Java SE Universal Subscription</text>
+<rect x="480" y="426" width="128" height="64" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="544" y="454" font-size="13" fill="#111827" text-anchor="middle">sem fornecedor</text>
+<text x="544" y="472" font-size="13" fill="#111827" text-anchor="middle">definido</text>
+<line x1="610" y1="458" x2="629" y2="458" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="634" y="426" width="282" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="648" y="453" font-size="15" font-weight="700" fill="#111827">Azul, BellSoft ou IBM</text>
+<text x="648" y="474" font-size="13" fill="#374151">compare prazo, preço e SLA</text>
+<rect x="24" y="530" width="892" height="104" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="44" y="560" font-size="15" font-weight="700" fill="#111827">Evite em produção</text>
+<circle cx="50" cy="582" r="3.5" fill="#d9534f"/>
+<text x="62" y="587" font-size="14" fill="#111827">builds do jdk.java.net: a Oracle publica só o GA e duas atualizações de cada versão, inclusive das LTS</text>
+<circle cx="50" cy="609" r="3.5" fill="#d9534f"/>
+<text x="62" y="614" font-size="14" fill="#111827">Oracle JDK sem assinatura depois do prazo da licença NFTC (21: set/2026; 25: set/2028)</text>
+</svg>

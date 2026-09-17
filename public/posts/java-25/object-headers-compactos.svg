@@ -38,7 +38,7 @@
 <text x="44" y="410" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• SF: tag de self-forwarding usada pelo GC</text>
 <text x="44" y="434" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• 4 bits reservados para o Projeto Valhalla</text>
 <rect x="482" y="304" width="434" height="144" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
-<text x="502" y="332" font-size="15" font-weight="700" fill="#111827" text-anchor="start">Resultados citados no JEP 519</text>
+<text x="502" y="332" font-size="15" font-weight="700" fill="#111827" text-anchor="start">Resultados citados na JEP 519</text>
 <text x="502" y="362" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• SPECjbb2015: 22% menos heap e 8% menos CPU</text>
 <text x="502" y="386" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• SPECjbb2015: 15% menos coletas (G1 e Parallel)</text>
 <text x="502" y="410" font-size="14" font-weight="400" fill="#374151" text-anchor="start">• parser JSON paralelo: 10% menos tempo</text>

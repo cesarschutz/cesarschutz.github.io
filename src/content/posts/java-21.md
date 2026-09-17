@@ -8,9 +8,18 @@ cover: /covers/java/java-21.svg
 draft: false
 ---
 
-O Java 21 chegou à disponibilidade geral em 19 de setembro de 2023 ([JDK 21](https://openjdk.org/projects/jdk/21/)) e é uma versão de suporte estendido (LTS). Para o Java 21, o [roadmap de suporte da Oracle](https://www.oracle.com/java/technologies/java-se-support-roadmap.html) informa Premier Support até setembro de 2028 e Extended Support até setembro de 2031. Para o Java 17, LTS anterior, o mesmo roadmap informa Premier Support até setembro de 2026 e Extended Support até setembro de 2029. Java 18, 19 e 20 não são LTS: o Premier Support de cada um terminou seis meses após o lançamento, quando saiu a versão seguinte.
+O Java 21 chegou à disponibilidade geral (GA) em 19 de setembro de 2023 ([JDK 21](https://openjdk.org/projects/jdk/21/)) e é uma versão de suporte de longo prazo (LTS, *long-term support*): recebe atualizações por anos, enquanto as versões intermediárias são substituídas a cada seis meses.
 
-Este artigo cobre **as mudanças do Java 18 ao Java 21** (quatro releases e 38 JEPs), ou seja, o que muda para quem migra do Java 17. O foco é mostrar o que cada recurso resolve, como usar e **em qual versão ele chegou**. Muitos dos recursos mais importantes passaram por uma ou mais rodadas de *preview* antes de ficarem finais no 21.
+No [roadmap de suporte da Oracle](https://www.oracle.com/java/technologies/java-se-support-roadmap.html), o Java 21 tem Premier Support até setembro de 2028 e Extended Support até setembro de 2031. Para o Java 17, a LTS anterior, a Oracle informa Premier Support até setembro de 2026 e Extended Support até setembro de 2029. Todas essas datas vêm com a ressalva "ou mais tarde". A mesma página avisa que as atualizações do Oracle JDK 21 lançadas a partir do Critical Patch Update de outubro de 2026 estão planejadas para sair sob a licença Java SE OTN. Java 18, 19 e 20 não são LTS: cada um perdeu o Premier Support seis meses depois de sair, quando a versão seguinte chegou. Outros fornecedores de builds do OpenJDK publicam os próprios prazos.
+
+Este artigo é para quem está no Java 17 e vai subir para o 21. Ele cobre **tudo o que entrou do Java 18 ao Java 21**: quatro releases e 38 JEPs. Vários dos recursos mais importantes passaram por uma ou mais rodadas de *preview* antes de ficarem finais no 21, por isso cada um mostra **em qual versão chegou**. A ordem do texto é esta:
+
+1. a linha do tempo, com a trajetória de cada recurso;
+2. os recursos, por tema: linguagem, concorrência, APIs, JVM, ferramentas, segurança e o que foi removido ou depreciado;
+3. o que ainda era preview ou incubadora no Java 21 e o destino de cada recurso;
+4. os cuidados na migração a partir do Java 17 e a lista completa de JEPs.
+
+O que veio antes está no [post do Java 17](/posts/java-17/), e o passo seguinte, no [post do Java 25](/posts/java-25/). Estratégia de migração, distribuições e custos estão no [guia de atualizações do Java](/posts/guia-atualizacoes-java/).
 
 | Versão | Disponibilidade geral | Tipo | JEPs |
 | --- | --- | --- | --- |
@@ -19,8 +28,9 @@ Este artigo cobre **as mudanças do Java 18 ao Java 21** (quatro releases e 38 J
 | Java 20 | 21/03/2023 ([JDK 20](https://openjdk.org/projects/jdk/20/)) | não LTS | 7 |
 | Java 21 | 19/09/2023 ([JDK 21](https://openjdk.org/projects/jdk/21/)) | **LTS** | 15 |
 
-Dois termos aparecem o tempo todo:
+Três termos aparecem o tempo todo:
 
+- **JEP** (*JDK Enhancement Proposal*): o documento que propõe e descreve cada mudança relevante do JDK. Cada etapa de um recurso, como uma rodada de preview ou a versão final, tem a própria JEP, com outro número.
 - **Preview** ([JEP 12](https://openjdk.org/jeps/12)): recurso de linguagem ou API completo, mas ainda não permanente. Fica desligado por padrão e exige `--enable-preview` na compilação e na execução. Pode mudar ou sair na versão seguinte.
 - **Incubadora** ([JEP 11](https://openjdk.org/jeps/11)): API experimental entregue em um módulo `jdk.incubator.*`, que precisa ser adicionado explicitamente com `--add-modules`.
 
@@ -30,7 +40,9 @@ Em cada recurso, a linha **Chegou em** mostra a trajetória completa, com link p
 
 ![Linha do tempo do Java 17 ao Java 21 mostrando, por recurso, as etapas de incubadora, preview e final com o número de cada JEP](/posts/java-21/linha-do-tempo.svg)
 
-Três recursos saíram de preview e ficaram finais no Java 21: pattern matching para `switch`, record patterns e virtual threads. Structured concurrency e scoped values subiram de incubadora para preview, e a Foreign Function & Memory API seguiu em preview (ficou final só no Java 22). Os recursos que chegaram direto como finais estão concentrados no Java 18 (UTF-8 por padrão, Simple Web Server, `@snippet`, SPI de resolução de endereços e reflexão reimplementada) e no Java 21 (Sequenced Collections, ZGC geracional, API de KEM e aviso para agentes carregados dinamicamente). Java 19 e 20 não entregaram nenhum recurso novo final por JEP: as JEPs dessas versões são de preview ou incubadora, além do port para Linux/RISC-V no Java 19.
+Cada linha do diagrama é um recurso e cada coluna, uma versão. A cor mostra o estado em cada versão: azul para incubadora, laranja para preview e verde para final. Os quadros de baixo listam o que chegou direto como final e o que estreou em preview no Java 21.
+
+Três recursos saíram de preview e ficaram finais no Java 21: pattern matching para `switch`, record patterns e virtual threads. Structured concurrency e scoped values subiram de incubadora para preview, e a Foreign Function & Memory API seguiu em preview (ficou final só no Java 22, como mostra o [post do Java 25](/posts/java-25/#foreign-function--memory-api)). Os recursos que chegaram direto como finais estão concentrados no Java 18 (UTF-8 por padrão, Simple Web Server, `@snippet`, SPI de resolução de endereços e reflexão reimplementada) e no Java 21 (Sequenced Collections, ZGC geracional, API de KEM e aviso para agentes carregados dinamicamente). Java 19 e 20 não entregaram nenhum recurso novo final por JEP: as JEPs dessas versões são de preview ou incubadora, além do port para Linux/RISC-V no Java 19.
 
 ## Linguagem
 
@@ -38,14 +50,14 @@ Três recursos saíram de preview e ficaram finais no Java 21: pattern matching 
 
 **Chegou em:** Java 17 (preview, [JEP 406](https://openjdk.org/jeps/406)) → Java 18 (2ª preview, [JEP 420](https://openjdk.org/jeps/420)) → Java 19 (3ª preview, [JEP 427](https://openjdk.org/jeps/427)) → Java 20 (4ª preview, [JEP 433](https://openjdk.org/jeps/433)) → Java 21 (final, [JEP 441](https://openjdk.org/jeps/441))
 
-No Java 17, sem habilitar preview, o `switch` só aceitava seletores de tipos integrais (exceto `long`), seus wrappers, `String` e enums, e cada `case` só podia comparar com uma constante. Quem precisava decidir pelo **tipo** de um objeto escrevia uma cadeia de `if (x instanceof ...)`. A [JEP 441](https://openjdk.org/jeps/441) muda o `switch` em quatro pontos:
+No Java 17, sem habilitar preview, o valor avaliado pelo `switch` (o **seletor**) só podia ser de um tipo integral (exceto `long`), de um wrapper desses tipos, `String` ou enum, e cada `case` só comparava com uma constante. Quem precisava decidir pelo **tipo** de um objeto escrevia uma cadeia de `if (x instanceof ...)`. O recurso já existia como preview no Java 17 ([post do Java 17](/posts/java-17/#pattern-matching-para-switch)) e ficou final no 21. A [JEP 441](https://openjdk.org/jeps/441) muda o `switch` em quatro pontos:
 
 1. O seletor pode ser **qualquer tipo de referência**.
 2. Um `case` pode ter um **padrão** (`case Cartao c`) e também `case null`.
 3. Um padrão pode ter uma **guarda** com `when`.
 4. Constantes de enum podem aparecer com **nome qualificado** (`case Real.CEDULA`).
 
-Veja uma hierarquia selada de pagamentos tratada das duas formas:
+Veja uma hierarquia selada de pagamentos (*sealed classes*, finais desde o Java 17, como mostra o [post do Java 17](/posts/java-17/#sealed-classes)) tratada das duas formas:
 
 ```java title="Pagamentos.java" {25-33}
 import java.math.BigDecimal;
@@ -94,9 +106,16 @@ public class Pagamentos {
         for (Pagamento p : pagamentos) {
             System.out.println(descrever(p));
         }
-        System.out.println(descreverJava17(pagamentos[1]));
+        System.out.println(descreverJava17(pagamentos[1])); // mesmo resultado da versão com switch
     }
 }
+// Saída:
+// Pix para ana@exemplo.com
+// Cartão Visa em 3x
+// Cartão Master à vista
+// Boleto 34191.79001 01043.510047
+// nenhum pagamento
+// Cartão Visa em 3x
 ```
 
 As regras que valem a pena conhecer, todas descritas na [JEP 441](https://openjdk.org/jeps/441):
@@ -104,7 +123,7 @@ As regras que valem a pena conhecer, todas descritas na [JEP 441](https://openjd
 - **Exaustividade.** Um `switch` que usa padrões ou `case null` precisa cobrir todos os valores possíveis. Com `sealed`, o compilador usa a cláusula `permits` para provar isso, e o `default` fica desnecessário. A JEP recomenda **não** colocar `default` nesses casos: sem ele, se alguém criar um novo subtipo, o erro aparece na próxima compilação e não em produção. `switch` antigos, sem padrões e com seletor de tipo legado, continuam compilando sem essa exigência.
 - **Ordem e dominância.** O primeiro `case` que casa é o escolhido. Se um `case` nunca pode ser alcançado porque um anterior já cobre todos os seus valores (por exemplo, `case CharSequence cs` antes de `case String s`), é erro de compilação. Por isso, no exemplo, `case Cartao c when ...` vem antes de `case Cartao c`.
 - **`null`.** Sem `case null`, o `switch` continua lançando `NullPointerException` para seletor nulo, como sempre. Com `case null`, você trata o nulo dentro do próprio `switch`. `case null, default ->` junta os dois.
-- **`MatchException`.** Se nenhum rótulo casar em tempo de execução, o que só acontece quando a hierarquia muda depois da compilação, o `switch` lança `MatchException`. Para alinhar as duas semânticas, uma expressão `switch` sobre enum passou a lançar `MatchException`, e não mais `IncompatibleClassChangeError`, quando nenhum rótulo casa em tempo de execução.
+- **`MatchException`.** Um `switch` exaustivo ainda pode não achar rótulo em tempo de execução, se a hierarquia mudar depois da compilação (por exemplo, um novo subtipo numa biblioteca atualizada sem recompilar quem a usa). Nesse caso, ele lança `MatchException`. Pelo mesmo motivo, uma expressão `switch` sobre enum passou a lançar `MatchException`, e não mais `IncompatibleClassChangeError`, quando aparece uma constante que não existia na compilação.
 
 A sintaxe mudou durante as previews. A guarda era escrita com `&&` e virou `when` no Java 19 ([JEP 427](https://openjdk.org/jeps/427)). Os padrões entre parênteses foram removidos no Java 21, que também passou a aceitar constantes de enum qualificadas ([JEP 441](https://openjdk.org/jeps/441)). Isso é útil quando o seletor é uma interface selada implementada por um enum:
 
@@ -124,8 +143,8 @@ public class Moedas {
     }
 
     public static void main(String[] args) {
-        System.out.println(tipo(Real.CEDULA));
-        System.out.println(tipo(new Cripto("BTC")));
+        System.out.println(tipo(Real.CEDULA));          // cédula
+        System.out.println(tipo(new Cripto("BTC")));    // cripto BTC
     }
 }
 ```
@@ -136,7 +155,11 @@ O guia oficial [Pattern Matching for switch](https://docs.oracle.com/en/java/jav
 
 **Chegou em:** Java 19 (preview, [JEP 405](https://openjdk.org/jeps/405)) → Java 20 (2ª preview, [JEP 432](https://openjdk.org/jeps/432)) → Java 21 (final, [JEP 440](https://openjdk.org/jeps/440))
 
-O Java 16 trouxe records ([JEP 395](https://openjdk.org/jeps/395)) e o *type pattern* do `instanceof` ([JEP 394](https://openjdk.org/jeps/394)). Faltava o caminho inverso do construtor: **desmontar** um record em seus componentes. Um *record pattern* tem a forma `Tipo(padrão1, padrão2, ...)`. O valor casa se for uma instância do record; nesse caso, o Java chama o acessor de cada componente e testa o subpadrão correspondente. Como os subpadrões podem ser outros record patterns, dá para navegar numa estrutura inteira de uma vez ([JEP 440](https://openjdk.org/jeps/440)).
+O Java 16 trouxe records ([JEP 395](https://openjdk.org/jeps/395)) e o *type pattern* do `instanceof`, como em `obj instanceof String s` ([JEP 394](https://openjdk.org/jeps/394)). Os dois estão no post do Java 17, nas seções [Records](/posts/java-17/#records) e [Pattern matching para `instanceof`](/posts/java-17/#pattern-matching-para-instanceof). Faltava o caminho inverso do construtor: **desmontar** um record em seus componentes. Com o type pattern, isso ainda exigia uma variável para o record e uma chamada de acessor para cada componente.
+
+Um *record pattern* tem a forma `Tipo(padrão1, padrão2, ...)`. O valor casa se for uma instância do record; nesse caso, o Java chama o acessor de cada componente e testa o subpadrão correspondente. Como os subpadrões podem ser outros record patterns, dá para navegar numa estrutura inteira de uma vez ([JEP 440](https://openjdk.org/jeps/440)).
+
+O diagrama mostra o `instanceof` do método `imprimir`, no exemplo logo abaixo: à esquerda, o objeto em memória; à direita, as variáveis que o padrão cria.
 
 ![Diagrama de um record pattern aninhado: o objeto Retangulo com dois PontoColorido é desmontado e os componentes x, y, cor e inferior viram variáveis de padrão](/posts/java-21/record-patterns-aninhados.svg)
 
@@ -177,9 +200,9 @@ public class Formas {
         var r = new Retangulo(
             new PontoColorido(new Ponto(0, 10), Cor.VERMELHO),
             new PontoColorido(new Ponto(4, 2), Cor.AZUL));
-        imprimirJava17(r);
-        imprimir(r);
-        System.out.println("área = " + area(r));
+        imprimirJava17(r);   // canto em (0, 10) VERMELHO
+        imprimir(r);         // canto em (0, 10) VERMELHO; oposto: PontoColorido[ponto=Ponto[x=4, y=2], cor=AZUL]
+        System.out.println("área = " + area(r));   // área = 32
     }
 }
 ```
@@ -189,6 +212,7 @@ Detalhes importantes:
 - Os nomes das variáveis não precisam ser iguais aos dos componentes: `Ponto(int a, int b)` funciona.
 - `var` deixa o compilador inferir o tipo do componente.
 - `null` **nunca** casa com um record pattern.
+- Para ignorar um componente, o Java 21 só oferece `_` em preview; o recurso ficou final no Java 22 (veja [Padrões e variáveis sem nome](#padrões-e-variáveis-sem-nome)).
 - Em records genéricos, os argumentos de tipo são inferidos. `Caixa(Caixa(var s))` sobre um `Caixa<Caixa<String>>` é tratado como `Caixa<Caixa<String>>(Caixa<String>(var s))`.
 
 ```java title="Caixas.java" {9-12,18}
@@ -215,11 +239,11 @@ public class Caixas {
     }
 
     public static void main(String[] args) {
-        System.out.println(descrever(new Caixa<>(new Caixa<>("oi"))));
-        System.out.println(descrever(new Caixa<>(42)));
-        System.out.println(descrever(new Par<>(3, 1)));
-        System.out.println(descrever(new Par<>("a", 1)));
-        generico(new Caixa<>(new Caixa<>("java")));
+        System.out.println(descrever(new Caixa<>(new Caixa<>("oi")))); // caixa dentro de caixa com a string oi
+        System.out.println(descrever(new Caixa<>(42)));                 // caixa com 42
+        System.out.println(descrever(new Par<>(3, 1)));                 // par decrescente
+        System.out.println(descrever(new Par<>("a", 1)));               // par (a, 1)
+        generico(new Caixa<>(new Caixa<>("java")));                     // JAVA
     }
 }
 ```
@@ -232,15 +256,19 @@ Se você experimentou as previews, atenção a duas mudanças. A 2ª preview, no
 
 **Chegou em:** Java 19 (preview, [JEP 425](https://openjdk.org/jeps/425)) → Java 20 (2ª preview, [JEP 436](https://openjdk.org/jeps/436)) → Java 21 (final, [JEP 444](https://openjdk.org/jeps/444))
 
-Aplicações de servidor costumam usar o estilo *thread-per-request*: uma thread cuida da requisição do começo ao fim. O estilo é simples de escrever, depurar e perfilar. O problema, segundo a [JEP 444](https://openjdk.org/jeps/444), é que cada `java.lang.Thread` era um invólucro de uma thread do sistema operacional. Threads do SO são caras, então o número de threads vira o limite de vazão muito antes de CPU ou conexões. Um pool não resolve, porque reaproveita threads mas não aumenta o total. A alternativa era o estilo assíncrono (`CompletableFuture`, frameworks reativos), que escala, mas quebra o código em estágios, perde stack traces úteis e atrapalha depuradores e profilers.
+Aplicações de servidor costumam usar o estilo *thread-per-request*: uma thread cuida da requisição do começo ao fim. O estilo é simples de escrever, depurar e perfilar. O problema, segundo a [JEP 444](https://openjdk.org/jeps/444), é que cada `java.lang.Thread` era um invólucro de uma thread do sistema operacional (SO). Threads do SO são caras, então o número de threads vira o limite de vazão muito antes de CPU ou conexões. Um pool não resolve, porque reaproveita threads mas não aumenta o total. A alternativa era o estilo assíncrono (`CompletableFuture`, frameworks reativos), que escala, mas quebra o código em estágios, perde stack traces úteis e atrapalha depuradores e profilers.
 
-Uma **virtual thread** também é uma instância de `java.lang.Thread`, só que **não fica presa a uma thread do SO**. O JDK tem seu próprio scheduler, um `ForkJoinPool` em modo FIFO, que monta (*mount*) virtual threads em algumas *platform threads* chamadas **carriers**. Por padrão, o paralelismo desse pool é igual ao número de processadores. Quando o código numa virtual thread faz uma operação bloqueante do JDK, como ler de um socket, esperar um `BlockingQueue.take()` ou dormir, a virtual thread normalmente **desmonta**, e a carrier fica livre para outra. Quando a operação pode continuar, a virtual thread volta à fila e é montada de novo, possivelmente em outra carrier. A pilha dela fica no heap, em objetos que crescem e encolhem conforme a necessidade.
+Uma **virtual thread** também é uma instância de `java.lang.Thread`, só que **não fica presa a uma thread do SO**. A thread tradicional, ligada a uma thread do SO do começo ao fim, passa a se chamar **platform thread**. O JDK tem o próprio agendador (*scheduler*) de virtual threads, um `ForkJoinPool` em modo FIFO. Ele monta (*mount*) cada virtual thread pronta para rodar em uma das poucas platform threads do pool, chamadas **carriers** ("portadoras"). Por padrão, o pool tem tantas carriers quanto processadores.
+
+Quando o código numa virtual thread faz uma operação bloqueante do JDK, como ler de um socket, esperar um `BlockingQueue.take()` ou dormir, a virtual thread normalmente **desmonta**, e a carrier fica livre para outra. Quando a operação pode continuar, a virtual thread volta à fila e é montada de novo, possivelmente em outra carrier. Enquanto espera, a pilha dela fica no heap, em objetos que crescem e encolhem conforme a necessidade.
+
+O diagrama compara os dois modelos e mostra, embaixo, o ciclo de uma chamada bloqueante:
 
 ![Comparação entre platform threads, uma thread do SO por thread Java, e virtual threads, muitas virtual threads agendadas por um ForkJoinPool sobre poucas carriers, com o ciclo de montar e desmontar em I/O e o aviso sobre pinning](/posts/java-21/virtual-threads.svg)
 
 O código continua sequencial e bloqueante. O que muda é como as threads são criadas:
 
-```java title="ThreadsVirtuais.java" {12,22-24,27,31-42}
+```java title="ThreadsVirtuais.java" {12,23-25,29,33-44}
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.Executors;
@@ -260,12 +288,14 @@ public class ThreadsVirtuais {
                 }));
         } // close() espera todas as tarefas terminarem
         System.out.println("10.000 tarefas de 1s em " + Duration.between(inicio, Instant.now()).toMillis() + " ms");
+        // algo como: 10.000 tarefas de 1s em 1183 ms (e não 10.000 segundos)
 
         // 2) Criando diretamente com Thread.Builder
         Thread t = Thread.ofVirtual()
                 .name("worker-", 0)
                 .start(() -> System.out.println(Thread.currentThread() + " virtual? " + Thread.currentThread().isVirtual()));
         t.join();
+        // algo como: VirtualThread[#10033,worker-0]/runnable@ForkJoinPool-1-worker-8 virtual? true
 
         Thread.startVirtualThread(() -> System.out.println("atalho: startVirtualThread")).join();
 
@@ -293,13 +323,13 @@ public class ThreadsVirtuais {
 }
 ```
 
-O primeiro bloco é o exemplo da própria JEP: 10.000 tarefas que dormem 1 segundo rodam concorrentemente, e o JDK executa tudo sobre poucas threads do SO. A JEP compara com duas alternativas. `Executors.newCachedThreadPool()` tentaria criar 10.000 threads do SO e poderia derrubar o programa, dependendo da máquina. `newFixedThreadPool(200)` dividiria 200 threads entre as 10.000 tarefas, com vazão de 200 tarefas por segundo, contra cerca de 10.000 por segundo com virtual threads depois do aquecimento, segundo a JEP.
+O primeiro bloco adapta o exemplo da própria JEP: 10.000 tarefas que dormem 1 segundo rodam concorrentemente, e o JDK executa tudo sobre poucas threads do SO. Por isso o bloco termina em pouco mais de um segundo. A JEP compara com duas alternativas. `Executors.newCachedThreadPool()` tentaria criar 10.000 threads do SO e poderia derrubar o programa, dependendo da máquina. `newFixedThreadPool(200)` dividiria 200 threads entre as 10.000 tarefas, com vazão de 200 tarefas por segundo, contra cerca de 10.000 por segundo com virtual threads depois do aquecimento, segundo a JEP.
 
 O que a [JEP 444](https://openjdk.org/jeps/444) deixa claro sobre quando e como usar:
 
 - **Virtual threads não são threads mais rápidas.** Elas trazem escala (mais vazão), não menos latência. Ajudam quando há muitas tarefas concorrentes (a JEP fala em mais de alguns milhares) e quando a carga **não é limitada por CPU**. Para cálculo pesado, ter mais threads que núcleos não ajuda.
 - **Não faça pool de virtual threads.** Crie uma por tarefa. Se o objetivo do pool era limitar o acesso a um recurso, como no máximo 20 chamadas a um serviço, use um `Semaphore`, como no terceiro bloco.
-- **Cuidado com `ThreadLocal` usado como cache.** Virtual threads suportam `ThreadLocal`, e no Java 21 esse suporte não pode mais ser desligado, como era possível nas previews. Mas o idioma de guardar um objeto caro por thread deixa de funcionar quando cada tarefa tem a própria thread: o objeto seria recriado a cada tarefa.
+- **Cuidado com `ThreadLocal` usado como cache.** Virtual threads suportam `ThreadLocal`, e no Java 21 esse suporte não pode mais ser desligado, como era possível nas previews. Mas o hábito de guardar um objeto caro por thread deixa de funcionar quando cada tarefa tem a própria thread: o objeto seria recriado a cada tarefa.
 - **Diferenças de API.** Virtual threads são sempre daemon, têm prioridade fixa `NORM_PRIORITY` e não participam ativamente de `ThreadGroup`. `Thread.getAllStackTraces()` passou a devolver só platform threads. Os construtores públicos de `Thread` continuam criando platform threads.
 
 **Pinning.** No Java 21, há dois casos em que a virtual thread não consegue desmontar durante uma operação bloqueante e fica "presa" (*pinned*) à carrier: dentro de um bloco ou método `synchronized`, e durante um método nativo ou função estrangeira. O código continua correto, mas bloqueia a carrier. Se isso for frequente e longo, a escalabilidade cai. A recomendação da JEP é trocar `synchronized` por `ReentrantLock` onde houver I/O longo e frequente. Não é preciso trocar blocos raros ou que só protegem operações em memória.
@@ -348,7 +378,7 @@ public class Pinning {
 }
 ```
 
-Para encontrar pinning, o Java 21 oferece a propriedade `jdk.tracePinnedThreads` e o evento JFR `jdk.VirtualThreadPinned`, que vem habilitado com limiar de 20 ms ([JEP 444](https://openjdk.org/jeps/444)). No Temurin 21.0.12, o exemplo acima reporta só a versão com `synchronized`:
+Para encontrar pinning, o Java 21 oferece a propriedade `jdk.tracePinnedThreads` e o evento `jdk.VirtualThreadPinned` do JDK Flight Recorder (JFR, o registrador de eventos embutido na JVM). O evento vem habilitado, com limiar de 20 ms ([JEP 444](https://openjdk.org/jeps/444)). No Temurin 21.0.12, o exemplo acima reporta só a versão com `synchronized`:
 
 ```bash
 $ java -Djdk.tracePinnedThreads=short Pinning.java
@@ -358,7 +388,7 @@ dados
 dados
 ```
 
-O caso do `synchronized` foi resolvido depois, no Java 24: a [JEP 491](https://openjdk.org/jeps/491) faz virtual threads bloqueadas nesses blocos liberarem a carrier, eliminando quase todos os casos de pinning. Quem fica no Java 21 precisa conviver com a limitação.
+O caso do `synchronized` foi resolvido no Java 24: com a [JEP 491](https://openjdk.org/jeps/491), virtual threads bloqueadas nesses blocos liberam a carrier, o que elimina quase todos os casos de pinning. A mesma JEP retira a propriedade `jdk.tracePinnedThreads`. Os detalhes estão no [post do Java 25](/posts/java-25/#synchronized-não-prende-mais-virtual-threads), e o Java 26 tratou mais um caso, a espera pela inicialização de uma classe ([post do Java 29](/posts/java-29/#virtual-threads-liberam-a-carrier-enquanto-esperam-a-inicialização-de-uma-classe)). Quem fica no Java 21 precisa conviver com a limitação.
 
 Para observar milhares de threads, o `jcmd` ganhou um novo formato de thread dump que agrupa as virtual threads e pode sair em JSON: `jcmd <pid> Thread.dump_to_file -format=json <arquivo>`. O guia [Virtual Threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html) da Oracle aprofunda esses pontos.
 
@@ -381,7 +411,9 @@ No Java 20, os métodos equivalentes de `Thread` seguiram o mesmo caminho, como 
 
 **Chegou em:** Java 21 (final, [JEP 431](https://openjdk.org/jeps/431))
 
-O framework de coleções tinha vários tipos com ordem de encontro definida (`List`, `Deque`, `LinkedHashSet`, `SortedSet`, `LinkedHashMap`), mas nenhum supertipo comum para essa ideia, e cada um tinha um jeito diferente de pegar o primeiro ou o último elemento. Pegar o último de um `LinkedHashSet` exigia percorrer tudo. Iterar ao contrário variava de tipo para tipo. A [JEP 431](https://openjdk.org/jeps/431) cria três interfaces e as encaixa na hierarquia existente. Todos os métodos novos têm implementação *default*.
+O framework de coleções tinha vários tipos com uma ordem definida de percorrer os elementos (a *encounter order*): `List`, `Deque`, `LinkedHashSet`, `SortedSet` e `LinkedHashMap`. Mas não havia um supertipo comum para essa ideia, e cada tipo tinha um jeito diferente de pegar o primeiro ou o último elemento. Pegar o último de um `LinkedHashSet` exigia percorrer tudo, e iterar ao contrário variava de tipo para tipo.
+
+A [JEP 431](https://openjdk.org/jeps/431) cria três interfaces e as encaixa na hierarquia existente. Todos os métodos novos têm implementação *default*. No diagrama, as interfaces novas estão em verde e os tipos que ganharam o novo supertipo, em azul; embaixo, os métodos de cada interface.
 
 ![Hierarquia das Sequenced Collections: SequencedCollection entre Collection e List/Deque, SequencedSet acima de LinkedHashSet e SortedSet, SequencedMap acima de LinkedHashMap e SortedMap, com a lista de métodos de cada interface](/posts/java-21/sequenced-collections.svg)
 
@@ -415,11 +447,13 @@ public class Sequenciadas {
         cache.put("y", 2);
         cache.putFirst("z", 0);
         System.out.println(cache + " primeira=" + cache.firstEntry() + " última=" + cache.lastEntry());
+        // {z=0, x=1, y=2} primeira=z=0 última=y=2
         System.out.println("removida=" + cache.pollLastEntry() + " restante=" + cache.sequencedKeySet().reversed());
+        // removida=y=2 restante=[x, z]
 
         // Deque, SortedSet e SortedMap também são sequenciados
         SequencedCollection<Integer> ordenado = new TreeSet<>(Set.of(5, 1, 3));
-        System.out.println(ordenado.getFirst() + " .. " + ordenado.getLast());
+        System.out.println(ordenado.getFirst() + " .. " + ordenado.getLast()); // 1 .. 5
 
         // SortedSet posiciona pela ordem natural: addFirst não faz sentido
         try {
@@ -430,7 +464,7 @@ public class Sequenciadas {
 
         // Wrappers imutáveis novos
         SequencedMap<String, Integer> somenteLeitura = Collections.unmodifiableSequencedMap(cache);
-        System.out.println(somenteLeitura.reversed());
+        System.out.println(somenteLeitura.reversed()); // {x=1, z=0}
     }
 }
 ```
@@ -448,20 +482,23 @@ Métodos *default* novos no topo da hierarquia podem conflitar com métodos já 
 
 **Chegou em:** Java 18 (final, [JEP 400](https://openjdk.org/jeps/400))
 
-Até o Java 17, o *charset* padrão era decidido na inicialização a partir do sistema operacional e do locale. No macOS era UTF-8 (exceto no locale POSIX C). No Windows, costumava ser uma *code page* como `windows-1252`. Todas as APIs que usam o charset padrão sem receber um explicitamente (`FileReader`, `FileWriter`, `InputStreamReader`, `OutputStreamWriter`, `PrintStream`, `Formatter`, `Scanner`) podiam ler e gravar texto de forma diferente conforme a máquina. A [JEP 400](https://openjdk.org/jeps/400) especifica que o charset padrão é **UTF-8** em todas as plataformas. A exceção é a E/S de console: `System.out` e `System.err` seguem o charset do console.
+Até o Java 17, o *charset* padrão (a codificação usada para converter bytes em texto quando o código não informa nenhuma) era decidido na inicialização, a partir do sistema operacional e do locale. No macOS era UTF-8, exceto no locale POSIX C. No Windows, costumava ser uma *code page* como `windows-1252`. Todas as APIs que usam o charset padrão sem receber um explicitamente (`FileReader`, `FileWriter`, `InputStreamReader`, `OutputStreamWriter`, `PrintStream`, `Formatter`, `Scanner`) podiam ler e gravar texto de forma diferente conforme a máquina. Um arquivo gravado no macOS podia ser lido com acentos corrompidos no Windows.
 
-```java title="Charset.java"
+A [JEP 400](https://openjdk.org/jeps/400) especifica que o charset padrão é **UTF-8** em todas as plataformas. A exceção é a entrada e saída de console: `System.out` e `System.err` seguem o charset do console.
+
+```java title="CharsetPadrao.java"
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class Charset {
+public class CharsetPadrao {
     public static void main(String[] args) throws IOException {
-        System.out.println("default charset: " + java.nio.charset.Charset.defaultCharset());   // UTF-8 no Java 18+
-        System.out.println("native.encoding: " + System.getProperty("native.encoding"));      // o que o SO usaria
+        System.out.println("default charset: " + Charset.defaultCharset());               // UTF-8 no Java 18+
+        System.out.println("native.encoding: " + System.getProperty("native.encoding")); // o charset que o SO usaria (varia por máquina)
 
         Path arquivo = Files.createTempFile("acentos", ".txt");
         // Sem charset explícito: no Java 18+ grava em UTF-8 em qualquer SO
@@ -472,16 +509,17 @@ public class Charset {
         try (var r = new FileReader(arquivo.toFile(), StandardCharsets.UTF_8)) {
             char[] buf = new char[10];
             int n = r.read(buf);
-            System.out.println(new String(buf, 0, n));
+            System.out.println(new String(buf, 0, n)); // ação
         }
     }
 }
 ```
 
-Na migração, a JEP recomenda:
+A propriedade `native.encoding`, disponível desde o Java 17, continua informando o charset que o SO usaria. Na migração, a JEP recomenda:
 
 - Testar a aplicação **ainda no Java 17** com `java -Dfile.encoding=UTF-8` e compilar com `javac -encoding UTF-8`, para descobrir antes onde há dependência do charset do SO.
 - Se precisar do comportamento antigo, usar `-Dfile.encoding=COMPAT`. Valores diferentes de `UTF-8` e `COMPAT` não são suportados.
+- No código, passar o charset explicitamente, como no `FileReader` do exemplo. Assim o comportamento não depende da versão do JDK nem da máquina.
 - Conferir os fontes `.java` salvos em outra codificação: o `javac` também passa a assumir UTF-8 quando `-encoding` não é informado, e literais com acento podem ser lidos errado.
 - `Charset.forName("default")`, que antes era um alias de US-ASCII, passa a lançar `UnsupportedCharsetException`.
 
@@ -543,6 +581,7 @@ public class NovasApis {
 
         System.out.println(percentual + " " + narrow + " " + linha + " " + pos + " "
                 + Arrays.toString(partes) + " " + emoji + " " + mapa.size() + " " + mesAno);
+        // 100 2147483647 -------------------- fim 7 [a, +, b, -, c] true 0 set. de 2023
 
         // Java 19: ExecutorService é AutoCloseable
         try (var pool = Executors.newFixedThreadPool(2)) {
@@ -551,7 +590,7 @@ public class NovasApis {
 
         // Java 21: HttpClient é AutoCloseable
         try (HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(2)).build()) {
-            System.out.println("cliente criado: " + client.version());
+            System.out.println("cliente criado: " + client.version()); // cliente criado: HTTP_2
         }
     }
 }
@@ -561,13 +600,17 @@ public class NovasApis {
 
 **Chegou em:** Java 18 (final, [JEP 418](https://openjdk.org/jeps/418))
 
-`InetAddress` sempre usou o resolvedor nativo do sistema operacional. A [JEP 418](https://openjdk.org/jeps/418) define uma *service-provider interface* no pacote `java.net.spi` ([`InetAddressResolverProvider`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/net/spi/InetAddressResolverProvider.html) e `InetAddressResolver`). Com ela, uma biblioteca pode registrar, via `ServiceLoader`, outro resolvedor para todo o sistema, útil em testes ou com protocolos como DNS sobre QUIC ou HTTPS. Sem provedor registrado, nada muda. A [JEP 444](https://openjdk.org/jeps/444) cita essa SPI como o caminho para ter resolvedores que não prendem virtual threads durante a busca de nomes.
+`InetAddress` sempre usou o resolvedor nativo do sistema operacional para transformar nomes de host em endereços IP, sem como trocá-lo. A [JEP 418](https://openjdk.org/jeps/418) define uma SPI (*service-provider interface*, uma interface que bibliotecas implementam para substituir uma parte do JDK) no pacote `java.net.spi`: [`InetAddressResolverProvider`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/net/spi/InetAddressResolverProvider.html) e `InetAddressResolver`. Com ela, uma biblioteca pode registrar, via `ServiceLoader`, outro resolvedor para toda a JVM. Isso ajuda em testes, para simular respostas de DNS, e com protocolos como DNS sobre QUIC, TLS ou HTTPS. Sem provedor registrado, nada muda. A [JEP 444](https://openjdk.org/jeps/444) cita essa SPI como o caminho para ter resolvedores que não prendem virtual threads durante a busca de nomes.
 
 ### Reflexão reimplementada com method handles
 
 **Chegou em:** Java 18 (final, [JEP 416](https://openjdk.org/jeps/416))
 
-`Method.invoke`, `Constructor.newInstance`, `Field.get` e `Field.set` passaram a usar `java.lang.invoke` por baixo. A API pública não mudou. A JEP publica os próprios números de microbenchmark: quando os objetos `Method`, `Constructor` e `Field` ficam em campos `static final`, a nova implementação foi de 43% a 57% mais rápida. Quando não podem ser tratados como constantes, o acesso a campos ficou de 51% a 77% mais lento, sem degradação nos benchmarks de serialização com Jackson, XStream e Kryo que a equipe rodou. Como plano de contingência, o Java 18 aceitava `-Djdk.reflect.useDirectMethodHandle=false` para voltar à implementação antiga, e a JEP avisa que essa opção seria removida no futuro. A mudança também reduz *frames* nativos na pilha, o que ajuda virtual threads ([JEP 444](https://openjdk.org/jeps/444), seção Dependencies).
+`Method.invoke`, `Constructor.newInstance`, `Field.get` e `Field.set` passaram a usar method handles (`java.lang.invoke`) por baixo. A API pública não mudou, então o efeito aparece só em desempenho e em código que dependia de detalhes internos da implementação antiga.
+
+A JEP publica os próprios números de microbenchmark. Quando os objetos `Method`, `Constructor` e `Field` ficam em campos `static final`, a nova implementação foi de 43% a 57% mais rápida. Quando eles não podem ser tratados como constantes pelo compilador JIT, o acesso a campos ficou de 51% a 77% mais lento. Nos benchmarks de serialização com Jackson, XStream e Kryo que a equipe rodou, não houve degradação. Como plano de contingência, o Java 18 aceitava `-Djdk.reflect.useDirectMethodHandle=false` para voltar à implementação antiga, e a JEP avisa que essa opção deixaria de funcionar no futuro.
+
+A mudança também reduz o uso de *frames* nativos na pilha ([JEP 416](https://openjdk.org/jeps/416)). Segundo a [JEP 444](https://openjdk.org/jeps/444), é isso que permite a uma virtual thread desmontar normalmente durante uma chamada por reflexão.
 
 ## JVM, GC e desempenho
 
@@ -575,7 +618,13 @@ public class NovasApis {
 
 **Chegou em:** Java 21 (final, [JEP 439](https://openjdk.org/jeps/439))
 
-O ZGC é o coletor de baixa latência do JDK, pronto para produção desde o Java 15 ([JEP 377](https://openjdk.org/jeps/377)). Ele faz quase todo o trabalho em paralelo com a aplicação, com pausas normalmente abaixo de 1 ms. Até o Java 20, porém, ele não separava objetos por idade e precisava percorrer o heap inteiro a cada ciclo. A [JEP 439](https://openjdk.org/jeps/439) aplica a hipótese geracional fraca (a maioria dos objetos morre jovem) e divide o heap em **geração jovem** e **geração velha**, coletadas de forma independente. Para isso, o ZGC geracional adiciona *store barriers* às *load barriers* que já existiam e passa a manter um *remembered set* de ponteiros da geração velha para a jovem.
+O ZGC é o coletor de lixo de baixa latência do JDK, pronto para produção desde o Java 15 ([JEP 377](https://openjdk.org/jeps/377) e [post do Java 17](/posts/java-17/#zgc-e-shenandoah-em-produção)). Ele faz quase todo o trabalho em paralelo com a aplicação, com pausas normalmente abaixo de 1 ms. Até o Java 20, porém, ele não separava objetos por idade e precisava percorrer o heap inteiro a cada ciclo.
+
+A [JEP 439](https://openjdk.org/jeps/439) parte da hipótese geracional fraca: a maioria dos objetos morre jovem. O heap passa a ter uma **geração jovem**, coletada com frequência, e uma **geração velha**, coletada de forma independente. Para coletar só a geração jovem, o coletor precisa saber quais objetos velhos apontam para objetos jovens. Por isso, além das *load barriers* que já existiam (pequenos trechos de código que a JVM executa quando a aplicação lê uma referência), o ZGC geracional usa *store barriers*, executadas quando a aplicação grava uma referência num campo. Essas barreiras alimentam o *remembered set*, o registro dos campos da geração velha que podem apontar para objetos jovens. Na coleta da geração jovem, esses campos entram como ponto de partida da marcação, e a geração velha não precisa ser percorrida.
+
+O diagrama mostra esse caminho com um exemplo: um `Pedido` antigo que passa a apontar para um `Item` recém-criado. Embaixo, a evolução do modo geracional até o Java 24.
+
+![Diagrama do ZGC geracional: o heap dividido em geração velha e geração jovem, com um ponteiro de um objeto velho para um jovem e a promoção dos sobreviventes; ao lado, a store barrier anotando o campo gravado no remembered set, que serve de ponto de partida para a coleta da geração jovem; embaixo, a load barrier e a evolução do Java 21 (opcional) ao Java 23 (padrão) e Java 24 (único modo)](/posts/java-21/zgc-geracional.svg)
 
 No Java 21, o modo geracional é **opcional**:
 
@@ -587,19 +636,23 @@ java -XX:+UseZGC -jar app.jar
 java -XX:+UseZGC -XX:+ZGenerational -jar app.jar
 ```
 
-Segundo as [release notes do Java 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html), aplicações com o ZGC geracional devem ter menor risco de *allocation stalls*, menos memória extra de heap e menos uso de CPU pelo GC. Outra diferença citada na JEP: o ZGC geracional não usa memória multimapeada, então ferramentas como `ps` deixam de mostrar o uso de heap aproximadamente triplicado. O modo geracional virou padrão no Java 23 ([JEP 474](https://openjdk.org/jeps/474)). Detalhes de ajuste estão no [guia do ZGC](https://docs.oracle.com/en/java/javase/21/gctuning/z-garbage-collector.html).
+Segundo as [release notes do Java 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html), aplicações com o ZGC geracional devem ter menor risco de *allocation stalls* (a aplicação fica parada esperando o GC liberar memória), menos memória extra de heap e menos uso de CPU pelo GC. Outra diferença citada na JEP: o ZGC geracional não usa memória multimapeada, então ferramentas como `ps` deixam de mostrar o uso de heap aproximadamente triplicado. Detalhes de ajuste estão no [guia do ZGC](https://docs.oracle.com/en/java/javase/21/gctuning/z-garbage-collector.html).
+
+Quem já usa ZGC no Java 21 tem motivo para testar `-XX:+ZGenerational`: o modo geracional virou padrão no Java 23 ([JEP 474](https://openjdk.org/jeps/474)), e o não geracional foi removido no Java 24 ([JEP 490](https://openjdk.org/jeps/490)). A partir daí, a opção `ZGenerational` é ignorada, como mostra o [post do Java 25](/posts/java-25/#zgc-passa-a-ser-só-geracional).
 
 ### Aviso ao carregar agentes dinamicamente
 
 **Chegou em:** Java 21 (final, [JEP 451](https://openjdk.org/jeps/451))
 
-Carregar um agente Java ou JVM TI numa JVM já em execução, pela Attach API ou pelo `jcmd`, passa a imprimir um aviso no *stderr*. A JEP prepara uma versão futura que vai bloquear essa carga por padrão. Agentes carregados na inicialização com `-javaagent` ou `-agentlib` não geram aviso, e ferramentas que só se conectam para monitoramento, como `jcmd` e `jconsole`, continuam funcionando sem opções extras. Se uma ferramenta de observabilidade depende de *attach* dinâmico de agentes, use `-XX:+EnableDynamicAgentLoading` para deixar a permissão explícita. Para simular o comportamento futuro, use `-XX:-EnableDynamicAgentLoading`.
+Um **agente** é um componente que altera o código da aplicação enquanto ela roda. É assim que profilers e ferramentas de monitoramento (APM) instrumentam classes, e algumas bibliotecas de *mock* e de teste também usam agentes. Eles podem ser escritos em Java, com a API `java.lang.instrument`, ou em código nativo, com a JVM TI (*JVM Tool Interface*). O problema, segundo a [JEP 451](https://openjdk.org/jeps/451), é que uma biblioteca pode carregar um agente em silêncio e redefinir classes do próprio JDK, sem aprovação de quem opera a aplicação.
+
+No Java 21, carregar um agente numa JVM já em execução, pela Attach API ou pelo `jcmd`, passa a imprimir um aviso no *stderr*. A JEP prepara uma versão futura que vai bloquear essa carga por padrão. Agentes carregados na inicialização com `-javaagent` ou `-agentlib` não geram aviso, e ferramentas que só se conectam para monitoramento, como `jcmd` e `jconsole`, continuam funcionando sem opções extras. Se uma ferramenta de observabilidade depende de *attach* dinâmico de agentes, use `-XX:+EnableDynamicAgentLoading` para deixar a permissão explícita. Para simular o comportamento futuro, use `-XX:-EnableDynamicAgentLoading`.
 
 ### Outras mudanças de JVM
 
 - **Java 18:** o G1 aceita regiões de heap de até 512 MB com `-XX:G1HeapRegionSize`. A escolha automática continua limitada a 32 MB. Serial, Parallel e ZGC passaram a suportar deduplicação de strings ([release notes do 18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html)).
-- **Java 19:** port oficial para Linux/RISC-V ([JEP 422](https://openjdk.org/jeps/422)) e a opção `-XX:+AutoCreateSharedArchive`, que cria e atualiza automaticamente o arquivo CDS da aplicação ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html)).
-- **Java 21:** o *full GC* do G1, como último recurso, passa a mover objetos *humongous* para evitar `OutOfMemoryError` por falta de espaço contíguo, e o *Hot Card Cache* do G1 foi removido ([release notes do 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
+- **Java 19:** port oficial para Linux/RISC-V ([JEP 422](https://openjdk.org/jeps/422)) e a opção `-XX:+AutoCreateSharedArchive`, que cria e atualiza automaticamente o arquivo CDS da aplicação ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html)). O CDS (*Class Data Sharing*) guarda num arquivo as classes já processadas pela JVM para acelerar a inicialização; veja o [post do Java 17](/posts/java-17/#class-data-sharing-padrão-e-dinâmico).
+- **Java 21:** o *full GC* do G1, como último recurso, passa a mover objetos *humongous* (objetos grandes, alocados em regiões contíguas do heap) para evitar `OutOfMemoryError` por falta de espaço contíguo. O *Hot Card Cache* do G1 foi removido ([release notes do 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
 
 ## Ferramentas
 
@@ -607,7 +660,7 @@ Carregar um agente Java ou JVM TI numa JVM já em execução, pela Attach API ou
 
 **Chegou em:** Java 18 (final, [JEP 408](https://openjdk.org/jeps/408))
 
-Um servidor HTTP mínimo que serve arquivos estáticos de um diretório, pensado para protótipos, testes e ensino. Ele **não** é um servidor de produção: suporta só HTTP/1.1, só `GET` e `HEAD`, não tem HTTPS e não tem autenticação. Por padrão, escuta em `127.0.0.1:8000` e serve o diretório atual.
+Para servir alguns arquivos estáticos durante um teste ou uma aula, era preciso instalar e configurar um servidor web ou escrever código com a API `com.sun.net.httpserver`. O Java 18 traz um servidor HTTP mínimo que serve os arquivos de um diretório, pensado para protótipos, testes e ensino ([JEP 408](https://openjdk.org/jeps/408)). Ele **não** é um servidor de produção: suporta só HTTP/1.1, só `GET` e `HEAD`, não tem HTTPS e não tem autenticação. Por padrão, escuta em `127.0.0.1:8000` e serve o diretório atual.
 
 ```bash
 # serve o diretório atual em http://127.0.0.1:8000/
@@ -636,7 +689,7 @@ public class ServidorArquivos {
                 OutputLevel.VERBOSE);
         server.start();
         System.out.println("Servindo em http://localhost:8080/");
-        server.stop(0); // no exemplo real, deixe rodando
+        server.stop(0); // aqui o servidor para logo em seguida; numa aplicação real, deixe-o rodando
     }
 }
 ```
@@ -678,7 +731,9 @@ O guia [Programmer's Guide to Snippets](https://docs.oracle.com/en/java/javase/2
 
 **Chegou em:** Java 21 (final, [JEP 452](https://openjdk.org/jeps/452))
 
-Um KEM usa criptografia de chave pública para que duas partes cheguem a uma mesma **chave simétrica**. O emissor usa a chave pública do receptor para gerar a chave secreta e uma "mensagem de encapsulamento". O receptor usa a chave privada para recuperar a mesma chave a partir dessa mensagem. A [JEP 452](https://openjdk.org/jeps/452) cria a classe [`javax.crypto.KEM`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/javax/crypto/KEM.html) com essa abstração. O objetivo declarado é permitir o uso de KEMs em protocolos como TLS e HPKE (RFC 9180) e preparar o terreno para os algoritmos pós-quânticos que estavam em padronização no NIST quando a JEP foi escrita. O JDK 21 inclui uma implementação de DHKEM (RFC 9180).
+Um KEM (*Key Encapsulation Mechanism*) usa criptografia de chave pública para que duas partes cheguem a uma mesma **chave simétrica**, que depois cifra os dados. O emissor usa a chave pública do receptor para gerar a chave secreta e uma "mensagem de encapsulamento". O receptor usa a chave privada para recuperar a mesma chave a partir dessa mensagem.
+
+Até o Java 20, o JDK não tinha uma API para esse padrão. A [JEP 452](https://openjdk.org/jeps/452) cria a classe [`javax.crypto.KEM`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/javax/crypto/KEM.html). O objetivo declarado é permitir o uso de KEMs em protocolos como TLS e HPKE (*Hybrid Public Key Encryption*, RFC 9180) e preparar o terreno para os algoritmos pós-quânticos que estavam em padronização no NIST quando a JEP foi escrita. O JDK 21 inclui uma implementação de DHKEM, o KEM baseado em Diffie-Hellman definido na RFC 9180. O primeiro KEM pós-quântico, ML-KEM, chegou no Java 24 e usa essa mesma API ([post do Java 25](/posts/java-25/#criptografia-resistente-a-computação-quântica-ml-kem-e-ml-dsa)).
 
 ```java title="Kem.java"
 import java.security.KeyPairGenerator;
@@ -704,17 +759,17 @@ public class Kem {
         KEM.Decapsulator decapsulador = kemReceptor.newDecapsulator(parReceptor.getPrivate());
         SecretKey chaveReceptor = decapsulador.decapsulate(mensagem, 0, 32, "AES");
 
-        System.out.println("mesma chave? " + Arrays.equals(chaveEmissor.getEncoded(), chaveReceptor.getEncoded()));
+        System.out.println("mesma chave? " + Arrays.equals(chaveEmissor.getEncoded(), chaveReceptor.getEncoded())); // mesma chave? true
     }
 }
 ```
 
 ### Outras mudanças de segurança
 
-- **Java 18:** JARs assinados com SHA-1 passam a ser tratados como não assinados, exceto os com carimbo de tempo anterior a 1º de janeiro de 2019. O valor padrão da propriedade `java.security.manager` virou `disallow`, então `System.setSecurityManager(...)` lança `UnsupportedOperationException`, a menos que a JVM seja iniciada com `-Djava.security.manager=allow` ([release notes do 18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html)).
+- **Java 18:** JARs assinados com SHA-1 passam a ser tratados como não assinados, exceto os com carimbo de tempo anterior a 1º de janeiro de 2019. O valor padrão da propriedade `java.security.manager` virou `disallow`, então `System.setSecurityManager(...)` lança `UnsupportedOperationException`, a menos que a JVM seja iniciada com `-Djava.security.manager=allow` ([release notes do 18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html)). O Security Manager foi desativado de vez no Java 24 ([post do Java 25](/posts/java-25/#security-manager-desativado-permanentemente)).
 - **Java 19:** suítes TLS com 3DES saíram da lista habilitada por padrão ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html)).
 - **Java 20:** suítes `TLS_ECDH_*` desabilitadas por padrão e DTLS 1.0 desabilitado ([release notes do 20](https://www.oracle.com/java/technologies/javase/20-relnote-issues.html)).
-- **Java 21:** o grupo Diffie-Hellman padrão do TLS subiu de 1024 para 2048 bits, e a JVM passou a verificar assinaturas HSS/LMS ([release notes do 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
+- **Java 21:** no TLS 1.2, o tamanho padrão do grupo Diffie-Hellman nas suítes `TLS_DHE_*` subiu de 1024 para 2048 bits quando uma das pontas não suporta FFDHE, e o JDK ganhou o algoritmo de assinatura HSS/LMS, só para verificação ([release notes do 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
 
 ## Removidos e depreciados
 
@@ -739,7 +794,7 @@ A JEP cita entre os motivos que, nesse port, as virtual threads recorrem a threa
 
 ## Recursos em preview ou incubadora nesta LTS
 
-Os recursos desta seção **existem no Java 21, mas não são finais**. Recursos de preview precisam de `--enable-preview` para compilar e executar, e código que depende deles só roda na versão exata do JDK para a qual foi compilado. APIs de incubadora estão em módulos `jdk.incubator.*` e precisam de `--add-modules`. Várias dessas APIs mudaram, ou até saíram, nas versões seguintes, como mostra a tabela no fim da seção.
+Os recursos desta seção **existem no Java 21, mas não são finais**. Recursos de preview precisam de `--enable-preview` para compilar e executar, e código que depende deles só roda na versão exata do JDK para a qual foi compilado. APIs de incubadora estão em módulos `jdk.incubator.*` e precisam de `--add-modules`. Vários desses recursos mudaram, ou até saíram, nas versões seguintes. Cada subseção diz o que aconteceu depois e aponta para o post que trata da versão final; a tabela no fim da seção resume tudo.
 
 ```bash
 # executar um arquivo-fonte usando preview no Java 21
@@ -754,7 +809,7 @@ java --enable-preview Arquivo
 
 **Chegou em:** Java 21 (preview, [JEP 430](https://openjdk.org/jeps/430))
 
-String Templates propunham interpolação com expressões embutidas `\{...}` e um *template processor* que valida e combina o texto. `STR` é importado automaticamente em todo arquivo.
+String Templates propunham interpolação de strings: expressões embutidas com `\{...}` e um *template processor*, como o `STR`, que valida e combina o texto. `STR` é importado automaticamente em todo arquivo ([JEP 430](https://openjdk.org/jeps/430)).
 
 ```java title="Templates.java"
 public class Templates {
@@ -767,13 +822,13 @@ public class Templates {
 }
 ```
 
-**Não use em código novo.** O recurso teve uma 2ª preview no Java 22 ([JEP 459](https://openjdk.org/jeps/459)) e depois foi **retirado**: a 3ª preview ([JEP 465](https://openjdk.org/jeps/465)) está com status *Closed / Withdrawn*, e as [release notes do Java 23](https://www.oracle.com/java/technologies/javase/23-relnote-issues.html) registram a retirada do recurso.
+**Não use em código novo.** O recurso teve uma 2ª preview no Java 22 ([JEP 459](https://openjdk.org/jeps/459)) e **saiu do JDK** no Java 23: a proposta de 3ª preview ([JEP 465](https://openjdk.org/jeps/465)) foi retirada antes de ser integrada, e as [release notes do Java 23](https://www.oracle.com/java/technologies/javase/23-relnote-issues.html) registram a remoção. O motivo e as alternativas estão no [post do Java 25](/posts/java-25/#string-templates-foram-retirados).
 
 ### Padrões e variáveis sem nome
 
 **Chegou em:** Java 21 (preview, [JEP 443](https://openjdk.org/jeps/443))
 
-O caractere `_` passa a indicar um componente ou uma variável que você é obrigado a declarar, mas não vai usar. Ele pode aparecer em record patterns, `catch`, parâmetros de lambda, variáveis locais, `for` e `try-with-resources`. Isso permite listar vários padrões no mesmo `case`, algo que a [JEP 441](https://openjdk.org/jeps/441) proíbe quando os padrões declaram variáveis com nome.
+Muitas vezes a sintaxe obriga a declarar uma variável que não será usada: a exceção de um `catch`, o parâmetro de uma lambda, um componente de record num padrão. O caractere `_` passa a indicar esse caso ([JEP 443](https://openjdk.org/jeps/443)). Ele pode aparecer em record patterns, `catch`, parâmetros de lambda, variáveis locais, `for` e `try-with-resources`. Também permite listar vários padrões no mesmo `case`, algo que a [JEP 441](https://openjdk.org/jeps/441) proíbe quando os padrões declaram variáveis com nome.
 
 ```java title="SemNome.java" {16-18,27,33,38}
 import java.util.List;
@@ -798,12 +853,12 @@ public class SemNome {
     }
 
     public static void main(String[] args) {
-        System.out.println(processar(new Caixa<>(new BolaAzul())));
-        System.out.println(processar(new Caixa<>(null)));
+        System.out.println(processar(new Caixa<>(new BolaAzul())));   // processa
+        System.out.println(processar(new Caixa<>(null)));             // pega outra caixa
 
         Object o = new Ponto(3, 4);
         if (o instanceof Ponto(int x, _)) {          // ignora o componente y
-            System.out.println("x = " + x);
+            System.out.println("x = " + x);          // x = 3
         }
 
         try {
@@ -814,18 +869,18 @@ public class SemNome {
 
         Map<String, Integer> tamanhos = List.of("a", "bb").stream()
                 .collect(Collectors.toMap(s -> s, _ -> 0)); // parâmetro de lambda não usado
-        System.out.println(tamanhos);
+        System.out.println(tamanhos);                // {bb=0, a=0} (a ordem do HashMap pode variar)
     }
 }
 ```
 
-Esse recurso ficou final, sem mudanças, no Java 22 ([JEP 456](https://openjdk.org/jeps/456)).
+Esse recurso ficou final, sem mudanças, no Java 22 ([JEP 456](https://openjdk.org/jeps/456)). Veja o [post do Java 25](/posts/java-25/#variáveis-e-padrões-sem-nome).
 
 ### Classes sem nome e métodos main de instância
 
 **Chegou em:** Java 21 (preview, [JEP 445](https://openjdk.org/jeps/445))
 
-Pensado para o ensino, o recurso tem duas partes. O método `main` pode ser de instância, sem `static`, sem `public` e sem `String[]`. E um arquivo pode ter métodos e campos soltos, sem declarar a classe.
+O "olá, mundo" em Java exige classe, `public static void main(String[] args)` e conceitos que um iniciante ainda não conhece. Pensado para o ensino, o recurso tem duas partes ([JEP 445](https://openjdk.org/jeps/445)). O método `main` pode ser de instância, sem `static`, sem `public` e sem `String[]`. E um arquivo pode ter métodos e campos soltos, sem declarar a classe.
 
 ```java title="Ola.java"
 void main() {
@@ -837,19 +892,29 @@ String nome() {
 }
 ```
 
-O recurso passou por mais previews ([JEP 463](https://openjdk.org/jeps/463) no 22, [JEP 477](https://openjdk.org/jeps/477) no 23 e [JEP 495](https://openjdk.org/jeps/495) no 24) e ficou final no Java 25 com outro nome, *Compact Source Files and Instance Main Methods*, e alguns ajustes ([JEP 512](https://openjdk.org/jeps/512)).
+Rode com `java --enable-preview --source 21 Ola.java`; a saída é `Olá, Java 21`. O recurso passou por mais três previews ([JEP 463](https://openjdk.org/jeps/463), [JEP 477](https://openjdk.org/jeps/477) e [JEP 495](https://openjdk.org/jeps/495)) e ficou final no Java 25, com ajustes e outro nome: *Compact Source Files and Instance Main Methods* ([JEP 512](https://openjdk.org/jeps/512)). A versão final está no [post do Java 25](/posts/java-25/#arquivos-compactos-e-métodos-main-de-instância).
 
 ### Structured concurrency
 
 **Chegou em:** Java 19 (incubadora, [JEP 428](https://openjdk.org/jeps/428)) → Java 20 (2ª incubadora, [JEP 437](https://openjdk.org/jeps/437)) → Java 21 (preview, [JEP 453](https://openjdk.org/jeps/453))
 
-Structured concurrency complementa as virtual threads: trata um grupo de subtarefas concorrentes como uma unidade. Se uma falhar, as outras são canceladas. Se a thread dona for interrompida antes ou durante o `join()`, as subtarefas também são canceladas. E a vida das subtarefas fica confinada ao bloco que as criou. Com `ExecutorService` e `Future`, nada disso é garantido: no exemplo da [JEP 453](https://openjdk.org/jeps/453), se `findUser()` falha, `fetchOrder()` continua rodando na própria thread, o que a JEP chama de vazamento de thread.
+Com `ExecutorService` e `Future`, nada liga as subtarefas ao método que as disparou. No exemplo da [JEP 453](https://openjdk.org/jeps/453), um método dispara `findUser()` e `fetchOrder()` em paralelo. Se `findUser()` falha, `fetchOrder()` continua rodando na própria thread, à toa; a JEP chama isso de vazamento de thread (*thread leak*).
+
+Structured concurrency complementa as virtual threads e trata um grupo de subtarefas concorrentes como uma unidade:
+
+- se uma subtarefa falhar, as outras são canceladas;
+- se a thread dona for interrompida antes ou durante o `join()`, as subtarefas também são canceladas;
+- a vida das subtarefas fica confinada ao bloco que as criou.
+
+Como as duas APIs costumam andar juntas, o exemplo com `StructuredTaskScope` está na seção seguinte, junto com scoped values.
 
 ### Scoped values
 
 **Chegou em:** Java 20 (incubadora, [JEP 429](https://openjdk.org/jeps/429)) → Java 21 (preview, [JEP 446](https://openjdk.org/jeps/446))
 
-Scoped values são uma alternativa a `ThreadLocal` para passar dados imutáveis a métodos chamados, direta ou indiretamente, durante um escopo delimitado. O valor não tem `set()` e é herdado pelas subtarefas de um `StructuredTaskScope` ([JEP 446](https://openjdk.org/jeps/446)). O exemplo abaixo usa as duas APIs juntas:
+`ThreadLocal` é o jeito tradicional de passar um contexto, como o usuário logado, sem colocá-lo como parâmetro em todos os métodos. Mas qualquer código pode alterá-lo com `set()`, o valor vive até alguém chamar `remove()`, e a herança para threads filhas copia os valores, o que pesa com milhares de virtual threads ([JEP 446](https://openjdk.org/jeps/446)).
+
+Scoped values são uma alternativa para passar dados imutáveis a métodos chamados, direta ou indiretamente, durante um escopo delimitado. O valor não tem `set()`, deixa de existir ao sair do escopo e é herdado pelas subtarefas de um `StructuredTaskScope`. O exemplo abaixo usa as duas APIs juntas:
 
 ```java title="Concorrencia.java" {10,13-20,26,35-36}
 import java.util.concurrent.ExecutionException;
@@ -888,25 +953,28 @@ public class Concorrencia {
     public static void main(String[] args) throws Exception {
         Resposta r = ScopedValue.where(USUARIO_LOGADO, "ana")
                                 .call(Concorrencia::tratar);
-        System.out.println(r);
-        System.out.println("vinculado fora do escopo? " + USUARIO_LOGADO.isBound());
+        System.out.println(r);   // Resposta[usuario=ana, pedido=42]
+        System.out.println("vinculado fora do escopo? " + USUARIO_LOGADO.isBound()); // false
     }
 }
 ```
 
-Esse código é específico do Java 21. Scoped values ficaram finais no Java 25 ([JEP 506](https://openjdk.org/jeps/506)), depois de mais três previews. Structured concurrency continuava em preview no Java 25, com uma API diferente: o escopo passou a ser aberto por métodos de fábrica `StructuredTaskScope.open(...)`, e não mais por construtores como `ShutdownOnFailure` ([JEP 505](https://openjdk.org/jeps/505)).
+Rode com `java --enable-preview --source 21 Concorrencia.java`. **Esse código só funciona no Java 21**, porque as duas APIs mudaram depois:
+
+- Scoped values ficaram finais no Java 25 ([JEP 506](https://openjdk.org/jeps/506)), depois de mais três previews. Veja o [post do Java 25](/posts/java-25/#scoped-values).
+- Structured concurrency mudou de forma incompatível no Java 25: o escopo passou a ser aberto por métodos de fábrica `StructuredTaskScope.open(...)`, e não mais por construtores como `ShutdownOnFailure` ([JEP 505](https://openjdk.org/jeps/505)). No Java 27, ainda era preview, a 7ª ([JEP 533](https://openjdk.org/jeps/533)). A API atual está no [post do Java 29](/posts/java-29/#structured-concurrency).
 
 ### Foreign Function & Memory API
 
 **Chegou em:** Java 17 (incubadora, [JEP 412](https://openjdk.org/jeps/412)) → Java 18 (2ª incubadora, [JEP 419](https://openjdk.org/jeps/419)) → Java 19 (preview, [JEP 424](https://openjdk.org/jeps/424)) → Java 20 (2ª preview, [JEP 434](https://openjdk.org/jeps/434)) → Java 21 (3ª preview, [JEP 442](https://openjdk.org/jeps/442))
 
-A **FFM API** (`java.lang.foreign`) permite chamar bibliotecas nativas e manipular memória fora do heap sem JNI. Na 3ª preview do Java 21, o ciclo de vida da memória nativa foi centralizado na interface `Arena`, e a classe `VaList` foi removida ([JEP 442](https://openjdk.org/jeps/442)). Ela ficou final no Java 22 ([JEP 454](https://openjdk.org/jeps/454)), com mais ajustes de API. Para quem vai usar FFM de verdade, o Java 22 ou superior é o caminho.
+A **FFM API** (`java.lang.foreign`) permite chamar bibliotecas nativas e manipular memória fora do heap sem JNI (*Java Native Interface*), que exige escrever e compilar código C de ligação. Na 3ª preview do Java 21, o ciclo de vida da memória nativa foi centralizado na interface `Arena`, e a classe `VaList` foi removida ([JEP 442](https://openjdk.org/jeps/442)). A API ficou final no Java 22 ([JEP 454](https://openjdk.org/jeps/454)), com mais ajustes. Para usar FFM em produção, o caminho é o Java 22 ou superior; a versão final, com exemplo, está no [post do Java 25](/posts/java-25/#foreign-function--memory-api).
 
 ### Vector API
 
 **Chegou em:** Java 16 (incubadora, [JEP 338](https://openjdk.org/jeps/338)) → Java 17 (2ª incubadora, [JEP 414](https://openjdk.org/jeps/414)) → Java 18 (3ª incubadora, [JEP 417](https://openjdk.org/jeps/417)) → Java 19 (4ª incubadora, [JEP 426](https://openjdk.org/jeps/426)) → Java 20 (5ª incubadora, [JEP 438](https://openjdk.org/jeps/438)) → Java 21 (6ª incubadora, [JEP 448](https://openjdk.org/jeps/448))
 
-A **Vector API** (`jdk.incubator.vector`) expressa cálculos vetoriais que a JIT compila para instruções SIMD da CPU. Ela continua em incubadora há muitas versões: a [JEP 508](https://openjdk.org/jeps/508), do Java 25, é a 10ª. Segundo essa JEP, a API vai continuar incubando até que recursos necessários do Projeto Valhalla estejam disponíveis como preview.
+A **Vector API** (`jdk.incubator.vector`) expressa cálculos vetoriais que o compilador JIT transforma em instruções SIMD da CPU (*single instruction, multiple data*: uma instrução processa vários valores de uma vez). Ela continua em incubadora há muitas versões: no Java 27, está na 12ª ([JEP 537](https://openjdk.org/jeps/537)). Segundo as JEPs, a API vai continuar incubando até que recursos necessários do Projeto Valhalla estejam disponíveis como preview. O estado atual está no [post do Java 29](/posts/java-29/#vector-api).
 
 ### Resumo do que não é final no Java 21
 
@@ -916,13 +984,13 @@ A **Vector API** (`jdk.incubator.vector`) expressa cálculos vetoriais que a JIT
 | Padrões e variáveis sem nome | Preview ([JEP 443](https://openjdk.org/jeps/443)) | final no Java 22 ([JEP 456](https://openjdk.org/jeps/456)) |
 | Classes sem nome e main de instância | Preview ([JEP 445](https://openjdk.org/jeps/445)) | final no Java 25, com outro nome ([JEP 512](https://openjdk.org/jeps/512)) |
 | Scoped values | Preview ([JEP 446](https://openjdk.org/jeps/446)) | final no Java 25 ([JEP 506](https://openjdk.org/jeps/506)) |
-| Structured concurrency | Preview ([JEP 453](https://openjdk.org/jeps/453)) | ainda preview no Java 25, com API nova ([JEP 505](https://openjdk.org/jeps/505)) |
+| Structured concurrency | Preview ([JEP 453](https://openjdk.org/jeps/453)) | API nova no Java 25 ([JEP 505](https://openjdk.org/jeps/505)); 7ª preview no Java 27 ([JEP 533](https://openjdk.org/jeps/533)) |
 | Foreign Function & Memory API | 3ª preview ([JEP 442](https://openjdk.org/jeps/442)) | final no Java 22 ([JEP 454](https://openjdk.org/jeps/454)) |
-| Vector API | 6ª incubadora ([JEP 448](https://openjdk.org/jeps/448)) | 10ª incubadora no Java 25 ([JEP 508](https://openjdk.org/jeps/508)) |
+| Vector API | 6ª incubadora ([JEP 448](https://openjdk.org/jeps/448)) | 12ª incubadora no Java 27 ([JEP 537](https://openjdk.org/jeps/537)) |
 
 ## O que observar na migração a partir do Java 17
 
-A lista abaixo junta as mudanças com maior chance de quebrar build ou comportamento para quem sai do Java 17. Vale ler também as seções *Removed*, *Deprecated* e *Other Notes* das release notes de cada versão ([18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html), [19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html), [20](https://www.oracle.com/java/technologies/javase/20-relnote-issues.html), [21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
+A lista abaixo junta as mudanças com maior chance de quebrar build ou comportamento para quem sai do Java 17. O roteiro geral de uma migração (análise, testes, deploy e rollback) está no [guia de atualizações do Java](/posts/guia-atualizacoes-java/). Vale ler também as seções *Removed*, *Deprecated* e *Other Notes* das release notes de cada versão ([18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html), [19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html), [20](https://www.oracle.com/java/technologies/javase/20-relnote-issues.html), [21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
 
 **Comportamento em tempo de execução**
 
@@ -930,13 +998,14 @@ A lista abaixo junta as mudanças com maior chance de quebrar build ou comportam
 - **Security Manager (Java 18).** Com `java.security.manager=disallow` por padrão, `System.setSecurityManager(...)` lança `UnsupportedOperationException`, a menos que a JVM seja iniciada com `-Djava.security.manager=allow` ([release notes do 18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html)).
 - **JARs assinados com SHA-1 (Java 18)** passam a ser tratados como não assinados, com a exceção dos que têm carimbo de tempo anterior a 1º de janeiro de 2019 ([release notes do 18](https://www.oracle.com/java/technologies/javase/18-relnote-issues.html)).
 - **Métodos de controle de thread (Java 19 e 20).** `ThreadGroup.destroy()` não faz nada, e `stop`, `suspend` e `resume` lançam `UnsupportedOperationException` tanto em `ThreadGroup` (19) quanto em `Thread` (20) ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html) e [do 20](https://www.oracle.com/java/technologies/javase/20-relnote-issues.html)).
-- **`Double.toString` e `Float.toString` (Java 19)** podem devolver representações mais curtas em alguns valores. Por exemplo, `Double.toString(2e23)` devolve `"2.0E23"`. Em regex, `\b` passou a considerar só caracteres ASCII por padrão, como `\w` ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html)).
+- **`Double.toString` e `Float.toString` (Java 19)** podem devolver resultados ligeiramente diferentes em alguns valores. Por exemplo, `Double.toString(2e23)` devolve `"2.0E23"`, e não mais `"1.9999999999999998E23"`. Testes que comparam números convertidos em texto podem quebrar ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html)).
+- **Regex `\b` (Java 19)** passou a considerar só caracteres ASCII por padrão, como `\w`. Para casar letras acentuadas, é preciso a flag `UNICODE_CHARACTER_CLASS` ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html)).
 - **Nomes de interfaces de rede no Windows (Java 21)** passaram a ser os nomes do sistema operacional, como `ethernet_32768` em vez de `eth0`, o que afeta buscas com `NetworkInterface.getByName(...)` ([release notes do 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
 - **Expressão `switch` sobre enum (Java 21)** lança `MatchException` em vez de `IncompatibleClassChangeError` quando aparece uma constante nova sem recompilação ([JEP 441](https://openjdk.org/jeps/441)).
 
 **Compilação e APIs**
 
-- **Novos métodos em tipos centrais podem colidir com o seu código.** Isso vale para subclasses de `Thread` que declaram métodos com os mesmos nomes dos novos (`isVirtual()`, `threadId()`, `join(Duration)`), segundo as [release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html), e para coleções próprias com `getFirst()`, `reversed()` e similares ([JEP 431](https://openjdk.org/jeps/431) e [análise de incompatibilidades](https://inside.java/2023/05/12/quality-heads-up/)).
+- **Novos métodos em tipos centrais podem colidir com o seu código.** Isso vale para subclasses de `Thread` que declaram métodos com os mesmos nomes dos novos, como `isVirtual()`, `threadId()` e `join(Duration)`: o código-fonte deixa de compilar, e classes já compiladas podem lançar `IncompatibleClassChangeError` ao carregar ([release notes do 19](https://www.oracle.com/java/technologies/javase/19-relnote-issues.html)). Vale também para coleções próprias com `getFirst()`, `reversed()` e similares ([JEP 431](https://openjdk.org/jeps/431) e [análise de incompatibilidades](https://inside.java/2023/05/12/quality-heads-up/)).
 - **Depreciações e remoções de API:** finalização depreciada para remoção (Java 18), `Thread.getId()` e construtores de `Locale` (Java 19), construtores de `URL` e `ThreadDeath` (Java 20) e as classes e opções removidas no Java 21 estão na seção [Removidos e depreciados](#removidos-e-depreciados).
 - **`javac`:** o suporte a `-source`, `-target` e `--release 7` foi removido no Java 20 ([release notes do 20](https://www.oracle.com/java/technologies/javase/20-relnote-issues.html)). No Java 21, ponto e vírgula extra entre `import`s virou erro ao compilar com `--release 21`; com versões de código-fonte anteriores, gera só um aviso ([release notes do 21](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)).
 - **Previews:** código que usava record patterns no `for` (preview do Java 20) não compila no 21. Código com qualquer preview do Java 21 não roda em outras versões sem ajustes.
@@ -1028,7 +1097,7 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 
 - [JEP 11: Incubator Modules](https://openjdk.org/jeps/11) e [JEP 12: Preview Features](https://openjdk.org/jeps/12)
 - Antes do período: [JEP 377](https://openjdk.org/jeps/377) (Java 15), [JEP 338](https://openjdk.org/jeps/338), [JEP 394](https://openjdk.org/jeps/394) e [JEP 395](https://openjdk.org/jeps/395) (Java 16), [JEP 406](https://openjdk.org/jeps/406), [JEP 412](https://openjdk.org/jeps/412) e [JEP 414](https://openjdk.org/jeps/414) (Java 17)
-- Depois do Java 21: [JEP 454](https://openjdk.org/jeps/454), [JEP 456](https://openjdk.org/jeps/456), [JEP 459](https://openjdk.org/jeps/459), [JEP 463](https://openjdk.org/jeps/463), [JEP 465](https://openjdk.org/jeps/465), [JEP 474](https://openjdk.org/jeps/474), [JEP 477](https://openjdk.org/jeps/477), [JEP 479](https://openjdk.org/jeps/479), [JEP 491](https://openjdk.org/jeps/491), [JEP 495](https://openjdk.org/jeps/495), [JEP 505](https://openjdk.org/jeps/505), [JEP 506](https://openjdk.org/jeps/506), [JEP 508](https://openjdk.org/jeps/508), [JEP 512](https://openjdk.org/jeps/512)
+- Depois do Java 21: [JEP 454](https://openjdk.org/jeps/454), [JEP 456](https://openjdk.org/jeps/456), [JEP 459](https://openjdk.org/jeps/459), [JEP 463](https://openjdk.org/jeps/463), [JEP 465](https://openjdk.org/jeps/465), [JEP 474](https://openjdk.org/jeps/474), [JEP 477](https://openjdk.org/jeps/477), [JEP 479](https://openjdk.org/jeps/479), [JEP 490](https://openjdk.org/jeps/490), [JEP 491](https://openjdk.org/jeps/491), [JEP 495](https://openjdk.org/jeps/495), [JEP 505](https://openjdk.org/jeps/505), [JEP 506](https://openjdk.org/jeps/506), [JEP 512](https://openjdk.org/jeps/512), [JEP 533](https://openjdk.org/jeps/533), [JEP 537](https://openjdk.org/jeps/537)
 
 **Documentação oficial**
 

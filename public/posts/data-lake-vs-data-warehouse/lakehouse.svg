@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="430" fill="#ffffff"/>
+<defs>
+<marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+</defs>
+<text x="30" y="42" font-size="21" font-weight="700" fill="#111827">Lakehouse: uma cópia dos dados, lida como tabela</text>
+
+<!-- consumidores -->
+<rect x="130" y="70" width="300" height="70" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="280" y="99" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">SQL · BI · dashboards</text>
+<text x="280" y="122" font-size="13" fill="#6b7280" text-anchor="middle">sem copiar para um DW separado</text>
+
+<rect x="510" y="70" width="300" height="70" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2.5"/>
+<text x="660" y="99" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">ML · ciência de dados</text>
+<text x="660" y="122" font-size="13" fill="#6b7280" text-anchor="middle">leitura direta dos arquivos abertos</text>
+
+<path d="M280 142 V180" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M660 142 V180" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#a)"/>
+
+<!-- camada de tabela -->
+<rect x="90" y="186" width="760" height="104" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="3"/>
+<text x="470" y="213" font-size="16" font-weight="800" fill="#1f2937" text-anchor="middle">Camada de tabela (table format)</text>
+<text x="470" y="234" font-size="13" fill="#6b7280" text-anchor="middle">Delta Lake · Apache Iceberg</text>
+<g font-size="14" font-weight="600" fill="#1f2937" text-anchor="middle">
+<rect x="105" y="247" width="220" height="30" rx="15" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="215" y="267">transações ACID</text>
+<rect x="360" y="247" width="220" height="30" rx="15" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="470" y="267">versões e time travel</text>
+<rect x="615" y="247" width="220" height="30" rx="15" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="725" y="267">schema validado</text>
+</g>
+
+<path d="M470 292 V322" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#a)"/>
+
+<!-- armazenamento -->
+<rect x="90" y="328" width="760" height="84" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+<text x="470" y="354" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Armazenamento de objetos barato (S3 · ADLS · GCS)</text>
+<g font-size="13" fill="#4b5563" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">
+<rect x="132" y="370" width="90" height="28" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="177" y="389">parquet</text>
+<rect x="237" y="370" width="90" height="28" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="282" y="389">parquet</text>
+<rect x="342" y="370" width="90" height="28" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="387" y="389">parquet</text>
+<rect x="447" y="370" width="90" height="28" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="492" y="389">parquet</text>
+<rect x="557" y="370" width="250" height="28" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="682" y="389">metadados da tabela</text>
+</g>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="520" fill="#ffffff"/>
+<defs><marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker><marker id="setaL" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#e07a1f"/></marker></defs>
+<text x="20" y="38" font-size="21" font-weight="700" fill="#111827">G1 no Java 26: duas card tables em vez de uma</text>
+<text x="20" y="62" font-size="14" fill="#6b7280">JEP 522 · a aplicação e as threads de otimização deixam de disputar a mesma tabela</text>
+<text x="235" y="104" font-size="15" font-weight="700" fill="#2b7fc4" text-anchor="middle">Até o Java 25</text>
+<rect x="30" y="122" width="180" height="62" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="120" y="148" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Threads da</text>
+<text x="120" y="168" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">aplicação</text>
+<rect x="260" y="122" width="180" height="62" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="350" y="148" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Threads de</text>
+<text x="350" y="168" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">otimização</text>
+<line x1="120" y1="186" x2="190" y2="252" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="118" y="226" font-size="13" fill="#4b5563" text-anchor="middle">write barrier</text>
+<line x1="350" y1="186" x2="280" y2="252" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="110" y="256" width="250" height="62" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="235" y="283" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">uma card table</text>
+<text x="235" y="304" font-size="13" fill="#374151" text-anchor="middle">acesso sincronizado entre os dois lados</text>
+<text x="235" y="350" font-size="13" fill="#4b5563" text-anchor="middle">barreira complexa: cerca de 50 instruções no x64</text>
+<line x1="470" y1="90" x2="470" y2="370" stroke="#e5e7eb" stroke-width="2"/>
+<text x="705" y="104" font-size="15" font-weight="700" fill="#2e9e5b" text-anchor="middle">Java 26</text>
+<rect x="500" y="122" width="180" height="62" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="590" y="148" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Threads da</text>
+<text x="590" y="168" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">aplicação</text>
+<rect x="730" y="122" width="180" height="62" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="820" y="148" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Threads de</text>
+<text x="820" y="168" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">otimização</text>
+<line x1="590" y1="186" x2="590" y2="252" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<text x="596" y="226" font-size="13" fill="#4b5563" text-anchor="start">write barrier</text>
+<line x1="820" y1="186" x2="820" y2="252" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="500" y="256" width="180" height="62" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="590" y="283" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">card table A</text>
+<text x="590" y="304" font-size="13" fill="#374151" text-anchor="middle">escrita sem sincronizar</text>
+<rect x="730" y="256" width="180" height="62" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="820" y="283" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">card table B</text>
+<text x="820" y="304" font-size="13" fill="#374151" text-anchor="middle">processada em paralelo</text>
+<path d="M 684 278 L 726 278" stroke="#e07a1f" stroke-width="2" marker-end="url(#setaL)"/>
+<path d="M 726 298 L 684 298" stroke="#e07a1f" stroke-width="2" marker-end="url(#setaL)"/>
+<text x="705" y="350" font-size="13" fill="#4b5563" text-anchor="middle">barreira simples: 12 instruções no x64</text>
+<rect x="20" y="390" width="900" height="112" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="470" y="418" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Troca atômica (setas laranja)</text>
+<text x="470" y="442" font-size="13" fill="#374151" text-anchor="middle">Quando precisa, o G1 troca as tabelas de uma vez: a aplicação passa a escrever na tabela vazia</text>
+<text x="470" y="462" font-size="13" fill="#374151" text-anchor="middle">e as threads de otimização processam a que acabou de encher.</text>
+<text x="470" y="488" font-size="13" fill="#6b7280" text-anchor="middle">Custo: cada card table ocupa 0,2% da capacidade do heap (cerca de 2 MB de memória nativa por GB de heap)</text>
+</svg>

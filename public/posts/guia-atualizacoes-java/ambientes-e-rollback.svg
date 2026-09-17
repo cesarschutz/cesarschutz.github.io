@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 570" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="570" fill="#ffffff"/>
+<defs><marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker><marker id="setav" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#d9534f"/></marker></defs>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Ordem dos ambientes: quando avançar e quando voltar</text>
+<text x="24" y="64" font-size="14" fill="#6b7280">Cada ambiente só libera o seguinte quando cumpre os critérios. Os gatilhos de rollback são combinados antes do canário.</text>
+<rect x="24" y="96" width="202" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="125.0" y="124" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">1. Build e CI</text>
+<text x="125.0" y="145" font-size="13" fill="#2b7fc4" text-anchor="middle">desenvolvimento e testes</text>
+<line x1="228" y1="128.0" x2="251" y2="128.0" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="24" y="174" width="202" height="196" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="38" y="200" font-size="13" font-weight="700" fill="#2b7fc4">Para avançar</text>
+<circle cx="42" cy="225.5" r="3" fill="#2b7fc4"/>
+<text x="52" y="230" font-size="13" fill="#111827">suíte verde nas duas</text>
+<text x="52" y="247" font-size="13" fill="#111827">versões do JDK</text>
+<circle cx="42" cy="275.5" r="3" fill="#2b7fc4"/>
+<text x="52" y="280" font-size="13" fill="#111827">jdeps sem uso novo de</text>
+<text x="52" y="297" font-size="13" fill="#111827">APIs internas</text>
+<circle cx="42" cy="325.5" r="3" fill="#2b7fc4"/>
+<text x="52" y="330" font-size="13" fill="#111827">nenhum aviso novo de</text>
+<text x="52" y="347" font-size="13" fill="#111827">depreciação no build</text>
+<rect x="254" y="96" width="202" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="355.0" y="124" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">2. Homologação</text>
+<text x="355.0" y="145" font-size="13" fill="#2b7fc4" text-anchor="middle">carga parecida com a real</text>
+<line x1="458" y1="128.0" x2="481" y2="128.0" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="254" y="174" width="202" height="196" rx="12" fill="#ffffff" stroke="#2b7fc4" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="268" y="200" font-size="13" font-weight="700" fill="#2b7fc4">Para avançar</text>
+<circle cx="272" cy="225.5" r="3" fill="#2b7fc4"/>
+<text x="282" y="230" font-size="13" fill="#111827">carga dentro da meta</text>
+<text x="282" y="247" font-size="13" fill="#111827">combinada com a baseline</text>
+<circle cx="272" cy="275.5" r="3" fill="#2b7fc4"/>
+<text x="282" y="280" font-size="13" fill="#111827">pausas de GC e heap</text>
+<text x="282" y="297" font-size="13" fill="#111827">após GC comparáveis</text>
+<circle cx="272" cy="325.5" r="3" fill="#2b7fc4"/>
+<text x="282" y="330" font-size="13" fill="#111827">scan de dependências</text>
+<text x="282" y="347" font-size="13" fill="#111827">sem vulnerabilidade nova</text>
+<rect x="484" y="96" width="202" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="585.0" y="124" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">3. Canário</text>
+<text x="585.0" y="145" font-size="13" fill="#e07a1f" text-anchor="middle">uma fatia da produção</text>
+<line x1="688" y1="128.0" x2="711" y2="128.0" stroke="#4b5563" stroke-width="2" marker-end="url(#seta)"/>
+<rect x="484" y="174" width="202" height="196" rx="12" fill="#ffffff" stroke="#e07a1f" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="498" y="200" font-size="13" font-weight="700" fill="#e07a1f">Para avançar</text>
+<circle cx="502" cy="225.5" r="3" fill="#e07a1f"/>
+<text x="512" y="230" font-size="13" fill="#111827">erro e latência p99 na</text>
+<text x="512" y="247" font-size="13" fill="#111827">meta por dias, não minutos</text>
+<circle cx="502" cy="275.5" r="3" fill="#e07a1f"/>
+<text x="512" y="280" font-size="13" fill="#111827">sem OOM nem restart</text>
+<text x="512" y="297" font-size="13" fill="#111827">em loop</text>
+<circle cx="502" cy="325.5" r="3" fill="#e07a1f"/>
+<text x="512" y="330" font-size="13" fill="#111827">nenhum aviso novo da</text>
+<text x="512" y="347" font-size="13" fill="#111827">JVM nos logs</text>
+<rect x="714" y="96" width="202" height="64" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="815.0" y="124" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">4. Produção</text>
+<text x="815.0" y="145" font-size="13" fill="#2e9e5b" text-anchor="middle">toda a frota</text>
+<rect x="714" y="174" width="202" height="196" rx="12" fill="#ffffff" stroke="#2e9e5b" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="728" y="200" font-size="13" font-weight="700" fill="#2e9e5b">Para concluir</text>
+<circle cx="732" cy="225.5" r="3" fill="#2e9e5b"/>
+<text x="742" y="230" font-size="13" fill="#111827">todas as instâncias na</text>
+<text x="742" y="247" font-size="13" fill="#111827">versão alvo</text>
+<circle cx="732" cy="275.5" r="3" fill="#2e9e5b"/>
+<text x="742" y="280" font-size="13" fill="#111827">alerta de frota mista</text>
+<text x="742" y="297" font-size="13" fill="#111827">zerado</text>
+<circle cx="732" cy="325.5" r="3" fill="#2e9e5b"/>
+<text x="742" y="330" font-size="13" fill="#111827">imagem anterior guardada</text>
+<text x="742" y="347" font-size="13" fill="#111827">por algumas semanas</text>
+<line x1="585.0" y1="373" x2="585.0" y2="411" stroke="#d9534f" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#setav)"/>
+<line x1="815.0" y1="373" x2="815.0" y2="411" stroke="#d9534f" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#setav)"/>
+<rect x="24" y="416" width="892" height="130" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="44" y="456" font-size="17" font-weight="700" fill="#111827">Gatilhos de rollback</text>
+<text x="44" y="480" font-size="14" fill="#d9534f">no canário ou na produção:</text>
+<text x="44" y="500" font-size="14" fill="#d9534f">volte a imagem anterior primeiro</text>
+<text x="44" y="520" font-size="14" fill="#d9534f">e investigue depois</text>
+<circle cx="324" cy="453" r="3.5" fill="#d9534f"/>
+<text x="336" y="458" font-size="14" fill="#111827">latência p99 ou taxa de erro acima do limite combinado, de forma sustentada</text>
+<circle cx="324" cy="483" r="3.5" fill="#d9534f"/>
+<text x="336" y="488" font-size="14" fill="#111827">erro novo e recorrente ligado à JVM: flag removida, agente, reflexão bloqueada</text>
+<circle cx="324" cy="513" r="3.5" fill="#d9534f"/>
+<text x="336" y="518" font-size="14" fill="#111827">OutOfMemoryError, restart em loop ou pausas de GC fora do padrão da baseline</text>
+</svg>

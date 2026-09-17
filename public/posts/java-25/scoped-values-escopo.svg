@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 490" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="490" fill="#ffffff"/>
+<text x="24" y="40" font-size="21" font-weight="700" fill="#111827">Scoped Values: o valor só existe dentro do escopo</text>
+<rect x="24" y="64" width="536" height="400" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="44" y="90" font-size="14" font-weight="700" fill="#111827">main()</text>
+<rect x="44" y="104" width="496" height="290" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="64" y="130" font-size="13" font-weight="700" fill="#111827" font-family="JetBrains Mono, ui-monospace, monospace">where(USUARIO_ATUAL, ana).run(...)</text>
+<text x="64" y="150" font-size="12.5" fill="#374151">atenderRequisicao() e tudo o que ela chama</text>
+<rect x="64" y="164" width="456" height="40" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="84" y="189" font-size="13" fill="#111827" font-family="JetBrains Mono, ui-monospace, monospace">excluirPedido(99)</text>
+<rect x="372" y="171" width="136" height="26" rx="13" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="440" y="188.5" font-size="12.5" fill="#111827" text-anchor="middle">get() → ana</text>
+<rect x="64" y="216" width="456" height="108" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="84" y="242" font-size="13" font-weight="700" fill="#111827" font-family="JetBrains Mono, ui-monospace, monospace">where(USUARIO_ATUAL, sistema).run(...)</text>
+<text x="84" y="261" font-size="12.5" fill="#374151">reassociação aninhada: vale só aqui dentro</text>
+<rect x="84" y="274" width="416" height="38" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="104" y="298" font-size="13" fill="#111827" font-family="JetBrains Mono, ui-monospace, monospace">excluirPedido(100)</text>
+<rect x="344" y="280" width="144" height="26" rx="13" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="416" y="297.5" font-size="12.5" fill="#111827" text-anchor="middle">get() → sistema</text>
+<rect x="64" y="336" width="456" height="40" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="84" y="361" font-size="13" fill="#111827">de volta a atenderRequisicao()</text>
+<rect x="372" y="343" width="136" height="26" rx="13" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="440" y="360.5" font-size="12.5" fill="#111827" text-anchor="middle">get() → ana</text>
+<rect x="44" y="408" width="496" height="40" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="64" y="433" font-size="13" fill="#111827">depois que run(...) termina</text>
+<rect x="340" y="415" width="180" height="26" rx="13" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="430" y="432.5" font-size="12.5" fill="#111827" text-anchor="middle">isBound() → false</text>
+<rect x="584" y="64" width="332" height="400" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+<text x="750" y="92" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">ThreadLocal x ScopedValue</text>
+<text x="604" y="122" font-size="12" font-weight="700" fill="#6b7280">ESCRITA</text>
+<rect x="604" y="130" width="292" height="30" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="750" y="150" font-size="12.5" fill="#111827" text-anchor="middle">ThreadLocal: set() em qualquer ponto</text>
+<rect x="604" y="166" width="292" height="30" rx="10" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="750" y="186" font-size="12.5" fill="#111827" text-anchor="middle">ScopedValue: sem set(), só leitura</text>
+<text x="604" y="226" font-size="12" font-weight="700" fill="#6b7280">TEMPO DE VIDA</text>
+<rect x="604" y="234" width="292" height="30" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="750" y="254" font-size="12.5" fill="#111827" text-anchor="middle">ThreadLocal: até remove() ou fim da thread</text>
+<rect x="604" y="270" width="292" height="30" rx="10" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="750" y="290" font-size="12.5" fill="#111827" text-anchor="middle">ScopedValue: acaba quando run() termina</text>
+<text x="604" y="330" font-size="12" font-weight="700" fill="#6b7280">THREADS FILHAS</text>
+<rect x="604" y="338" width="292" height="30" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="750" y="358" font-size="12.5" fill="#111827" text-anchor="middle">InheritableThreadLocal: copia valores</text>
+<rect x="604" y="374" width="292" height="30" rx="10" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="750" y="394" font-size="12.5" fill="#111827" text-anchor="middle">ScopedValue: subtarefas herdam o valor</text>
+<text x="750" y="430" font-size="12" fill="#6b7280" text-anchor="middle">get() funciona em qualquer método</text>
+<text x="750" y="447" font-size="12" fill="#6b7280" text-anchor="middle">chamado, direta ou indiretamente, no escopo</text>
+</svg>
