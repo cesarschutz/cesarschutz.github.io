@@ -1,10 +1,10 @@
 ---
 title: "SIGTERM e SIGKILL — o ciclo de término de um pod no Kubernetes"
 published: 2026-05-19
-description: "Como o Kubernetes encerra um pod: o `SIGTERM` que pede a saída, o `SIGKILL` que força, o grace period, a condição de corrida com os endpoints que o `preStop` resolve, os exit codes, o graceful shutdown do Spring Boot e a pegadinha do PID 1."
-tags: [Kubernetes, DevOps, Spring Boot]
+updated: 2026-09-16
+description: "Como o Kubernetes encerra um pod: `SIGTERM`, `SIGKILL` e grace period, a corrida com os endpoints que o `preStop` resolve, exit codes, o graceful shutdown do Spring Boot e a pegadinha do PID 1."
+tags: [Kubernetes, Spring]
 category: DevOps
-cover: /covers/sigterm-sigkill.svg
 draft: false
 ---
 

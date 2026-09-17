@@ -1,10 +1,10 @@
 ---
 title: "Kubernetes CronJob — concorrência, retries e tempo máximo de execução"
 published: 2026-05-19
-description: "Os campos que protegem rotinas agendadas em produção: `concurrencyPolicy`, `startingDeadlineSeconds`, `activeDeadlineSeconds`, `backoffLimit`, `restartPolicy` e `timeZone`. O que cada um faz, seus valores padrão, como trabalham juntos e o que eles não garantem."
-tags: [Kubernetes, DevOps, Jobs]
+updated: 2026-09-16
+description: "Os campos que protegem rotinas agendadas: `concurrencyPolicy`, `startingDeadlineSeconds`, `activeDeadlineSeconds`, `backoffLimit`, `restartPolicy` e `timeZone`, e o que eles não garantem."
+tags: [Kubernetes, Concorrência]
 category: DevOps
-cover: /covers/k8s-cronjob.svg
 draft: false
 ---
 

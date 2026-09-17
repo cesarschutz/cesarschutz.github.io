@@ -14,7 +14,7 @@ const { group } = Astro.props as { group: Group };
 const count = group.posts.length;
 ---
 
-<BaseLayout title={`#${group.name}`} description={`Artigos marcados com ${group.name}.`}>
+<BaseLayout navActive="/archive/" title={`#${group.name}`} description={`Artigos marcados com ${group.name}.`}>
   <div class="shell">
     <Sidebar activeTag={group.name} />
     <div class="shell-main">

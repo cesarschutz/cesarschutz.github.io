@@ -1,10 +1,10 @@
 ---
 title: "Guia de atualizações do Java"
 published: 2025-07-14
-description: "Como planejar e executar a migração entre versões LTS do Java: ciclo de releases e suporte, distribuições e licenças, versões mínimas do ecossistema, processo em cinco fases, ambientes e rollback, ferramentas, segurança, desempenho, containers e CI."
-tags: [Java, Migração]
+updated: 2026-09-16
+description: "Como planejar a migração entre LTS do Java: ciclo de releases, distribuições e licenças, versões mínimas do ecossistema, processo em cinco fases com rollback, segurança, desempenho, containers e CI."
+tags: [LTS, Migração, JVM, Gradle]
 series: java
-cover: /covers/guia-java.svg
 draft: false
 ---
 
@@ -117,7 +117,7 @@ Quem roda Oracle JDK 21 em produção sem assinatura precisa decidir agora: troc
 
 Desde 23 de janeiro de 2023, a assinatura da Oracle é a **Java SE Universal Subscription**, cobrada **por funcionário**, e não por processador ou por usuário do Java ([FAQ da assinatura](https://www.oracle.com/java/technologies/java-se-subscription-faq.html)). A lista de preços define "funcionário" como todos os empregados em tempo integral, parcial e temporários da empresa, mais os de agentes, terceirizados e consultores que apoiam as operações internas, contando todos, e não só quem usa Java ([lista de preços](https://www.oracle.com/assets/java-se-subscription-pricelist-5028356.pdf)):
 
-| Funcionários | US$ por funcionário por mês |
+| Funcionários | US\$ por funcionário por mês |
 |---|---|
 | 1 a 999 | 15,00 |
 | 1.000 a 2.999 | 12,00 |
@@ -128,7 +128,7 @@ Desde 23 de janeiro de 2023, a assinatura da Oracle é a **Java SE Universal Sub
 | 40.000 a 49.999 | 5,25 |
 | 50.000 ou mais | sob consulta |
 
-O exemplo da própria lista: uma empresa com 28.000 funcionários paga 28.000 × US$ 6,75 × 12 = **US$ 2.268.000 por ano**, mesmo que poucos sistemas usem Java. Por isso o levantamento de onde roda Oracle JDK é o primeiro passo de qualquer revisão de custo.
+O exemplo da própria lista: uma empresa com 28.000 funcionários paga 28.000 × US\$ 6,75 × 12 = **US\$ 2.268.000 por ano**, mesmo que poucos sistemas usem Java. Por isso o levantamento de onde roda Oracle JDK é o primeiro passo de qualquer revisão de custo.
 
 Duas mudanças recentes na oferta da Oracle:
 

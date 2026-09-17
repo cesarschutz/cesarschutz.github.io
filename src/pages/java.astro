@@ -21,6 +21,7 @@ const next = JAVA_LTS.find((v) => v.upcoming);
 ---
 
 <BaseLayout
+  navActive="/series/"
   title="Atualizações do Java"
   description="Cada versão LTS do Java explicada: o que mudou desde a LTS anterior, em qual versão cada recurso chegou, com exemplos de código e fontes oficiais."
 >
@@ -34,7 +35,7 @@ const next = JAVA_LTS.find((v) => v.upcoming);
     <div class="java-kpis">
       <span><strong>{RELEASED_LTS.length}</strong> LTS lançadas</span>
       <span>mais recente: <strong>Java {RELEASED_LTS[0].version}</strong></span>
-      {next && <span>próxima: <strong>Java {next.version}</strong> ({next.release})</span>}
+      {next && <span>próxima: <strong>Java {next.version}</strong>, prevista para {next.release}</span>}
     </div>
   </PageHeader>
 
@@ -68,7 +69,7 @@ const next = JAVA_LTS.find((v) => v.upcoming);
           <span class="v-title">{v.subtitle}</span>
           <span class="v-meta">
             <span class="v-covers">{v.covers}</span>
-            <span class="v-year">{v.release}</span>
+            <span class="v-year">{v.upcoming ? `previsto: ${v.release}` : v.release}</span>
           </span>
         </a>
       ))
@@ -123,7 +124,7 @@ const next = JAVA_LTS.find((v) => v.upcoming);
   }
 
   .guide-eyebrow {
-    color: #f8981d;
+    color: color-mix(in srgb, #f8981d var(--ink-mix), #000);
   }
 
   .guide-title {
@@ -203,7 +204,7 @@ const next = JAVA_LTS.find((v) => v.upcoming);
   }
 
   .upcoming .v-badge {
-    color: #f8981d;
+    color: color-mix(in srgb, #f8981d var(--ink-mix), #000);
     background: color-mix(in srgb, #f8981d 14%, transparent);
   }
 

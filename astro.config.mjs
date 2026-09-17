@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { ABSORBED } from "./src/data/java.ts";
 import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
@@ -13,6 +13,19 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { rehypeTableWrap } from "./src/plugins/rehype-table-wrap.mjs";
+import { remarkHasMath } from "./src/plugins/remark-has-math.mjs";
+
+// data de modificação de cada post (updated ou published) para o <lastmod> do sitemap
+const POSTS_DIR = "./src/content/posts";
+const lastmodBySlug = Object.fromEntries(
+  readdirSync(POSTS_DIR)
+    .filter((f) => f.endsWith(".md") || f.endsWith(".mdx"))
+    .map((f) => {
+      const fm = readFileSync(`${POSTS_DIR}/${f}`, "utf8").split("---")[1] ?? "";
+      const date = fm.match(/^updated:\s*(\S+)/m)?.[1] ?? fm.match(/^published:\s*(\S+)/m)?.[1];
+      return [f.replace(/\.mdx?$/, ""), date];
+    }),
+);
 
 export default defineConfig({
   site: "https://cesarschutz.github.io",
@@ -45,11 +58,18 @@ export default defineConfig({
       },
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      serialize(item) {
+        const slug = item.url.match(/\/posts\/([^/]+)\/?$/)?.[1];
+        const date = slug && lastmodBySlug[slug];
+        if (date) item.lastmod = new Date(date).toISOString();
+        return item;
+      },
+    }),
   ],
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkReadingTime, remarkMath],
+      remarkPlugins: [remarkReadingTime, remarkMath, remarkHasMath],
       rehypePlugins: [
         rehypeSlug,
         rehypeKatex,

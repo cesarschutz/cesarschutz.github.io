@@ -1,9 +1,31 @@
 ---
 import Brand from "./Brand.astro";
 import Icon from "./Icon.astro";
-import { NAV, SITE } from "../config";
+import { SITE } from "../config";
 
 const year = new Date().getFullYear();
+
+const groups = [
+  {
+    title: "Conteúdo",
+    links: [
+      { label: "Todos os artigos", href: "/archive/" },
+      { label: "Séries", href: "/series/" },
+      { label: "Categorias", href: "/categories/" },
+      { label: "Tags", href: "/tags/" },
+    ],
+  },
+  {
+    title: "Autor",
+    links: [
+      { label: "Sobre", href: "/about/" },
+      { label: "Projetos", href: "/projects/" },
+      { label: "GitHub", href: SITE.github, external: true },
+      ...(SITE.linkedin ? [{ label: "LinkedIn", href: SITE.linkedin, external: true }] : []),
+      ...(SITE.email ? [{ label: "E-mail", href: `mailto:${SITE.email}` }] : []),
+    ],
+  },
+];
 ---
 
 <footer class="footer">
@@ -11,25 +33,34 @@ const year = new Date().getFullYear();
     <div class="footer-brand">
       <Brand />
       <p>{SITE.headline}</p>
+      <a class="footer-rss" href="/rss.xml"><Icon name="rss" size={15} /> Assinar via RSS</a>
     </div>
 
-    <nav class="footer-links" aria-label="Rodapé">
-      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
-      <a href="/series/">Séries</a>
-      <a href="/categories/">Categorias</a>
-      <a href="/tags/">Tags</a>
-    </nav>
+    {
+      groups.map((group) => (
+        <nav class="footer-group" aria-label={group.title}>
+          <p class="footer-title">{group.title}</p>
+          <ul>
+            {group.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target={"external" in link && link.external ? "_blank" : undefined}
+                  rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
 
     <div class="footer-bottom">
       <span>
         © {year} {SITE.name} · Conteúdo sob{" "}
         <a href={SITE.license.url} target="_blank" rel="noopener noreferrer">{SITE.license.name}</a>
-      </span>
-      <span class="footer-social">
-        <a href="/rss.xml" aria-label="RSS"><Icon name="rss" size={16} /></a>
-        <a href={SITE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <Icon name="github" size={16} />
-        </a>
       </span>
     </div>
   </div>
@@ -44,10 +75,10 @@ const year = new Date().getFullYear();
   .footer-inner {
     max-width: calc(var(--page-max) + 2 * var(--page-gutter));
     margin: 0 auto;
-    padding: 36px var(--page-gutter) 28px;
+    padding: 40px var(--page-gutter) 28px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 24px 48px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 28px 64px;
   }
 
   .footer-brand p {
@@ -57,28 +88,48 @@ const year = new Date().getFullYear();
     color: var(--text-dim);
   }
 
-  .footer-links {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 8px 36px;
-    align-content: start;
-    font-size: var(--fs-body-sm);
-  }
-
-  .footer-links a {
+  .footer-rss {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-size: var(--fs-meta);
     color: var(--text-soft);
   }
 
-  .footer-links a:hover {
+  .footer-rss:hover {
+    color: var(--amber);
+  }
+
+  .footer-title {
+    margin: 0 0 10px;
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .footer-group ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: var(--fs-body-sm);
+  }
+
+  .footer-group a {
+    color: var(--text-soft);
+  }
+
+  .footer-group a:hover {
     color: var(--blue);
   }
 
   .footer-bottom {
     grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
     padding-top: 20px;
     border-top: 1px solid var(--divider);
     font-size: var(--fs-meta);
@@ -89,18 +140,12 @@ const year = new Date().getFullYear();
     color: var(--blue);
   }
 
-  .footer-social {
-    display: flex;
-    gap: 14px;
-  }
-
   @media (max-width: 640px) {
     .footer-inner {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
     }
-    .footer-bottom {
-      flex-direction: column-reverse;
-      align-items: flex-start;
+    .footer-brand {
+      grid-column: 1 / -1;
     }
   }
 </style>

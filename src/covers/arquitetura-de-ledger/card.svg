@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <!-- razão em T: débito | crédito, totais iguais -->
+  <g transform="translate(600 300) scale(1.15) translate(-600 -300)">
+  <rect class="cv-shape cv-bold" x="390" y="110" width="420" height="380" rx="25"/>
+  <line class="cv-line" x1="390" y1="186" x2="810" y2="186"/>
+  <line class="cv-line" x1="600" y1="110" x2="600" y2="490"/>
+  <text class="cv-text cv-white" x="495" y="162" font-size="36" text-anchor="middle">D</text>
+  <text class="cv-text cv-white" x="705" y="162" font-size="36" text-anchor="middle">C</text>
+  <line class="cv-detail-line" x1="428" y1="247" x2="554" y2="247"/>
+  <line class="cv-detail-line" x1="638" y1="247" x2="747" y2="247"/>
+  <line class="cv-detail-line" x1="428" y1="300" x2="520" y2="300"/>
+  <line class="cv-detail-line" x1="638" y1="300" x2="768" y2="300"/>
+  <line class="cv-detail-line" x1="428" y1="353" x2="541" y2="353"/>
+  <line class="cv-detail-line" x1="638" y1="353" x2="722" y2="353"/>
+  <line class="cv-muted-line cv-thin" x1="428" y1="395" x2="562" y2="395"/>
+  <line class="cv-muted-line cv-thin" x1="638" y1="395" x2="772" y2="395"/>
+  <line class="cv-line cv-bold" x1="428" y1="429" x2="537" y2="429"/>
+  <line class="cv-line cv-bold" x1="663" y1="429" x2="772" y2="429"/>
+  <circle class="cv-solid" cx="600" cy="429" r="29"/>
+  <rect class="cv-cut" x="585" y="419" width="29" height="5" rx="3"/>
+  <rect class="cv-cut" x="585" y="434" width="29" height="5" rx="3"/>
+  </g>
+</svg>

@@ -1,10 +1,10 @@
 ---
 title: "W3C Trace Context — correlacionando logs entre microsserviços com o traceparent"
 published: 2026-05-20
-description: "O padrão W3C que faz o mesmo ID de rastreamento atravessar todos os serviços de uma operação: a anatomia do `traceparent` e do `tracestate`, os valores inválidos, a granularidade certa (um trace por lote, não por execução) e como o ID viaja pelo outbox pattern até o consumidor."
-tags: [Observabilidade, Tracing, Microsserviços]
+updated: 2026-09-16
+description: "O padrão W3C que leva o mesmo ID de rastreamento por todos os serviços de uma operação: o `traceparent` e o `tracestate`, valores inválidos, a granularidade certa e o ID atravessando o outbox."
+tags: [Logs, Microsserviços, Mensageria]
 category: Observabilidade
-cover: /covers/trace-context.svg
 draft: false
 ---
 

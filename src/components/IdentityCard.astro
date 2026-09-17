@@ -180,22 +180,40 @@ const { stats } = Astro.props;
     gap: 8px;
   }
 
+  /* celular: card compacto para os artigos aparecerem logo */
   @media (max-width: 560px) {
     .id-content {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
+      grid-template-columns: 64px minmax(0, 1fr);
+      align-items: start;
+      gap: 14px;
+      padding: 18px;
     }
     .id-photo {
-      width: 88px;
-      border-radius: 16px;
+      width: 64px;
+      border-radius: 14px;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 10%, transparent);
+    }
+    .id-role {
+      margin-bottom: 2px;
+      font-size: 11px;
+    }
+    .id-name {
+      font-size: 30px;
+    }
+    .id-headline {
+      margin-top: 6px;
+      font-size: 15px;
+    }
+    .id-topics,
+    .id-stats {
+      display: none;
     }
     .id-footer {
-      flex-direction: column;
-      align-items: stretch;
+      margin-top: 14px;
     }
     .id-actions .btn {
-      flex: 1;
-      justify-content: center;
+      padding: 8px 14px;
+      font-size: var(--fs-body-sm);
     }
   }
 </style>

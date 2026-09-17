@@ -4,7 +4,6 @@ published: 2026-01-31
 description: "Uma ou duas frases que resumem o artigo. Aparecem no card da home, no cabeçalho do post e no SEO. Aceita `código` e **negrito**."
 tags: [Tag1, Tag2]
 category: Arquitetura
-cover: /covers/slug-do-artigo.svg
 draft: true
 ---
 
@@ -30,3 +29,7 @@ public class Exemplo {
 ## Conclusão
 
 O que fica de decisão ou aprendizado.
+
+## Fontes
+
+- [Documentação oficial](https://exemplo.com)

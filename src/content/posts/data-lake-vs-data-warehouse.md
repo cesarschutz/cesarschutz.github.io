@@ -1,10 +1,10 @@
 ---
-title: "Data Lake vs Data Warehouse (e onde entra o Lakehouse)"
+title: "Data lake vs data warehouse — e onde entra o lakehouse"
 published: 2026-03-31
+updated: 2026-09-16
 description: "Schema-on-write vs schema-on-read, ETL vs ELT, dado curado vs dado bruto: o comparativo direto entre Data Warehouse e Data Lake, por que os dois costumam trabalhar juntos e o que o Lakehouse propõe unificar."
-tags: [Dados, Analytics, Big Data]
+tags: [Trade-offs, AWS]
 category: Dados
-cover: /covers/data-lake-dw.svg
 draft: false
 ---
 

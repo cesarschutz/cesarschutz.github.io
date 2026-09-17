@@ -1,10 +1,10 @@
 ---
 title: "Cobrança duplicada no retry"
 published: 2026-09-10
-description: "Por que consultar antes de gravar não impede que um retry cobre o cliente duas vezes, e como resolver com chave de idempotência, restrição única no banco e resposta guardada. Com SQL testado no PostgreSQL, a condição de corrida verifica-e-age, a entrega pelo menos uma vez e as alternativas de bloqueio."
-tags: [Arquitetura, Idempotência, Pagamentos]
+updated: 2026-09-16
+description: "Por que consultar antes de gravar não impede que um retry cobre o cliente duas vezes, e como resolver com chave de idempotência, restrição única e resposta guardada. Com SQL testado no PostgreSQL."
+tags: [Pagamentos, Idempotência, Banco de Dados]
 category: Arquitetura
-cover: /covers/sessao-00-idempotencia.svg
 draft: false
 ---
 

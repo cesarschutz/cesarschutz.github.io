@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <!-- otimista (aberto) vs pessimista (fechado) -->
+  <g transform="translate(405 312) scale(1.4)">
+    <path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v6"/>
+    <rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/>
+    <circle class="cv-detail" cx="0" cy="30" r="16"/>
+    <rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/>
+  </g>
+  <g transform="translate(795 312) scale(1.4)">
+    <path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v38"/>
+    <rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/>
+    <circle class="cv-detail" cx="0" cy="30" r="16"/>
+    <rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/>
+  </g>
+  <text class="cv-mono cv-muted" x="600" y="334" font-size="64" text-anchor="middle">vs</text>
+</svg>

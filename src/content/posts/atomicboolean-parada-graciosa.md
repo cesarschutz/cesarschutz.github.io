@@ -1,10 +1,10 @@
 ---
 title: "AtomicBoolean — o sinalizador thread-safe da parada graciosa"
 published: 2026-05-19
-description: "Por que um `boolean` comum pode nunca ser visto pela outra thread, quando `volatile` basta e por que preferir `AtomicBoolean`, e como ligar o shutdown hook do `SIGTERM` ao loop de um job sem deixar a JVM encerrar no meio de um lote."
-tags: [Java, Concorrência, Kubernetes]
+updated: 2026-09-16
+description: "Por que um `boolean` comum pode não ser visto por outra thread, quando `volatile` basta, por que preferir `AtomicBoolean` e como ligar o `SIGTERM` a um job sem encerrar a JVM no meio de um lote."
+tags: [Concorrência, Kubernetes, JVM]
 category: Java
-cover: /covers/atomicboolean.svg
 draft: false
 ---
 

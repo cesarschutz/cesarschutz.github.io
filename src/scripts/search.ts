@@ -18,6 +18,8 @@ interface RawDoc {
   title: string;
   url: string;
   category?: string;
+  description?: string;
+  tags?: string[];
   text: string;
 }
 
@@ -27,6 +29,8 @@ interface IndexedDoc extends RawDoc {
   /** normText[i] veio de text[map[i]] — permite recortar o trecho original */
   map: number[];
   normTitle: string;
+  normTags: string;
+  normMeta: string;
 }
 
 let indexPromise: Promise<IndexedDoc[]> | null = null;
@@ -51,7 +55,14 @@ function indexDoc(doc: RawDoc): IndexedDoc {
       map.push(i);
     }
   }
-  return { ...doc, normText, map, normTitle: normalizeQuery(doc.title) };
+  return {
+    ...doc,
+    normText,
+    map,
+    normTitle: normalizeQuery(doc.title),
+    normTags: normalizeQuery((doc.tags ?? []).join(" | ")),
+    normMeta: normalizeQuery(`${doc.category ?? ""} ${doc.description ?? ""}`),
+  };
 }
 
 async function loadIndex(): Promise<IndexedDoc[]> {
@@ -87,47 +98,73 @@ function buildExcerpt(doc: IndexedDoc, normStart: number, normLength: number): s
   return `${escapeHtml(prefix)}<mark>${escapeHtml(match)}</mark>${escapeHtml(suffix)}`;
 }
 
+function occurrences(haystack: string, needle: string, cap = 8): number {
+  let count = 0;
+  let from = haystack.indexOf(needle);
+  while (from >= 0 && count < cap) {
+    count++;
+    from = haystack.indexOf(needle, from + needle.length);
+  }
+  return count;
+}
+
+/**
+ * Relevância: título (12), tags (8), categoria/resumo (4) e ocorrências no
+ * texto (até 12). Assim o post que trata do assunto vem antes do que só o cita.
+ */
+function score(doc: IndexedDoc, term: string): number {
+  return (
+    (doc.normTitle.includes(term) ? 12 : 0) +
+    (doc.normTags.includes(term) ? 8 : 0) +
+    (doc.normMeta.includes(term) ? 4 : 0) +
+    occurrences(doc.normText, term, 12)
+  );
+}
+
 export async function searchPosts(keyword: string): Promise<SearchResult[]> {
   const query = normalizeQuery(keyword.trim());
   if (query.length < 2) return [];
 
   const docs = await loadIndex();
 
-  // etapa 1: frase exata (título pesa mais)
-  const exact: { doc: IndexedDoc; pos: number; inTitle: boolean }[] = [];
-  for (const doc of docs) {
-    const inTitle = doc.normTitle.includes(query);
-    const pos = doc.normText.indexOf(query);
-    if (inTitle || pos >= 0) exact.push({ doc, pos, inTitle });
-  }
+  // etapa 1: frase exata
+  const exact = docs
+    .map((doc) => ({ doc, pos: doc.normText.indexOf(query), score: score(doc, query) }))
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score);
   if (exact.length > 0) {
-    exact.sort((a, b) => Number(b.inTitle) - Number(a.inTitle));
     return exact.slice(0, 10).map(({ doc, pos }) => ({
       url: doc.url,
       title: doc.title,
       category: doc.category,
       excerpt:
-        pos >= 0
-          ? buildExcerpt(doc, pos, query.length)
-          : escapeHtml(doc.text.slice(0, CONTEXT * 2)) + "…",
+        pos >= 0 ? buildExcerpt(doc, pos, query.length) : escapeHtml((doc.description ?? doc.text).slice(0, CONTEXT * 2)) + "…",
     }));
   }
 
   // etapa 2: todas as palavras, em qualquer ordem
   const words = query.split(/\s+/).filter((w) => w.length > 1);
   if (words.length === 0) return [];
-  const partial: { doc: IndexedDoc; firstPos: number; titleHits: number }[] = [];
-  for (const doc of docs) {
-    const positions = words.map((w) => doc.normText.indexOf(w));
-    if (positions.some((p) => p < 0)) continue;
-    const titleHits = words.filter((w) => doc.normTitle.includes(w)).length;
-    partial.push({ doc, firstPos: Math.min(...positions), titleHits });
-  }
-  partial.sort((a, b) => b.titleHits - a.titleHits);
+  const partial = docs
+    .filter((doc) =>
+      words.every((w) => doc.normText.includes(w) || doc.normTitle.includes(w) || doc.normTags.includes(w) || doc.normMeta.includes(w)),
+    )
+    .map((doc) => {
+      const positions = words.map((w) => doc.normText.indexOf(w)).filter((p) => p >= 0);
+      return {
+        doc,
+        firstPos: positions.length ? Math.min(...positions) : -1,
+        score: words.reduce((acc, w) => acc + score(doc, w), 0),
+      };
+    })
+    .sort((a, b) => b.score - a.score);
   return partial.slice(0, 10).map(({ doc, firstPos }) => ({
     url: doc.url,
     title: doc.title,
-      category: doc.category,
-    excerpt: buildExcerpt(doc, firstPos, words[0].length),
+    category: doc.category,
+    excerpt:
+      firstPos >= 0
+        ? buildExcerpt(doc, firstPos, words.find((w) => doc.normText.indexOf(w) === firstPos)?.length ?? words[0].length)
+        : escapeHtml((doc.description ?? "").slice(0, CONTEXT * 2)),
   }));
 }

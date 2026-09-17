@@ -1,10 +1,10 @@
 ---
-title: "Gradle: implementation, api, compileOnly, annotationProcessor e testImplementation"
+title: "Gradle — quando usar implementation, api, compileOnly e as demais configurações"
 published: 2026-05-19
-description: "Cada configuração de dependência do Gradle alimenta classpaths diferentes: compilação, execução, processadores de anotação ou testes. O guia para bibliotecas e starters Spring Boot, incluindo o que o consumidor recebe e o papel do `platform` (BOM)."
-tags: [Java, Gradle, Build]
+updated: 2026-09-16
+description: "Cada configuração de dependência do Gradle alimenta um classpath: compilação, execução, processadores de anotação ou testes. Guia para bibliotecas e starters Spring Boot, com o papel do `platform` (BOM)."
+tags: [Gradle, Spring]
 category: Java
-cover: /covers/gradle-classpaths.svg
 draft: false
 ---
 

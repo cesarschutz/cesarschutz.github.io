@@ -1,10 +1,10 @@
 ---
-title: "Java 21 (LTS) — Virtual threads, pattern matching e Sequenced Collections"
+title: "Java 21 (LTS) — virtual threads, pattern matching e Sequenced Collections"
 published: 2025-07-02T02:10:00Z
+updated: 2026-09-16
 description: "O que mudou do Java 17 ao Java 21: virtual threads, pattern matching para `switch`, record patterns, Sequenced Collections, ZGC geracional e as 38 JEPs do Java 18 ao 21, com a versão em que cada recurso chegou."
-tags: [Java, LTS, Virtual Threads, Pattern Matching, Migração]
+tags: [LTS, Linguagem, Virtual Threads, Concorrência]
 series: java
-cover: /covers/java/java-21.svg
 draft: false
 ---
 
@@ -1022,6 +1022,9 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 
 ### Java 18
 
+<details>
+<summary>Ver as 9 JEPs do Java 18</summary>
+
 | JEP | Título | Tipo |
 | --- | --- | --- |
 | [400](https://openjdk.org/jeps/400) | UTF-8 by Default | Final |
@@ -1034,7 +1037,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [420](https://openjdk.org/jeps/420) | Pattern Matching for switch (Second Preview) | Preview |
 | [421](https://openjdk.org/jeps/421) | Deprecate Finalization for Removal | Depreciação |
 
+</details>
+
 ### Java 19
+
+<details>
+<summary>Ver as 7 JEPs do Java 19</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1046,7 +1054,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [427](https://openjdk.org/jeps/427) | Pattern Matching for switch (Third Preview) | Preview |
 | [428](https://openjdk.org/jeps/428) | Structured Concurrency (Incubator) | Incubadora |
 
+</details>
+
 ### Java 20
+
+<details>
+<summary>Ver as 7 JEPs do Java 20</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1058,7 +1071,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [437](https://openjdk.org/jeps/437) | Structured Concurrency (Second Incubator) | Incubadora |
 | [438](https://openjdk.org/jeps/438) | Vector API (Fifth Incubator) | Incubadora |
 
+</details>
+
 ### Java 21
+
+<details>
+<summary>Ver as 15 JEPs do Java 21</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1077,6 +1095,8 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [451](https://openjdk.org/jeps/451) | Prepare to Disallow the Dynamic Loading of Agents | Final |
 | [452](https://openjdk.org/jeps/452) | Key Encapsulation Mechanism API | Final |
 | [453](https://openjdk.org/jeps/453) | Structured Concurrency (Preview) | Preview |
+
+</details>
 
 ## Fontes
 

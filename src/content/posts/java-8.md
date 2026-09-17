@@ -1,10 +1,10 @@
 ---
-title: "Java 8 (LTS) — Lambdas, Stream API, java.time e o fim do PermGen"
+title: "Java 8 (LTS) — lambdas, Stream API, java.time e o fim do PermGen"
 published: 2025-07-02T00:00:00Z
+updated: 2026-09-16
 description: "O que mudou do Java 7 para o Java 8: lambdas, `Stream`, `Optional`, `java.time`, `CompletableFuture` e Metaspace no lugar do PermGen, com exemplos antes e depois e a lista completa das 55 JEPs."
-tags: [Java, LTS, Programação Funcional, JVM]
+tags: [LTS, Linguagem, JVM, Concorrência]
 series: java
-cover: /covers/java/java-8.svg
 draft: false
 ---
 
@@ -848,6 +848,9 @@ Lista conferida na [página oficial de features do JDK 8](https://openjdk.org/pr
 
 ### Java 8
 
+<details>
+<summary>Ver as 55 JEPs do Java 8</summary>
+
 | JEP | Título | Área |
 |---|---|---|
 | [101](https://openjdk.org/jeps/101) | Generalized Target-Type Inference | Linguagem |
@@ -905,6 +908,8 @@ Lista conferida na [página oficial de features do JDK 8](https://openjdk.org/pr
 | [180](https://openjdk.org/jeps/180) | Handle Frequent HashMap Collisions with Balanced Trees | Bibliotecas |
 | [184](https://openjdk.org/jeps/184) | HTTP URL Permissions | Segurança |
 | [185](https://openjdk.org/jeps/185) | Restrict Fetching of External XML Resources | Segurança |
+
+</details>
 
 ## Fontes
 

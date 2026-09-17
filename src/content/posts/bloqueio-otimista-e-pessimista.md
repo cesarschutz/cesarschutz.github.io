@@ -1,10 +1,10 @@
 ---
-title: "Bloqueio otimista e pessimista"
+title: "Bloqueio otimista e pessimista — como funcionam e quando usar cada um"
 published: 2026-09-13
-description: "Como impedir que gravações simultâneas se atropelem: detectar o conflito com uma coluna de versão ou evitá-lo travando a linha. Com SQL testado no PostgreSQL e Spring Data JPA, `FOR UPDATE` com NOWAIT e SKIP LOCKED, deadlocks, níveis de isolamento e o UPDATE condicional."
-tags: [Arquitetura, Banco de Dados, Concorrência]
+updated: 2026-09-16
+description: "Como impedir que gravações simultâneas se atropelem: coluna de versão ou trava da linha. SQL testado no PostgreSQL, Spring Data JPA, `FOR UPDATE` com NOWAIT e SKIP LOCKED, deadlocks e isolamento."
+tags: [Banco de Dados, Concorrência, Spring, Trade-offs]
 category: Arquitetura
-cover: /covers/sessao-03-bloqueios.svg
 draft: false
 ---
 

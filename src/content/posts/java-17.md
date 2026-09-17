@@ -1,10 +1,10 @@
 ---
-title: "Java 17 (LTS) — Records, sealed classes, text blocks e switch expressions"
+title: "Java 17 (LTS) — records, sealed classes, text blocks e switch expressions"
 published: 2025-07-02T01:30:00Z
-description: "Do Java 12 ao 17, versão a versão: records, sealed classes, text blocks, switch expressions, pattern matching para `instanceof`, ZGC e Shenandoah em produção, encapsulamento forte e o que quebra na migração a partir do Java 11."
-tags: [Java, LTS, Migração, Records, Sealed Classes]
+updated: 2026-09-16
+description: "Do Java 12 ao 17, versão a versão: records, sealed classes, text blocks, switch expressions, pattern matching para `instanceof`, ZGC e Shenandoah em produção e o que quebra vindo do Java 11."
+tags: [LTS, Linguagem, JVM, Migração]
 series: java
-cover: /covers/java/java-17.svg
 draft: false
 ---
 
@@ -1082,6 +1082,9 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 
 ### Java 12
 
+<details>
+<summary>Ver as 8 JEPs do Java 12</summary>
+
 | JEP | Título | Tipo |
 | --- | --- | --- |
 | [189](https://openjdk.org/jeps/189) | Shenandoah: A Low-Pause-Time Garbage Collector (Experimental) | Experimental |
@@ -1093,7 +1096,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [344](https://openjdk.org/jeps/344) | Abortable Mixed Collections for G1 | Final |
 | [346](https://openjdk.org/jeps/346) | Promptly Return Unused Committed Memory from G1 | Final |
 
+</details>
+
 ### Java 13
+
+<details>
+<summary>Ver as 5 JEPs do Java 13</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1103,7 +1111,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [354](https://openjdk.org/jeps/354) | Switch Expressions (Second Preview) | Preview |
 | [355](https://openjdk.org/jeps/355) | Text Blocks (Preview) | Preview |
 
+</details>
+
 ### Java 14
+
+<details>
+<summary>Ver as 16 JEPs do Java 14</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1124,7 +1137,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [368](https://openjdk.org/jeps/368) | Text Blocks (Second Preview) | Preview |
 | [370](https://openjdk.org/jeps/370) | Foreign-Memory Access API (Incubator) | Incubadora |
 
+</details>
+
 ### Java 15
+
+<details>
+<summary>Ver as 14 JEPs do Java 15</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1143,7 +1161,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [384](https://openjdk.org/jeps/384) | Records (Second Preview) | Preview |
 | [385](https://openjdk.org/jeps/385) | Deprecate RMI Activation for Removal | Depreciação |
 
+</details>
+
 ### Java 16
+
+<details>
+<summary>Ver as 17 JEPs do Java 16</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1165,7 +1188,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [396](https://openjdk.org/jeps/396) | Strongly Encapsulate JDK Internals by Default | Final |
 | [397](https://openjdk.org/jeps/397) | Sealed Classes (Second Preview) | Preview |
 
+</details>
+
 ### Java 17
+
+<details>
+<summary>Ver as 14 JEPs do Java 17</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1183,6 +1211,8 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [412](https://openjdk.org/jeps/412) | Foreign Function & Memory API (Incubator) | Incubadora |
 | [414](https://openjdk.org/jeps/414) | Vector API (Second Incubator) | Incubadora |
 | [415](https://openjdk.org/jeps/415) | Context-Specific Deserialization Filters | Final |
+
+</details>
 
 ## Fontes
 

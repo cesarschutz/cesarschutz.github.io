@@ -1,10 +1,10 @@
 ---
 title: "AopUtils.getTargetClass() — desembrulhando os proxies do Spring"
 published: 2026-05-19
-description: "Quando o Spring envolve um bean em um proxy, `bean.getClass()` devolve a classe do proxy, e leitura de anotações, logs e mapas por classe passam a falhar. Como `AopUtils.getTargetClass()` recupera a classe real e quando usar `AopProxyUtils.ultimateTargetClass()`."
-tags: [Java, Spring, AOP]
+updated: 2026-09-16
+description: "Com o bean envolto em proxy, `bean.getClass()` devolve a classe do proxy e a leitura de anotações falha. Como `AopUtils.getTargetClass()` recupera a classe real e quando usar `ultimateTargetClass()`."
+tags: [Spring, AOP]
 category: Java
-cover: /covers/aoputils.svg
 draft: false
 ---
 

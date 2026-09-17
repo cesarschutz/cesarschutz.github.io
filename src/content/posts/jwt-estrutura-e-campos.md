@@ -1,10 +1,10 @@
 ---
 title: "JWT — a estrutura e o significado de cada campo"
 published: 2026-04-12
-description: "As três partes de um JWT, campo a campo: headers JOSE (`alg`, `kid`, `crit`…), claims registradas (`iss`, `sub`, `aud`, `exp`…), algoritmos de assinatura e os cuidados de validação — lembrando que o payload não é criptografado."
-tags: [Segurança, JWT, Autenticação]
+updated: 2026-09-16
+description: "As três partes de um JWT, campo a campo: headers JOSE (`alg`, `kid`…), claims registradas (`iss`, `sub`, `exp`…), algoritmos de assinatura e cuidados de validação. O payload não é criptografado."
+tags: [JWT, Criptografia]
 category: Segurança
-cover: /covers/jwt-estrutura.svg
 draft: false
 ---
 

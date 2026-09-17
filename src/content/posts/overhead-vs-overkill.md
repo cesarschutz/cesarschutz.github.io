@@ -1,10 +1,10 @@
 ---
-title: "Overhead vs Overkill — o imposto de toda escolha e o exagero da escolha"
+title: "Overhead vs overkill — o custo de toda escolha e o exagero dela"
 published: 2026-05-16
-description: "Overhead é o custo extra que toda decisão técnica cobra; overkill é a solução desproporcional ao problema. As seis dimensões do overhead, a maioria invisível no monitoramento, e um critério prático para reconhecer overengineering."
-tags: [Arquitetura, Design de Software, Complexidade]
+updated: 2026-09-16
+description: "Overhead é o custo extra que toda decisão técnica cobra; overkill é a solução desproporcional ao problema. As seis dimensões do overhead e um critério prático para reconhecer overengineering."
+tags: [Trade-offs, Microsserviços]
 category: Arquitetura
-cover: /covers/overhead-overkill.svg
 draft: false
 ---
 

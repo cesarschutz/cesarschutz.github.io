@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
+  <line class="cv-muted-line" x1="120" y1="200" x2="500" y2="200"/>
+  <path class="cv-muted-line" d="M486 188 L500 200 L486 212"/>
+  <circle class="cv-shape" cx="120" cy="200" r="34"/><text class="cv-mono cv-detail" x="120" y="210" font-size="28" text-anchor="middle">17</text><circle class="cv-solid" cx="236.66666666666666" cy="200" r="10"/><text class="cv-mono cv-detail" x="236.66666666666666" y="252" font-size="24" text-anchor="middle">18</text><circle class="cv-solid" cx="322" cy="200" r="10"/><text class="cv-mono cv-detail" x="322" y="252" font-size="24" text-anchor="middle">19</text><circle class="cv-solid" cx="407.3333333333333" cy="200" r="10"/><text class="cv-mono cv-detail" x="407.3333333333333" y="252" font-size="24" text-anchor="middle">20</text>
+  <g transform="translate(575 180) scale(0.66)">
+    <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
+    <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
+    <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
+    <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
+    <path class="cv-muted-line" d="M-25 222 h290"/>
+    <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
+  </g>
+  <g transform="translate(975 56) scale(0.88)">
+    <text class="cv-text cv-white" x="0" y="44" font-size="56" text-anchor="middle" letter-spacing="16">JAVA</text>
+    <text class="cv-text cv-solid" x="0" y="228" font-size="220" font-weight="800" text-anchor="middle" letter-spacing="-4">21</text>
+    <rect class="cv-solid" x="-65" y="250" width="130" height="54" rx="27"/>
+    <text class="cv-text cv-cut" x="0" y="288" font-size="34" text-anchor="middle" letter-spacing="1">LTS</text>
+  </g>
+  <g transform="translate(1165 152)">
+    <rect class="cv-shape" x="0" y="0" width="96" height="96" rx="16"/>
+    <line class="cv-line" x1="0" y1="30" x2="96" y2="30"/>
+    <line class="cv-detail-line cv-bold" x1="26" y1="-12" x2="26" y2="12"/>
+    <line class="cv-detail-line cv-bold" x1="70" y1="-12" x2="70" y2="12"/>
+    <circle class="cv-muted" cx="24" cy="52" r="5"/><circle class="cv-muted" cx="24" cy="74" r="5"/><circle class="cv-muted" cx="48" cy="52" r="5"/><circle class="cv-muted" cx="48" cy="74" r="5"/><circle class="cv-muted" cx="72" cy="52" r="5"/><circle class="cv-muted" cx="72" cy="74" r="5"/>
+    <text class="cv-text cv-muted" x="124" y="34" font-size="22" letter-spacing="3">LANÇADO</text>
+    <text class="cv-mono cv-detail" x="122" y="84" font-size="44">SET 2023</text>
+  </g>
+</svg>

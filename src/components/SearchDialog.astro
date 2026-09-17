@@ -32,12 +32,19 @@ import Icon from "./Icon.astro";
 
   const escape = (v: string) => v.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+  const setQueryParam = (value: string | null) => {
+    const url = new URL(location.href);
+    if (value) url.searchParams.set("q", value);
+    else url.searchParams.delete("q");
+    history.replaceState(history.state, "", url);
+  };
   const open = () => {
     if (dialog.open) return;
     dialog.showModal();
     input.select();
   };
   const close = () => dialog.close();
+  dialog.addEventListener("close", () => setQueryParam(null));
 
   document.querySelectorAll("[data-search-open]").forEach((el) => el.addEventListener("click", open));
   dialog.querySelector("[data-search-close]")!.addEventListener("click", close);
@@ -61,6 +68,8 @@ import Icon from "./Icon.astro";
   input.addEventListener("input", async () => {
     const query = input.value;
     const current = ++token;
+    // a URL com ?q= permite compartilhar a busca
+    setQueryParam(query.trim().length >= 2 ? query.trim() : null);
     if (query.trim().length < 2) {
       results.innerHTML = hint;
       return;
@@ -83,6 +92,14 @@ import Icon from "./Icon.astro";
       )
       .join("");
   });
+
+  // link com ?q=termo abre a busca já preenchida
+  const initial = new URLSearchParams(location.search).get("q");
+  if (initial) {
+    open();
+    input.value = initial;
+    input.dispatchEvent(new Event("input"));
+  }
 
   // setas navegam entre os resultados; Enter no campo abre o primeiro
   dialog.addEventListener("keydown", (e) => {

@@ -1,10 +1,9 @@
 ---
-title: "Java 29 (LTS) — Rumo à próxima LTS: o que o Java 26 e o 27 já trouxeram"
+title: "Java 29 (próxima LTS) — o que o Java 26 e o 27 já trouxeram"
 published: 2026-09-16
-description: "O caminho do Java 25 até a próxima LTS, o Java 29 (prevista para setembro de 2027): as JEPs e as principais mudanças do Java 26 e do 27, em qual versão cada recurso chegou, o que ainda está em preview, exemplos de código e o que conferir na migração."
-tags: [Java, LTS, JVM, Concorrência]
+description: "O caminho do Java 25 até a próxima LTS, o Java 29 (prevista para setembro de 2027): as JEPs do Java 26 e do 27, o que ainda está em preview, exemplos de código e o que conferir na migração."
+tags: [LTS, JVM, Concorrência, Criptografia]
 series: java
-cover: /covers/java/java-29.svg
 draft: false
 ---
 
@@ -767,6 +766,9 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 
 Lançado em 17 de março de 2026, com 10 JEPs ([JDK 26](https://openjdk.org/projects/jdk/26/)).
 
+<details>
+<summary>Ver as 10 JEPs do Java 26</summary>
+
 | JEP | Título | Tipo |
 | --- | --- | --- |
 | [500](https://openjdk.org/jeps/500) | Prepare to Make Final Mean Final | Final |
@@ -780,9 +782,14 @@ Lançado em 17 de março de 2026, com 10 JEPs ([JDK 26](https://openjdk.org/proj
 | [529](https://openjdk.org/jeps/529) | Vector API (Eleventh Incubator) | Incubadora |
 | [530](https://openjdk.org/jeps/530) | Primitive Types in Patterns, instanceof, and switch (Fourth Preview) | Preview |
 
+</details>
+
 ### Java 27
 
 Lançado em 15 de setembro de 2026, com 9 JEPs ([JDK 27](https://openjdk.org/projects/jdk/27/)).
+
+<details>
+<summary>Ver as 9 JEPs do Java 27</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -796,9 +803,14 @@ Lançado em 15 de setembro de 2026, com 9 JEPs ([JDK 27](https://openjdk.org/pro
 | [537](https://openjdk.org/jeps/537) | Vector API (Twelfth Incubator) | Incubadora |
 | [538](https://openjdk.org/jeps/538) | PEM Encodings of Cryptographic Objects (Third Preview) | Preview |
 
+</details>
+
 ### Java 28
 
 Em desenvolvimento. A [página do JDK 28](https://openjdk.org/projects/jdk/28/) ainda não publicou o cronograma, e o roadmap da Oracle prevê o lançamento para março de 2027. Na última atualização da página (27/08/2026), estas eram as JEPs com alvo no 28; a coluna Situação mostra o status de cada JEP em 16/09/2026. "Com alvo" significa que a JEP foi aceita para o 28; "integrada", que o código já entrou no repositório do 28; "concluída", que além disso a JEP foi encerrada como entregue.
+
+<details>
+<summary>Ver as 6 JEPs do Java 28</summary>
 
 | JEP | Título | Tipo | Situação |
 | --- | --- | --- | --- |
@@ -808,6 +820,8 @@ Em desenvolvimento. A [página do JDK 28](https://openjdk.org/projects/jdk/28/) 
 | [540](https://openjdk.org/jeps/540) | Simple JSON API (Incubator) | Incubadora | Integrada ao 28 |
 | [541](https://openjdk.org/jeps/541) | Deprecate the macOS/x64 Port for Removal | Depreciação | Concluída no 28 |
 | [542](https://openjdk.org/jeps/542) | PEM Encodings of Cryptographic Objects | Final | Concluída no 28 |
+
+</details>
 
 Em resumo: **Value Objects** (Project Valhalla) introduz, em preview, objetos imutáveis e sem identidade, distinguidos só pelos valores dos campos, que a JVM pode representar de forma mais eficiente. **Strict Field Initialization** é um recurso de VM em preview, voltado a compiladores que geram class files, no qual o campo precisa ser inicializado antes de qualquer leitura, de modo que `0` e `null` nunca são observados. A **Simple JSON API** (`jdk.incubator.json`) faz parsing e geração de JSON sem biblioteca externa. No **Shenandoah**, o modo geracional vira padrão e o não geracional (`ShenandoahGCMode=satb`) é depreciado. A **API PEM** vira final.
 

@@ -13,7 +13,7 @@ export interface JavaLts {
 }
 
 export const JAVA_LTS: JavaLts[] = [
-  { version: 29, release: "set/2027 (previsto)", covers: "Java 26 e 27 já lançados", upcoming: true },
+  { version: 29, release: "set/2027", covers: "Java 26 e 27 já lançados", upcoming: true },
   { version: 25, release: "set/2025", covers: "Java 22, 23, 24 e 25" },
   { version: 21, release: "set/2023", covers: "Java 18, 19, 20 e 21" },
   { version: 17, release: "set/2021", covers: "Java 12 a 17" },

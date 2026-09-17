@@ -1,10 +1,10 @@
 ---
 title: "SNS MessageAttributes e Filter Policy — filtrando mensagens antes do SQS"
 published: 2026-05-20
+updated: 2026-09-16
 description: "Como fazer o SNS entregar a cada fila SQS só as mensagens que interessam: atributos de mensagem, filter policy na assinatura, filtro por atributo ou pelo corpo, operadores, limites e cuidados."
-tags: [AWS, SNS, SQS, Mensageria]
+tags: [AWS, Mensageria]
 category: Arquitetura
-cover: /covers/sns-filter.svg
 draft: false
 ---
 

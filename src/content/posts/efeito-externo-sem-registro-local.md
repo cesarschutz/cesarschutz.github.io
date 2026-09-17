@@ -1,10 +1,10 @@
 ---
-title: "Efeito externo sem registro local: a cobrança passou e o banco não gravou"
+title: "Efeito externo sem registro local — a cobrança passou e o banco não gravou"
 published: 2026-09-11
-description: "O que fazer quando a captura no adquirente passa e a gravação no seu banco falha: gravar a intenção antes de causar o efeito. Escrita dupla, tabela outbox e relay, conciliação, CDC, event sourcing e por que o 2PC fica de fora."
-tags: [Arquitetura, Outbox, Pagamentos]
+updated: 2026-09-16
+description: "A captura no adquirente passa e a gravação no seu banco falha: grave a intenção antes de causar o efeito. Escrita dupla, outbox e relay, conciliação, CDC, event sourcing e por que o 2PC fica de fora."
+tags: [Pagamentos, Mensageria, Banco de Dados]
 category: Arquitetura
-cover: /covers/sessao-01-outbox.svg
 draft: false
 ---
 

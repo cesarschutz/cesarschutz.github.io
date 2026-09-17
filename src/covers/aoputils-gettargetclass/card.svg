@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <!-- a casca do proxy abrindo sobre a classe real -->
+  <g transform="translate(600 300) scale(1.25)"><path class="cv-line cv-dash" d="M-120 -150 a180 180 0 0 0 0 300"/><path class="cv-line cv-dash" d="M120 -150 a180 180 0 0 1 0 300"/><rect class="cv-shape cv-bold" x="-86" y="-60" width="172" height="120" rx="22"/><line class="cv-detail-line" x1="-48" y1="-20" x2="48" y2="-20"/><line class="cv-muted-line" x1="-48" y1="12" x2="16" y2="12"/><line class="cv-muted-line" x1="-48" y1="42" x2="36" y2="42"/><path class="cv-muted-line" d="M-196 0 h-60 M196 0 h60"/><path class="cv-muted-line" d="M-244 -14 l-14 14 l14 14 M244 -14 l14 14 l-14 14"/></g>
+</svg>

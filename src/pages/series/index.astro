@@ -113,6 +113,6 @@ const series = await Promise.all(
     margin-top: 18px;
     font-size: var(--fs-body-sm);
     font-weight: 600;
-    color: var(--c);
+    color: color-mix(in srgb, var(--c, var(--blue)) var(--ink-mix), #000);
   }
 </style>

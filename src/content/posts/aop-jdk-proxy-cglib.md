@@ -1,10 +1,10 @@
 ---
-title: "AOP no Spring — JDK Dynamic Proxy, CGLIB e aspects custom"
+title: "AOP no Spring — JDK Dynamic Proxy, CGLIB e aspects customizados"
 published: 2026-05-19
-description: "Como o Spring aplica log, transação e métricas sem misturar esse código com a regra de negócio: o vocabulário de AOP, quando ele usa JDK Dynamic Proxy ou CGLIB (e por que o Spring Boot prefere CGLIB), a pegadinha da self-invocation e como escrever seu próprio aspect."
-tags: [Java, Spring, AOP]
+updated: 2026-09-16
+description: "Como o Spring aplica log, transação e métricas fora da regra de negócio: conceitos de AOP, JDK Dynamic Proxy ou CGLIB (e por que o Boot prefere CGLIB), a self-invocation e aspects próprios."
+tags: [Spring, AOP]
 category: Java
-cover: /covers/aop-proxies.svg
 draft: false
 ---
 

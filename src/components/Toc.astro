@@ -6,15 +6,19 @@ interface Props {
 }
 
 const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
+// cada h3 pertence ao h2 anterior; sumários longos mostram só os subtópicos da seção atual
+let group = 0;
+const grouped = items.map((h) => ({ ...h, group: h.depth === 2 ? ++group : group }));
+const collapsible = items.length > 14;
 ---
 
 {
   items.length >= 3 && (
-    <nav class="toc" aria-label="Neste artigo" data-toc>
+    <nav class="toc" aria-label="Neste artigo" data-toc data-collapsible={collapsible ? "" : undefined}>
       <p class="toc-title">Neste artigo</p>
       <ol>
-        {items.map((h) => (
-          <li class={`d${h.depth}`}>
+        {grouped.map((h) => (
+          <li class={`d${h.depth}`} data-group={h.group}>
             <a href={`#${h.slug}`} data-toc-link={h.slug}>
               {h.text.replace(/#$/, "")}
             </a>
@@ -47,6 +51,13 @@ const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3)
           a.classList.toggle("active", on);
           if (on) activeLink = a;
         });
+        // sumário longo no card lateral: recolhe subtópicos das outras seções
+        if (toc.hasAttribute("data-collapsible") && toc.closest(".toc-card")) {
+          const group = (activeLink as HTMLElement | null)?.closest("li")?.dataset.group;
+          toc.querySelectorAll<HTMLElement>("li.d3").forEach((li) => {
+            li.classList.toggle("is-collapsed", li.dataset.group !== group);
+          });
+        }
         // mantém o item ativo visível dentro do card, sem rolar a página
         const box = toc.closest<HTMLElement>(".toc-card");
         if (box && activeLink) {
@@ -115,6 +126,10 @@ const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3)
 
   .toc a:hover {
     color: var(--text);
+  }
+
+  .toc li.is-collapsed {
+    display: none;
   }
 
   .toc a.active {

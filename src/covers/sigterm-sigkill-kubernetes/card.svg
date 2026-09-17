@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <!-- SIGTERM, período de graça e SIGKILL -->
+  <g transform="translate(600 300) scale(1.12)"><circle class="cv-shape cv-bold" cx="-190" cy="0" r="92"/><text class="cv-mono cv-detail" x="-190" y="27" font-size="76" text-anchor="middle" >15</text><circle class="cv-solid" cx="190" cy="0" r="92"/><text class="cv-mono cv-cut" x="190" y="27" font-size="76" text-anchor="middle" >9</text><line class="cv-muted-line cv-dash" x1="-72" y1="0" x2="74" y2="0"/><path class="cv-muted-line" d="M59 -13 L74 0 L59 13"/><text class="cv-mono cv-muted" x="0" y="-54" font-size="40" text-anchor="middle" >30s</text></g>
+</svg>

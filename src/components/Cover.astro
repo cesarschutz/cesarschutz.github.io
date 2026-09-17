@@ -1,0 +1,14 @@
+---
+import { inlineCover, type CoverFormat } from "../utils/covers";
+
+interface Props {
+  post: { slug: string; category?: string; series?: string };
+  format: CoverFormat;
+  class?: string;
+}
+
+const { post, format, class: className } = Astro.props;
+const svg = inlineCover(post.slug, format) ?? "";
+---
+
+<span class:list={["cover", `cover-${format}`, className]} aria-hidden="true" set:html={svg} />

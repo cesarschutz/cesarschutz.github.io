@@ -1,10 +1,10 @@
 ---
-title: "Wide Events e Canonical Log Lines — a evolução do logging estruturado"
+title: "Wide events e canonical log lines — a evolução do logging estruturado"
 published: 2026-05-19
-description: "Um único evento rico em contexto por requisição, em vez de dezenas de logs parciais espalhados: o padrão das canonical log lines da Stripe, o vocabulário (cardinalidade, dimensionalidade, Observability 2.0), a implementação com um filtro em Spring Boot e o tail sampling para controlar o custo."
-tags: [Observabilidade, Logs, Wide Events]
+updated: 2026-09-16
+description: "Um evento rico em contexto por requisição, no lugar de dezenas de logs parciais: as canonical log lines da Stripe, cardinalidade e Observability 2.0, um filtro em Spring Boot e tail sampling."
+tags: [Logs, Spring]
 category: Observabilidade
-cover: /covers/wide-events.svg
 draft: false
 ---
 

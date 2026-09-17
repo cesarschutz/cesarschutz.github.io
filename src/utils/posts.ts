@@ -9,10 +9,10 @@ export interface PostSummary {
   title: string;
   description?: string;
   published: Date;
+  updated?: Date;
   category?: string;
   series?: string;
   tags: string[];
-  cover?: string;
   minutes: number;
 }
 
@@ -39,10 +39,10 @@ export function summarize(post: Post): PostSummary {
     title: post.data.title,
     description: post.data.description,
     published: post.data.published,
+    updated: post.data.updated,
     category: post.data.category,
     series: post.data.series,
     tags: post.data.tags,
-    cover: post.data.cover,
     minutes: readingMinutes(post),
   };
 }

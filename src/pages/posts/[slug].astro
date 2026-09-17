@@ -3,53 +3,94 @@ import { render } from "astro:content";
 import "../../styles/prose.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
+import Cover from "../../components/Cover.astro";
 import Toc from "../../components/Toc.astro";
+import Comments from "../../components/Comments.astro";
 import { SITE } from "../../config";
-import { getPosts, readingMinutes, type Post } from "../../utils/posts";
+import { getPosts, getSummaries, readingMinutes, summarize, type Post } from "../../utils/posts";
+import { relatedPosts } from "../../utils/related";
+import { getSeries, seriesUrl } from "../../data/series";
+import { JAVA_LTS } from "../../data/java";
 import { postLabel, tagUrl } from "../../utils/taxonomy";
 import { formatDate, isoDate, renderInlineMd, stripInlineMd } from "../../utils/format";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
-  return posts.map((post, i) => ({
-    params: { slug: post.id },
-    // lista em ordem decrescente: o "próximo" (mais novo) fica antes
-    props: { post, newer: posts[i - 1], older: posts[i + 1] },
-  }));
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
 interface Props {
   post: Post;
-  newer?: Post;
-  older?: Post;
 }
 
-const { post, newer, older } = Astro.props;
-const { Content, headings } = await render(post);
-const { title, description, published, tags, cover } = post.data;
+const { post } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
+const { title, description, published, updated, tags } = post.data;
 const label = postLabel(post.data);
 const minutes = readingMinutes(post);
 const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 3;
+const hasMath = Boolean(remarkPluginFrontmatter?.hasMath);
+const wasUpdated = updated && isoDate(updated) !== isoDate(published);
+
+// navegação: dentro da série (ordem própria) e posts relacionados
+const all = await getSummaries();
+const current = summarize(post);
+const series = getSeries(post.data.series);
+let seriesPrev: { title: string; url: string } | undefined;
+let seriesNext: { title: string; url: string } | undefined;
+if (series?.key === "java") {
+  // LTS em ordem cronológica (JAVA_LTS vem da mais nova para a mais antiga)
+  const order = [...JAVA_LTS].reverse().map((v) => all.find((p) => p.slug === `java-${v.version}`)).filter(Boolean);
+  const i = order.findIndex((p) => p!.slug === post.id);
+  if (i >= 0) {
+    const prev = order[i - 1];
+    const next = order[i + 1];
+    if (prev) seriesPrev = { title: prev.title, url: prev.url };
+    if (next) seriesNext = { title: next.title, url: next.url };
+  }
+}
+// na série, a navegação acima já liga as outras partes: relacionados vêm de fora dela
+const related = relatedPosts(current, series ? all.filter((p) => p.series !== series.key) : all);
+
+const postUrl = new URL(`/posts/${post.id}/`, Astro.site).href;
+const ogImage = `/og/${post.id}.png`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description: stripInlineMd(description),
+  datePublished: published.toISOString(),
+  dateModified: (updated ?? published).toISOString(),
+  inLanguage: "pt-BR",
+  url: postUrl,
+  mainEntityOfPage: postUrl,
+  image: ogImage ? new URL(ogImage, Astro.site).href : undefined,
+  keywords: tags.join(", "),
+  author: { "@type": "Person", name: SITE.name, url: new URL("/about/", Astro.site).href },
+  publisher: { "@type": "Person", name: SITE.name },
+};
 ---
 
 <BaseLayout
   title={title}
   description={stripInlineMd(description) || SITE.description}
-  image={cover}
+  image={ogImage}
   type="article"
   publishedTime={published}
+  modifiedTime={updated}
+  navActive={series ? "/series/" : "/archive/"}
 >
-  <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+  {hasMath && <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />}
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+
+  <div class="read-progress" data-read-progress aria-hidden="true"></div>
 
   <article class:list={["post", { "has-toc": hasToc }]}>
     <header class="post-header card rise">
-      {
-        cover && (
-          <button type="button" class="post-cover" data-lightbox-cover aria-label="Ampliar capa">
-            <img src={cover} alt="" width="1600" height="800" decoding="async" fetchpriority="high" />
-          </button>
-        )
-      }
+      <div class="post-cover">
+        <Cover post={current} format="wide" class="post-cover-wide" />
+        <Cover post={current} format="card" class="post-cover-card" />
+      </div>
       <div class="post-head-body">
         <nav class="post-crumbs" aria-label="Trilha">
           {label?.kind === "series" ? <a href="/series/">Séries</a> : <a href="/archive/">Artigos</a>}
@@ -78,6 +119,15 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
             <Icon name="calendar" size={14} />
             <time datetime={isoDate(published)}>{formatDate(published)}</time>
           </span>
+          {
+            wasUpdated && (
+              <span class="post-meta-item post-updated">
+                <Icon name="refresh" size={14} />
+                Atualizado em{" "}
+                <time datetime={isoDate(updated!)}>{formatDate(updated!)}</time>
+              </span>
+            )
+          }
           <span class="post-meta-item">
             <Icon name="clock" size={14} />
             {minutes} min de leitura
@@ -115,6 +165,31 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
                 </div>
               )
             }
+            <div class="post-share" data-share>
+              <span class="post-share-label">Compartilhar</span>
+              <button type="button" class="pill share-btn" data-copy-link={postUrl}>
+                <Icon name="link" size={14} /> <span data-copy-label>Copiar link</span>
+              </button>
+              <a
+                class="pill share-btn"
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name="linkedin" size={14} /> LinkedIn
+              </a>
+              <a
+                class="pill share-btn"
+                href={`https://wa.me/?text=${encodeURIComponent(`${title} ${postUrl}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name="message" size={14} /> WhatsApp
+              </a>
+              <button type="button" class="pill share-btn share-native" data-native-share hidden>
+                <Icon name="share" size={14} /> Mais opções
+              </button>
+            </div>
             <p class="post-ai">
               Artigo escrito com apoio de IA e revisado pelo autor. Pode conter imprecisões: confirme nas fontes
               citadas e na documentação oficial antes de aplicar. <a href="/about/#site">Saiba mais</a>.
@@ -123,24 +198,27 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
         </div>
 
         {
-          (older || newer) && (
-            <nav class="post-nav" aria-label="Continue lendo">
-              {older ? (
-                <a class="post-nav-card" href={`/posts/${older.id}/`} rel="prev">
+          (seriesPrev || seriesNext) && series && (
+            <nav class="post-nav" aria-label={`Navegação na série ${series.name}`}>
+              <p class="post-nav-heading">
+                Na série <a href={seriesUrl(series)}>{series.name}</a>
+              </p>
+              {seriesPrev ? (
+                <a class="post-nav-card" href={seriesPrev.url} rel="prev">
                   <span class="post-nav-dir">
-                    <Icon name="arrowLeft" size={14} /> Artigo anterior
+                    <Icon name="arrowLeft" size={14} /> LTS anterior
                   </span>
-                  <span class="post-nav-title">{older.data.title}</span>
+                  <span class="post-nav-title">{seriesPrev.title}</span>
                 </a>
               ) : (
                 <span />
               )}
-              {newer ? (
-                <a class="post-nav-card next" href={`/posts/${newer.id}/`} rel="next">
+              {seriesNext ? (
+                <a class="post-nav-card next" href={seriesNext.url} rel="next">
                   <span class="post-nav-dir">
-                    Próximo artigo <Icon name="arrowRight" size={14} />
+                    Próxima LTS <Icon name="arrowRight" size={14} />
                   </span>
-                  <span class="post-nav-title">{newer.data.title}</span>
+                  <span class="post-nav-title">{seriesNext.title}</span>
                 </a>
               ) : (
                 <span />
@@ -148,6 +226,39 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
             </nav>
           )
         }
+
+        {
+          related.length > 0 && (
+            <section class="related" aria-labelledby="related-title">
+              <h2 class="related-title" id="related-title">
+                Artigos relacionados
+              </h2>
+              <div class="related-grid">
+                {related.map((p) => {
+                  const l = postLabel(p);
+                  return (
+                    <a class="related-card" href={p.url}>
+                      <span class="related-cover">
+                        <Cover post={p} format="card" />
+                      </span>
+                      <span class="related-body">
+                        {l && (
+                          <span class="related-cat ink" style={`--c:${l.color}`}>
+                            {l.name}
+                          </span>
+                        )}
+                        <span class="related-name">{p.title}</span>
+                        <span class="related-min">{p.minutes} min de leitura</span>
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          )
+        }
+
+        <Comments />
       </div>
 
       {
@@ -162,6 +273,10 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
     </div>
   </article>
 
+  <button type="button" class="to-top" data-to-top aria-label="Voltar ao topo" hidden>
+    <Icon name="arrowUp" size={18} />
+  </button>
+
   <div class="lightbox" data-lightbox role="dialog" aria-modal="true" aria-label="Imagem ampliada">
     <button type="button" class="lightbox-close" data-lightbox-close aria-label="Fechar">
       <Icon name="close" size={22} />
@@ -171,14 +286,62 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
 </BaseLayout>
 
 <script>
-  // lightbox: imagens do corpo do post e a capa abrem em tela cheia
+  // barra de progresso de leitura e botão "voltar ao topo"
+  const bar = document.querySelector<HTMLElement>("[data-read-progress]");
+  const toTop = document.querySelector<HTMLButtonElement>("[data-to-top]");
+  const body = document.querySelector<HTMLElement>(".post-body");
+  const onScroll = () => {
+    if (body && bar) {
+      const rect = body.getBoundingClientRect();
+      const total = rect.height - window.innerHeight * 0.6;
+      const progress = Math.min(1, Math.max(0, -rect.top / Math.max(total, 1)));
+      bar.style.transform = `scaleX(${progress})`;
+    }
+    if (toTop) toTop.hidden = window.scrollY < window.innerHeight * 1.5;
+  };
+  let ticking = false;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        onScroll();
+        ticking = false;
+      });
+    },
+    { passive: true },
+  );
+  onScroll();
+  toTop?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  // compartilhar
+  document.querySelector<HTMLButtonElement>("[data-copy-link]")?.addEventListener("click", async (e) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const label = btn.querySelector("[data-copy-label]")!;
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copyLink!);
+      label.textContent = "Link copiado";
+    } catch {
+      label.textContent = "Não foi possível copiar";
+    }
+    setTimeout(() => (label.textContent = "Copiar link"), 2000);
+  });
+  const nativeShare = document.querySelector<HTMLButtonElement>("[data-native-share]");
+  if (nativeShare && "share" in navigator) {
+    nativeShare.hidden = false;
+    nativeShare.addEventListener("click", () => {
+      navigator.share({ title: document.title, url: location.href.split("#")[0] }).catch(() => {});
+    });
+  }
+
+  // lightbox: imagens do corpo do post abrem em tela cheia
   const box = document.querySelector<HTMLElement>("[data-lightbox]")!;
   const img = box.querySelector("img")!;
   const close = () => box.classList.remove("open");
-  const open = (src: string, alt: string, isCover = false) => {
+  const open = (src: string, alt: string) => {
     img.src = src;
     img.alt = alt;
-    img.classList.toggle("is-cover", isCover);
     box.classList.add("open");
   };
   box.addEventListener("click", (e) => {
@@ -188,10 +351,6 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
   document.querySelectorAll<HTMLImageElement>(".prose img").forEach((el) => {
     if (el.closest("a")) return;
     el.addEventListener("click", () => open(el.currentSrc || el.src, el.alt));
-  });
-  document.querySelector<HTMLElement>("[data-lightbox-cover]")?.addEventListener("click", (e) => {
-    const cover = (e.currentTarget as HTMLElement).querySelector("img")!;
-    open(cover.src, "", true);
   });
 </script>
 
@@ -212,19 +371,12 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
 
   .post-cover {
     display: block;
-    width: 100%;
-    padding: 0;
-    border: none;
     aspect-ratio: 4 / 1;
-    background: #01131b;
-    cursor: zoom-in;
-    overflow: hidden;
+    border-bottom: 1px solid var(--border);
   }
 
-  .post-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .post-cover :global(.post-cover-card) {
+    display: none;
   }
 
   .post-head-body {
@@ -248,7 +400,7 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
     align-items: center;
     gap: 6px;
     font-weight: 600;
-    color: var(--c) !important;
+    color: color-mix(in srgb, var(--c, var(--blue)) var(--ink-mix), #000) !important;
   }
 
   .post-title {
@@ -367,6 +519,158 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
     color: var(--link);
   }
 
+
+  /* barra de progresso de leitura (logo abaixo da navegação) */
+  .read-progress {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    z-index: 8999;
+    height: 3px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    pointer-events: none;
+  }
+
+  .post-updated {
+    color: var(--text-soft);
+  }
+
+  .post-share {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .post-share-label {
+    margin-right: 4px;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .share-btn {
+    cursor: pointer;
+  }
+
+  button.share-btn:hover {
+    color: var(--blue);
+    border-color: color-mix(in srgb, var(--blue) 45%, var(--border));
+  }
+
+  .post-nav-heading {
+    grid-column: 1 / -1;
+    margin: 0 0 -6px 4px;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .post-nav-heading a {
+    color: var(--link);
+  }
+
+  .related-title {
+    margin: 8px 4px 14px;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: 12px;
+  }
+
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    transition:
+      transform 0.2s var(--ease-out),
+      border-color 0.2s ease;
+  }
+
+  .related-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+  }
+
+  .related-cover {
+    display: block;
+    aspect-ratio: 2 / 1;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .related-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 16px 16px;
+  }
+
+  .related-cat {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+  }
+
+  .related-name {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .related-card:hover .related-name {
+    color: var(--blue);
+  }
+
+  .related-min {
+    margin-top: auto;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .to-top {
+    position: fixed;
+    right: clamp(14px, 2.4vw, 28px);
+    bottom: clamp(14px, 2.4vw, 28px);
+    z-index: 9000;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    background: color-mix(in srgb, var(--card-bg) 88%, transparent);
+    color: var(--text-soft);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      scale 0.15s ease;
+  }
+
+  .to-top[hidden] {
+    display: none;
+  }
+
+  .to-top:hover {
+    color: var(--blue);
+  }
+
+  .to-top:active {
+    scale: 0.96;
+  }
 
   .post-aside {
     position: sticky;
@@ -492,6 +796,12 @@ const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 
   @media (max-width: 640px) {
     .post-cover {
       aspect-ratio: 2 / 1;
+    }
+    .post-cover :global(.post-cover-wide) {
+      display: none;
+    }
+    .post-cover :global(.post-cover-card) {
+      display: block;
     }
     .post-nav {
       grid-template-columns: 1fr;

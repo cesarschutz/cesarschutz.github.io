@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import Cover from "./Cover.astro";
 import type { PostSummary } from "../utils/posts";
 import { postLabel, tagUrl } from "../utils/taxonomy";
 import { formatDate, isoDate, renderInlineMd } from "../utils/format";
@@ -45,13 +46,10 @@ const label = postLabel(post);
     </div>
   </div>
 
-  {
-    post.cover && (
-      <div class="ft-cover">
-        <img src={post.cover} alt="" loading="eager" decoding="async" width="1600" height="800" />
-      </div>
-    )
-  }
+  <div class="ft-cover">
+    <Cover post={post} format="square" class="ft-cover-square" />
+    <Cover post={post} format="card" class="ft-cover-card" />
+  </div>
 </article>
 
 <style>
@@ -104,7 +102,7 @@ const label = postLabel(post);
     align-items: center;
     gap: 6px;
     font-weight: 600;
-    color: var(--c);
+    color: color-mix(in srgb, var(--c, var(--blue)) var(--ink-mix), #000);
   }
 
   .ft-cat:hover {
@@ -167,22 +165,23 @@ const label = postLabel(post);
     gap: 6px;
   }
 
+  /* desktop: capa quadrada; a sobra de altura continua o fundo da capa */
   .ft-cover {
     position: relative;
     min-height: 100%;
-    background: #01131b;
+    border-left: 1px solid var(--border);
   }
 
-  .ft-cover img {
+  .ft-cover :global(.cover) {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: scale 0.6s var(--ease-out);
   }
 
-  .featured:hover .ft-cover img {
+  .ft-cover :global(.ft-cover-card) {
+    display: none;
+  }
+
+  .featured:hover .ft-cover :global(svg) {
     scale: 1.03;
   }
 
@@ -193,6 +192,14 @@ const label = postLabel(post);
     .ft-cover {
       order: -1;
       aspect-ratio: 2 / 1;
+      border-left: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .ft-cover :global(.ft-cover-square) {
+      display: none;
+    }
+    .ft-cover :global(.ft-cover-card) {
+      display: block;
     }
     .ft-cta {
       display: none;

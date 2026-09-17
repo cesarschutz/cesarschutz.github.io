@@ -1,10 +1,10 @@
 ---
-title: "Java 11 (LTS) — Módulos, var, HTTP Client e o novo ciclo de releases"
+title: "Java 11 (LTS) — módulos, var, HTTP Client e o novo ciclo de releases"
 published: 2025-07-02T00:30:00Z
+updated: 2026-09-16
 description: "O que chegou do Java 9 ao 11 para quem migra do Java 8: sistema de módulos, `var`, `HttpClient`, novas APIs, G1 como padrão, TLS 1.3, a remoção do Java EE e do CORBA e o ciclo de releases a cada seis meses."
-tags: [Java, LTS, Módulos, HTTP Client, Migração]
+tags: [LTS, Linguagem, JVM, Migração]
 series: java
-cover: /covers/java/java-11.svg
 draft: false
 ---
 
@@ -1030,6 +1030,9 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 
 ### Java 9
 
+<details>
+<summary>Ver as 91 JEPs do Java 9</summary>
+
 | JEP | Título | Tipo |
 | --- | --- | --- |
 | [102](https://openjdk.org/jeps/102) | Process API Updates | Final |
@@ -1124,7 +1127,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [298](https://openjdk.org/jeps/298) | Remove Demos and Samples | Remoção |
 | [299](https://openjdk.org/jeps/299) | Reorganize Documentation | Interno |
 
+</details>
+
 ### Java 10
+
+<details>
+<summary>Ver as 12 JEPs do Java 10</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1141,7 +1149,12 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [319](https://openjdk.org/jeps/319) | Root Certificates | Final |
 | [322](https://openjdk.org/jeps/322) | Time-Based Release Versioning | Final |
 
+</details>
+
 ### Java 11
+
+<details>
+<summary>Ver as 17 JEPs do Java 11</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1162,6 +1175,8 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 | [333](https://openjdk.org/jeps/333) | ZGC: A Scalable Low-Latency Garbage Collector (Experimental) | Experimental |
 | [335](https://openjdk.org/jeps/335) | Deprecate the Nashorn JavaScript Engine | Depreciação |
 | [336](https://openjdk.org/jeps/336) | Deprecate the Pack200 Tools and API | Depreciação |
+
+</details>
 
 ## Fontes
 

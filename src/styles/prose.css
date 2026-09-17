@@ -129,6 +129,9 @@
 
 /* Código inline */
 .prose :not(pre) > code {
+  white-space: nowrap;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   padding: 0.12em 0.4em;
   border-radius: 6px;
   border: 1px solid var(--border);
@@ -265,6 +268,11 @@
     font-size: 16px;
     line-height: 1.7;
   }
+  /* no celular, código longo pode quebrar (com a borda repetida em cada linha) */
+  .prose :not(pre) > code {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
 }
 
 /* Lightbox */
@@ -294,10 +302,6 @@
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 24px 80px rgb(0 0 0 / 0.55);
-}
-
-.lightbox img.is-cover {
-  background: #01131b;
 }
 
 .lightbox-close {

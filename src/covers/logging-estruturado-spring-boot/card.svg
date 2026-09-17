@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <!-- o log como campos: chave e valor -->
+  <g transform="translate(600 300) scale(1.05)"><path class="cv-line cv-bold" d="M-210 -150 a52 52 0 0 0 -52 52 v42 a44 44 0 0 1 -44 56 a44 44 0 0 1 44 56 v42 a52 52 0 0 0 52 52"/><path class="cv-line cv-bold" d="M210 -150 a52 52 0 0 1 52 52 v42 a44 44 0 0 0 44 56 a44 44 0 0 0 -44 56 v42 a52 52 0 0 1 -52 52"/><rect class="cv-detail" x="-160" y="-84" width="120" height="28" rx="14"/><rect class="cv-soft" x="-10" y="-84" width="170" height="28" rx="14"/><rect class="cv-detail" x="-160" y="-14" width="90" height="28" rx="14"/><rect class="cv-soft" x="-10" y="-14" width="130" height="28" rx="14"/><rect class="cv-detail" x="-160" y="56" width="120" height="28" rx="14"/><rect class="cv-soft" x="-10" y="56" width="90" height="28" rx="14"/></g>
+</svg>

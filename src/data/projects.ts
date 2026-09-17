@@ -9,6 +9,10 @@ export interface Project {
   demoUrl?: string;
   icon: IconName;
   color: string;
+  /** Caminho público do screenshot, ex. "/projects/swagger-agent.webp". */
+  image?: string;
+  /** Data da última atualização (AAAA-MM-DD). */
+  updated?: string;
 }
 
 export const projects: Project[] = [
@@ -21,6 +25,8 @@ export const projects: Project[] = [
     demoUrl: "https://cesarschutz.github.io/swagger-agent/",
     icon: "bot",
     color: "#a855f7",
+    image: "/projects/swagger-agent.webp",
+    updated: "2025-06-23",
   },
   {
     name: "BrainAPI",
@@ -31,6 +37,8 @@ export const projects: Project[] = [
     demoUrl: "https://cesarschutz.github.io/BrainAPI/",
     icon: "brain",
     color: "#ec4899",
+    image: "/projects/brainapi.webp",
+    updated: "2025-06-09",
   },
   {
     name: "CSRFinance",
@@ -41,6 +49,8 @@ export const projects: Project[] = [
     demoUrl: "https://cesarschutz.github.io/CSRFinance/",
     icon: "wallet",
     color: "#10b981",
+    image: "/projects/csrfinance.webp",
+    updated: "2026-03-14",
   },
   {
     name: "DEV NOTE",
@@ -50,6 +60,8 @@ export const projects: Project[] = [
     demoUrl: "https://dev-note-phi.vercel.app",
     icon: "newspaper",
     color: "#2563eb",
+    image: "/projects/dev-note.webp",
+    updated: "2026-06-06",
   },
   {
     name: "cesarschutz.github.io",
@@ -60,5 +72,7 @@ export const projects: Project[] = [
     demoUrl: "https://cesarschutz.github.io",
     icon: "globe",
     color: "#0ea5e9",
+    image: "/projects/site.webp",
+    updated: "2026-09-17",
   },
 ];

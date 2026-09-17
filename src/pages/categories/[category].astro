@@ -16,7 +16,7 @@ const style = categoryStyle(group.name);
 const count = group.posts.length;
 ---
 
-<BaseLayout title={group.name} description={style.description || `Artigos sobre ${group.name}.`}>
+<BaseLayout navActive="/archive/" title={group.name} description={style.description || `Artigos sobre ${group.name}.`}>
   <div class="shell">
     <Sidebar activeCategory={group.name} />
     <div class="shell-main">

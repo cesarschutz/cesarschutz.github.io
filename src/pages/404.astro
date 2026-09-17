@@ -6,7 +6,7 @@ import Icon from "../components/Icon.astro";
 
 <BaseLayout title="Página não encontrada">
   <section class="nf card">
-    <RisingTiles count={22} baseDur={20} />
+    <RisingTiles count={16} baseDur={22} />
     <div class="nf-content">
       <p class="eyebrow">Erro 404</p>
       <h1>Página não encontrada</h1>
@@ -34,12 +34,14 @@ import Icon from "../components/Icon.astro";
   .nf-content {
     position: relative;
     z-index: 1;
-    max-width: 520px;
-    padding: 28px;
-    border-radius: 20px;
-    background: color-mix(in srgb, var(--card-bg) 70%, transparent);
-    backdrop-filter: saturate(180%) blur(16px);
-    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    max-width: 560px;
+    padding: 36px 32px;
+    border-radius: 22px;
+    border: 1px solid var(--border-strong);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    box-shadow: var(--shadow-card);
+    backdrop-filter: saturate(160%) blur(18px);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
   }
 
   h1 {

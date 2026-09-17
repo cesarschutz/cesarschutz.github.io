@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import Cover from "./Cover.astro";
 import type { PostSummary } from "../utils/posts";
 import { postLabel } from "../utils/taxonomy";
 import { formatDate, isoDate, renderInlineMd } from "../utils/format";
@@ -40,7 +41,8 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
         return (
           <article class="fi">
             <div class="fi-cover" aria-hidden="true">
-              {post.cover && <img src={post.cover} alt="" loading="lazy" decoding="async" width="1600" height="800" />}
+              <Cover post={post} format="square" class="fi-cover-square" />
+              <Cover post={post} format="card" class="fi-cover-card" />
             </div>
             <div class="fi-body">
               <div class="fi-meta">
@@ -174,19 +176,24 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
     min-width: 0;
   }
 
+  /* lista: capa quadrada; cards: capa 2:1 */
   .fi-cover {
     overflow: hidden;
-    background: #01131b;
   }
 
-  .fi-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: scale 0.5s var(--ease-out);
+  .fi-cover :global(.fi-cover-card) {
+    display: none;
   }
 
-  .fi:hover .fi-cover img {
+  :global(:root[data-post-view="cards"]) .fi-cover :global(.fi-cover-square) {
+    display: none;
+  }
+
+  :global(:root[data-post-view="cards"]) .fi-cover :global(.fi-cover-card) {
+    display: block;
+  }
+
+  .fi:hover .fi-cover :global(svg) {
     scale: 1.04;
   }
 
@@ -210,7 +217,7 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
     align-items: center;
     gap: 6px;
     font-weight: 600;
-    color: var(--c);
+    color: color-mix(in srgb, var(--c, var(--blue)) var(--ink-mix), #000);
   }
 
   .fi-cat:hover {
@@ -288,7 +295,7 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
 
   .feed .fi {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) clamp(150px, 19vw, 232px);
+    grid-template-columns: minmax(0, 1fr) clamp(104px, 11vw, 148px);
     gap: clamp(16px, 2vw, 28px);
     align-items: start;
     padding: 22px clamp(18px, 2vw, 26px);
@@ -305,7 +312,7 @@ const { posts, title, subtitle, id, delay = 0 } = Astro.props;
 
   .feed .fi-cover {
     order: 2;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 1;
     border-radius: 12px;
     border: 1px solid var(--border);
   }

@@ -52,9 +52,12 @@
   --radius-md: 16px;
   --radius-sm: 12px;
 
-  --font-sans: "Inter", -apple-system, blinkmacsystemfont, "SF Pro Text", "Helvetica Neue", arial, sans-serif;
+  --font-sans: "Inter Variable", "Inter", -apple-system, blinkmacsystemfont, "SF Pro Text", "Helvetica Neue", arial, sans-serif;
   --font-serif: "Fraunces", georgia, "Times New Roman", serif;
-  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, menlo, consolas, monospace;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", "SF Mono", ui-monospace, menlo, consolas, monospace;
+
+  /* cores de categoria como TEXTO: escurecidas no tema claro para manter contraste */
+  --ink-mix: 62%;
 
   --fs-eyebrow: 12px;
   --fs-meta: 13px;
@@ -102,6 +105,7 @@
   --nav-highlight: rgb(255 255 255 / 0.04);
 
   --shadow-card: rgb(0 0 0 / 0.5) 3px 5px 30px 0px;
+  --ink-mix: 100%;
   --shadow-border: 0 0 0 1px rgb(255 255 255 / 0.1);
   --shadow-border-hover: 0 0 0 1px rgb(255 255 255 / 0.18);
 }
@@ -324,16 +328,20 @@ a.pill:hover {
 
 /* Ícone de categoria em "tile" colorido (padrão DEV NOTE) */
 .cat-ico {
-  --c: var(--blue);
   display: inline-grid;
   place-items: center;
   flex-shrink: 0;
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  color: var(--c);
-  background: color-mix(in srgb, var(--c) 14%, var(--card-bg));
-  border: 1px solid color-mix(in srgb, var(--c) 28%, var(--border));
+  color: var(--c, var(--blue));
+  background: color-mix(in srgb, var(--c, var(--blue)) 14%, var(--card-bg));
+  border: 1px solid color-mix(in srgb, var(--c, var(--blue)) 28%, var(--border));
+}
+
+/* texto na cor da categoria/série, com contraste garantido nos dois temas */
+.ink {
+  color: color-mix(in srgb, var(--c, var(--blue)) var(--ink-mix), #000);
 }
 
 .cat-dot {
@@ -372,3 +380,58 @@ a.pill:hover {
     scroll-behavior: auto !important;
   }
 }
+
+/* ───────── Capas dos posts (src/covers/<slug>/*.svg, ver CLAUDE.md) ─────────
+   Arte escura nos dois temas: degradê azul-petróleo, brilho central e pontos de
+   luz pintados no contêiner; o SVG traz só o desenho (sem corte, "meet").
+   Traço em px proporcional à largura da capa (non-scaling-stroke + cqw). */
+.cover {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+  background:
+    radial-gradient(circle at 5% 12%, rgb(127 212 245 / 0.55) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 95% 10%, rgb(127 212 245 / 0.45) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 96% 88%, rgb(127 212 245 / 0.5) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 4% 90%, rgb(127 212 245 / 0.4) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 70% 5%, rgb(127 212 245 / 0.35) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 28% 95%, rgb(127 212 245 / 0.35) 0 1px, transparent 1.6px),
+    radial-gradient(ellipse 48% 62% at 50% 50%, rgb(0 160 229 / 0.2), transparent 72%),
+    linear-gradient(135deg, #01131b 0%, #04283d 55%, #01131b 100%);
+}
+
+.cover svg {
+  --sw: clamp(1.35px, calc(0.3px + 0.88cqw), 6px);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 calc(var(--sw) * 3) rgb(0 160 229 / 0.35));
+  transition: scale 0.5s var(--ease-out);
+}
+
+.cover svg :is(path, line, polyline, rect, circle, ellipse, polygon) {
+  vector-effect: non-scaling-stroke;
+  stroke-width: var(--sw);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cover .cv-bold { stroke-width: calc(var(--sw) * 1.5); }
+.cover .cv-thin { stroke-width: calc(var(--sw) * 0.6); }
+.cover .cv-dash { stroke-dasharray: calc(var(--sw) * 2.2) calc(var(--sw) * 2.6); }
+.cover .cv-line { fill: none; stroke: #00a0e5; }
+.cover .cv-shape { fill: #032c42; stroke: #00a0e5; }
+.cover .cv-solid { fill: #00a0e5; }
+.cover .cv-detail { fill: #7fd4f5; }
+.cover .cv-detail-line { fill: none; stroke: #7fd4f5; }
+.cover .cv-muted { fill: rgb(127 212 245 / 0.45); }
+.cover .cv-muted-line { fill: none; stroke: rgb(127 212 245 / 0.4); }
+.cover .cv-soft { fill: rgb(0 160 229 / 0.14); }
+.cover .cv-soft-line { fill: none; stroke: rgb(0 160 229 / 0.3); }
+.cover .cv-white { fill: rgb(255 255 255 / 0.78); }
+.cover .cv-cut { fill: #022131; }
+.cover .cv-text { font-family: var(--font-sans); font-weight: 700; }
+.cover .cv-mono { font-family: var(--font-mono); font-weight: 700; }

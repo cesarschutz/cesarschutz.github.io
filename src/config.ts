@@ -16,6 +16,9 @@ export const SITE = {
     "Artigos de Cesar Schutz, arquiteto de solução, sobre arquitetura de software, sistemas distribuídos e o ecossistema Java.",
   avatar: "https://github.com/cesarschutz.png",
   github: "https://github.com/cesarschutz",
+  /** contatos opcionais — vazio = não aparece no site */
+  linkedin: "",
+  email: "",
   license: {
     name: "CC BY 4.0",
     url: "https://creativecommons.org/licenses/by/4.0/deed.pt-br",
@@ -24,9 +27,35 @@ export const SITE = {
   pageSize: 12,
 } as const;
 
+/**
+ * Estatísticas de visita (opcional). Com GoatCounter: crie a conta em
+ * https://www.goatcounter.com e coloque aqui o código (ex.: "cesarschutz").
+ */
+export const ANALYTICS = {
+  goatcounter: "",
+};
+
+/**
+ * Comentários com Giscus (opcional, usa as Discussions do GitHub).
+ * Passos: habilitar Discussions no repositório, instalar o app Giscus e copiar
+ * os valores gerados em https://giscus.app. Vazio = comentários desligados.
+ */
+export const COMMENTS = {
+  repo: "",
+  repoId: "",
+  category: "",
+  categoryId: "",
+};
+
+/**
+ * Trajetória profissional exibida em /about (opcional). Mais recente primeiro.
+ * Ex.: { period: "2022 – atual", role: "Arquiteto de Solução", company: "Empresa", text: "…" }
+ */
+export const EXPERIENCE: { period: string; role: string; company: string; text?: string }[] = [];
+
 export const NAV = [
   { label: "Artigos", href: "/archive/" },
-  { label: "Java", href: "/java/" },
+  { label: "Séries", href: "/series/" },
   { label: "Projetos", href: "/projects/" },
   { label: "Sobre", href: "/about/" },
 ] as const;

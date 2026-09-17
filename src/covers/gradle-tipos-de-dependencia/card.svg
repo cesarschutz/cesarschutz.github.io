@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <!-- quais classpaths cada configuração alimenta -->
+  <g transform="translate(600 300) scale(1.05)"><rect class="cv-shape cv-bold" x="-300" y="-60" width="150" height="120" rx="26"/><path class="cv-detail-line cv-bold" d="M-260 -14 h70 M-260 14 h44"/><rect class="cv-shape cv-bold" x="120" y="-182" width="260" height="84" rx="26"/><line class="cv-detail-line" x1="160" y1="-140" x2="340" y2="-140"/><path class="cv-muted-line" d="M-150 0 C0 0 0 -140 110 -140"/><rect class="cv-shape cv-bold" x="120" y="-42" width="260" height="84" rx="26"/><line class="cv-detail-line" x1="160" y1="0" x2="300" y2="0"/><path class="cv-muted-line" d="M-150 0 C0 0 0 0 110 0"/><rect class="cv-line cv-dash" x="120" y="98" width="260" height="84" rx="26"/><line class="cv-muted-line" x1="160" y1="140" x2="340" y2="140"/><path class="cv-muted-line cv-dash" d="M-150 0 C0 0 0 140 110 140"/></g>
+</svg>

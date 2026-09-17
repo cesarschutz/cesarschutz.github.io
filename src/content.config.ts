@@ -7,9 +7,9 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string(),
     published: z.coerce.date(),
+    /** data da última revisão relevante do conteúdo (aparece no post e no sitemap) */
+    updated: z.coerce.date().optional(),
     description: z.string().optional(),
-    /** capa SVG 1600×800 em /public/covers — ver "Regra das capas" no CLAUDE.md */
-    cover: z.string().optional(),
     tags: z.array(z.string()).default([]),
     category: z.string().optional(),
     /** chave de uma série de src/data/series.ts — posts de série não usam category */

@@ -7,7 +7,7 @@ import { tagUrl } from "../../utils/taxonomy";
 const tags = (await getTags()).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
 ---
 
-<BaseLayout title="Tags" description="Todos os assuntos marcados nos artigos.">
+<BaseLayout navActive="/archive/" title="Tags" description="Todos os assuntos marcados nos artigos.">
   <PageHeader eyebrow="Explorar" title="Tags" description={`${tags.length} assuntos marcados nos artigos.`} />
 
   <div class="tag-cloud card rise" style="--i:1">

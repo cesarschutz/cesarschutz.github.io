@@ -3,8 +3,15 @@ import Brand from "./Brand.astro";
 import Icon from "./Icon.astro";
 import { NAV, SITE } from "../config";
 
+interface Props {
+  /** href do item a destacar quando o caminho da URL não basta (ex.: posts) */
+  active?: string;
+}
+
+const { active } = Astro.props;
 const path = Astro.url.pathname;
-const isActive = (href: string) => path === href || path.startsWith(href) || path === href.replace(/\/$/, "");
+const isActive = (href: string) =>
+  active ? active === href : path === href || path.startsWith(href) || path === href.replace(/\/$/, "");
 ---
 
 <header class="nav">

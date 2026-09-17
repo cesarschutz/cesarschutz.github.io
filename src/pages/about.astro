@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
-import { AREAS, SITE } from "../config";
+import { AREAS, EXPERIENCE, SITE } from "../config";
 ---
 
 <BaseLayout title="Sobre" description={`${SITE.name}, ${SITE.role.toLowerCase()}. Trajetória, áreas de atuação e contato.`}>
@@ -20,12 +20,47 @@ import { AREAS, SITE } from "../config";
           <a class="btn btn-outline" href={SITE.github} target="_blank" rel="noopener noreferrer">
             <Icon name="github" size={16} /> GitHub
           </a>
+          {
+            SITE.linkedin && (
+              <a class="btn btn-outline" href={SITE.linkedin} target="_blank" rel="noopener noreferrer">
+                <Icon name="linkedin" size={16} /> LinkedIn
+              </a>
+            )
+          }
+          {
+            SITE.email && (
+              <a class="btn btn-outline" href={`mailto:${SITE.email}`}>
+                <Icon name="mail" size={16} /> E-mail
+              </a>
+            )
+          }
           <!-- TODO: adicionar LinkedIn e e-mail quando quiser -->
         </div>
       </div>
     </header>
 
     <!-- TODO: complementar com trajetória profissional (empresas, anos de experiência, especialidades) -->
+
+    {
+      EXPERIENCE.length > 0 && (
+        <section class="about-section rise" style="--i:1" aria-labelledby="trajetoria">
+          <h2 id="trajetoria" class="section-title">
+            Trajetória
+          </h2>
+          <ol class="timeline card">
+            {EXPERIENCE.map((e) => (
+              <li>
+                <span class="tl-period">{e.period}</span>
+                <span class="tl-role">
+                  {e.role} · <strong>{e.company}</strong>
+                </span>
+                {e.text && <span class="tl-text">{e.text}</span>}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
 
     <section class="about-section rise" style="--i:1" aria-labelledby="areas">
       <h2 id="areas" class="section-title">Áreas de atuação</h2>
@@ -148,6 +183,45 @@ import { AREAS, SITE } from "../config";
 
   .about-section > .section-title {
     margin: 8px 4px 14px;
+  }
+
+  .timeline {
+    margin: 0;
+    padding: 8px 22px;
+    list-style: none;
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 4px 20px;
+    padding: 14px 0;
+  }
+
+  .timeline li + li {
+    border-top: 1px solid var(--divider);
+  }
+
+  .tl-period {
+    grid-row: span 2;
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  .tl-role {
+    font-size: var(--fs-body-lg);
+  }
+
+  .tl-text {
+    font-size: var(--fs-body-sm);
+    color: var(--text-soft);
+  }
+
+  @media (max-width: 560px) {
+    .timeline li {
+      grid-template-columns: 1fr;
+    }
   }
 
   .areas {

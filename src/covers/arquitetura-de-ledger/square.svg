@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <!-- razão em T simplificado -->
+  <g transform="translate(400 400) scale(1.22) translate(-400 -400)">
+  <rect class="cv-shape cv-bold" x="180" y="170" width="440" height="460" rx="26"/>
+  <line class="cv-line" x1="180" y1="262" x2="620" y2="262"/>
+  <line class="cv-line" x1="400" y1="170" x2="400" y2="630"/>
+  <text class="cv-text cv-white" x="290" y="233" font-size="44" text-anchor="middle">D</text>
+  <text class="cv-text cv-white" x="510" y="233" font-size="44" text-anchor="middle">C</text>
+  <line class="cv-detail-line" x1="220" y1="336" x2="352" y2="336"/>
+  <line class="cv-detail-line" x1="440" y1="336" x2="554" y2="336"/>
+  <line class="cv-detail-line" x1="220" y1="400" x2="316" y2="400"/>
+  <line class="cv-detail-line" x1="440" y1="400" x2="576" y2="400"/>
+  <line class="cv-muted-line cv-thin" x1="220" y1="451" x2="360" y2="451"/>
+  <line class="cv-muted-line cv-thin" x1="440" y1="451" x2="580" y2="451"/>
+  <line class="cv-line cv-bold" x1="220" y1="556" x2="334" y2="556"/>
+  <line class="cv-line cv-bold" x1="466" y1="556" x2="580" y2="556"/>
+  <circle class="cv-solid" cx="400" cy="556" r="31"/>
+  <rect class="cv-cut" x="385" y="546" width="31" height="6" rx="3"/>
+  <rect class="cv-cut" x="385" y="561" width="31" height="6" rx="3"/>
+  </g>
+</svg>

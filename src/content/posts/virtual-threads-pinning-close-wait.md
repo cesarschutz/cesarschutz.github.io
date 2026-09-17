@@ -1,10 +1,10 @@
 ---
-title: "Virtual threads no Java 21: pinning e CLOSE_WAIT"
+title: "Virtual threads no Java 21 — pinning e CLOSE_WAIT"
 published: 2026-09-12
-description: "Por que um serviço Java 21 com virtual threads congela sem erro no log: pinning por `synchronized` (Java 21 a 23, corrigido no Java 24 pela JEP 491), com CLOSE_WAIT como rastro. Carrier threads, thread dump, JFR e por que bulkhead e circuit breaker continuam necessários no Java 25."
-tags: [Java, Virtual Threads, Resiliência]
+updated: 2026-09-16
+description: "Por que um serviço Java 21 com virtual threads congela sem erro no log: pinning por `synchronized` (resolvido no Java 24, JEP 491) e CLOSE_WAIT como rastro. Thread dump, JFR, bulkhead e circuit breaker."
+tags: [Virtual Threads, Concorrência, JVM]
 category: Java
-cover: /covers/sessao-02-virtual-threads.svg
 draft: false
 ---
 

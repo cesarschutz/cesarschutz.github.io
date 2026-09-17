@@ -22,6 +22,8 @@ export async function GET() {
     title: post.data.title,
     url: `/posts/${post.id}/`,
     category: getSeries(post.data.series)?.name ?? post.data.category,
+    description: post.data.description?.replace(/[`*]/g, ""),
+    tags: post.data.tags,
     text: stripMarkdown(post.body ?? ""),
   }));
   return new Response(JSON.stringify(docs), {

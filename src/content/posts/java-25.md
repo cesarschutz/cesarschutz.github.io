@@ -1,10 +1,10 @@
 ---
-title: "Java 25 (LTS) — Arquivos compactos, Scoped Values, cache AOT e criptografia pós-quântica"
+title: "Java 25 (LTS) — arquivos-fonte compactos, Scoped Values, cache AOT e criptografia pós-quântica"
 published: 2025-07-02T02:50:00Z
-description: "O que chegou do Java 22 ao Java 25 para quem vem do Java 21: arquivos compactos, `import module`, construtores flexíveis, Scoped Values, cache AOT, headers compactos, criptografia pós-quântica e as 66 JEPs versão a versão."
-tags: [Java, LTS, JVM, Concorrência, Segurança]
+updated: 2026-09-16
+description: "Do Java 22 ao 25, para quem vem do Java 21: arquivos compactos, `import module`, construtores flexíveis, Scoped Values, cache AOT, headers compactos, criptografia pós-quântica e as 66 JEPs."
+tags: [LTS, Linguagem, JVM, Criptografia]
 series: java
-cover: /covers/java/java-25.svg
 draft: false
 ---
 
@@ -1120,6 +1120,9 @@ Listas conferidas nas páginas oficiais de cada release no OpenJDK; os títulos 
 
 Lançado em 19 de março de 2024, com 12 JEPs ([JDK 22](https://openjdk.org/projects/jdk/22/)).
 
+<details>
+<summary>Ver as 12 JEPs do Java 22</summary>
+
 | JEP | Título | Tipo |
 | --- | --- | --- |
 | [423](https://openjdk.org/jeps/423) | Region Pinning for G1 | Final |
@@ -1135,9 +1138,14 @@ Lançado em 19 de março de 2024, com 12 JEPs ([JDK 22](https://openjdk.org/proj
 | [463](https://openjdk.org/jeps/463) | Implicitly Declared Classes and Instance Main Methods (Second Preview) | Preview |
 | [464](https://openjdk.org/jeps/464) | Scoped Values (Second Preview) | Preview |
 
+</details>
+
 ### Java 23
 
 Lançado em 17 de setembro de 2024, com 12 JEPs ([JDK 23](https://openjdk.org/projects/jdk/23/)).
+
+<details>
+<summary>Ver as 12 JEPs do Java 23</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1154,9 +1162,14 @@ Lançado em 17 de setembro de 2024, com 12 JEPs ([JDK 23](https://openjdk.org/pr
 | [481](https://openjdk.org/jeps/481) | Scoped Values (Third Preview) | Preview |
 | [482](https://openjdk.org/jeps/482) | Flexible Constructor Bodies (Second Preview) | Preview |
 
+</details>
+
 ### Java 24
 
 Lançado em 18 de março de 2025, com 24 JEPs ([JDK 24](https://openjdk.org/projects/jdk/24/)).
+
+<details>
+<summary>Ver as 24 JEPs do Java 24</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1185,9 +1198,14 @@ Lançado em 18 de março de 2025, com 24 JEPs ([JDK 24](https://openjdk.org/proj
 | [499](https://openjdk.org/jeps/499) | Structured Concurrency (Fourth Preview) | Preview |
 | [501](https://openjdk.org/jeps/501) | Deprecate the 32-bit x86 Port for Removal | Depreciação |
 
+</details>
+
 ### Java 25
 
 Lançado em 16 de setembro de 2025, com 18 JEPs ([JDK 25](https://openjdk.org/projects/jdk/25/)).
+
+<details>
+<summary>Ver as 18 JEPs do Java 25</summary>
 
 | JEP | Título | Tipo |
 | --- | --- | --- |
@@ -1209,6 +1227,8 @@ Lançado em 16 de setembro de 2025, com 18 JEPs ([JDK 25](https://openjdk.org/pr
 | [519](https://openjdk.org/jeps/519) | Compact Object Headers | Final |
 | [520](https://openjdk.org/jeps/520) | JFR Method Timing & Tracing | Final |
 | [521](https://openjdk.org/jeps/521) | Generational Shenandoah | Final |
+
+</details>
 
 ## Fontes
 

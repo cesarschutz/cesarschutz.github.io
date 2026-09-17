@@ -62,7 +62,7 @@ const { eyebrow, title, description, icon, color } = Astro.props;
 
   .ph-eyebrow {
     margin: 0 0 6px;
-    color: var(--c, var(--blue));
+    color: color-mix(in srgb, var(--c, var(--blue)) var(--ink-mix), #000);
   }
 
   .ph-title {
