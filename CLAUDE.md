@@ -1,7 +1,7 @@
 # cesarschutz.github.io — blog técnico de Cesar Schutz
 
-Blog técnico de Cesar Schutz (arquiteto de solução): artigos sobre arquitetura de software,
-sistemas distribuídos e Java, mais portfólio de projetos. Publicado no GitHub Pages em
+Blog técnico de Cesar Schutz (arquiteto de soluções): não tem tema único — publica o que o Cesar precisa
+estudar no dia a dia (arquitetura, código, Java, IA), mais portfólio de projetos. Publicado no GitHub Pages em
 <https://cesarschutz.github.io>. Idioma: **pt-BR**. O nome do site é só **Cesar Schutz**
 (não usar "Caderno Público" nem textos informais como "aprendizado contínuo").
 
@@ -53,10 +53,13 @@ Deploy preso na fila: cancelar e reexecutar o workflow pela aba Actions do GitHu
   posts normais, categorias e tags → Artigos)
 - Rodapé: grupos "Conteúdo" (Todos os artigos, Séries, Categorias, Tags) e "Autor" (Sobre, Projetos, GitHub,
   LinkedIn/E-mail se configurados) + RSS. Link genérico "Séries", nunca o nome de uma série específica
-- Card de identidade da home: foto, "ARQUITETO DE SOLUÇÃO", nome, headline
-  "Estudos de arquitetura e engenharia de software, organizados para consulta.", as 5 áreas (`AREAS`)
-  como etiquetas e números **artigos · séries · categorias** (não trocar por horas de leitura).
-  No celular fica compacto (foto pequena, sem etiquetas e números). Sem animação no card
+- Card de identidade da home: foto, "ARQUITETO DE SOLUÇÕES", nome, a apresentação em **primeira pessoa**
+  (`SITE.intro` — quem escreve, não o que o site é; o `SITE.headline` descritivo fica no rodapé e na meta),
+  as 5 áreas (`AREAS`) como etiquetas, números **artigos · séries · categorias** (não trocar por horas de
+  leitura) e os ícones de GitHub/LinkedIn ao lado dos botões. No celular fica compacto (foto menor, sem
+  etiquetas e números). Sem animação no card
+- Fim da home (só na página 1): `AuthorNote.astro` — assinatura curta com `SITE.authorNote` (texto próprio,
+  **não repetir** o `intro`), link para /about/ e os contatos. É o que responde "quem escreveu isto?"
 
 ### Peças herdadas do DEV NOTE
 
@@ -64,7 +67,9 @@ Deploy preso na fila: cancelar e reexecutar o workflow pela aba Actions do GitHu
   página 404 (removidos do card da home a pedido). Pausa fora da tela. Para trocar os ícones,
   editar `tiles.ts`
 - **Frases de autores** (`src/components/QuoteCard.astro`, dados em `src/data/quotes.json`,
-  132 frases): só no topo da home (reembaralhadas a cada carregamento, nunca repetindo a última exibida; setas navegam)
+  132 frases): só no topo da home (reembaralhadas a cada carregamento, nunca repetindo a última exibida; setas navegam).
+  A **primeira do arquivo** é a que sai no HTML gerado (antes do JS embaralhar), então ela aparece em preview e
+  sem JavaScript: manter ali uma frase sobre o assunto do blog, não um chavão
 
 ## Estrutura
 
@@ -77,7 +82,7 @@ src/data/projects.ts          # página /projects
 src/data/tiles.ts             # ícones da animação
 src/data/quotes.json          # frases de autores
 src/utils/                    # posts, taxonomia (cores/ícones), formatação, frases, ícones
-src/components/               # Nav, Sidebar, IdentityCard, QuoteCard, FeaturedPost, PostFeed…
+src/components/               # Nav, Sidebar, IdentityCard, AuthorNote, QuoteCard, FeaturedPost, PostFeed…
 src/pages/                    # home paginada ([...page]), posts/[slug], archive, java,
                               # categories, tags, projects, about, 404, rss, search-index
 src/covers/<slug>/            # capas: wide.svg, card.svg, square.svg, featured.svg (ver "Capas")
@@ -205,8 +210,10 @@ Referências: `src/covers/bloqueio-otimista-e-pessimista/` (motivo simples, cont
 
 ## Aviso sobre IA
 
-Os artigos são escritos com apoio de IA. Há um aviso na página Sobre (seção "Como os artigos são
-produzidos") e uma linha no rodapé de cada post (o rodapé do post não mostra licença) orientando a usar as fontes citadas como
+Os artigos são escritos com apoio de IA (às vezes o texto nasce do Cesar e a IA lapida, às vezes o
+contrário), mas **a revisão final é sempre dele** e **todo código publicado foi testado**; quando o
+exemplo é grande, o artigo linka o código completo. Há um aviso na página Sobre (seção "Como os artigos
+são produzidos") e uma linha no rodapé de cada post (o rodapé do post não mostra licença) orientando a usar as fontes citadas como
 referência. Todo artigo deve terminar com uma seção **Fontes** com links confiáveis.
 
 ## Instrução permanente — fluxo de todo post
@@ -231,7 +238,7 @@ lugar e traz para cá. Nos dois casos o trabalho é o mesmo:
 
 ## Opções em `src/config.ts` (vazias = desligadas)
 
-- `SITE.linkedin`, `SITE.email`: aparecem no rodapé e na página Sobre
+- `SITE.linkedin` (preenchido), `SITE.email`: aparecem no rodapé, no card da home e na página Sobre
 - `EXPERIENCE`: trajetória profissional exibida em /about
 - `ANALYTICS.goatcounter`: código do GoatCounter (estatísticas de visita sem cookies)
 - `COMMENTS`: Giscus (habilitar Discussions no repo, instalar o app Giscus, copiar os IDs de giscus.app)
@@ -253,6 +260,7 @@ Projetos (`src/data/projects.ts`): `image` (screenshot em `public/projects/`) e 
 
 ## Pendências do dono
 
-- Preencher `EXPERIENCE`, `SITE.linkedin` e `SITE.email` em `src/config.ts`
+- Preencher `EXPERIENCE` (trajetória profissional de /about — a seção já está construída, só está vazia)
+  e `SITE.email` em `src/config.ts`
 - Foto mais profissional (`SITE.avatar`)
 - Ativar estatísticas (`ANALYTICS`) e comentários (`COMMENTS`) se quiser

@@ -11,7 +11,7 @@ interface Props {
 
 const { activeCategory, activeTag } = Astro.props;
 const categories = await getCategories();
-const tags = (await getTags()).slice(0, 14);
+const tags = (await getTags()).slice(0, 8);
 const series = await Promise.all(
   SERIES.map(async (s) => ({ ...s, href: seriesUrl(s), count: (await getSeriesPosts(s.key)).length })),
 );

@@ -3,21 +3,27 @@ import type { IconName } from "./utils/icons";
 
 export const SITE = {
   name: "Cesar Schutz",
-  role: "Arquiteto de Solução",
+  role: "Arquiteto de Soluções",
   url: "https://cesarschutz.github.io",
   locale: "pt-BR",
   /** título da aba na home */
-  homeTitle: "Cesar Schutz · Arquitetura de Software",
-  /** frase do card de identidade da home e do rodapé */
+  homeTitle: "Cesar Schutz · Arquitetura e engenharia de software",
+  /** frase do rodapé e do card de identidade em telas pequenas */
   headline:
-    "Estudos de arquitetura e engenharia de software, organizados para consulta.",
+    "O que eu estudo virando artigo — arquitetura, código, Java, IA e o que mais aparecer.",
+  /** apresentação em primeira pessoa, no card de identidade da home */
+  intro:
+    "Publico aqui o que ando estudando — lançamento do Java, código, arquitetura, IA, o que me despertar interesse. Quando o estudo rende algo que vale guardar, vira artigo.",
+  /** assinatura do fim da home — complementa o intro, não repete */
+  authorNote:
+    "Cada artigo nasce de algo que eu quis entender de verdade — por causa do trabalho, da pós-graduação ou de pura curiosidade. Escrevo, a IA ajuda a lapidar — ou o contrário —, mas a revisão é sempre minha, e todo código que aparece aqui foi testado.",
   /** meta description padrão (SEO e redes sociais) */
   description:
-    "Artigos de Cesar Schutz, arquiteto de solução, sobre arquitetura de software, sistemas distribuídos e o ecossistema Java.",
+    "Cesar Schutz, arquiteto de soluções. Artigos sobre arquitetura de software, engenharia de software, Java e IA — o que eu estudo, revisado por mim e com código testado.",
   avatar: "https://github.com/cesarschutz.png",
   github: "https://github.com/cesarschutz",
   /** contatos opcionais — vazio = não aparece no site */
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/in/cesar-schutz-10341a21/",
   email: "",
   license: {
     name: "CC BY 4.0",
@@ -49,7 +55,7 @@ export const COMMENTS = {
 
 /**
  * Trajetória profissional exibida em /about (opcional). Mais recente primeiro.
- * Ex.: { period: "2022 – atual", role: "Arquiteto de Solução", company: "Empresa", text: "…" }
+ * Ex.: { period: "2022 – atual", role: "Arquiteto de Soluções", company: "Empresa", text: "…" }
  */
 export const EXPERIENCE: { period: string; role: string; company: string; text?: string }[] = [];
 
@@ -65,31 +71,25 @@ export const AREAS: { icon: IconName; color: string; title: string; text: string
   {
     icon: "layers",
     color: "#6366f1",
-    title: "Arquitetura de sistemas",
-    text: "Desenho de soluções, integrações e as decisões que custam caro para reverter.",
+    title: "Arquitetura de software",
+    text: "Como o sistema é dividido por dentro: limites, dependências e as decisões caras de reverter.",
   },
   {
     icon: "network",
     color: "#818cf8",
-    title: "Sistemas distribuídos",
-    text: "Concorrência, mensageria, consistência e resiliência em produção.",
-  },
-  {
-    icon: "coffee",
-    color: "#f8981d",
-    title: "Java e JVM",
-    text: "Da linguagem ao runtime, com o ecossistema Spring e a evolução da plataforma.",
+    title: "Arquitetura de soluções",
+    text: "Ligar a necessidade do negócio à escolha técnica, entre sistemas que já existem e prazos que já estão de pé.",
   },
   {
     icon: "code",
     color: "#22c55e",
     title: "Engenharia de software",
-    text: "Código sustentável: design, testes e manutenção ao longo do tempo.",
+    text: "Do código ao que o mantém vivo: design, testes, operação e manutenção ao longo do tempo.",
   },
   {
     icon: "sparkles",
     color: "#a855f7",
-    title: "IA aplicada",
-    text: "Agentes, LLMs e IA como ferramenta de engenharia no dia a dia.",
+    title: "IA",
+    text: "Agentes, LLMs e IA usada como ferramenta de engenharia — inclusive na produção deste site.",
   },
 ];

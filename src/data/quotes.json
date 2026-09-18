@@ -1,9 +1,9 @@
 [
   {
-    "text": "Qualquer pessoa consegue escrever código que o computador entenda. Bons programadores escrevem código que pessoas também conseguem entender.",
-    "author": "Martin Fowler",
-    "context": "Leia 'Beck Design Rules' — Martin Fowler sobre legibilidade e design simples",
-    "url": "https://martinfowler.com/bliki/BeckDesignRules.html"
+    "text": "Arquitetura é sobre as coisas que são caras de mudar. Se é fácil de mudar, não é arquitetura — é código.",
+    "author": "Ralph Johnson",
+    "context": "Leia 'Who Needs an Architect?' — Martin Fowler citando Ralph Johnson",
+    "url": "https://martinfowler.com/ieeeSoftware/whoNeedsArchitect.pdf"
   },
   {
     "text": "Se você tem medo de implantar na sexta-feira, o problema não é a sexta-feira — é o seu processo de entrega.",
@@ -148,12 +148,6 @@
     "author": "Gregor Hohpe",
     "context": "Veja o catálogo 'Enterprise Integration Patterns' de Hohpe e Woolf",
     "url": "https://www.enterpriseintegrationpatterns.com/"
-  },
-  {
-    "text": "Arquitetura é sobre as coisas que são caras de mudar. Se é fácil de mudar, não é arquitetura — é código.",
-    "author": "Ralph Johnson",
-    "context": "Leia 'Who Needs an Architect?' — Martin Fowler citando Ralph Johnson",
-    "url": "https://martinfowler.com/ieeeSoftware/whoNeedsArchitect.pdf"
   },
   {
     "text": "Arquitetos que se recusam a escrever código correm o risco de desenhar sistemas que ninguém consegue construir.",
@@ -394,6 +388,12 @@
     "author": "Brian Goetz",
     "context": "Acompanhe as novidades do Java em inside.java",
     "url": "https://inside.java/"
+  },
+  {
+    "text": "Qualquer pessoa consegue escrever código que o computador entenda. Bons programadores escrevem código que pessoas também conseguem entender.",
+    "author": "Martin Fowler",
+    "context": "Leia 'Beck Design Rules' — Martin Fowler sobre legibilidade e design simples",
+    "url": "https://martinfowler.com/bliki/BeckDesignRules.html"
   },
   {
     "text": "Gradle é poderoso porque é código. Também dói porque vira código de build que ninguém lembra ter escrito.",

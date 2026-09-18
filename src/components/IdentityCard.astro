@@ -26,7 +26,7 @@ const { stats } = Astro.props;
     <div class="id-text">
       <p class="eyebrow id-role">{SITE.role}</p>
       <h1 id="identity-name" class="id-name">{SITE.name}</h1>
-      <p class="id-headline">{SITE.headline}</p>
+      <p class="id-headline">{SITE.intro}</p>
 
       <ul class="id-topics" aria-label="Áreas de atuação">
         {AREAS.map((area) => <li>{area.title}</li>)}
@@ -48,6 +48,16 @@ const { stats } = Astro.props;
             Ler artigos <Icon name="arrowRight" size={16} />
           </a>
           <a class="btn btn-outline" href="/about/">Sobre mim</a>
+          <span class="id-links">
+            <a href={SITE.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub de Cesar Schutz">
+              <Icon name="github" size={18} />
+            </a>
+            {SITE.linkedin && (
+              <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Cesar Schutz">
+                <Icon name="linkedin" size={18} />
+              </a>
+            )}
+          </span>
         </div>
       </div>
     </div>
@@ -85,7 +95,7 @@ const { stats } = Astro.props;
   }
 
   .id-photo {
-    width: clamp(120px, 12vw, 160px);
+    width: clamp(148px, 15vw, 208px);
     aspect-ratio: 1;
     height: auto;
     object-fit: cover;
@@ -177,19 +187,43 @@ const { stats } = Astro.props;
   .id-actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 8px;
+  }
+
+  .id-links {
+    display: inline-flex;
+    gap: 2px;
+    margin-left: 4px;
+  }
+
+  .id-links a {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: var(--text-dim);
+    transition:
+      color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .id-links a:hover {
+    color: var(--text);
+    background: var(--card-bg-alt);
   }
 
   /* celular: card compacto para os artigos aparecerem logo */
   @media (max-width: 560px) {
     .id-content {
-      grid-template-columns: 64px minmax(0, 1fr);
+      grid-template-columns: 78px minmax(0, 1fr);
       align-items: start;
       gap: 14px;
       padding: 18px;
     }
     .id-photo {
-      width: 64px;
+      width: 78px;
       border-radius: 14px;
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 10%, transparent);
     }

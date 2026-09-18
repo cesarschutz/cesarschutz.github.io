@@ -4,7 +4,10 @@ import Icon from "../components/Icon.astro";
 import { AREAS, EXPERIENCE, SITE } from "../config";
 ---
 
-<BaseLayout title="Sobre" description={`${SITE.name}, ${SITE.role.toLowerCase()}. Trajetória, áreas de atuação e contato.`}>
+<BaseLayout
+  title="Sobre"
+  description={`${SITE.name}, ${SITE.role.toLowerCase()}. Como este blog é escrito, áreas de interesse e contato.`}
+>
   <div class="about">
     <header class="about-hero card rise">
       <img src={SITE.avatar} alt={`Foto de ${SITE.name}`} width="140" height="140" />
@@ -12,9 +15,8 @@ import { AREAS, EXPERIENCE, SITE } from "../config";
         <p class="eyebrow">{SITE.role}</p>
         <h1>{SITE.name}</h1>
         <p class="about-lede">
-          Trabalho na interseção entre arquitetura, engenharia de software e sistemas distribuídos, conectando
-          necessidades de negócio a decisões técnicas: desenho de sistemas, integrações e escolhas que são difíceis de
-          mudar depois.
+          Sou arquiteto de soluções: meu trabalho é ligar o que o negócio precisa à decisão técnica que sustenta isso —
+          entre sistemas que já existem, prazos que já estão de pé e escolhas que são difíceis de reverter depois.
         </p>
         <div class="about-links">
           <a class="btn btn-outline" href={SITE.github} target="_blank" rel="noopener noreferrer">
@@ -34,12 +36,9 @@ import { AREAS, EXPERIENCE, SITE } from "../config";
               </a>
             )
           }
-          <!-- TODO: adicionar LinkedIn e e-mail quando quiser -->
         </div>
       </div>
     </header>
-
-    <!-- TODO: complementar com trajetória profissional (empresas, anos de experiência, especialidades) -->
 
     {
       EXPERIENCE.length > 0 && (
@@ -63,7 +62,7 @@ import { AREAS, EXPERIENCE, SITE } from "../config";
     }
 
     <section class="about-section rise" style="--i:1" aria-labelledby="areas">
-      <h2 id="areas" class="section-title">Áreas de atuação</h2>
+      <h2 id="areas" class="section-title">Áreas de interesse</h2>
       <div class="areas">
         {
           AREAS.map((a) => (
@@ -82,27 +81,36 @@ import { AREAS, EXPERIENCE, SITE } from "../config";
     <section class="about-section about-text card rise" style="--i:2" aria-labelledby="site">
       <h2 id="site" class="section-title">Sobre este site</h2>
       <p>
-        Publico aqui análises técnicas sobre problemas que aparecem em sistemas reais: consistência em pagamentos,
-        concorrência e bloqueios, observabilidade, operação em Kubernetes e a evolução da plataforma Java, documentada
-        versão a versão na série <a href="/java/">Atualizações do Java</a>.
+        Este blog não tem um tema único. Ele acompanha o que eu ando estudando — às vezes por causa do trabalho, às
+        vezes por causa da pós-graduação, às vezes porque o assunto me interessou e eu fui atrás. Um dia é o que mudou
+        no Java, no outro é um detalhe de código que me custou uma tarde, depois é uma decisão de arquitetura, depois é
+        IA. Quando o estudo rende algo que vale guardar, ele vira artigo aqui.
       </p>
       <p>
-        Cada artigo parte de um problema concreto, explica o mecanismo por trás dele e compara as soluções possíveis,
-        com os custos de cada uma.
+        Escrevo primeiro para mim, para consultar depois — e deixo público porque, se eu precisei entender aquilo, é
+        provável que outra pessoa também precise. Os assuntos que voltam com frequência ganham série própria, como as
+        <a href="/java/">Atualizações do Java</a>, que acompanham a plataforma versão a versão.
       </p>
 
       <h3>Como os artigos são produzidos</h3>
       <p>
-        Os artigos são escritos com apoio de inteligência artificial. Eu defino os temas, conduzo o estudo e reviso o
-        conteúdo; a IA apoia a pesquisa, a organização e a redação.
+        Uso inteligência artificial para escrever. Às vezes o texto nasce meu e a IA ajuda a lapidar; às vezes nasce dela
+        a partir do que eu pesquisei e direcionei. Em todos os casos o tema é escolha minha, o estudo passa por mim e
+        <strong>a revisão final é sempre minha</strong>.
+      </p>
+      <p>
+        Todo <strong>código publicado aqui foi testado</strong> antes de entrar no artigo. Quando o exemplo é grande
+        demais para caber no texto, o artigo traz o link para o código completo. E todo artigo termina com uma seção de
+        <strong>fontes</strong>, para você conferir na origem.
       </p>
 
       <aside class="ai-notice" aria-label="Aviso sobre o conteúdo">
         <strong>Leia com senso crítico.</strong>
         <p>
-          Mesmo revisado, um texto escrito com IA pode conter imprecisões, simplificações ou informações desatualizadas.
-          Trate os artigos como ponto de partida para estudo, não como referência definitiva: a base confiável são as fontes
-          citadas nos artigos e a documentação oficial. Confira nelas e teste antes de aplicar qualquer decisão em produção.
+          Mesmo revisado, um texto escrito com apoio de IA pode conter imprecisões, simplificações ou informações que
+          envelheceram. Trate os artigos como ponto de partida de estudo, não como referência definitiva: a base confiável
+          são as fontes citadas e a documentação oficial. Confira nelas e teste antes de levar qualquer decisão para
+          produção.
         </p>
       </aside>
     </section>
