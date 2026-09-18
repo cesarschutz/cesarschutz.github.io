@@ -322,3 +322,40 @@
 .lightbox-close:hover {
   background: rgb(255 255 255 / 0.26);
 }
+
+/* setas só aparecem quando a imagem ampliada faz parte de uma sequência */
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  translate: 0 -50%;
+  display: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.14);
+  color: #fff;
+  cursor: pointer;
+}
+
+.lightbox.has-group .lightbox-nav {
+  display: grid;
+}
+
+.lightbox-nav.prev {
+  left: 16px;
+}
+
+.lightbox-nav.next {
+  right: 16px;
+}
+
+.lightbox-nav:hover:not(:disabled) {
+  background: rgb(255 255 255 / 0.26);
+}
+
+.lightbox-nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}

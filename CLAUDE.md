@@ -2,7 +2,7 @@
 
 Blog técnico de Cesar Schutz (arquiteto de soluções): não tem tema único — publica o que o Cesar precisa
 estudar no dia a dia (arquitetura, código, Java, IA), mais portfólio de projetos. Publicado no GitHub Pages em
-<https://cesarschutz.github.io>. Idioma: **pt-BR**. O nome do site é só **Cesar Schutz**
+<https://cesarschutz.com.br>. Idioma: **pt-BR**. O nome do site é só **Cesar Schutz**
 (não usar "Caderno Público" nem textos informais como "aprendizado contínuo").
 
 ## Stack
@@ -79,12 +79,14 @@ src/content.config.ts         # schema do frontmatter
 src/data/projects.ts          # página /projects
 src/data/tiles.ts             # ícones da animação
 src/data/quotes.json          # frases de autores
+src/data/decks.json           # posts com resumo visual (infográfico + apresentação)
 src/utils/                    # posts, taxonomia (cores/ícones), formatação, frases, ícones
 src/components/               # Nav, Sidebar, IdentityCard, QuoteCard, FeaturedPost, PostFeed…
 src/pages/                    # home paginada ([...page]), posts/[slug], archive, java,
                               # categories, tags, projects, about, 404, rss, search-index
 src/covers/<slug>/            # capas: wide.svg, card.svg, square.svg, featured.svg (ver "Capas")
-scripts/                      # java-covers.mjs, check-cover.mjs, render-cover.mjs, center-cover.mjs
+scripts/                      # java-covers.mjs, check-cover.mjs, render-cover.mjs, center-cover.mjs,
+                              # deck-to-web.mjs (infográfico e apresentação do NotebookLM)
 public/posts/<slug>/          # diagramas SVG usados dentro dos posts
 .claude/templates/            # post.md
 ```
@@ -192,6 +194,43 @@ centralizados automaticamente. Tudo vem de `src/data/java.ts`.
 Referências: `src/covers/bloqueio-otimista-e-pessimista/` (motivo simples, contraste âmbar/ciano) e
 `src/covers/wide-events-canonical-log-lines/` (laterais narrativas no wide).
 
+### Apresentação do NotebookLM (e infográfico)
+
+Depois que o post está publicado, o Cesar joga a URL no NotebookLM e pede **apresentação** (e
+**infográfico**, hoje desligado enquanto os erros de texto não são corrigidos). A apresentação vira
+uma seção do próprio artigo — **a última numerada, logo antes de `## Fontes`** —, em carrossel, com
+cada slide abrindo no lightbox.
+
+A seção é inserida no meio do conteúdo a partir de `post.rendered.html` (corte no `<h2 id="fontes">`),
+não por JavaScript: ela entra no sumário lateral como qualquer outra seção. O título acompanha o
+artigo — `8. Apresentação` onde os h2 são numerados, só `Apresentação` onde não são. Abaixo do título
+ficam só o contador e as setas; sem frase de apoio.
+
+Ampliar um slide abre o **lightbox em modo galeria**: setas na tela e as teclas ←/→ trocam a imagem
+grande e o carrossel acompanha (evento `deck:go`). Imagem comum do post continua abrindo sozinha,
+sem setas.
+
+```bash
+node scripts/deck-to-web.mjs <slug> --deck <arquivo.pptx> --titulo "…" [--infografico <img.png>]
+```
+
+O script extrai os slides na ordem certa, converte para WebP (1376px, q82), grava em
+`public/posts/<slug>/deck/NN.webp` (e o infográfico em `resumo.webp`) e registra o post em
+`src/data/decks.json`. O `Deck.astro` aparece sozinho para quem está no manifesto — nada a escrever
+no Markdown. Um `.pptx` de 14 MB vira ~1 MB. Para voltar a exibir o infográfico, basta rodar o script
+com `--infografico` (a chave volta ao manifesto e o bloco reaparece).
+
+**O que conferir antes de aceitar o material** (o NotebookLM erra e o erro fica gravado no pixel):
+
+- **texto e código nas imagens**: já vieram `SIT` no lugar de `SET`, `stareId` por `storeId`,
+  "reteamento", "malúsculas". Publicar isso desmente a promessa da página Sobre ("revisão minha,
+  código testado") — se houver erro, pedir para gerar de novo, não publicar
+- **os slides são imagens inteiras**, sem texto no arquivo: não há SEO nem leitor de tela neles.
+  O artigo escrito continua tendo de se sustentar sozinho; o bloco é complemento, nunca substituto
+- **um por artigo**: quando vierem duas apresentações ou dois infográficos, escolher o de linguagem
+  visual mais próxima do site e não misturar slides de decks diferentes (a costura aparece)
+- **infográfico em 16:9** funciona; peça alta e estreita fica ilegível no celular
+
 ## Recursos disponíveis nos posts
 
 - **Código**: ` ```java title="Arquivo.java" {3-5} `, `ins={}`/`del={}`, `showLineNumbers`, `collapse={1-10}`
@@ -241,8 +280,9 @@ lugar e traz para cá. Nos dois casos o trabalho é o mesmo:
 - `ANALYTICS.goatcounter`: código do GoatCounter (estatísticas de visita sem cookies)
 - `COMMENTS`: Giscus (habilitar Discussions no repo, instalar o app Giscus, copiar os IDs de giscus.app)
 
-Posts: barra de progresso de leitura, "voltar ao topo", botões de compartilhar, navegação dentro da
-série (LTS anterior/próxima) e "Artigos relacionados" (tags e categoria em comum; `src/utils/related.ts`).
+Posts: barra de progresso de leitura, "voltar ao topo", botões de compartilhar e navegação no fim —
+dentro da série (LTS anterior/próxima) ou, fora dela, **artigo anterior/próximo** por data de
+publicação. Não há mais bloco de "Artigos relacionados".
 Projetos (`src/data/projects.ts`): `image` (screenshot em `public/projects/`) e `updated`.
 
 ## Ambiente de desenvolvimento (armadilhas)

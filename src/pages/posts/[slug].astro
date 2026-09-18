@@ -6,10 +6,11 @@ import Icon from "../../components/Icon.astro";
 import Cover from "../../components/Cover.astro";
 import Toc from "../../components/Toc.astro";
 import Comments from "../../components/Comments.astro";
+import Deck from "../../components/Deck.astro";
+import decks from "../../data/decks.json";
 import { SITE } from "../../config";
 import { getPosts, getSummaries, readingMinutes, summarize, type Post } from "../../utils/posts";
 import { rawCover } from "../../utils/covers";
-import { relatedPosts } from "../../utils/related";
 import { getSeries, seriesUrl } from "../../data/series";
 import { JAVA_LTS } from "../../data/java";
 import { postLabel, tagUrl } from "../../utils/taxonomy";
@@ -24,12 +25,31 @@ interface Props {
   post: Post;
 }
 
-const { post } = Astro.props;
+const { post } = Astro.props as Props;
 const { Content, headings, remarkPluginFrontmatter } = await render(post);
 const { title, description, published, updated, tags } = post.data;
 const label = postLabel(post.data);
 const minutes = readingMinutes(post);
-const hasToc = headings.filter((h) => h.depth === 2 || h.depth === 3).length >= 3;
+// a apresentação entra como a última seção numerada, logo antes de "Fontes"
+const hasDeck = post.id in (decks as Record<string, unknown>);
+const lastNumber = Math.max(
+  0,
+  ...headings.filter((h) => h.depth === 2).map((h) => Number(h.text.match(/^(\d+)\./)?.[1] ?? 0)),
+);
+// só numera quando o artigo numera as próprias seções
+const deckHeading = lastNumber > 0 ? `${lastNumber + 1}. Apresentação` : "Apresentação";
+// o HTML já renderizado permite inserir a seção no meio do artigo, sem depender de JavaScript
+const renderedHtml = (post as { rendered?: { html?: string } }).rendered?.html;
+const fontes = renderedHtml?.search(/<h2[^>]*id="fontes"/i) ?? -1;
+const splitContent = hasDeck && renderedHtml && fontes > 0 ? [renderedHtml.slice(0, fontes), renderedHtml.slice(fontes)] : null;
+const tocHeadings = hasDeck
+  ? [
+      ...headings.filter((h) => h.slug !== "fontes"),
+      { depth: 2, slug: "apresentacao", text: deckHeading },
+      ...headings.filter((h) => h.slug === "fontes"),
+    ]
+  : headings;
+const hasToc = tocHeadings.filter((h) => h.depth === 2 || h.depth === 3).length >= 3;
 const hasMath = Boolean(remarkPluginFrontmatter?.hasMath);
 const wasUpdated = updated && isoDate(updated) !== isoDate(published);
 
@@ -50,8 +70,10 @@ if (series?.key === "java") {
     if (next) seriesNext = { title: next.title, url: next.url };
   }
 }
-// na série, a navegação acima já liga as outras partes: relacionados vêm de fora dela
-const related = relatedPosts(current, series ? all.filter((p) => p.series !== series.key) : all);
+// fora de série: artigo anterior e próximo na ordem de publicação (all vem do mais novo ao mais antigo)
+const iAll = all.findIndex((p) => p.slug === post.id);
+const olderPost = iAll >= 0 ? all[iAll + 1] : undefined;
+const newerPost = iAll > 0 ? all[iAll - 1] : undefined;
 
 const postUrl = new URL(`/posts/${post.id}/`, Astro.site).href;
 // o PNG de compartilhamento só existe se o post tiver a capa card
@@ -144,14 +166,24 @@ const jsonLd = {
           hasToc && (
             <details class="toc-mobile card">
               <summary>Neste artigo</summary>
-              <Toc headings={headings} />
+              <Toc headings={tocHeadings} />
             </details>
           )
         }
 
         <div class="post-body card rise" style="--i:1">
           <div class="prose">
-            <Content />
+            {
+              splitContent ? (
+                <>
+                  <Fragment set:html={splitContent[0]} />
+                  <Deck slug={post.id} title={post.data.title} heading={deckHeading} />
+                  <Fragment set:html={splitContent[1]} />
+                </>
+              ) : (
+                <Content />
+              )
+            }
           </div>
 
           <footer class="post-foot">
@@ -194,7 +226,7 @@ const jsonLd = {
             </div>
             <p class="post-ai">
               Artigo escrito com apoio de IA, revisado pelo autor, com o código testado. Ainda assim pode conter
-              imprecisões: confirme nas fontes citadas e na documentação oficial antes de aplicar.
+              imprecisões: confirme nas fontes citadas e na documentação oficial antes de aplicar.{" "}
               <a href="/about/#site">Saiba mais</a>.
             </p>
           </footer>
@@ -231,33 +263,29 @@ const jsonLd = {
         }
 
         {
-          related.length > 0 && (
-            <section class="related" aria-labelledby="related-title">
-              <h2 class="related-title" id="related-title">
-                Artigos relacionados
-              </h2>
-              <div class="related-grid">
-                {related.map((p) => {
-                  const l = postLabel(p);
-                  return (
-                    <a class="related-card" href={p.url}>
-                      <span class="related-cover">
-                        <Cover post={p} format="card" />
-                      </span>
-                      <span class="related-body">
-                        {l && (
-                          <span class="related-cat ink" style={`--c:${l.color}`}>
-                            {l.name}
-                          </span>
-                        )}
-                        <span class="related-name">{p.title}</span>
-                        <span class="related-min">{p.minutes} min de leitura</span>
-                      </span>
-                    </a>
-                  );
-                })}
-              </div>
-            </section>
+          !series && (olderPost || newerPost) && (
+            <nav class="post-nav" aria-label="Outros artigos">
+              {olderPost ? (
+                <a class="post-nav-card" href={olderPost.url} rel="prev">
+                  <span class="post-nav-dir">
+                    <Icon name="arrowLeft" size={14} /> Artigo anterior
+                  </span>
+                  <span class="post-nav-title">{olderPost.title}</span>
+                </a>
+              ) : (
+                <span />
+              )}
+              {newerPost ? (
+                <a class="post-nav-card next" href={newerPost.url} rel="next">
+                  <span class="post-nav-dir">
+                    Próximo artigo <Icon name="arrowRight" size={14} />
+                  </span>
+                  <span class="post-nav-title">{newerPost.title}</span>
+                </a>
+              ) : (
+                <span />
+              )}
+            </nav>
           )
         }
 
@@ -268,7 +296,7 @@ const jsonLd = {
         hasToc && (
           <aside class="post-aside">
             <div class="toc-card card">
-              <Toc headings={headings} />
+              <Toc headings={tocHeadings} />
             </div>
           </aside>
         )
@@ -284,7 +312,13 @@ const jsonLd = {
     <button type="button" class="lightbox-close" data-lightbox-close aria-label="Fechar">
       <Icon name="close" size={22} />
     </button>
+    <button type="button" class="lightbox-nav prev" data-lightbox-prev aria-label="Imagem anterior">
+      <Icon name="chevLeft" size={26} />
+    </button>
     <img alt="" />
+    <button type="button" class="lightbox-nav next" data-lightbox-next aria-label="Próxima imagem">
+      <Icon name="chevRight" size={26} />
+    </button>
   </div>
 </BaseLayout>
 
@@ -338,22 +372,57 @@ const jsonLd = {
     });
   }
 
-  // lightbox: imagens do corpo do post abrem em tela cheia
+  // lightbox: imagens do corpo do post abrem em tela cheia. Nos slides da apresentação
+  // a ampliação vira uma galeria: as setas mudam a imagem grande e o carrossel acompanha.
   const box = document.querySelector<HTMLElement>("[data-lightbox]")!;
   const img = box.querySelector("img")!;
+  const lbPrev = box.querySelector<HTMLButtonElement>("[data-lightbox-prev]")!;
+  const lbNext = box.querySelector<HTMLButtonElement>("[data-lightbox-next]")!;
+  let group: HTMLImageElement[] = [];
+  let gi = -1;
+
   const close = () => box.classList.remove("open");
-  const open = (src: string, alt: string) => {
-    img.src = src;
-    img.alt = alt;
+
+  const show = (i: number) => {
+    if (i < 0 || i >= group.length) return;
+    gi = i;
+    const el = group[i];
+    img.src = el.currentSrc || el.src;
+    img.alt = el.alt;
+    lbPrev.disabled = gi === 0;
+    lbNext.disabled = gi === group.length - 1;
+    document.dispatchEvent(new CustomEvent("deck:go", { detail: gi }));
+  };
+
+  const open = (el: HTMLImageElement) => {
+    const track = el.closest("[data-deck-track]");
+    group = track ? [...track.querySelectorAll<HTMLImageElement>("img")] : [];
+    box.classList.toggle("has-group", group.length > 1);
+    if (group.length > 1) {
+      show(group.indexOf(el));
+    } else {
+      group = [];
+      gi = -1;
+      img.src = el.currentSrc || el.src;
+      img.alt = el.alt;
+    }
     box.classList.add("open");
   };
+
+  lbPrev.addEventListener("click", () => show(gi - 1));
+  lbNext.addEventListener("click", () => show(gi + 1));
   box.addEventListener("click", (e) => {
-    if ((e.target as HTMLElement).tagName !== "IMG") close();
+    if (!(e.target as HTMLElement).closest("img, .lightbox-nav")) close();
   });
-  document.addEventListener("keydown", (e) => e.key === "Escape" && close());
-  document.querySelectorAll<HTMLImageElement>(".prose img").forEach((el) => {
+  document.addEventListener("keydown", (e) => {
+    if (!box.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    if (group.length > 1 && e.key === "ArrowRight") { e.preventDefault(); show(gi + 1); }
+    if (group.length > 1 && e.key === "ArrowLeft") { e.preventDefault(); show(gi - 1); }
+  });
+  document.querySelectorAll<HTMLImageElement>(".prose img, [data-zoom] img").forEach((el) => {
     if (el.closest("a")) return;
-    el.addEventListener("click", () => open(el.currentSrc || el.src, el.alt));
+    el.addEventListener("click", () => open(el));
   });
 </script>
 
@@ -573,72 +642,6 @@ const jsonLd = {
 
   .post-nav-heading a {
     color: var(--link);
-  }
-
-  .related-title {
-    margin: 8px 4px 14px;
-    font-family: var(--font-serif);
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
-    gap: 12px;
-  }
-
-  .related-card {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    background: var(--card-bg);
-    transition:
-      transform 0.2s var(--ease-out),
-      border-color 0.2s ease;
-  }
-
-  .related-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-strong);
-  }
-
-  .related-cover {
-    display: block;
-    aspect-ratio: 2 / 1;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .related-body {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 14px 16px 16px;
-  }
-
-  .related-cat {
-    font-size: var(--fs-eyebrow);
-    font-weight: 600;
-  }
-
-  .related-name {
-    font-family: var(--font-serif);
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 1.25;
-  }
-
-  .related-card:hover .related-name {
-    color: var(--blue);
-  }
-
-  .related-min {
-    margin-top: auto;
-    font-size: var(--fs-meta);
-    color: var(--text-dim);
   }
 
   .to-top {

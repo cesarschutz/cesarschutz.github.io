@@ -1,0 +1,259 @@
+---
+import Icon from "./Icon.astro";
+import decks from "../data/decks.json";
+
+/**
+ * Material visual do post gerado a partir do artigo publicado: o infográfico de
+ * resumo e a apresentação, em carrossel. Vem de scripts/deck-to-web.mjs.
+ * As imagens não carregam texto pesquisável — o artigo continua valendo por si só.
+ */
+interface Props {
+  slug: string;
+  title: string;
+  heading: string;
+}
+
+const { slug, title, heading } = Astro.props;
+const deck = (decks as Record<string, any>)[slug];
+const base = `/posts/${slug}`;
+const slides = deck ? Array.from({ length: deck.slides }, (_, i) => String(i + 1).padStart(2, "0")) : [];
+---
+
+{
+  deck && (
+    <section class="deck" aria-labelledby="apresentacao">
+      <h2 id="apresentacao" data-toc-heading>
+        {heading}
+      </h2>
+      {deck.infografico && (
+        <figure class="deck-info" data-zoom>
+          <img
+            src={`${base}/resumo.webp`}
+            alt={`Infográfico resumindo o artigo "${title}"`}
+            width={deck.infografico.largura}
+            height={deck.infografico.altura}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>Clique para ampliar</figcaption>
+        </figure>
+      )}
+
+      <div class="deck-track" data-deck-track tabindex="0" role="group" aria-label={`${deck.titulo}: ${deck.slides} slides`}>
+        {slides.map((n, i) => (
+          <figure class="deck-slide" data-zoom>
+            <img
+              src={`${base}/deck/${n}.webp`}
+              alt={`Slide ${i + 1} de ${deck.slides}: ${deck.titulo}`}
+              width={deck.largura}
+              height={deck.altura}
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          </figure>
+        ))}
+      </div>
+
+      <div class="deck-foot">
+        <p class="deck-note">
+        Apresentação gerada no NotebookLM a partir deste artigo. Como são imagens, podem conter erros de texto — a
+          referência é o artigo acima.
+        </p>
+        <div class="deck-nav">
+          <span class="deck-count" data-deck-count>
+            1 / {deck.slides}
+          </span>
+          <button type="button" class="deck-btn" data-deck-prev aria-label="Slide anterior">
+            <Icon name="chevLeft" size={18} />
+          </button>
+          <button type="button" class="deck-btn" data-deck-next aria-label="Próximo slide">
+            <Icon name="chevRight" size={18} />
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .deck {
+    margin-top: var(--col-gap);
+  }
+
+  .deck-info {
+    margin: 0 0 26px;
+  }
+
+  .deck-info img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    cursor: zoom-in;
+  }
+
+  .deck-info figcaption {
+    margin-top: 8px;
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+  }
+
+  /* o título vem do artigo (prose h2): aproxima o slide dele */
+  .deck :global(h2) {
+    margin-bottom: 14px;
+  }
+
+  .deck-foot {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 20px;
+    margin-top: 12px;
+  }
+
+  .deck-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  .deck-count {
+    margin-right: 4px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .deck-btn {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-soft);
+    cursor: pointer;
+  }
+
+  .deck-btn:hover:not(:disabled) {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .deck-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .deck-btn:active:not(:disabled) {
+    scale: 0.96;
+  }
+
+  /* sem JavaScript continua sendo um carrossel: rolagem horizontal com encaixe */
+  .deck-track {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    border-radius: var(--radius-lg);
+    scrollbar-width: none;
+  }
+
+  .deck-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .deck-track:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+
+  .deck-slide {
+    flex: 0 0 100%;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+
+  .deck-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    cursor: zoom-in;
+    background: var(--card-bg-alt);
+  }
+
+  .deck-note {
+    margin: 0;
+    flex: 1 1 24ch;
+    max-width: 70ch;
+    font-size: var(--fs-meta);
+    line-height: 1.5;
+    color: var(--text-dim);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .deck-track {
+      scroll-behavior: auto;
+    }
+  }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>("[data-deck-track]");
+  if (track) {
+    const slides = [...track.querySelectorAll<HTMLElement>(".deck-slide")];
+    const count = document.querySelector<HTMLElement>("[data-deck-count]")!;
+    const prev = document.querySelector<HTMLButtonElement>("[data-deck-prev]")!;
+    const next = document.querySelector<HTMLButtonElement>("[data-deck-next]")!;
+    const left = (i: number) => slides[i].offsetLeft - track.offsetLeft;
+
+    let current = 0;
+    let moving = 0; // enquanto a rolagem programada acontece, o scroll não manda no contador
+
+    const paint = () => {
+      count.textContent = `${current + 1} / ${slides.length}`;
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+    };
+
+    const go = (i: number) => {
+      current = Math.max(0, Math.min(slides.length - 1, i));
+      paint();
+      clearTimeout(moving);
+      moving = window.setTimeout(() => (moving = 0), 600);
+      track.scrollTo({ left: left(current) });
+    };
+
+    const sync = () => {
+      if (moving) return;
+      let best = 0;
+      let dist = Infinity;
+      slides.forEach((_, i) => {
+        const d = Math.abs(left(i) - track.scrollLeft);
+        if (d < dist) { dist = d; best = i; }
+      });
+      current = best;
+      paint();
+    };
+
+    prev.addEventListener("click", () => go(current - 1));
+    next.addEventListener("click", () => go(current + 1));
+    track.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(current - 1); }
+    });
+    // quando a imagem ampliada muda, o carrossel vai junto
+    document.addEventListener("deck:go", (e) => go((e as CustomEvent<number>).detail));
+
+    paint();
+  }
+</script>

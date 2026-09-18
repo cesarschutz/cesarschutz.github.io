@@ -32,7 +32,7 @@ const collapsible = items.length > 14;
 <script>
   // há dois sumários na página (lateral e o recolhível do celular): atualiza os dois
   const tocs = [...document.querySelectorAll<HTMLElement>("[data-toc]")];
-  const headings = [...document.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")];
+  const headings = [...document.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id], [data-toc-heading][id]")];
 
   if (tocs.length && headings.length) {
     let active = "";

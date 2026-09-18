@@ -1,0 +1,14 @@
+{
+  "bloqueio-otimista-e-pessimista": {
+    "titulo": "A física da concorrência",
+    "slides": 13,
+    "largura": 1376,
+    "altura": 768
+  },
+  "sns-filter-policy": {
+    "titulo": "Roteamento inteligente na AWS",
+    "slides": 15,
+    "largura": 1376,
+    "altura": 768
+  }
+}
