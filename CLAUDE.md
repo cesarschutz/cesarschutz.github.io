@@ -58,8 +58,6 @@ Deploy preso na fila: cancelar e reexecutar o workflow pela aba Actions do GitHu
   as 5 áreas (`AREAS`) como etiquetas, números **artigos · séries · categorias** (não trocar por horas de
   leitura) e os ícones de GitHub/LinkedIn ao lado dos botões. No celular fica compacto (foto menor, sem
   etiquetas e números). Sem animação no card
-- Fim da home (só na página 1): `AuthorNote.astro` — assinatura curta com `SITE.authorNote` (texto próprio,
-  **não repetir** o `intro`), link para /about/ e os contatos. É o que responde "quem escreveu isto?"
 
 ### Peças herdadas do DEV NOTE
 
@@ -82,7 +80,7 @@ src/data/projects.ts          # página /projects
 src/data/tiles.ts             # ícones da animação
 src/data/quotes.json          # frases de autores
 src/utils/                    # posts, taxonomia (cores/ícones), formatação, frases, ícones
-src/components/               # Nav, Sidebar, IdentityCard, AuthorNote, QuoteCard, FeaturedPost, PostFeed…
+src/components/               # Nav, Sidebar, IdentityCard, QuoteCard, FeaturedPost, PostFeed…
 src/pages/                    # home paginada ([...page]), posts/[slug], archive, java,
                               # categories, tags, projects, about, 404, rss, search-index
 src/covers/<slug>/            # capas: wide.svg, card.svg, square.svg, featured.svg (ver "Capas")

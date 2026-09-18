@@ -6,7 +6,6 @@ import QuoteCard from "../components/QuoteCard.astro";
 import Sidebar from "../components/Sidebar.astro";
 import FeaturedPost from "../components/FeaturedPost.astro";
 import PostFeed from "../components/PostFeed.astro";
-import AuthorNote from "../components/AuthorNote.astro";
 import Pagination from "../components/Pagination.astro";
 import { SITE } from "../config";
 import { SERIES } from "../data/series";
@@ -82,8 +81,6 @@ const stats = [
       />
 
       <Pagination current={page.currentPage} last={page.lastPage} prevUrl={page.url.prev} nextUrl={page.url.next} />
-
-      {isFirst && <AuthorNote />}
     </div>
   </div>
 </BaseLayout>

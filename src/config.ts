@@ -14,9 +14,6 @@ export const SITE = {
   /** apresentação em primeira pessoa, no card de identidade da home */
   intro:
     "Publico aqui o que ando estudando — lançamento do Java, código, arquitetura, IA, o que me despertar interesse. Quando o estudo rende algo que vale guardar, vira artigo.",
-  /** assinatura do fim da home — complementa o intro, não repete */
-  authorNote:
-    "Cada artigo nasce de algo que eu quis entender de verdade — por causa do trabalho, da pós-graduação ou de pura curiosidade. Escrevo, a IA ajuda a lapidar — ou o contrário —, mas a revisão é sempre minha, e todo código que aparece aqui foi testado.",
   /** meta description padrão (SEO e redes sociais) */
   description:
     "Cesar Schutz, arquiteto de soluções. Artigos sobre arquitetura de software, engenharia de software, Java e IA — o que eu estudo, revisado por mim e com código testado.",
