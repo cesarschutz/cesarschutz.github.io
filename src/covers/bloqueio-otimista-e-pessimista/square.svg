@@ -1,15 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <g transform="translate(-5.7 -6.4)">
   <!-- cadeado aberto atrás, fechado à frente -->
-  <g transform="translate(305 335) scale(1.5)">
-    <path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v6"/>
-    <rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/>
-    <circle class="cv-detail" cx="0" cy="30" r="16"/>
-    <rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/>
-  </g>
-  <g transform="translate(495 480) scale(1.5)">
-    <path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v38"/>
-    <rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/>
-    <circle class="cv-detail" cx="0" cy="30" r="16"/>
-    <rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/>
-  </g>
+  <g transform="translate(110 130)"><path class="cv-warm-soft-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-warm-soft-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-warm-soft-line" d="M24 -14 V14 L0 28 V0 Z"/></g><g transform="translate(700 680)"><path class="cv-soft-line" d="M0 -30 L26 -15 L0 0 L-26 -15 Z"/><path class="cv-soft-line" d="M-26 -15 V15 L0 30 V0 Z"/><path class="cv-soft-line" d="M26 -15 V15 L0 30 V0 Z"/></g><g transform="translate(305 335) scale(1.5)"><path class="cv-warm-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v6"/><rect class="cv-warm-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/><circle class="cv-warm" cx="0" cy="30" r="16"/><rect class="cv-warm" x="-7" y="34" width="14" height="38" rx="7"/></g><g transform="translate(495 480) scale(1.5)"><path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v38"/><rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/><circle class="cv-detail" cx="0" cy="30" r="16"/><rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/></g>
+</g>
 </svg>

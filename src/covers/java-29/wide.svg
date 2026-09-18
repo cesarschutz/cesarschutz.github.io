@@ -1,7 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <line class="cv-muted-line" x1="120" y1="200" x2="500" y2="200"/>
-  <path class="cv-muted-line" d="M486 188 L500 200 L486 212"/>
-  <circle class="cv-shape" cx="120" cy="200" r="34"/><text class="cv-mono cv-detail" x="120" y="210" font-size="28" text-anchor="middle">25</text><circle class="cv-solid" cx="236.66666666666666" cy="200" r="10"/><text class="cv-mono cv-detail" x="236.66666666666666" y="252" font-size="24" text-anchor="middle">26</text><circle class="cv-solid" cx="322" cy="200" r="10"/><text class="cv-mono cv-detail" x="322" y="252" font-size="24" text-anchor="middle">27</text><circle class="cv-shape cv-dash" cx="407.3333333333333" cy="200" r="12"/><text class="cv-mono cv-muted" x="407.3333333333333" y="252" font-size="24" text-anchor="middle">28</text>
+  <g transform="translate(11.7 -6.7)">
+  <g transform="translate(300 84)">
+    <path class="cv-warm-soft-line" d="M0 -26 L22.62 -13 L0 0 L-22.62 -13 Z"/>
+    <path class="cv-warm-soft-line" d="M-22.62 -13 V13 L0 26 V0 Z"/>
+    <path class="cv-warm-soft-line" d="M22.62 -13 V13 L0 26 V0 Z"/>
+  </g>
+  <g transform="translate(1380 320)">
+    <path class="cv-soft-line" d="M0 -30 L26.1 -15 L0 0 L-26.1 -15 Z"/>
+    <path class="cv-soft-line" d="M-26.1 -15 V15 L0 30 V0 Z"/>
+    <path class="cv-soft-line" d="M26.1 -15 V15 L0 30 V0 Z"/>
+  </g>
+  <g transform="translate(1470 96)">
+    <path class="cv-soft-line" d="M0 -20 L17.4 -10 L0 0 L-17.4 -10 Z"/>
+    <path class="cv-soft-line" d="M-17.4 -10 V10 L0 20 V0 Z"/>
+    <path class="cv-soft-line" d="M17.4 -10 V10 L0 20 V0 Z"/>
+  </g>
+  <g transform="translate(210 330)">
+    <path class="cv-warm-soft-line" d="M0 -22 L19.14 -11 L0 0 L-19.14 -11 Z"/>
+    <path class="cv-warm-soft-line" d="M-19.14 -11 V11 L0 22 V0 Z"/>
+    <path class="cv-warm-soft-line" d="M19.14 -11 V11 L0 22 V0 Z"/>
+  </g>
+  <line class="cv-warm-line" x1="120" y1="200" x2="500" y2="200"/>
+  <path class="cv-warm-line" d="M486 188 L500 200 L486 212"/>
+  <circle class="cv-warm-shape" cx="120" cy="200" r="34"/><text class="cv-mono cv-warm" x="120" y="210" font-size="28" text-anchor="middle">25</text><circle class="cv-warm" cx="236.66666666666666" cy="200" r="10"/><text class="cv-mono cv-warm" x="236.66666666666666" y="252" font-size="24" text-anchor="middle">26</text><circle class="cv-warm" cx="322" cy="200" r="10"/><text class="cv-mono cv-warm" x="322" y="252" font-size="24" text-anchor="middle">27</text><circle class="cv-warm-shape cv-dash" cx="407.3333333333333" cy="200" r="12"/><text class="cv-mono cv-muted" x="407.3333333333333" y="252" font-size="24" text-anchor="middle">28</text>
   <g transform="translate(575 180) scale(0.66)">
     <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
     <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
@@ -13,8 +34,8 @@
   <g transform="translate(975 56) scale(0.88)">
     <text class="cv-text cv-white" x="0" y="44" font-size="56" text-anchor="middle" letter-spacing="16">JAVA</text>
     <text class="cv-text cv-solid" x="0" y="228" font-size="220" font-weight="800" text-anchor="middle" letter-spacing="-4">29</text>
-    <rect class="cv-line cv-dash" x="-125" y="250" width="250" height="54" rx="27"/>
-    <text class="cv-text cv-detail" x="0" y="286" font-size="28" text-anchor="middle" letter-spacing="2">PRÓXIMA LTS</text>
+    <rect class="cv-line cv-dash" x="-145" y="248" width="290" height="60" rx="30"/>
+    <text class="cv-text cv-detail" x="0" y="290" font-size="34" text-anchor="middle" letter-spacing="2">PRÓXIMA LTS</text>
   </g>
   <g transform="translate(1165 152)">
     <rect class="cv-shape" x="0" y="0" width="96" height="96" rx="16"/>
@@ -22,7 +43,8 @@
     <line class="cv-detail-line cv-bold" x1="26" y1="-12" x2="26" y2="12"/>
     <line class="cv-detail-line cv-bold" x1="70" y1="-12" x2="70" y2="12"/>
     <circle class="cv-muted" cx="24" cy="52" r="5"/><circle class="cv-muted" cx="24" cy="74" r="5"/><circle class="cv-muted" cx="48" cy="52" r="5"/><circle class="cv-muted" cx="48" cy="74" r="5"/><circle class="cv-muted" cx="72" cy="52" r="5"/><circle class="cv-solid" cx="72" cy="74" r="5"/>
-    <text class="cv-text cv-muted" x="124" y="34" font-size="22" letter-spacing="3">PREVISTO</text>
+    <text class="cv-text cv-muted" x="124" y="34" font-size="24" letter-spacing="3">PREVISTO</text>
     <text class="cv-mono cv-detail" x="122" y="84" font-size="44">SET 2027</text>
   </g>
+</g>
 </svg>

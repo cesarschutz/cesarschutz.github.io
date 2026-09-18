@@ -1,43 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- lançamentos (+/−) → razão D|C balanceado → extrato do banco = conciliado -->
-  <g>
-    <rect class="cv-shape" x="120" y="96" width="170" height="52" rx="14"/>
-    <path class="cv-detail-line cv-bold" d="M146 122 h26 M159 109 v26"/>
-    <line class="cv-muted-line" x1="192" y1="122" x2="266" y2="122"/>
-    <rect class="cv-shape" x="120" y="174" width="170" height="52" rx="14"/>
-    <path class="cv-detail-line cv-bold" d="M146 200 h26"/>
-    <line class="cv-muted-line" x1="192" y1="200" x2="250" y2="200"/>
-    <rect class="cv-shape" x="120" y="252" width="170" height="52" rx="14"/>
-    <path class="cv-detail-line cv-bold" d="M146 278 h26 M159 265 v26"/>
-    <line class="cv-muted-line" x1="192" y1="278" x2="258" y2="278"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-green">
+  <!-- carteira (o movimento de valor) → balança D = C → extrato conciliado (check verde) -->
+  <g transform="translate(240 200)">
+    <rect class="cv-shape cv-bold" x="-85" y="-60" width="170" height="120" rx="16"/>
+    <rect class="cv-shape cv-bold" x="20" y="-22" width="80" height="44" rx="10"/>
+    <circle class="cv-detail" cx="62" cy="0" r="9"/>
   </g>
-  <path class="cv-muted-line" d="M300 122 C400 122 420 200 560 200"/>
-  <path class="cv-muted-line" d="M300 200 H560"/>
-  <path class="cv-muted-line" d="M300 278 C400 278 420 200 560 200"/>
-  <path class="cv-muted-line" d="M546 188 L560 200 L546 212"/>
-  <rect class="cv-shape cv-bold" x="610" y="55" width="380" height="290" rx="23"/>
-  <line class="cv-line" x1="610" y1="113" x2="990" y2="113"/>
-  <line class="cv-line" x1="800" y1="55" x2="800" y2="345"/>
-  <text class="cv-text cv-white" x="705" y="94" font-size="36" text-anchor="middle">D</text>
-  <text class="cv-text cv-white" x="895" y="94" font-size="36" text-anchor="middle">C</text>
-  <line class="cv-detail-line" x1="644" y1="159" x2="758" y2="159"/>
-  <line class="cv-detail-line" x1="834" y1="159" x2="933" y2="159"/>
-  <line class="cv-detail-line" x1="644" y1="200" x2="728" y2="200"/>
-  <line class="cv-detail-line" x1="834" y1="200" x2="952" y2="200"/>
-  <line class="cv-muted-line cv-thin" x1="644" y1="232" x2="766" y2="232"/>
-  <line class="cv-muted-line cv-thin" x1="834" y1="232" x2="956" y2="232"/>
-  <line class="cv-line cv-bold" x1="644" y1="299" x2="743" y2="299"/>
-  <line class="cv-line cv-bold" x1="857" y1="299" x2="956" y2="299"/>
-  <circle class="cv-solid" cx="800" cy="299" r="27"/>
-  <rect class="cv-cut" x="787" y="290" width="27" height="5" rx="2"/>
-  <rect class="cv-cut" x="787" y="303" width="27" height="5" rx="2"/>
-  <path class="cv-muted-line cv-dash" d="M1010 200 H1110"/>
-  <rect class="cv-shape" x="1130" y="90" width="150" height="200" rx="14"/>
-  <line class="cv-detail-line" x1="1156" y1="130" x2="1236" y2="130"/>
-  <line class="cv-muted-line" x1="1156" y1="166" x2="1254" y2="166"/>
-  <line class="cv-muted-line" x1="1156" y1="200" x2="1226" y2="200"/>
-  <line class="cv-muted-line" x1="1310" y1="182" x2="1350" y2="182"/>
-  <line class="cv-muted-line" x1="1310" y1="206" x2="1350" y2="206"/>
-  <circle class="cv-shape cv-bold" cx="1430" cy="194" r="50"/>
-  <path class="cv-detail-line cv-bold" d="M1408 196 l16 16 l30 -34"/>
+  <path class="cv-muted-line" d="M356 200 H504"/>
+  <path class="cv-muted-line" d="M492 188 L506 200 L492 212"/>
+  <g transform="translate(800 99) scale(0.78)">
+    <rect class="cv-shape" x="-14" y="0" width="28" height="240" rx="14"/>
+    <rect class="cv-ac-shape cv-bold" x="-260" y="236" width="520" height="70" rx="22"/>
+    <path class="cv-ac-line cv-bold" d="M-38 270 l22 22 l52 -50"/>
+    <path class="cv-line" d="M-260 0 L-350 140 M-260 0 L-170 140 M260 0 L170 140 M260 0 L350 140"/>
+    <path class="cv-shape cv-bold" d="M-360 140 Q-260 220 -160 140 Z"/>
+    <path class="cv-shape cv-bold" d="M160 140 Q260 220 360 140 Z"/>
+    <rect class="cv-shape cv-bold" x="-310" y="50" width="100" height="90" rx="16"/>
+    <rect class="cv-shape cv-bold" x="210" y="50" width="100" height="90" rx="16"/>
+    <text class="cv-mono cv-detail" x="-260" y="118" font-size="64" text-anchor="middle">D</text>
+    <text class="cv-mono cv-detail" x="260" y="118" font-size="64" text-anchor="middle">C</text>
+    <rect class="cv-shape cv-bold" x="-260" y="-10" width="520" height="20" rx="10"/>
+    <polygon class="cv-solid" points="0,-56 -14,-20 14,-20"/>
+    <circle class="cv-detail" cx="0" cy="0" r="12"/>
+  </g>
+  <path class="cv-muted-line cv-dash" d="M1095 200 H1236"/>
+  <path class="cv-muted-line" d="M1236 188 L1250 200 L1236 212"/>
+  <path class="cv-shape cv-bold" d="M1270 90 H1400 L1450 140 V310 H1270 Z"/>
+  <path class="cv-line" d="M1400 90 V140 H1450"/>
+  <path class="cv-muted-line" d="M1298 180 H1422 M1298 215 H1422 M1298 250 H1380"/>
+  <circle class="cv-ac-shape cv-bold" cx="1360" cy="310" r="36"/>
+  <path class="cv-ac-line cv-bold" d="M1343 310 l12 12 l24 -26"/>
 </svg>

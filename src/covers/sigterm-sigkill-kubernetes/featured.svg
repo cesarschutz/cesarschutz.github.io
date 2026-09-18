@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-coral">
+  <!-- retrato: a onda do SIGTERM chega pela esquerda ao pod cercado pelo aro do grace period,
+       o raio do SIGKILL sai do setor coral e embaixo fica o que sobra do pod: o exit code 137 -->
+  <rect class="cv-solid" x="390" y="94" width="20" height="22" rx="5"/>
+  <rect class="cv-shape" x="382" y="116" width="36" height="44" rx="6"/>
+  <path class="cv-line cv-bold" d="M400 160 A190 190 0 0 1 583.5 300.8"/>
+  <path class="cv-ac-line cv-bold" d="M583.5 300.8 A190 190 0 0 1 583.5 399.2"/>
+  <path class="cv-soft-line cv-dash" d="M583.5 399.2 A190 190 0 1 1 400 160"/>
+  <g transform="translate(400 350) scale(0.855)"><path class="cv-shape cv-bold" d="M0 -180 L156 -90 V90 L0 180 L-156 90 V-90 Z"/><path class="cv-soft" d="M0 -180 L156 -90 L0 0 L-156 -90 Z"/><path class="cv-line" d="M-156 -90 L0 0 L156 -90 M0 0 V180"/></g>
+  <path class="cv-line cv-bold" d="M30 350 q30 -76 60 0 t60 0 H164"/><path class="cv-line cv-bold" d="M158 314 L196 350 L158 386"/>
+  <path class="cv-ac" transform="translate(683 362) scale(0.7)" d="M130 40 L-20 -60 L-20 0 L-130 -40 L30 70 L30 10 Z"/>
+  <path class="cv-muted-line" d="M400 562 V618"/><path class="cv-muted-line" d="M386 606 L400 620 L414 606"/>
+  <g transform="translate(400 776) scale(0.72)"><path class="cv-soft-line cv-bold" d="M0 -180 L156 -90 V90 L0 180 L-156 90 V-90 Z"/></g>
+  <text class="cv-mono cv-ac" x="400" y="810" font-size="96" text-anchor="middle">137</text>
+</svg>

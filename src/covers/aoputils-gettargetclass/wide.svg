@@ -1,4 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- a casca do proxy se abre e revela a classe real -->
-  <circle class="cv-shape" cx="180" cy="200" r="46"/><text class="cv-mono cv-detail" x="180" y="209" font-size="26" text-anchor="middle" >bean</text><line class="cv-muted-line" x1="232" y1="200" x2="330" y2="200"/><path class="cv-muted-line" d="M316 188 L330 200 L316 212"/><g transform="translate(780 200) scale(0.78)"><path class="cv-line cv-dash" d="M-120 -150 a180 180 0 0 0 0 300"/><path class="cv-line cv-dash" d="M120 -150 a180 180 0 0 1 0 300"/><rect class="cv-shape cv-bold" x="-86" y="-60" width="172" height="120" rx="22"/><line class="cv-detail-line" x1="-48" y1="-20" x2="48" y2="-20"/><line class="cv-muted-line" x1="-48" y1="12" x2="16" y2="12"/><line class="cv-muted-line" x1="-48" y1="42" x2="36" y2="42"/><path class="cv-muted-line" d="M-196 0 h-60 M196 0 h60"/><path class="cv-muted-line" d="M-244 -14 l-14 14 l14 14 M244 -14 l14 14 l-14 14"/></g><rect class="cv-shape" x="1200" y="112" width="250" height="70" rx="24"/><line class="cv-muted-line cv-thin" x1="1240" y1="147" x2="1410" y2="147"/><rect class="cv-line cv-dash" x="1200" y="218" width="250" height="70" rx="24"/><line class="cv-muted-line cv-thin" x1="1240" y1="253" x2="1410" y2="253"/><path class="cv-detail-line cv-bold" d="M1487 148 l9 10 l17 -20"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-violet">
+  <!-- inspetor à esquerda; getClass() para na lâmina do proxy, getTargetClass() atravessa até a classe (@); à direita o mapa por classe encontra a linha -->
+  <circle class="cv-shape cv-bold" cx="190" cy="200" r="48"/><circle class="cv-line" cx="183" cy="193" r="15"/><path class="cv-line cv-bold" d="M195 205 L212 222"/>
+  <path class="cv-detail-line cv-dash" d="M236 176 C320 176 360 150 520 150"/><path class="cv-detail-line" d="M508 136 L522 150 L508 164"/>
+  <rect class="cv-ac-shape cv-dash cv-bold" x="540" y="76" width="100" height="248" rx="18"/><text class="cv-mono cv-ac" x="590" y="130" font-size="36" text-anchor="middle">$$</text>
+  <circle class="cv-cut" cx="590" cy="250" r="22"/><circle class="cv-ac-line cv-thin" cx="590" cy="250" r="22"/>
+  <path class="cv-line cv-bold" d="M236 224 C320 224 360 250 520 250 H698"/><path class="cv-line cv-bold" d="M684 236 L698 250 L684 264"/>
+  <rect class="cv-shape cv-bold" x="720" y="90" width="320" height="220" rx="22"/><line class="cv-line" x1="720" y1="136" x2="1040" y2="136"/><rect class="cv-detail" x="748" y="107" width="100" height="12" rx="6"/>
+  <text class="cv-mono cv-detail" x="880" y="275" font-size="130" text-anchor="middle">@</text>
+  <path class="cv-muted-line" d="M1060 200 H1120"/><path class="cv-muted-line" d="M1106 188 L1120 200 L1106 212"/>
+  <rect class="cv-shape" x="1140" y="110" width="310" height="180" rx="16"/><line class="cv-line" x1="1140" y1="146" x2="1450" y2="146"/><line class="cv-muted-line" x1="1230" y1="110" x2="1230" y2="290"/><circle class="cv-muted" cx="1185" cy="128" r="6"/><line class="cv-detail-line" x1="1250" y1="128" x2="1360" y2="128"/>
+  <line class="cv-muted-line" x1="1165" y1="176" x2="1205" y2="176"/><line class="cv-muted-line" x1="1250" y1="176" x2="1380" y2="176"/>
+  <rect class="cv-solid" x="1152" y="200" width="286" height="36" rx="9" fill-opacity="0.9"/><rect class="cv-cut" x="1165" y="214" width="40" height="8" rx="4"/><rect class="cv-cut" x="1250" y="214" width="120" height="8" rx="4"/>
+  <line class="cv-muted-line" x1="1165" y1="262" x2="1205" y2="262"/><line class="cv-muted-line" x1="1250" y1="262" x2="1350" y2="262"/>
 </svg>

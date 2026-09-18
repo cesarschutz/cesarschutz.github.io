@@ -1,4 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- relógio e trava -->
-  <g transform="translate(390 380) scale(1.9)"><circle class="cv-shape cv-bold" cx="0" cy="0" r="150"/><path class="cv-detail-line cv-bold" d="M0 -14 v-86 M0 0 l74 42"/><path class="cv-muted-line" d="M0 -126 v22 M126 0 h-22 M0 126 v-22 M-126 0 h22"/><g transform="translate(150 96)"><path class="cv-line cv-bold" d="M-40 -18 V-42 a40 40 0 0 1 80 0 v24"/><rect class="cv-shape cv-bold" x="-62" y="-18" width="124" height="104" rx="22"/><circle class="cv-detail" cx="0" cy="26" r="13"/><rect class="cv-detail" x="-6" y="30" width="12" height="30" rx="6"/></g></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-amber">
+  <g transform="translate(0 7.1)">
+  <!-- versao simples: o horario pulado no trilho do schedule e a execucao que estoura o prazo, cortada pela lamina do activeDeadlineSeconds -->
+  <path class="cv-detail-line" d="M90 120 H710"/>
+  <path class="cv-muted-line cv-thin" d="M170 84 V156 M400 84 V156 M630 84 V156"/>
+  <circle class="cv-solid" cx="170" cy="120" r="16"/>
+  <circle class="cv-solid" cx="630" cy="120" r="16"/>
+  <circle class="cv-ac-shape cv-bold" cx="400" cy="120" r="56"/>
+  <path class="cv-ac-line cv-bold" d="M360 80 L440 160"/>
+  <path class="cv-muted-line cv-thin cv-dash" d="M170 176 V420"/>
+  <path class="cv-ac-soft-line cv-dash" d="M572 320 H610 a100 100 0 0 1 0 200 H572"/>
+  <path class="cv-ac-shape cv-bold" d="M540 320 H270 a100 100 0 0 0 0 200 H540 Z"/>
+  <path class="cv-ac-line cv-thin" d="M366 372 L402 420 L366 468 M418 372 L454 420 L418 468"/>
+  <rect class="cv-solid" x="540" y="240" width="32" height="440" rx="16"/>
+  <path class="cv-muted-line cv-thin" d="M170 590 V640 M170 615 H540"/>
+  <text class="cv-mono cv-muted" x="355" y="722" font-size="56" text-anchor="middle">300s</text>
+</g>
 </svg>

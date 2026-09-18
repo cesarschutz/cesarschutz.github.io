@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-green">
+  <g transform="translate(-7.5 7.4)">
+  <!-- retrato: em cima o carimbo do emissor, no meio a credencial lacrada, embaixo o leitor que confere -->
+  <g transform="translate(178 160)"><line class="cv-muted-line" x1="-78" y1="0" x2="78" y2="0"/><rect class="cv-ac-shape cv-bold" x="-36" y="-126" width="72" height="42" rx="21"/><rect class="cv-ac" x="-15" y="-92" width="30" height="46" rx="6"/><rect class="cv-ac-shape cv-bold" x="-60" y="-50" width="120" height="34" rx="10"/><rect class="cv-ac" x="-44" y="-12" width="88" height="10" rx="5"/></g>
+  <path class="cv-muted-line" d="M178 166 C178 212 208 238 256 250"/><path class="cv-muted-line" d="M244 240 L256 250 L240 253"/>
+  <g transform="translate(390 452)">
+    <rect class="cv-shape cv-bold" x="-150" y="-180" width="300" height="380" rx="28"/>
+    <circle class="cv-line" cx="0" cy="-192" r="36"/>
+    <rect class="cv-muted" x="-44" y="-160" width="88" height="16" rx="8"/>
+    <circle class="cv-detail" cx="-78" cy="-88" r="32"/><path class="cv-detail" d="M-128 -22 a50 50 0 0 1 100 0 Z"/>
+    <text class="cv-mono cv-detail" x="-6" y="-68" font-size="52">sub</text>
+    <line class="cv-muted-line" x1="-118" y1="26" x2="118" y2="26"/>
+    <circle class="cv-line" cx="-70" cy="106" r="46"/><path class="cv-detail-line" d="M-70 74 V106 H-38"/>
+    <text class="cv-mono cv-detail" x="-6" y="124" font-size="52">exp</text>
+    <g transform="translate(150 180)"><path class="cv-ac-shape cv-bold" d="M0 -62A19 19 0 0 1 33.5 -52.2A19 19 0 0 1 56.4 -25.8A19 19 0 0 1 61.4 8.8A19 19 0 0 1 46.9 40.6A19 19 0 0 1 17.5 59.5A19 19 0 0 1 -17.5 59.5A19 19 0 0 1 -46.9 40.6A19 19 0 0 1 -61.4 8.8A19 19 0 0 1 -56.4 -25.8A19 19 0 0 1 -33.5 -52.2A19 19 0 0 1 0 -62Z"/><circle class="cv-ac-soft-line" cx="0" cy="0" r="44"/><path class="cv-ac-line cv-bold" d="M-38 8 C-30 -24 -16 -24 -10 4 S6 34 14 4 S28 -22 40 -8"/></g>
+  </g>
+  <path class="cv-muted-line" d="M552 700 C588 726 600 734 620 742"/><path class="cv-muted-line" d="M609 730 L620 742 L604 743"/>
+  <g transform="translate(645 852) scale(1.05)"><rect class="cv-shape cv-bold" x="-66" y="-96" width="132" height="192" rx="18"/><rect class="cv-muted" x="-44" y="-70" width="88" height="14" rx="7"/><circle class="cv-line cv-bold" cx="0" cy="34" r="44"/><path class="cv-line cv-bold" d="M-19 34 L-5 49 L20 19"/></g>
+  </g>
+</svg>

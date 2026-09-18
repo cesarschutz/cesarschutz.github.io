@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-green">
+  <!-- em pé: carteira (o movimento) em cima, balança D = C no meio, extrato conciliado embaixo -->
+  <g transform="translate(390 118) scale(1.3)">
+    <rect class="cv-shape cv-bold" x="-85" y="-60" width="170" height="120" rx="16"/>
+    <rect class="cv-shape cv-bold" x="20" y="-22" width="80" height="44" rx="10"/>
+    <circle class="cv-detail" cx="62" cy="0" r="9"/>
+  </g>
+  <path class="cv-muted-line" d="M400 212 V272"/>
+  <path class="cv-muted-line" d="M388 260 L400 274 L412 260"/>
+  <g transform="translate(400 355) scale(0.95)">
+    <rect class="cv-shape" x="-14" y="0" width="28" height="240" rx="14"/>
+    <rect class="cv-ac-shape cv-bold" x="-260" y="236" width="520" height="70" rx="22"/>
+    <path class="cv-ac-line cv-bold" d="M-38 270 l22 22 l52 -50"/>
+    <path class="cv-line" d="M-260 0 L-350 140 M-260 0 L-170 140 M260 0 L170 140 M260 0 L350 140"/>
+    <path class="cv-shape cv-bold" d="M-360 140 Q-260 220 -160 140 Z"/>
+    <path class="cv-shape cv-bold" d="M160 140 Q260 220 360 140 Z"/>
+    <rect class="cv-shape cv-bold" x="-310" y="50" width="100" height="90" rx="16"/>
+    <rect class="cv-shape cv-bold" x="210" y="50" width="100" height="90" rx="16"/>
+    <text class="cv-mono cv-detail" x="-260" y="118" font-size="64" text-anchor="middle">D</text>
+    <text class="cv-mono cv-detail" x="260" y="118" font-size="64" text-anchor="middle">C</text>
+    <rect class="cv-shape cv-bold" x="-260" y="-10" width="520" height="20" rx="10"/>
+    <polygon class="cv-solid" points="0,-56 -14,-20 14,-20"/>
+    <circle class="cv-detail" cx="0" cy="0" r="12"/>
+  </g>
+  <path class="cv-muted-line cv-dash" d="M400 662 V708"/>
+  <path class="cv-muted-line" d="M388 696 L400 710 L412 696"/>
+  <path class="cv-shape cv-bold" d="M300 740 H440 L500 800 V920 H300 Z"/>
+  <path class="cv-line" d="M440 740 V800 H500"/>
+  <path class="cv-muted-line" d="M330 840 H470 M330 876 H430"/>
+  <circle class="cv-ac-shape cv-bold" cx="400" cy="920" r="40"/>
+  <path class="cv-ac-line cv-bold" d="M381 920 l13 13 l27 -29"/>
+</svg>

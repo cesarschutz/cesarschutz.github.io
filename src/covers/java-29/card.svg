@@ -1,4 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <g transform="translate(-17.5 0)">
+  <g transform="translate(150 110)">
+    <path class="cv-warm-soft-line" d="M0 -30 L26.1 -15 L0 0 L-26.1 -15 Z"/>
+    <path class="cv-warm-soft-line" d="M-26.1 -15 V15 L0 30 V0 Z"/>
+    <path class="cv-warm-soft-line" d="M26.1 -15 V15 L0 30 V0 Z"/>
+  </g>
+  <g transform="translate(1080 490)">
+    <path class="cv-soft-line" d="M0 -34 L29.58 -17 L0 0 L-29.58 -17 Z"/>
+    <path class="cv-soft-line" d="M-29.58 -17 V17 L0 34 V0 Z"/>
+    <path class="cv-soft-line" d="M29.58 -17 V17 L0 34 V0 Z"/>
+  </g>
+  <g transform="translate(1010 96)">
+    <path class="cv-soft-line" d="M0 -22 L19.14 -11 L0 0 L-19.14 -11 Z"/>
+    <path class="cv-soft-line" d="M-19.14 -11 V11 L0 22 V0 Z"/>
+    <path class="cv-soft-line" d="M19.14 -11 V11 L0 22 V0 Z"/>
+  </g>
   <g transform="translate(235 262) scale(0.9)">
     <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
     <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
@@ -10,7 +26,8 @@
   <g transform="translate(830 104) scale(1.14)">
     <text class="cv-text cv-white" x="0" y="44" font-size="56" text-anchor="middle" letter-spacing="16">JAVA</text>
     <text class="cv-text cv-solid" x="0" y="228" font-size="220" font-weight="800" text-anchor="middle" letter-spacing="-4">29</text>
-    <rect class="cv-line cv-dash" x="-125" y="250" width="250" height="54" rx="27"/>
-    <text class="cv-text cv-detail" x="0" y="286" font-size="28" text-anchor="middle" letter-spacing="2">PRÓXIMA LTS</text>
+    <rect class="cv-line cv-dash" x="-145" y="248" width="290" height="60" rx="30"/>
+    <text class="cv-text cv-detail" x="0" y="290" font-size="34" text-anchor="middle" letter-spacing="2">PRÓXIMA LTS</text>
   </g>
+</g>
 </svg>

@@ -1,11 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-  <!-- a xícara e a linha do tempo das LTS -->
-  <g transform="translate(480 180) scale(0.72)">
-  <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
-  <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
-  <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
-  <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
-  <path class="cv-muted-line" d="M-25 222 h290"/>
-  <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
-  </g><line class="cv-muted-line" x1="200" y1="470" x2="1000" y2="470"/><circle class="cv-shape cv-bold" cx="200" cy="470" r="52"/><text class="cv-mono cv-detail" x="200" y="484" font-size="38" text-anchor="middle" >8</text><circle class="cv-shape cv-bold" cx="360" cy="470" r="52"/><text class="cv-mono cv-detail" x="360" y="484" font-size="38" text-anchor="middle" >11</text><circle class="cv-shape cv-bold" cx="520" cy="470" r="52"/><text class="cv-mono cv-detail" x="520" y="484" font-size="38" text-anchor="middle" >17</text><circle class="cv-shape cv-bold" cx="680" cy="470" r="52"/><text class="cv-mono cv-detail" x="680" y="484" font-size="38" text-anchor="middle" >21</text><circle class="cv-solid" cx="840" cy="470" r="58"/><text class="cv-mono cv-cut" x="840" y="484" font-size="38" text-anchor="middle" >25</text><circle class="cv-line cv-dash" cx="1000" cy="470" r="52"/><text class="cv-mono cv-muted" x="1000" y="484" font-size="38" text-anchor="middle" >29</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" class="ac-amber">
+  <!-- a escada das LTS: cada degrau uma versão do caminho; o 17 (âmbar) é de onde se salta, e o Java roda no topo, no 25 -->
+  <g transform="translate(150 140)">
+    <path class="cv-soft-line" d="M0 -26 L22.62 -13 L0 0 L-22.62 -13 Z"/>
+    <path class="cv-soft-line" d="M-22.62 -13 V13 L0 26 V0 Z"/>
+    <path class="cv-soft-line" d="M22.62 -13 V13 L0 26 V0 Z"/>
+  </g>
+  <g transform="translate(300 245)">
+    <path class="cv-soft-line" d="M0 -18 L15.66 -9 L0 0 L-15.66 -9 Z"/>
+    <path class="cv-soft-line" d="M-15.66 -9 V9 L0 18 V0 Z"/>
+    <path class="cv-soft-line" d="M15.66 -9 V9 L0 18 V0 Z"/>
+  </g>
+  <path class="cv-shape cv-bold" d="M70 567 V507 H290 V567 Z"/>
+  <rect class="cv-ac-shape cv-bold" x="290" y="447" width="220" height="120"/>
+  <path class="cv-shape cv-bold" d="M510 567 V387 H730 V327 H1130 V567 Z"/>
+  <line class="cv-muted-line cv-thin" x1="730" y1="327" x2="730" y2="567"/>
+  <text class="cv-text cv-muted" x="180" y="554" font-size="46" text-anchor="middle">11</text>
+  <text class="cv-text cv-ac" x="400" y="494" font-size="46" text-anchor="middle">17</text>
+  <text class="cv-text cv-detail" x="620" y="434" font-size="46" text-anchor="middle">21</text>
+  <text class="cv-text cv-solid" x="930" y="374" font-size="46" text-anchor="middle">25</text>
+  <g transform="translate(817.8 158.7) scale(0.935)">
+    <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
+    <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
+    <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
+    <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
+    <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
+  </g>
 </svg>

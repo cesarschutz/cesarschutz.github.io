@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-amber">
+  <g transform="translate(3.6 0)">
+  <g transform="translate(-1.4 5)">
+  <!-- retrato: em cima o CronJob e o schedule */10; no meio a execucao que estoura o prazo e a lamina que corta; embaixo o horario pulado desvia para o ciclo seguinte, que roda inteiro -->
+  <circle class="cv-shape cv-bold" cx="140" cy="110" r="60"/>
+  <text class="cv-mono cv-detail" x="140" y="124" font-size="40" text-anchor="middle">*/10</text>
+  <path class="cv-detail-line" d="M140 170 V920"/>
+  <path class="cv-muted-line cv-thin" d="M106 230 H174 M106 545 H174 M106 865 H174"/>
+  <circle class="cv-solid" cx="140" cy="230" r="14"/>
+  <circle class="cv-solid" cx="140" cy="865" r="14"/>
+  <path class="cv-ac-line cv-thin cv-dash" d="M116 592 Q20 720 124 848"/>
+  <path class="cv-ac-line cv-thin" d="M100 838 L124 848 L116 824"/>
+  <circle class="cv-ac-shape cv-bold" cx="140" cy="545" r="50"/>
+  <path class="cv-ac-line cv-bold" d="M105 510 L175 580"/>
+  <path class="cv-muted-line cv-thin cv-dash" d="M174 230 H410"/>
+  <path class="cv-ac-shape cv-bold" d="M300 640 V340 a110 110 0 0 1 220 0 V640 Z"/>
+  <path class="cv-ac-line cv-thin" d="M356 450 L410 496 L464 450 M356 508 L410 554 L464 508"/>
+  <rect class="cv-solid" x="250" y="629" width="430" height="22" rx="11"/>
+  <path class="cv-muted-line cv-thin" d="M556 230 H604 M580 230 V629"/>
+  <text class="cv-mono cv-muted" x="610" y="440" font-size="54">300s</text>
+  <path class="cv-muted-line cv-thin cv-dash" d="M174 865 H300"/>
+  <rect class="cv-shape cv-bold" x="300" y="790" width="300" height="150" rx="75"/>
+  <path class="cv-detail-line cv-bold" d="M390 868 L428 904 L510 816"/>
+</g>
+</g>
+</svg>

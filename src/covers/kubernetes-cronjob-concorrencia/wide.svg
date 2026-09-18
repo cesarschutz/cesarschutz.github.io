@@ -1,4 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- execuções agendadas; a política de concorrência barra a segunda execução -->
-  <rect class="cv-shape" x="120" y="176" width="120" height="48" rx="17"/><line class="cv-muted-line cv-thin" x1="139" y1="200" x2="221" y2="200"/><rect class="cv-shape" x="270" y="176" width="120" height="48" rx="17"/><line class="cv-muted-line cv-thin" x1="289" y1="200" x2="371" y2="200"/><rect class="cv-shape" x="420" y="176" width="120" height="48" rx="17"/><line class="cv-muted-line cv-thin" x1="439" y1="200" x2="521" y2="200"/><line class="cv-muted-line" x1="590" y1="200" x2="660" y2="200"/><path class="cv-muted-line" d="M647 189 L660 200 L647 211"/><g transform="translate(800 190) scale(0.72)"><circle class="cv-shape cv-bold" cx="0" cy="0" r="150"/><path class="cv-detail-line cv-bold" d="M0 -14 v-86 M0 0 l74 42"/><path class="cv-muted-line" d="M0 -126 v22 M126 0 h-22 M0 126 v-22 M-126 0 h22"/><g transform="translate(150 96)"><path class="cv-line cv-bold" d="M-40 -18 V-42 a40 40 0 0 1 80 0 v24"/><rect class="cv-shape cv-bold" x="-62" y="-18" width="124" height="104" rx="22"/><circle class="cv-detail" cx="0" cy="26" r="13"/><rect class="cv-detail" x="-6" y="30" width="12" height="30" rx="6"/></g></g><line class="cv-muted-line" x1="1000" y1="200" x2="1090" y2="200"/><path class="cv-muted-line" d="M1076 188 L1090 200 L1076 212"/><rect class="cv-shape cv-bold" x="1120" y="128" width="160" height="144" rx="24"/><circle class="cv-detail" cx="1200" cy="200" r="24"/><rect class="cv-line cv-dash" x="1320" y="128" width="160" height="144" rx="24"/><circle class="cv-shape" cx="1400" cy="200" r="24"/><path class="cv-muted-line cv-bold" d="M1391 191 l18 18 M1409 191 l-18 18"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-amber">
+  <g transform="translate(-1.4 0)">
+  <g transform="translate(1.4 0)">
+  <g transform="translate(-1.4 0)">
+  <!-- esquerda: o CronJob e o schedule */10; centro: a execucao que estoura o prazo, a lamina que corta e o fantasma do que ela ainda rodaria; direita: o ciclo seguinte roda inteiro -->
+  <circle class="cv-shape cv-bold" cx="120" cy="200" r="58"/>
+  <text class="cv-mono cv-detail" x="120" y="212" font-size="32" text-anchor="middle">*/10</text>
+  <path class="cv-muted-line" d="M178 200 H220 V80 H280"/>
+  <path class="cv-detail-line" d="M280 80 H1540"/>
+  <path class="cv-muted-line cv-thin" d="M340 54 V106 M780 54 V106 M1220 54 V106"/>
+  <circle class="cv-solid" cx="340" cy="80" r="11"/>
+  <circle class="cv-solid" cx="1220" cy="80" r="11"/>
+  <path class="cv-ac-line cv-thin cv-dash" d="M818 60 Q1000 -16 1204 56"/>
+  <path class="cv-ac-line cv-thin" d="M1180 60 L1204 56 L1188 36"/>
+  <circle class="cv-ac-shape cv-bold" cx="780" cy="80" r="36"/>
+  <path class="cv-ac-line cv-bold" d="M755 55 L805 105"/>
+  <path class="cv-muted-line cv-thin cv-dash" d="M340 106 V250"/>
+  <path class="cv-ac-soft-line cv-dash" d="M912 190 H1020 a60 60 0 0 1 0 120 H912"/>
+  <path class="cv-ac-shape cv-bold" d="M890 190 H400 a60 60 0 0 0 0 120 H890 Z"/>
+  <path class="cv-ac-line cv-thin" d="M700 222 L724 250 L700 278 M740 222 L764 250 L740 278"/>
+  <rect class="cv-solid" x="890" y="140" width="22" height="220" rx="11"/>
+  <path class="cv-muted-line cv-thin" d="M340 316 V344 M340 330 H890"/>
+  <text class="cv-mono cv-muted" x="615" y="382" font-size="34" text-anchor="middle">300s</text>
+  <path class="cv-muted-line cv-thin cv-dash" d="M1220 106 V285"/>
+  <rect class="cv-shape cv-bold" x="1220" y="230" width="240" height="110" rx="55"/>
+  <path class="cv-detail-line cv-bold" d="M1268 288 L1298 314 L1360 246"/>
+</g>
+</g>
+</g>
 </svg>

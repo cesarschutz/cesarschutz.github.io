@@ -1,23 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-  <!-- razão em T: débito | crédito, totais iguais -->
-  <g transform="translate(600 300) scale(1.15) translate(-600 -300)">
-  <rect class="cv-shape cv-bold" x="390" y="110" width="420" height="380" rx="25"/>
-  <line class="cv-line" x1="390" y1="186" x2="810" y2="186"/>
-  <line class="cv-line" x1="600" y1="110" x2="600" y2="490"/>
-  <text class="cv-text cv-white" x="495" y="162" font-size="36" text-anchor="middle">D</text>
-  <text class="cv-text cv-white" x="705" y="162" font-size="36" text-anchor="middle">C</text>
-  <line class="cv-detail-line" x1="428" y1="247" x2="554" y2="247"/>
-  <line class="cv-detail-line" x1="638" y1="247" x2="747" y2="247"/>
-  <line class="cv-detail-line" x1="428" y1="300" x2="520" y2="300"/>
-  <line class="cv-detail-line" x1="638" y1="300" x2="768" y2="300"/>
-  <line class="cv-detail-line" x1="428" y1="353" x2="541" y2="353"/>
-  <line class="cv-detail-line" x1="638" y1="353" x2="722" y2="353"/>
-  <line class="cv-muted-line cv-thin" x1="428" y1="395" x2="562" y2="395"/>
-  <line class="cv-muted-line cv-thin" x1="638" y1="395" x2="772" y2="395"/>
-  <line class="cv-line cv-bold" x1="428" y1="429" x2="537" y2="429"/>
-  <line class="cv-line cv-bold" x1="663" y1="429" x2="772" y2="429"/>
-  <circle class="cv-solid" cx="600" cy="429" r="29"/>
-  <rect class="cv-cut" x="585" y="419" width="29" height="5" rx="3"/>
-  <rect class="cv-cut" x="585" y="434" width="29" height="5" rx="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" class="ac-green">
+  <!-- balança de partidas dobradas: D e C pesam igual; a base é o saldo materializado, conferido (verde) -->
+  <g transform="translate(600 119) scale(1.45)">
+    <rect class="cv-shape" x="-14" y="0" width="28" height="240" rx="14"/>
+    <rect class="cv-ac-shape cv-bold" x="-260" y="236" width="520" height="70" rx="22"/>
+    <path class="cv-ac-line cv-bold" d="M-38 270 l22 22 l52 -50"/>
+    <path class="cv-line" d="M-260 0 L-350 140 M-260 0 L-170 140 M260 0 L170 140 M260 0 L350 140"/>
+    <path class="cv-shape cv-bold" d="M-360 140 Q-260 220 -160 140 Z"/>
+    <path class="cv-shape cv-bold" d="M160 140 Q260 220 360 140 Z"/>
+    <rect class="cv-shape cv-bold" x="-310" y="50" width="100" height="90" rx="16"/>
+    <rect class="cv-shape cv-bold" x="210" y="50" width="100" height="90" rx="16"/>
+    <text class="cv-mono cv-detail" x="-260" y="118" font-size="64" text-anchor="middle">D</text>
+    <text class="cv-mono cv-detail" x="260" y="118" font-size="64" text-anchor="middle">C</text>
+    <rect class="cv-shape cv-bold" x="-260" y="-10" width="520" height="20" rx="10"/>
+    <polygon class="cv-solid" points="0,-56 -14,-20 14,-20"/>
+    <circle class="cv-detail" cx="0" cy="0" r="12"/>
   </g>
 </svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-coral">
+  <!-- retrato: as etiquetas que não encaixam param na chapa; a redonda desce pelo furo -->
+  <path class="cv-shape cv-bold" fill-rule="evenodd" d="M96 385 H704 L730 411 V529 L704 555 H96 L70 529 V411 Z M344 470 A56 56 0 0 0 456 470 A56 56 0 0 0 344 470 Z"/>
+  <g transform="translate(200 170)"><rect class="cv-ac-shape cv-bold" x="-124" y="-65" width="248" height="130" rx="16"/><path class="cv-ac-line" d="M-124 -52 L0 34 L124 -52"/><path class="cv-ac-line cv-thin" d="M0 65 V105"/><path class="cv-ac" d="M0 105 L53 205 L-53 205 Z"/></g>
+  <g transform="translate(600 170)"><rect class="cv-ac-shape cv-bold" x="-124" y="-65" width="248" height="130" rx="16"/><path class="cv-ac-line" d="M-124 -52 L0 34 L124 -52"/><path class="cv-ac-line cv-thin" d="M0 65 V105"/><rect class="cv-ac" x="-50" y="105" width="100" height="100" rx="12"/></g>
+  <path class="cv-detail-line cv-thin cv-dash" d="M400 573 V605"/>
+  <path class="cv-detail-line cv-thin" d="M386 609 L400 625 L414 609"/>
+  <g transform="translate(400 827)"><rect class="cv-shape cv-bold" x="-124" y="-65" width="248" height="130" rx="16"/><path class="cv-line" d="M-124 -52 L0 34 L124 -52"/><path class="cv-line cv-thin" d="M0 -65 V-95"/><circle class="cv-solid" cx="0" cy="-149" r="54"/></g>
+</svg>

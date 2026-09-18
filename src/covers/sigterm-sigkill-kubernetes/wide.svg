@@ -1,4 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- o pod recebe SIGTERM, tem o período de graça e então é morto com SIGKILL -->
-  <rect class="cv-shape cv-bold" x="120" y="128" width="220" height="144" rx="26"/><circle class="cv-detail" cx="230" cy="200" r="26"/><line class="cv-muted-line" x1="360" y1="200" x2="470" y2="200"/><path class="cv-muted-line" d="M456 188 L470 200 L456 212"/><g transform="translate(800 200) scale(0.86)"><circle class="cv-shape cv-bold" cx="-190" cy="0" r="92"/><text class="cv-mono cv-detail" x="-190" y="27" font-size="76" text-anchor="middle" >15</text><circle class="cv-solid" cx="190" cy="0" r="92"/><text class="cv-mono cv-cut" x="190" y="27" font-size="76" text-anchor="middle" >9</text><line class="cv-muted-line cv-dash" x1="-72" y1="0" x2="74" y2="0"/><path class="cv-muted-line" d="M59 -13 L74 0 L59 13"/><text class="cv-mono cv-muted" x="0" y="-54" font-size="40" text-anchor="middle" >30s</text></g><line class="cv-muted-line" x1="1130" y1="200" x2="1240" y2="200"/><path class="cv-muted-line" d="M1226 188 L1240 200 L1226 212"/><rect class="cv-line cv-dash" x="1270" y="128" width="220" height="144" rx="26"/><circle class="cv-shape" cx="1380" cy="200" r="26"/><path class="cv-muted-line cv-bold" d="M1370 190 l20 20 M1390 190 l-20 20"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-coral">
+  <g transform="translate(0 10)">
+  <!-- antes: o tráfego para no endpoint removido; meio: o pod cercado pelo aro do grace period, recebendo o SIGTERM; depois: o raio SIGKILL no setor do prazo e o pod que se foi -->
+  <g transform="translate(130 215)"><circle class="cv-shape" r="40"/><ellipse class="cv-detail-line cv-thin" rx="16" ry="40"/><path class="cv-detail-line cv-thin" d="M-40 0 H40"/></g>
+  <path class="cv-muted-line" d="M170 195 C260 195 310 180 400 180"/><path class="cv-muted-line" d="M170 215 H400"/><path class="cv-muted-line cv-dash" d="M170 235 C260 235 310 250 400 250"/><path class="cv-muted-line cv-bold" d="M400 165 V265"/>
+  <path class="cv-line cv-bold" d="M440 215 q28 -64 56 0 t56 0 t56 0 H626"/><path class="cv-line cv-bold" d="M620 187 L658 215 L620 243"/>
+  <text class="cv-mono cv-detail" x="540" y="330" font-size="28" text-anchor="middle">SIGTERM</text>
+  <rect class="cv-shape" x="782" y="45" width="36" height="36" rx="6"/><rect class="cv-solid" x="790" y="25" width="20" height="20" rx="5"/>
+  <path class="cv-soft-line cv-dash" d="M935.2 251.2 A140 140 0 1 1 800 75"/>
+  <path class="cv-line cv-bold" d="M800 75 A140 140 0 0 1 935.2 178.8"/>
+  <path class="cv-ac-line cv-bold" d="M935.2 178.8 A140 140 0 0 1 935.2 251.2"/>
+  <g transform="translate(800 215) scale(0.58)"><path class="cv-shape cv-bold" d="M0 -180 L156 -90 V90 L0 180 L-156 90 V-90 Z"/><path class="cv-soft" d="M0 -180 L156 -90 L0 0 L-156 -90 Z"/><path class="cv-line" d="M-156 -90 L0 0 L156 -90 M0 0 V180"/></g>
+  <path class="cv-ac" transform="translate(1016 215) scale(0.7)" d="M130 40 L-20 -60 L-20 0 L-130 -40 L30 70 L30 10 Z"/>
+  <text class="cv-mono cv-ac" x="1010" y="330" font-size="28" text-anchor="middle">SIGKILL</text>
+  <path class="cv-muted-line" d="M1160 215 H1290"/><path class="cv-muted-line" d="M1276 203 L1290 215 L1276 227"/>
+  <g transform="translate(1430 215) scale(0.5)"><path class="cv-soft-line cv-bold" d="M0 -180 L156 -90 V90 L0 180 L-156 90 V-90 Z"/><path class="cv-soft-line" d="M-156 -90 L0 0 L156 -90 M0 0 V180"/></g>
+  </g>
 </svg>

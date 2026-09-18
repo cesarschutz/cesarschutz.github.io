@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-amber">
+  <!-- retrato: em cima as dependencias declaradas; no meio a biblioteca com uma unica abertura; embaixo o consumidor recebe so a exposta -->
+  <g transform="translate(200 100) scale(1.2)"><path class="cv-muted-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-muted-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-muted-line" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <g transform="translate(400 100) scale(1.2)"><path class="cv-muted-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-muted-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-muted-line" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <g transform="translate(600 100) scale(1.2)"><path class="cv-muted-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-muted-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-muted-line" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <path class="cv-muted-line cv-thin cv-dash" d="M200 138 V196 M400 138 V196 M600 138 V196"/>
+  <path class="cv-shape cv-bold" d="M342 640 H118 a28 28 0 0 1 -28 -28 V228 a28 28 0 0 1 28 -28 H682 a28 28 0 0 1 28 28 V612 a28 28 0 0 1 -28 28 H458"/>
+  <path class="cv-muted-line cv-thin" d="M262 304 L473 346 M480 381 L310 489 M305 548 L365 607 M520 557 L440 613"/>
+  <g transform="translate(215 295) scale(1.5)"><path class="cv-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-line" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <g transform="translate(520 355) scale(1.5)"><path class="cv-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-line" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <g transform="translate(270 515) scale(1.5)"><path class="cv-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-line" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <g transform="translate(560 530) scale(1.5)"><path class="cv-line" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-line" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-line" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <g transform="translate(400 640) scale(1.4)"><path class="cv-ac-shape" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-ac-shape" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-ac-shape" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <path class="cv-ac-line" d="M400 686 V744"/>
+  <path class="cv-ac-line" d="M388 728 L400 746 L412 728"/>
+  <text class="cv-mono cv-ac" x="500" y="730" font-size="44" text-anchor="middle">api</text>
+  <rect class="cv-shape" x="190" y="760" width="420" height="170" rx="24"/>
+  <g transform="translate(400 832) scale(1.25)"><path class="cv-ac-shape" d="M0 -28 L24 -14 L0 0 L-24 -14 Z"/><path class="cv-ac-shape" d="M-24 -14 V14 L0 28 V0 Z"/><path class="cv-ac-shape" d="M24 -14 V14 L0 28 V0 Z"/></g>
+  <path class="cv-muted-line" d="M230 890 H570 M230 912 H460"/>
+</svg>

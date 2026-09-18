@@ -1,4 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- virtual threads presas ao carrier -->
-  <g transform="translate(400 400) scale(1.5)"><rect class="cv-shape cv-bold" x="-60" y="-146" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 -154 C-190 -154 -170 -120 -66 -120"/><path class="cv-detail-line cv-thin" d="M-300 -86 C-190 -86 -170 -120 -66 -120"/><rect class="cv-shape cv-bold" x="-60" y="34" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 26 C-190 26 -170 60 -66 60"/><path class="cv-detail-line cv-thin" d="M-300 94 C-190 94 -170 60 -66 60"/><path class="cv-muted-line cv-bold" d="M240 -216 L154 -130"/><circle class="cv-solid" cx="252" cy="-228" r="30"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-coral">
+  <!-- versao simples: a fila de virtual threads, as 4 carriers travadas no lock do synchronized e os sockets que ninguem fechou -->
+  <rect class="cv-muted-line" x="80" y="200" width="110" height="40" rx="20"/>
+  <rect class="cv-muted-line" x="80" y="290" width="110" height="40" rx="20"/>
+  <rect class="cv-muted-line" x="80" y="380" width="110" height="40" rx="20"/>
+  <rect class="cv-muted-line" x="80" y="470" width="110" height="40" rx="20"/>
+  <rect class="cv-muted-line" x="80" y="560" width="110" height="40" rx="20"/>
+  <path class="cv-muted-line cv-thin" d="M215 220 V580 M190 220 H215 M190 310 H215 M190 400 H215 M190 490 H215 M190 580 H215 M215 250 H240 M215 350 H240 M215 450 H240 M215 550 H240"/>
+    <circle class="cv-solid" cx="240" cy="250" r="10"/><circle class="cv-solid" cx="240" cy="350" r="10"/><circle class="cv-solid" cx="240" cy="450" r="10"/><circle class="cv-solid" cx="240" cy="550" r="10"/>
+  <path class="cv-detail-line" d="M240 250 H410 M240 350 H410 M240 450 H410 M240 550 H410"/>
+  <path class="cv-ac-shape cv-bold" d="M545 224 H436 a26 26 0 0 0 0 52 H545 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M545 324 H436 a26 26 0 0 0 0 52 H545 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M545 424 H436 a26 26 0 0 0 0 52 H545 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M545 524 H436 a26 26 0 0 0 0 52 H545 Z"/>
+  <rect class="cv-solid" x="545" y="80" width="60" height="640" rx="14"/>
+  <circle class="cv-cut" cx="575" cy="390" r="15"/>
+  <path class="cv-cut" d="M566 400 H584 L589 428 H561 Z"/>
+  <path class="cv-muted-line cv-thin cv-dash" d="M605 250 H656 M605 350 H656 M605 450 H656 M605 550 H656"/>
+  <g transform="translate(690 245)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
+  <g transform="translate(690 345)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
+  <g transform="translate(690 445)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
+  <g transform="translate(690 545)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
 </svg>

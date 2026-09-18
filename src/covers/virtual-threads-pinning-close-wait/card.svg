@@ -1,4 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-  <!-- virtual threads, carrier threads e o pino -->
-  <g transform="translate(600 300) scale(1.15)"><rect class="cv-shape cv-bold" x="-60" y="-146" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 -154 C-190 -154 -170 -120 -66 -120"/><path class="cv-detail-line cv-thin" d="M-300 -86 C-190 -86 -170 -120 -66 -120"/><rect class="cv-shape cv-bold" x="-60" y="-26" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 -34 C-190 -34 -170 0 -66 0"/><path class="cv-detail-line cv-thin" d="M-300 34 C-190 34 -170 0 -66 0"/><rect class="cv-shape cv-bold" x="-60" y="94" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 86 C-190 86 -170 120 -66 120"/><path class="cv-detail-line cv-thin" d="M-300 154 C-190 154 -170 120 -66 120"/><path class="cv-muted-line cv-bold" d="M300 -96 L214 -10"/><circle class="cv-solid" cx="312" cy="-108" r="30"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" class="ac-coral">
+  <!-- as virtual threads sem carrier esperam no barramento; as 4 carriers rodam ate travarem no synchronized (coral); o resto da requisicao nunca roda (tracejado), entao ninguem fecha o socket e ele fica em CLOSE_WAIT -->
+  <rect class="cv-muted-line" x="80" y="135" width="110" height="30" rx="15"/>
+  <rect class="cv-muted-line" x="80" y="195" width="110" height="30" rx="15"/>
+  <rect class="cv-muted-line" x="80" y="255" width="110" height="30" rx="15"/>
+  <rect class="cv-muted-line" x="80" y="315" width="110" height="30" rx="15"/>
+  <rect class="cv-muted-line" x="80" y="375" width="110" height="30" rx="15"/>
+  <rect class="cv-muted-line" x="80" y="435" width="110" height="30" rx="15"/>
+  <path class="cv-muted-line cv-thin" d="M220 150 V450 M190 150 H220 M190 210 H220 M190 270 H220 M190 330 H220 M190 390 H220 M190 450 H220 M220 165 H250 M220 255 H250 M220 345 H250 M220 435 H250"/>
+    <circle class="cv-solid" cx="250" cy="165" r="9"/><circle class="cv-solid" cx="250" cy="255" r="9"/><circle class="cv-solid" cx="250" cy="345" r="9"/><circle class="cv-solid" cx="250" cy="435" r="9"/>
+  <path class="cv-detail-line" d="M250 165 H500 M250 255 H500 M250 345 H500 M250 435 H500"/>
+  <path class="cv-ac-shape cv-bold" d="M690 142 H523 a23 23 0 0 0 0 46 H690 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M690 232 H523 a23 23 0 0 0 0 46 H690 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M690 322 H523 a23 23 0 0 0 0 46 H690 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M690 412 H523 a23 23 0 0 0 0 46 H690 Z"/>
+  <rect class="cv-solid" x="690" y="96" width="60" height="408" rx="14"/>
+  <text class="cv-mono cv-cut" transform="translate(730 300) rotate(-90)" font-size="40" text-anchor="middle">synchronized</text>
+  <path class="cv-muted-line cv-thin cv-dash" d="M750 165 H976 M750 255 H976 M750 345 H976 M750 435 H976"/>
+  <g transform="translate(1010 160)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
+  <g transform="translate(1010 250)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
+  <g transform="translate(1010 340)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
+  <g transform="translate(1010 430)"><path class="cv-shape cv-bold" d="M-32 -22 H32 V14 H11 V32 H-11 V14 H-32 Z"/><path class="cv-detail-line cv-thin" d="M-19 -7 H19"/></g>
+  <text class="cv-mono cv-muted" x="1010" y="494" font-size="40" text-anchor="middle">CLOSE_WAIT</text>
 </svg>

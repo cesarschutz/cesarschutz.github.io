@@ -1,4 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-  <!-- agendamento com trava de concorrência -->
-  <g transform="translate(560 290) scale(1.25)"><circle class="cv-shape cv-bold" cx="0" cy="0" r="150"/><path class="cv-detail-line cv-bold" d="M0 -14 v-86 M0 0 l74 42"/><path class="cv-muted-line" d="M0 -126 v22 M126 0 h-22 M0 126 v-22 M-126 0 h22"/><g transform="translate(150 96)"><path class="cv-line cv-bold" d="M-40 -18 V-42 a40 40 0 0 1 80 0 v24"/><rect class="cv-shape cv-bold" x="-62" y="-18" width="124" height="104" rx="22"/><circle class="cv-detail" cx="0" cy="26" r="13"/><rect class="cv-detail" x="-6" y="30" width="12" height="30" rx="6"/></g></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" class="ac-amber">
+  <g transform="translate(0 5.4)">
+  <!-- trilho do schedule: a execucao das 10:00 passa do seu slot, o Forbid pula as 10:10 (sinal ambar), a lamina do activeDeadlineSeconds corta em 300s e o resto que ela rodaria fica em fantasma; as 10:20 a proxima roda inteira -->
+  <path class="cv-detail-line" d="M120 110 H1080"/>
+  <path class="cv-muted-line cv-thin" d="M200 86 V134 M540 86 V134 M880 86 V134"/>
+  <circle class="cv-solid" cx="200" cy="110" r="12"/>
+  <circle class="cv-solid" cx="880" cy="110" r="12"/>
+  <path class="cv-ac-line cv-thin cv-dash" d="M580 88 Q730 0 866 86"/>
+  <path class="cv-ac-line cv-thin" d="M838 82 L866 86 L850 62"/>
+  <circle class="cv-ac-shape cv-bold" cx="540" cy="110" r="36"/>
+  <path class="cv-ac-line cv-bold" d="M515 85 L565 135"/>
+  <path class="cv-muted-line cv-thin cv-dash" d="M200 140 V300"/>
+  <path class="cv-ac-soft-line cv-dash" d="M672 240 H780 a60 60 0 0 1 0 120 H672"/>
+  <path class="cv-ac-shape cv-bold" d="M650 240 H260 a60 60 0 0 0 0 120 H650 Z"/>
+  <path class="cv-ac-line cv-thin" d="M470 276 L494 300 L470 324 M510 276 L534 300 L510 324"/>
+  <rect class="cv-solid" x="650" y="186" width="22" height="360" rx="11"/>
+  <path class="cv-muted-line cv-thin" d="M200 400 V440 M200 420 H650"/>
+  <text class="cv-mono cv-muted" x="425" y="506" font-size="44" text-anchor="middle">300s</text>
+  <path class="cv-muted-line cv-thin cv-dash" d="M880 140 V485"/>
+  <rect class="cv-shape cv-bold" x="880" y="430" width="200" height="110" rx="55"/>
+  <path class="cv-detail-line cv-bold" d="M925 485 L955 511 L1015 455"/>
+</g>
 </svg>

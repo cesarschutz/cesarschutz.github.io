@@ -1,21 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- razão em T simplificado -->
-  <g transform="translate(400 400) scale(1.22) translate(-400 -400)">
-  <rect class="cv-shape cv-bold" x="180" y="170" width="440" height="460" rx="26"/>
-  <line class="cv-line" x1="180" y1="262" x2="620" y2="262"/>
-  <line class="cv-line" x1="400" y1="170" x2="400" y2="630"/>
-  <text class="cv-text cv-white" x="290" y="233" font-size="44" text-anchor="middle">D</text>
-  <text class="cv-text cv-white" x="510" y="233" font-size="44" text-anchor="middle">C</text>
-  <line class="cv-detail-line" x1="220" y1="336" x2="352" y2="336"/>
-  <line class="cv-detail-line" x1="440" y1="336" x2="554" y2="336"/>
-  <line class="cv-detail-line" x1="220" y1="400" x2="316" y2="400"/>
-  <line class="cv-detail-line" x1="440" y1="400" x2="576" y2="400"/>
-  <line class="cv-muted-line cv-thin" x1="220" y1="451" x2="360" y2="451"/>
-  <line class="cv-muted-line cv-thin" x1="440" y1="451" x2="580" y2="451"/>
-  <line class="cv-line cv-bold" x1="220" y1="556" x2="334" y2="556"/>
-  <line class="cv-line cv-bold" x1="466" y1="556" x2="580" y2="556"/>
-  <circle class="cv-solid" cx="400" cy="556" r="31"/>
-  <rect class="cv-cut" x="385" y="546" width="31" height="6" rx="3"/>
-  <rect class="cv-cut" x="385" y="561" width="31" height="6" rx="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-green">
+  <!-- a mesma balança, mais alta e simples: D = C, base verde conferida -->
+  <g transform="translate(400 172) scale(1.1)">
+    <rect class="cv-shape" x="-14" y="0" width="28" height="390" rx="14"/>
+    <rect class="cv-ac-shape cv-bold" x="-240" y="386" width="480" height="84" rx="24"/>
+    <path class="cv-ac-line cv-bold" d="M-44 428 l26 26 l60 -60"/>
+    <path class="cv-line" d="M-240 0 L-335 180 M-240 0 L-145 180 M240 0 L145 180 M240 0 L335 180"/>
+    <path class="cv-shape cv-bold" d="M-335 180 Q-240 260 -145 180 Z"/>
+    <path class="cv-shape cv-bold" d="M145 180 Q240 260 335 180 Z"/>
+    <rect class="cv-shape cv-bold" x="-295" y="70" width="110" height="110" rx="18"/>
+    <rect class="cv-shape cv-bold" x="185" y="70" width="110" height="110" rx="18"/>
+    <text class="cv-mono cv-detail" x="-240" y="152" font-size="76" text-anchor="middle">D</text>
+    <text class="cv-mono cv-detail" x="240" y="152" font-size="76" text-anchor="middle">C</text>
+    <rect class="cv-shape cv-bold" x="-240" y="-10" width="480" height="20" rx="10"/>
+    <polygon class="cv-solid" points="0,-56 -14,-20 14,-20"/>
+    <circle class="cv-detail" cx="0" cy="0" r="12"/>
   </g>
 </svg>

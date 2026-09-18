@@ -8,16 +8,34 @@ const files = import.meta.glob("/src/covers/*/*.svg", {
   eager: true,
 }) as Record<string, string>;
 
-export type CoverFormat = "wide" | "card" | "square";
+export type CoverFormat = "wide" | "card" | "square" | "featured";
 
 export const COVER_SIZES: Record<CoverFormat, [number, number]> = {
   wide: [1600, 400],
   card: [1200, 600],
   square: [800, 800],
+  featured: [800, 1000],
 };
 
+/** Segunda cor da capa; o SVG escolhe pela classe na raiz (<svg class="ac-violet">). */
+export const ACCENTS = {
+  amber: "#f5a04a",
+  violet: "#a889f7",
+  green: "#4fd69a",
+  coral: "#f4706b",
+  pink: "#f272b8",
+} as const;
+
+export function coverAccent(svg: string): string {
+  const name = svg.match(/<svg[^>]*\bclass="[^"]*\bac-(\w+)/)?.[1] as keyof typeof ACCENTS | undefined;
+  return (name && ACCENTS[name]) || ACCENTS.amber;
+}
+
 export function rawCover(slug: string, format: CoverFormat): string | undefined {
-  return files[`/src/covers/${slug}/${format}.svg`];
+  const file = files[`/src/covers/${slug}/${format}.svg`];
+  // só o post em destaque tem a capa retrato; os outros usam a quadrada
+  if (!file && format === "featured") return files[`/src/covers/${slug}/square.svg`];
+  return file;
 }
 
 /** SVG pronto para embutir: sem comentários, decorativo e sem corte. */
@@ -53,8 +71,14 @@ export const OG_BACKGROUND = `
   </g>`;
 
 /** CSS das classes cv-* com cores fixas (para renderizar a capa fora do site). */
-export function coverStyle(strokePx = 3.4): string {
+export function coverStyle(strokePx = 3.4, accent: string = ACCENTS.amber): string {
+  const tint = mix(accent, "#01131b", 0.14);
   return `
+  .cv-ac-line,.cv-warm-line{fill:none;stroke:${accent}}
+  .cv-ac-shape,.cv-warm-shape{fill:${tint};stroke:${accent}}
+  .cv-ac,.cv-warm{fill:${accent}}
+  .cv-ac-soft,.cv-warm-soft{fill:${accent};fill-opacity:.16}
+  .cv-ac-soft-line,.cv-warm-soft-line{fill:none;stroke:${accent};stroke-opacity:.3}
   path,line,polyline,rect,circle,ellipse,polygon{stroke-width:${strokePx}px;stroke-linecap:round;stroke-linejoin:round}
   .cv-bold{stroke-width:${strokePx * 1.5}px}
   .cv-thin{stroke-width:${strokePx * 0.6}px}
@@ -72,4 +96,13 @@ export function coverStyle(strokePx = 3.4): string {
   .cv-cut{fill:#022131}
   .cv-text{font-family:Inter,Helvetica,Arial,sans-serif;font-weight:700}
   .cv-mono{font-family:'JetBrains Mono',Menlo,monospace;font-weight:700}`;
+}
+
+/** Mistura duas cores hex (peso de `a`), para o tom escuro do acento no PNG. */
+function mix(a: string, b: string, weight: number): string {
+  const to = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const [r1, g1, b1] = to(a);
+  const [r2, g2, b2] = to(b);
+  const ch = (x: number, y: number) => Math.round(x * weight + y * (1 - weight)).toString(16).padStart(2, "0");
+  return `#${ch(r1, r2)}${ch(g1, g2)}${ch(b1, b2)}`;
 }

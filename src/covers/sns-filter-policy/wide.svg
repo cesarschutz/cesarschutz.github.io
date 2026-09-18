@@ -1,4 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- o tópico publica de tudo; a filter policy deixa passar só o que interessa para cada fila -->
-  <circle class="cv-shape" cx="150" cy="200" r="46"/><text class="cv-mono cv-detail" x="150" y="208" font-size="24" text-anchor="middle" >SNS</text><line class="cv-muted-line" x1="200" y1="200" x2="320" y2="200"/><path class="cv-muted-line" d="M306 188 L320 200 L306 212"/><circle class="cv-muted" cx="370" cy="140" r="13"/><circle class="cv-solid" cx="416" cy="200" r="13"/><circle class="cv-muted" cx="462" cy="260" r="13"/><circle class="cv-solid" cx="508" cy="140" r="13"/><g transform="translate(800 170) scale(0.74)"><path class="cv-shape cv-bold" d="M-170 -120 H170 L52 26 V150 H-52 V26 Z"/><circle class="cv-solid" cx="-110" cy="-84" r="20"/><circle class="cv-muted" cx="-30" cy="-84" r="20"/><circle class="cv-solid" cx="58" cy="-84" r="20"/><circle class="cv-muted" cx="-62" cy="-26" r="20"/><circle class="cv-solid" cx="30" cy="-26" r="20"/><circle class="cv-solid" cx="0" cy="214" r="20"/></g><line class="cv-muted-line" x1="960" y1="268" x2="1080" y2="268"/><path class="cv-muted-line" d="M1066 256 L1080 268 L1066 280"/><rect class="cv-shape cv-bold" x="1120" y="168" width="100" height="100" rx="18"/><circle class="cv-solid" cx="1170" cy="218" r="16"/><rect class="cv-shape cv-bold" x="1240" y="168" width="100" height="100" rx="18"/><circle class="cv-solid" cx="1290" cy="218" r="16"/><rect class="cv-shape cv-bold" x="1360" y="168" width="100" height="100" rx="18"/><circle class="cv-solid" cx="1410" cy="218" r="16"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-coral">
+  <!-- antes: o tópico publica três tipos · no meio: a chapa da policy · depois: a fila -->
+  <circle class="cv-shape cv-bold" cx="120" cy="200" r="46"/>
+  <text class="cv-mono cv-detail" x="120" y="211" font-size="30" text-anchor="middle">SNS</text>
+  <path class="cv-muted-line cv-thin" d="M166 200 C290 200 300 107 382 107"/>
+  <path class="cv-muted-line cv-thin" d="M166 200 H694"/>
+  <path class="cv-muted-line cv-thin" d="M166 200 C290 200 300 293 382 293"/>
+  <path class="cv-shape cv-bold" fill-rule="evenodd" d="M716 60 H824 L846 82 V318 L824 340 H716 L694 318 V82 Z M722 200 A48 48 0 0 0 818 200 A48 48 0 0 0 722 200 Z"/>
+  <g transform="translate(470 107) scale(0.8)"><rect class="cv-ac-shape cv-bold" x="-110" y="-58" width="220" height="116" rx="14"/><path class="cv-ac-line" d="M-110 -46 L0 30 L110 -46"/><path class="cv-ac-line cv-thin" d="M110 0 H166"/><path class="cv-ac" d="M215 -50 L268 42 L162 42 Z"/></g>
+  <g transform="translate(470 293) scale(0.8)"><rect class="cv-ac-shape cv-bold" x="-110" y="-58" width="220" height="116" rx="14"/><path class="cv-ac-line" d="M-110 -46 L0 30 L110 -46"/><path class="cv-ac-line cv-thin" d="M110 0 H166"/><rect class="cv-ac" x="175" y="-46" width="92" height="92" rx="10"/></g>
+  <path class="cv-detail-line cv-thin cv-dash" d="M858 200 H900"/>
+  <path class="cv-detail-line cv-thin" d="M904 188 L916 200 L904 212"/>
+  <g transform="translate(1140 200) scale(0.8)"><rect class="cv-shape cv-bold" x="-110" y="-58" width="220" height="116" rx="14"/><path class="cv-line" d="M-110 -46 L0 30 L110 -46"/><path class="cv-line cv-thin" d="M-110 0 H-160"/><circle class="cv-solid" cx="-215" cy="0" r="58"/></g>
+  <path class="cv-muted-line cv-thin" d="M1228 200 H1434"/>
+  <circle class="cv-shape cv-bold" cx="1480" cy="200" r="46"/>
+  <text class="cv-mono cv-detail" x="1480" y="211" font-size="30" text-anchor="middle">SQS</text>
 </svg>

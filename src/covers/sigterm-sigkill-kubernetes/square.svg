@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- SIGTERM e SIGKILL -->
-  <g transform="translate(400 400) scale(1.35)"><circle class="cv-shape cv-bold" cx="-120" cy="-110" r="108"/><text class="cv-mono cv-detail" x="-120" y="-78" font-size="90" text-anchor="middle" >15</text><circle class="cv-solid" cx="120" cy="110" r="108"/><text class="cv-mono cv-cut" x="120" y="142" font-size="90" text-anchor="middle" >9</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-coral">
+  <!-- versao simples: o aro do grace period cercando o pod, a onda do SIGTERM atravessando o aro
+       pelo ombro esquerdo e o raio do SIGKILL saindo do setor coral para baixo -->
+  <rect class="cv-solid" x="420" y="100" width="20" height="22" rx="5"/>
+  <rect class="cv-shape" x="412" y="122" width="36" height="44" rx="6"/>
+  <path class="cv-line cv-bold" d="M430 166 A215 215 0 0 1 616.2 488.5"/>
+  <path class="cv-ac-line cv-bold" d="M616.2 488.5 A215 215 0 0 1 537.5 567.2"/>
+  <path class="cv-soft-line cv-dash" d="M537.5 567.2 A215 215 0 1 1 430 166"/>
+  <g transform="translate(430 381)"><path class="cv-shape cv-bold" d="M0 -180 L156 -90 V90 L0 180 L-156 90 V-90 Z"/><path class="cv-soft" d="M0 -180 L156 -90 L0 0 L-156 -90 Z"/><path class="cv-line" d="M-156 -90 L0 0 L156 -90 M0 0 V180"/></g>
+  <path class="cv-line cv-bold" d="M59 239 q42 -96 84 0 t84 0 H233"/><path class="cv-line cv-bold" d="M227 193 L275 239 L227 285"/>
+  <path class="cv-ac" transform="translate(669 621) rotate(28) scale(0.8)" d="M130 40 L-20 -60 L-20 0 L-130 -40 L30 70 L30 10 Z"/>
 </svg>

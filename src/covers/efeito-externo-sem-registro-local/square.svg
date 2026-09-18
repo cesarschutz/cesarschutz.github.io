@@ -1,4 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- registro local e depois o efeito externo -->
-  <g transform="translate(400 400) scale(1.9)"><path class="cv-shape cv-bold" d="M-95 -185 v150 a95 30 0 0 0 190 0 v-150 a95 30 0 0 0 -190 0 a95 30 0 0 0 190 0"/><rect class="cv-shape cv-bold" x="-53" y="-140" width="106" height="72" rx="12"/><path class="cv-detail-line" d="M-53 -127 L0 -92 L53 -127"/><path class="cv-muted-line cv-dash" d="M0 -10 v56"/><path class="cv-muted-line" d="M-13 32 l13 14 l13 -14"/><rect class="cv-shape cv-bold" x="-100" y="64" width="200" height="128" rx="22"/><line class="cv-line" x1="-100" y1="106" x2="100" y2="106"/><rect class="cv-detail" x="-70" y="134" width="60" height="16" rx="8"/><line class="cv-muted-line" x1="20" y1="142" x2="78" y2="142"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-coral">
+  <g transform="translate(-4 21)">
+  <!-- simplificado: a linha vazia no banco, o fio partido e a moeda entrando na fenda do adquirente -->
+  <g transform="translate(280 220)">
+    <rect class="cv-shape cv-bold" x="-250" y="-170" width="500" height="340" rx="26"/>
+    <rect class="cv-solid" x="-216" y="-146" width="170" height="36" rx="13"/>
+    <rect class="cv-detail" x="-24" y="-138" width="130" height="20" rx="10"/>
+    <line class="cv-line" x1="-250" y1="-92" x2="250" y2="-92"/>
+    <rect class="cv-muted" x="-216" y="-57" width="104" height="18" rx="9"/>
+    <rect class="cv-muted" x="-76" y="-57" width="292" height="18" rx="9"/>
+    <rect class="cv-line cv-dash" x="-226" y="8" width="452" height="64" rx="18"/>
+    <rect class="cv-muted" x="-216" y="119" width="104" height="18" rx="9"/>
+    <rect class="cv-muted" x="-76" y="119" width="240" height="18" rx="9"/>
+  </g>
+  <path class="cv-muted-line" d="M534 260 Q566 260 566 288"/>
+  <path class="cv-muted-line" d="M566 352 V383"/>
+  <path class="cv-ac-line cv-bold" d="M538 316 L594 300"/>
+  <path class="cv-ac-line cv-bold" d="M538 348 L594 332"/>
+  <g transform="translate(620 550) scale(1.05)">
+    <rect class="cv-shape cv-bold" x="-150" y="0" width="300" height="150" rx="22"/>
+    <rect class="cv-cut" x="-72" y="-8" width="144" height="18" rx="9"/>
+    <rect class="cv-solid" x="-92" y="62" width="184" height="40" rx="14"/>
+    <rect class="cv-cut" x="-76" y="76" width="62" height="12" rx="6"/>
+    <rect class="cv-cut" x="4" y="76" width="72" height="12" rx="6"/>
+    <circle class="cv-ac-shape cv-bold" cx="0" cy="-84" r="84"/>
+    <text class="cv-mono cv-ac" x="0" y="-58" font-size="72" text-anchor="middle">R$</text>
+  </g>
+</g>
 </svg>

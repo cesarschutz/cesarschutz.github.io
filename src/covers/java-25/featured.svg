@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <g transform="translate(-6.7 -12.5)">
+  <g transform="translate(120 150)">
+    <path class="cv-warm-soft-line" d="M0 -26 L22.62 -13 L0 0 L-22.62 -13 Z"/>
+    <path class="cv-warm-soft-line" d="M-22.62 -13 V13 L0 26 V0 Z"/>
+    <path class="cv-warm-soft-line" d="M22.62 -13 V13 L0 26 V0 Z"/>
+  </g>
+  <g transform="translate(690 860)">
+    <path class="cv-soft-line" d="M0 -30 L26.1 -15 L0 0 L-26.1 -15 Z"/>
+    <path class="cv-soft-line" d="M-26.1 -15 V15 L0 30 V0 Z"/>
+    <path class="cv-soft-line" d="M26.1 -15 V15 L0 30 V0 Z"/>
+  </g>
+  <g transform="translate(232 330) scale(1.2)">
+    <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
+    <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
+    <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
+    <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
+    <path class="cv-muted-line" d="M-25 222 h290"/>
+    <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
+  </g>
+  <text class="cv-text" x="400" y="790" font-size="160" letter-spacing="8" text-anchor="middle"><tspan class="cv-white">JAVA&#160;</tspan><tspan class="cv-solid">25</tspan></text>
+  <rect class="cv-solid" x="305" y="828" width="190" height="72" rx="36"/>
+  <text class="cv-text cv-cut" x="400" y="879" font-size="46" text-anchor="middle" letter-spacing="2">LTS</text>
+</g>
+</svg>

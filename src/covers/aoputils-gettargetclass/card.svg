@@ -1,4 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-  <!-- a casca do proxy abrindo sobre a classe real -->
-  <g transform="translate(600 300) scale(1.25)"><path class="cv-line cv-dash" d="M-120 -150 a180 180 0 0 0 0 300"/><path class="cv-line cv-dash" d="M120 -150 a180 180 0 0 1 0 300"/><rect class="cv-shape cv-bold" x="-86" y="-60" width="172" height="120" rx="22"/><line class="cv-detail-line" x1="-48" y1="-20" x2="48" y2="-20"/><line class="cv-muted-line" x1="-48" y1="12" x2="16" y2="12"/><line class="cv-muted-line" x1="-48" y1="42" x2="36" y2="42"/><path class="cv-muted-line" d="M-196 0 h-60 M196 0 h60"/><path class="cv-muted-line" d="M-244 -14 l-14 14 l14 14 M244 -14 l14 14 l-14 14"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" class="ac-violet">
+  <!-- getClass() para na lâmina do proxy ($$); getTargetClass() atravessa o furo e chega à classe real (@) -->
+  <circle class="cv-shape cv-bold" cx="200" cy="300" r="56"/><circle class="cv-line" cx="192" cy="292" r="18"/><path class="cv-line cv-bold" d="M206 306 L226 326"/>
+  <path class="cv-detail-line cv-dash" d="M252 272 C340 272 380 236 500 236"/><path class="cv-detail-line" d="M488 222 L502 236 L488 250"/>
+  <rect class="cv-ac-shape cv-dash cv-bold" x="520" y="100" width="120" height="400" rx="20"/><text class="cv-mono cv-ac" x="580" y="186" font-size="44" text-anchor="middle">$$</text>
+  <circle class="cv-cut" cx="580" cy="364" r="26"/><circle class="cv-ac-line cv-thin" cx="580" cy="364" r="26"/>
+  <path class="cv-line cv-bold" d="M252 328 C340 328 380 364 500 364 H678"/><path class="cv-line cv-bold" d="M662 348 L678 364 L662 380"/>
+  <rect class="cv-shape cv-bold" x="700" y="150" width="360" height="300" rx="24"/><line class="cv-line" x1="700" y1="206" x2="1060" y2="206"/><rect class="cv-detail" x="732" y="171" width="120" height="14" rx="7"/>
+  <text class="cv-mono cv-detail" x="880" y="388" font-size="150" text-anchor="middle">@</text>
 </svg>

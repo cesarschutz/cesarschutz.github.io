@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- funil da filter policy -->
-  <g transform="translate(400 360) scale(1.7)"><path class="cv-shape cv-bold" d="M-170 -120 H170 L52 26 V150 H-52 V26 Z"/><circle class="cv-solid" cx="-92" cy="-80" r="20"/><circle class="cv-muted" cx="14" cy="-80" r="20"/><circle class="cv-solid" cx="-30" cy="-20" r="20"/><circle class="cv-solid" cx="0" cy="214" r="20"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-coral">
+  <!-- o mesmo motivo, maior: etiqueta quadrada barrada em cima, redonda passando pelo furo -->
+  <path class="cv-shape cv-bold" fill-rule="evenodd" d="M94 307 H706 L730 331 V433 L706 457 H94 L70 433 V331 Z M352 382 A48 48 0 0 0 448 382 A48 48 0 0 0 352 382 Z"/>
+  <g transform="translate(400 119)"><rect class="cv-ac-shape cv-bold" x="-125" y="-60" width="250" height="120" rx="14"/><path class="cv-ac-line" d="M-125 -48 L0 32 L125 -48"/><path class="cv-ac-line cv-thin" d="M0 60 V78"/><rect class="cv-ac" x="-50" y="78" width="100" height="100" rx="10"/></g>
+  <path class="cv-detail-line cv-thin cv-dash" d="M400 466 V490"/>
+  <path class="cv-detail-line cv-thin" d="M386 494 L400 508 L414 494"/>
+  <g transform="translate(400 681)"><rect class="cv-shape cv-bold" x="-125" y="-60" width="250" height="120" rx="14"/><path class="cv-line" d="M-125 -48 L0 32 L125 -48"/><path class="cv-line cv-thin" d="M0 -60 V-78"/><circle class="cv-solid" cx="0" cy="-124" r="46"/></g>
 </svg>

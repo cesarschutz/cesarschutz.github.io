@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-  <!-- só as mensagens que casam com a política passam -->
-  <g transform="translate(600 260) scale(1.15)"><path class="cv-shape cv-bold" d="M-170 -120 H170 L52 26 V150 H-52 V26 Z"/><circle class="cv-solid" cx="-110" cy="-84" r="20"/><circle class="cv-muted" cx="-30" cy="-84" r="20"/><circle class="cv-solid" cx="58" cy="-84" r="20"/><circle class="cv-muted" cx="-62" cy="-26" r="20"/><circle class="cv-solid" cx="30" cy="-26" r="20"/><circle class="cv-solid" cx="0" cy="214" r="20"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" class="ac-coral">
+  <!-- a filter policy é uma chapa com um furo redondo: só a etiqueta redonda atravessa -->
+  <path class="cv-shape cv-bold" fill-rule="evenodd" d="M496 80 H634 L660 106 V494 L634 520 H496 L470 494 V106 Z M507 300 A58 58 0 0 0 623 300 A58 58 0 0 0 507 300 Z"/>
+  <g transform="translate(179 150) scale(1.05)"><rect class="cv-ac-shape cv-bold" x="-110" y="-58" width="220" height="116" rx="14"/><path class="cv-ac-line" d="M-110 -46 L0 30 L110 -46"/><path class="cv-ac-line cv-thin" d="M110 0 H166"/><path class="cv-ac" d="M215 -50 L268 42 L162 42 Z"/></g>
+  <g transform="translate(179 450) scale(1.05)"><rect class="cv-ac-shape cv-bold" x="-110" y="-58" width="220" height="116" rx="14"/><path class="cv-ac-line" d="M-110 -46 L0 30 L110 -46"/><path class="cv-ac-line cv-thin" d="M110 0 H166"/><rect class="cv-ac" x="175" y="-46" width="92" height="92" rx="10"/></g>
+  <path class="cv-detail-line cv-thin cv-dash" d="M672 300 H716"/>
+  <path class="cv-detail-line cv-thin" d="M720 288 L732 300 L720 312"/>
+  <g transform="translate(1021 300) scale(1.05)"><rect class="cv-shape cv-bold" x="-110" y="-58" width="220" height="116" rx="14"/><path class="cv-line" d="M-110 -46 L0 30 L110 -46"/><path class="cv-line cv-thin" d="M-110 0 H-160"/><circle class="cv-solid" cx="-215" cy="0" r="55"/></g>
 </svg>

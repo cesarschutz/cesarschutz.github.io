@@ -8,6 +8,7 @@ import Toc from "../../components/Toc.astro";
 import Comments from "../../components/Comments.astro";
 import { SITE } from "../../config";
 import { getPosts, getSummaries, readingMinutes, summarize, type Post } from "../../utils/posts";
+import { rawCover } from "../../utils/covers";
 import { relatedPosts } from "../../utils/related";
 import { getSeries, seriesUrl } from "../../data/series";
 import { JAVA_LTS } from "../../data/java";
@@ -53,7 +54,8 @@ if (series?.key === "java") {
 const related = relatedPosts(current, series ? all.filter((p) => p.series !== series.key) : all);
 
 const postUrl = new URL(`/posts/${post.id}/`, Astro.site).href;
-const ogImage = `/og/${post.id}.png`;
+// o PNG de compartilhamento só existe se o post tiver a capa card
+const ogImage = rawCover(post.id, "card") ? `/og/${post.id}.png` : undefined;
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",

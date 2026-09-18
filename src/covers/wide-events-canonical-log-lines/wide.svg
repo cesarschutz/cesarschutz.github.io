@@ -1,4 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- várias linhas de log viram um único evento largo com todos os campos -->
-  <circle class="cv-muted" cx="150" cy="110" r="7"/><line class="cv-muted-line cv-thin" x1="172" y1="110" x2="330" y2="110"/><circle class="cv-muted" cx="150" cy="150" r="7"/><line class="cv-muted-line cv-thin" x1="172" y1="150" x2="280" y2="150"/><circle class="cv-muted" cx="150" cy="190" r="7"/><line class="cv-muted-line cv-thin" x1="172" y1="190" x2="230" y2="190"/><circle class="cv-muted" cx="150" cy="230" r="7"/><line class="cv-muted-line cv-thin" x1="172" y1="230" x2="330" y2="230"/><circle class="cv-muted" cx="150" cy="270" r="7"/><line class="cv-muted-line cv-thin" x1="172" y1="270" x2="280" y2="270"/><path class="cv-muted-line" d="M360 110 C440 110 440 200 520 200"/><path class="cv-muted-line" d="M360 150 C440 150 440 200 520 200"/><path class="cv-muted-line" d="M360 190 C440 190 440 200 520 200"/><path class="cv-muted-line" d="M504 187 L520 200 L504 213"/><path class="cv-muted-line" d="M360 230 C440 230 440 200 520 200"/><path class="cv-muted-line" d="M360 270 C440 270 440 200 520 200"/><g transform="translate(940 200) scale(0.92)"><rect class="cv-shape cv-bold" x="-320" y="-40" width="640" height="80" rx="40"/><circle class="cv-solid" cx="-250" cy="0" r="18"/><circle class="cv-detail" cx="-90" cy="0" r="18"/><circle class="cv-solid" cx="70" cy="0" r="18"/><circle class="cv-detail" cx="210" cy="0" r="18"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-amber">
+  <g transform="translate(45.7 0)">
+  <!-- a requisição entra, os logs parciais (âmbar) convergem num wide event (ciano); à direita uma só consulta encontra a linha -->
+  <circle class="cv-shape" cx="110" cy="200" r="34"/><text class="cv-mono cv-detail" x="110" y="209" font-size="24" text-anchor="middle">req</text>
+  <path class="cv-muted-line" d="M150 200 H195"/><path class="cv-muted-line" d="M183 188 L195 200 L183 212"/>
+  <g transform="translate(360 70) rotate(-6)"><rect class="cv-ac-shape" x="-60" y="-17" width="120" height="34" rx="10"/><rect class="cv-ac" x="-45" y="-4" width="24" height="8" rx="4"/><rect class="cv-ac" x="-11" y="-4" width="48" height="8" rx="4"/></g>
+  <g transform="translate(300 135) rotate(-3)"><rect class="cv-ac-shape" x="-65" y="-17" width="130" height="34" rx="10"/><rect class="cv-ac" x="-50" y="-4" width="24" height="8" rx="4"/><rect class="cv-ac" x="-16" y="-4" width="56" height="8" rx="4"/></g>
+  <g transform="translate(280 200)"><rect class="cv-ac-shape" x="-70" y="-17" width="140" height="34" rx="10"/><rect class="cv-ac" x="-55" y="-4" width="26" height="8" rx="4"/><rect class="cv-ac" x="-19" y="-4" width="64" height="8" rx="4"/></g>
+  <g transform="translate(300 265) rotate(3)"><rect class="cv-ac-shape" x="-65" y="-17" width="130" height="34" rx="10"/><rect class="cv-ac" x="-50" y="-4" width="24" height="8" rx="4"/><rect class="cv-ac" x="-16" y="-4" width="56" height="8" rx="4"/></g>
+  <g transform="translate(360 330) rotate(6)"><rect class="cv-ac-shape" x="-60" y="-17" width="120" height="34" rx="10"/><rect class="cv-ac" x="-45" y="-4" width="24" height="8" rx="4"/><rect class="cv-ac" x="-11" y="-4" width="48" height="8" rx="4"/></g>
+  <path class="cv-ac-line cv-thin cv-dash" d="M424 64 C500 64 540 200 620 200"/>
+  <path class="cv-ac-line cv-thin cv-dash" d="M369 131 C460 131 520 200 620 200"/>
+  <path class="cv-ac-line cv-thin cv-dash" d="M354 200 H620"/>
+  <path class="cv-ac-line cv-thin cv-dash" d="M369 269 C460 269 520 200 620 200"/>
+  <path class="cv-ac-line cv-thin cv-dash" d="M424 336 C500 336 540 200 620 200"/>
+  <path class="cv-line cv-bold" d="M620 200 H670"/><path class="cv-line cv-bold" d="M654 184 L670 200 L654 216"/>
+  <g transform="translate(880 200) scale(0.85)">
+    <rect class="cv-shape cv-bold" x="-200" y="-150" width="400" height="300" rx="24"/>
+    <line class="cv-line" x1="-200" y1="-96" x2="200" y2="-96"/>
+    <circle class="cv-detail" cx="-166" cy="-123" r="9"/><rect class="cv-detail" x="-144" y="-128" width="90" height="10" rx="5"/>
+    <rect class="cv-muted" x="-172" y="-71" width="56" height="10" rx="5"/><rect class="cv-detail" x="-100" y="-71" width="150" height="10" rx="5"/>
+    <rect class="cv-muted" x="-172" y="-31" width="56" height="10" rx="5"/><rect class="cv-detail" x="-100" y="-31" width="110" height="10" rx="5"/>
+    <rect class="cv-solid" x="-184" y="-2" width="368" height="32" rx="8"/><rect class="cv-cut" x="-172" y="9" width="56" height="10" rx="5"/><rect class="cv-cut" x="-100" y="9" width="190" height="10" rx="5"/>
+    <rect class="cv-muted" x="-172" y="49" width="56" height="10" rx="5"/><rect class="cv-detail" x="-100" y="49" width="130" height="10" rx="5"/>
+    <rect class="cv-muted" x="-172" y="89" width="56" height="10" rx="5"/><rect class="cv-detail" x="-100" y="89" width="170" height="10" rx="5"/>
+    <rect class="cv-muted" x="-172" y="129" width="56" height="10" rx="5"/><rect class="cv-detail" x="-100" y="129" width="90" height="10" rx="5"/>
+  </g>
+  <path class="cv-muted-line" d="M1060 200 H1130"/><path class="cv-muted-line" d="M1116 186 L1130 200 L1116 214"/>
+  <circle class="cv-line cv-bold" cx="1270" cy="190" r="90"/>
+  <path class="cv-line cv-bold" d="M1335 255 L1430 350"/>
+  <rect class="cv-muted" x="1220" y="140" width="100" height="10" rx="5"/>
+  <rect class="cv-solid" x="1206" y="174" width="128" height="32" rx="8"/><rect class="cv-cut" x="1218" y="185" width="30" height="10" rx="5"/><rect class="cv-cut" x="1258" y="185" width="64" height="10" rx="5"/>
+  <rect class="cv-muted" x="1220" y="230" width="80" height="10" rx="5"/>
+</g>
 </svg>

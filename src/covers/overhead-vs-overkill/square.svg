@@ -1,4 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- gangorra entre simples e exagerado -->
-  <g transform="translate(390 430) scale(1.25)"><path class="cv-line cv-bold" d="M-300 -58 L300 58"/><path class="cv-shape cv-bold" d="M-90 130 L0 10 L90 130 Z"/><path class="cv-muted-line" d="M-150 150 h300"/><rect class="cv-shape cv-bold" x="-292" y="-124" width="84" height="64" rx="14"/><rect class="cv-shape cv-bold" x="157" y="-32" width="150" height="56" rx="12"/><rect class="cv-shape cv-bold" x="168" y="-94" width="128" height="56" rx="12"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-amber">
+  <!-- o mesmo motivo, maior e mais simples: a padaria na calcada, o carrao parado na rua -->
+  <path class="cv-soft-line" d="M70 470 H730"/>
+  <path class="cv-muted-line" d="M58 740 H742"/>
+  <g transform="translate(400 470) scale(1.025)">
+    <rect class="cv-shape cv-bold" x="-110" y="-330" width="220" height="330" rx="12"/>
+    <rect class="cv-detail-line cv-thin" x="-74" y="-296" width="60" height="58" rx="8"/>
+    <rect class="cv-detail-line cv-thin" x="14" y="-296" width="60" height="58" rx="8"/>
+    <path class="cv-solid" d="M-132 -212 L132 -212 L116 -180 C116 -150 58 -150 58 -180 C58 -150 0 -150 0 -180 C0 -150 -58 -150 -58 -180 C-58 -150 -116 -150 -116 -180 Z"/>
+    <rect class="cv-line" x="-86" y="-126" width="72" height="74" rx="6"/>
+    <rect class="cv-line" x="14" y="-126" width="68" height="126" rx="8"/>
+    <circle class="cv-detail" cx="26" cy="-60" r="6"/>
+    <rect class="cv-shape cv-bold" x="-100" y="-400" width="200" height="74" rx="14"/>
+    <g transform="translate(0 -363) rotate(-12) scale(1.05)">
+      <rect class="cv-solid" x="-52" y="-14" width="104" height="28" rx="14"/>
+      <rect class="cv-cut" x="-34" y="-10" width="9" height="20" rx="4" transform="rotate(24 -29.5 0)"/>
+      <rect class="cv-cut" x="-4" y="-10" width="9" height="20" rx="4" transform="rotate(24 0.5 0)"/>
+      <rect class="cv-cut" x="26" y="-10" width="9" height="20" rx="4" transform="rotate(24 30.5 0)"/>
+    </g>
+  </g>
+  <!-- o trajeto: do carro ate a porta -->
+  <path class="cv-detail-line cv-thin cv-dash" d="M344 570 L440 486"/>
+  <path class="cv-detail-line cv-thin" d="M432 502 L440 486 L423 491"/>
+  <g transform="translate(400 740) scale(1.14)">
+    <path class="cv-ac-shape cv-bold" d="M-250 -30 L-250 -86 C-250 -97 -244 -102 -232 -104 C-188 -115 -152 -131 -114 -143 C-102 -147 -92 -149 -80 -149 L-30 -149 C-6 -149 8 -137 26 -113 L48 -85 C118 -71 196 -59 250 -49 C255 -48 258 -45 258 -41 L258 -30 L197 -30 C197 -94 113 -94 113 -30 L-118 -30 C-118 -94 -202 -94 -202 -30 Z"/>
+    <path class="cv-ac-soft" d="M-70 -139 L-30 -139 C-12 -139 0 -129 14 -109 L-70 -109 Z"/>
+    <path class="cv-ac" d="M212 -66 L246 -56 L248 -46 L214 -54 Z"/>
+    <circle class="cv-ac-shape cv-bold" cx="-160" cy="-38" r="38"/>
+    <circle class="cv-ac" cx="-160" cy="-38" r="13"/>
+    <circle class="cv-ac-shape cv-bold" cx="155" cy="-38" r="38"/>
+    <circle class="cv-ac" cx="155" cy="-38" r="13"/>
+  </g>
 </svg>

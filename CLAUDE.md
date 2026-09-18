@@ -80,8 +80,8 @@ src/utils/                    # posts, taxonomia (cores/ícones), formatação, 
 src/components/               # Nav, Sidebar, IdentityCard, QuoteCard, FeaturedPost, PostFeed…
 src/pages/                    # home paginada ([...page]), posts/[slug], archive, java,
                               # categories, tags, projects, about, 404, rss, search-index
-src/covers/<slug>/            # capas: wide.svg, card.svg, square.svg (ver "Capas")
-scripts/                      # java-covers.mjs (capas da série Java), preview-covers.mjs
+src/covers/<slug>/            # capas: wide.svg, card.svg, square.svg, featured.svg (ver "Capas")
+scripts/                      # java-covers.mjs, check-cover.mjs, render-cover.mjs, center-cover.mjs
 public/posts/<slug>/          # diagramas SVG usados dentro dos posts
 .claude/templates/            # post.md
 ```
@@ -101,7 +101,7 @@ public/posts/<slug>/          # diagramas SVG usados dentro dos posts
    **Tags**: vocabulário enxuto. Reaproveite as existentes; não repita nomes de categoria;
    2 a 4 tags por post; crie tag nova quando o assunto não estiver coberto e ela for servir a mais de um post.
    Post de **série** usa `series: <chave>` em vez de `category` (ver "Séries")
-3. **Todo post tem capa** nos 3 formatos, em `src/covers/<slug>/` (ver "Capas")
+3. **Todo post tem capa** nos 4 formatos, em `src/covers/<slug>/` (ver "Capas")
 4. O destaque da home é sempre o último post publicado
 5. Não há mais "exercícios resolvidos": tudo é post normal. `/exercicios` redireciona para a home
 
@@ -140,56 +140,54 @@ tabela), adicionar `28: 29` em `ABSORBED` e ajustar `covers` em `JAVA_LTS`.
 **Nova LTS lançada** (ex.: Java 29): tirar `upcoming` em `JAVA_LTS`, revisar `java-29.md` como LTS e
 criar `java-33.md` como próxima; capas: `node scripts/java-covers.mjs 29` e `node scripts/java-covers.mjs 33 --next`.
 
-### Capas (3 formatos, arte escura, traço fino)
+### Capas (4 formatos, arte escura, traço fino)
 
-Cada post tem **três SVGs** em `src/covers/<slug>/` (pasta com o mesmo nome do arquivo do post). Eles são
-embutidos no HTML pelo componente `Cover.astro`. Não há campo `cover` no frontmatter.
+**A regra completa está em `docs/guia-capas.md`** — é esse arquivo que vai no briefing dos agentes
+que desenham capas. O resumo:
+
+Cada post tem **quatro SVGs** em `src/covers/<slug>/` (pasta com o mesmo nome do arquivo do post),
+embutidos no HTML pelo `Cover.astro`. Não há campo `cover` no frontmatter.
 
 | Arquivo | viewBox | Onde aparece |
 |---|---|---|
 | `wide.svg` | `0 0 1600 400` (4:1) | topo do post no tablet/desktop |
-| `card.svg` | `0 0 1200 600` (2:1) | cards, destaque no celular/tablet, relacionados, topo do post no celular, imagem de compartilhamento (PNG gerado no build) |
-| `square.svg` | `0 0 800 800` (1:1) | destaque da home no desktop, miniatura da lista (até 84px no celular) |
+| `card.svg` | `0 0 1200 600` (2:1) | cards, destaque no celular/tablet, relacionados, topo do post no celular, PNG de compartilhamento |
+| `square.svg` | `0 0 800 800` (1:1) | miniatura da lista (até 84px) |
+| `featured.svg` | `0 0 800 1000` (4:5) | destaque da home no desktop (a coluna ao lado do texto) |
 
-**Estilo** (definido em set/2026 — arte escura de traço fino, igual nos dois temas):
+O slot do destaque no desktop **não tem proporção fixa** — a altura vem do texto do card. Medido em
+set/2026 ele fica entre 0.75 e 0.96 de proporção (com `min-height: clamp(420px, 33vw, 580px)` em
+`.featured`), por isso a capa dedicada é 4:5. Todo post tem as quatro; nenhuma precisa ser apagada
+quando o destaque muda.
 
-- O fundo **não** vai no SVG: o contêiner `.cover` (em `global.css`) pinta o degradê azul-petróleo, o brilho
-  central e os pontos de luz. O SVG traz só o desenho, com fundo transparente, e é exibido com `meet`
-  (nunca é cortado; a sobra continua o fundo). A capa é escura também no tema claro
-- **Um motivo** que represente o assunto do título, ocupando ~55–70% da altura, centrado e com ar em volta.
-  Cada formato é **recomposto** (não é só redimensionar):
-  - `wide`: o motivo no centro e, nas laterais, **elementos que continuam a história** (de onde vem e para onde
-    vai: quem chama, o resultado, a data, a fila). Nada de barras cinza de enfeite — elas parecem tela de carregamento
-  - `card`: o motivo completo, confortável
-  - `square`: a versão mais simples e maior do motivo (precisa ser legível a 84px); sem detalhes pequenos
-- **Não definir `stroke-width` no SVG**: o CSS aplica `vector-effect: non-scaling-stroke` e calcula a espessura
-  em px pela largura em que a capa aparece (fina na miniatura, encorpada no topo do post). Use `cv-bold` no
-  contorno principal, `cv-thin` em detalhes finos e `cv-dash` para tracejado
-- Texto só se for grande e fizer parte do motivo ("JWT", "vs", "1×", "LTS", números); no mínimo 40 unidades no card
-- **Proibido**: cores fixas (`fill="#..."`), degradês, filtros, sombras, `<image>`, fontes embutidas, `id`/`<defs>`
-  (os SVGs convivem na mesma página e ids colidiriam). Cada arquivo com até ~8 KB
-- Cores **só por classe** (o CSS resolve; a cor da categoria fica na etiqueta do card, não na capa):
+**Estilo**: arte escura nos dois temas. O fundo **não** vai no SVG — o contêiner `.cover` pinta o
+degradê, o brilho e os pontos de luz; o SVG é transparente e exibido com `meet` (nunca é cortado).
+Um motivo concreto tirado do artigo, com hierarquia e preenchendo a tela. **Não definir
+`stroke-width`** (o CSS calcula pela largura em que a capa aparece; use `cv-bold`/`cv-thin`/`cv-dash`).
 
-| Classe | Uso |
-|---|---|
-| `cv-shape` | forma principal: preenchimento escuro sólido + contorno ciano |
-| `cv-line` | traço ciano, sem preenchimento |
-| `cv-solid` | preenchimento ciano (destaques, números, selos) |
-| `cv-detail` / `cv-detail-line` | detalhes internos em ciano claro |
-| `cv-muted` / `cv-muted-line` | elementos secundários (setas, base, "vs") |
-| `cv-soft` / `cv-soft-line` | apoio bem discreto |
-| `cv-cut` | "recorte" com a cor do fundo (texto sobre `cv-solid`) |
-| `cv-white` | texto em branco translúcido |
-| `cv-text` / `cv-mono` | fonte do texto (Inter 700 / JetBrains Mono 700); combinar com uma classe de cor |
+**Cor**: a base é ciano e cada capa escolhe **um** acento, declarado na raiz do SVG
+(`<svg ... class="ac-violet">`): `ac-amber` (padrão), `ac-violet`, `ac-green`, `ac-coral`, `ac-pink`.
+O acento marca um papel só na narrativa (o que falha, o "antes", o que é escolhido) — nunca enfeite.
+O CSS, o halo do fundo e o PNG de compartilhamento seguem essa classe sozinhos.
 
-Pré-visualizar os 3 formatos nos 2 temas (inclui a miniatura de 84px e o tamanho do destaque):
-`PLAYWRIGHT_CORE=<caminho>/playwright-core/index.mjs node scripts/preview-covers.mjs <slug> saida.png`
-(o `playwright-core` do projeto dev-note serve). Referências: `src/covers/bloqueio-otimista-e-pessimista/`
-(motivo simples) e `src/covers/arquitetura-de-ledger/` (com laterais narrativas).
+**Proibido**: cores fixas, degradês, filtros, sombras, `<image>`, `style=`, `id`/`<defs>` (os SVGs
+convivem na mesma página e ids colidiriam), `stroke-width`. Até 8 KB por arquivo. Espaço entre dois
+`<tspan>` some ao embutir — use `&#160;`.
 
-**Série Java**: não desenhar à mão. `node scripts/java-covers.mjs <versão>` gera o padrão fixo (xícara +
-JAVA NN + selo LTS; no wide, o caminho desde a LTS anterior e a data de lançamento). Tudo vem de
-`src/data/java.ts`, inclusive o selo tracejado "PRÓXIMA LTS" das versões marcadas como `upcoming`.
+Ferramentas:
+
+- `node scripts/check-cover.mjs [slug]` — valida tudo acima **e mede a capa renderizada**: reprova
+  desenho que sai da borda, que desperdiça espaço ou cujas margens opostas diferem mais de 2%
+- `node scripts/render-cover.mjs <slug> saida.png` — desenha os 4 formatos + destaque + miniatura de
+  84px num PNG só, para conferir com os próprios olhos
+- `node scripts/center-cover.mjs <slug> [formato]` — mede e desloca o desenho para o centro exato
+
+**Série Java**: não desenhar à mão. `node scripts/java-covers.mjs <versão>` gera os quatro arquivos
+no padrão fixo (xícara + JAVA NN + selo LTS; no wide, o caminho desde a LTS anterior e a data), já
+centralizados automaticamente. Tudo vem de `src/data/java.ts`.
+
+Referências: `src/covers/bloqueio-otimista-e-pessimista/` (motivo simples, contraste âmbar/ciano) e
+`src/covers/wide-events-canonical-log-lines/` (laterais narrativas no wide).
 
 ## Recursos disponíveis nos posts
 
@@ -222,7 +220,8 @@ lugar e traz para cá. Nos dois casos o trabalho é o mesmo:
 3. **Revisar para não ter erros**: conferir cada afirmação técnica contra fonte oficial, código que
    compila/faz sentido, links funcionando, português, `$` escapado, seção `## Fontes` no final
 4. **Criar as imagens**:
-   - **capa** nos 3 formatos em `src/covers/<slug>/` (obrigatória; ver "Capas"), conferida com `preview-covers.mjs`
+   - **capa** nos 4 formatos em `src/covers/<slug>/` (obrigatória; ver "Capas"), aprovada no
+     `check-cover.mjs` e conferida a olho no `render-cover.mjs`
    - **diagramas e desenhos dentro do texto** (`public/posts/<slug>/`) sempre que ajudarem a leitura e o
      aprendizado: fluxos, arquitetura, sequência, antes/depois, linha do tempo, comparações
 5. Avaliar outros recursos (tabela, toggle, código com diff, componente interativo em `.mdx`) e

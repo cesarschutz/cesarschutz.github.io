@@ -1,4 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- tarefas em virtual threads presas ao carrier; à direita, conexões em CLOSE_WAIT -->
-  <rect class="cv-shape" x="120" y="108" width="150" height="48" rx="17"/><line class="cv-muted-line cv-thin" x1="144" y1="132" x2="246" y2="132"/><rect class="cv-shape" x="120" y="176" width="150" height="48" rx="17"/><line class="cv-muted-line cv-thin" x1="144" y1="200" x2="246" y2="200"/><rect class="cv-shape" x="120" y="244" width="150" height="48" rx="17"/><line class="cv-muted-line cv-thin" x1="144" y1="268" x2="246" y2="268"/><g transform="translate(760 200) scale(0.74)"><rect class="cv-shape cv-bold" x="-60" y="-146" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 -154 C-190 -154 -170 -120 -66 -120"/><path class="cv-detail-line cv-thin" d="M-300 -86 C-190 -86 -170 -120 -66 -120"/><rect class="cv-shape cv-bold" x="-60" y="-26" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 -34 C-190 -34 -170 0 -66 0"/><path class="cv-detail-line cv-thin" d="M-300 34 C-190 34 -170 0 -66 0"/><rect class="cv-shape cv-bold" x="-60" y="94" width="300" height="52" rx="26"/><path class="cv-detail-line cv-thin" d="M-300 86 C-190 86 -170 120 -66 120"/><path class="cv-detail-line cv-thin" d="M-300 154 C-190 154 -170 120 -66 120"/><path class="cv-muted-line cv-bold" d="M300 -96 L214 -10"/><circle class="cv-solid" cx="312" cy="-108" r="30"/></g><rect class="cv-shape" x="1290" y="118" width="56" height="56" rx="12"/><rect class="cv-line cv-dash" x="1362" y="118" width="56" height="56" rx="12"/><rect class="cv-shape" x="1434" y="118" width="56" height="56" rx="12"/><rect class="cv-shape" x="1290" y="190" width="56" height="56" rx="12"/><rect class="cv-shape" x="1362" y="190" width="56" height="56" rx="12"/><rect class="cv-line cv-dash" x="1434" y="190" width="56" height="56" rx="12"/><rect class="cv-shape" x="1290" y="262" width="56" height="56" rx="12"/><rect class="cv-shape" x="1362" y="262" width="56" height="56" rx="12"/><rect class="cv-shape" x="1434" y="262" width="56" height="56" rx="12"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-coral">
+  <!-- esquerda: as virtual threads que esperam uma carrier; centro: as 4 carriers rodando ate travarem no synchronized; direita: o que nunca rodou (tracejado) e os sockets que ficaram em CLOSE_WAIT -->
+  <rect class="cv-muted-line" x="80" y="80" width="120" height="24" rx="12"/>
+  <rect class="cv-muted-line" x="80" y="134" width="120" height="24" rx="12"/>
+  <rect class="cv-muted-line" x="80" y="188" width="120" height="24" rx="12"/>
+  <rect class="cv-muted-line" x="80" y="242" width="120" height="24" rx="12"/>
+  <rect class="cv-muted-line" x="80" y="296" width="120" height="24" rx="12"/>
+  <path class="cv-muted-line cv-thin" d="M240 92 V308 M200 92 H240 M200 146 H240 M200 200 H240 M200 254 H240 M200 308 H240 M240 95 H270 M240 165 H270 M240 235 H270 M240 305 H270"/>
+    <circle class="cv-solid" cx="270" cy="95" r="8"/><circle class="cv-solid" cx="270" cy="165" r="8"/><circle class="cv-solid" cx="270" cy="235" r="8"/><circle class="cv-solid" cx="270" cy="305" r="8"/>
+  <path class="cv-detail-line" d="M270 95 H680 M270 165 H680 M270 235 H680 M270 305 H680"/>
+  <path class="cv-ac-shape cv-bold" d="M880 78 H697 a17 17 0 0 0 0 34 H880 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M880 148 H697 a17 17 0 0 0 0 34 H880 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M880 218 H697 a17 17 0 0 0 0 34 H880 Z"/>
+  <path class="cv-ac-shape cv-bold" d="M880 288 H697 a17 17 0 0 0 0 34 H880 Z"/>
+  <rect class="cv-solid" x="880" y="50" width="58" height="300" rx="12"/>
+  <text class="cv-mono cv-cut" transform="translate(915 200) rotate(-90)" font-size="24" text-anchor="middle">synchronized</text>
+  <path class="cv-muted-line cv-thin cv-dash" d="M938 95 H1272 M938 165 H1272 M938 235 H1272 M938 305 H1272"/>
+  <g transform="translate(1300 91)"><path class="cv-shape cv-bold" d="M-26 -18 H26 V12 H9 V26 H-9 V12 H-26 Z"/><path class="cv-detail-line cv-thin" d="M-15 -6 H15"/></g>
+  <g transform="translate(1300 161)"><path class="cv-shape cv-bold" d="M-26 -18 H26 V12 H9 V26 H-9 V12 H-26 Z"/><path class="cv-detail-line cv-thin" d="M-15 -6 H15"/></g>
+  <g transform="translate(1300 231)"><path class="cv-shape cv-bold" d="M-26 -18 H26 V12 H9 V26 H-9 V12 H-26 Z"/><path class="cv-detail-line cv-thin" d="M-15 -6 H15"/></g>
+  <g transform="translate(1300 301)"><path class="cv-shape cv-bold" d="M-26 -18 H26 V12 H9 V26 H-9 V12 H-26 Z"/><path class="cv-detail-line cv-thin" d="M-15 -6 H15"/></g>
+  <path class="cv-muted-line cv-thin" d="M1352 66 H1364 V334 H1352"/>
+  <text class="cv-mono cv-muted" x="1384" y="209" font-size="24">CLOSE_WAIT</text>
 </svg>

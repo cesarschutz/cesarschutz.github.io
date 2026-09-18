@@ -1,11 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- linha do tempo das LTS recentes -->
-  <g transform="translate(280 240) scale(0.72)">
-  <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
-  <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
-  <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
-  <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
-  <path class="cv-muted-line" d="M-25 222 h290"/>
-  <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
-  </g><line class="cv-muted-line" x1="190" y1="580" x2="610" y2="580"/><circle class="cv-shape cv-bold" cx="190" cy="580" r="66"/><text class="cv-mono cv-detail" x="190" y="597" font-size="46" text-anchor="middle" >17</text><circle class="cv-shape cv-bold" cx="330" cy="580" r="66"/><text class="cv-mono cv-detail" x="330" y="597" font-size="46" text-anchor="middle" >21</text><circle class="cv-solid" cx="470" cy="580" r="72"/><text class="cv-mono cv-cut" x="470" y="597" font-size="46" text-anchor="middle" >25</text><circle class="cv-line cv-dash" cx="610" cy="580" r="66"/><text class="cv-mono cv-muted" x="610" y="597" font-size="46" text-anchor="middle" >29</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-amber">
+  <!-- a mesma escada, simplificada: 17 (âmbar), 21 e o topo no 25, onde o Java roda -->
+  <rect class="cv-ac-shape cv-bold" x="60" y="605" width="150" height="130"/>
+  <path class="cv-shape cv-bold" d="M210 735 V475 H360 V345 H740 V735 Z"/>
+  <line class="cv-muted-line cv-thin" x1="360" y1="345" x2="360" y2="735"/>
+  <text class="cv-text cv-ac" x="135" y="705" font-size="96" text-anchor="middle">17</text>
+  <text class="cv-text cv-detail" x="285" y="575" font-size="96" text-anchor="middle">21</text>
+  <text class="cv-text cv-solid" x="550" y="445" font-size="96" text-anchor="middle">25</text>
+  <g transform="translate(442.8 184.3) scale(0.893)">
+    <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
+    <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
+    <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
+    <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
+    <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
+  </g>
 </svg>

@@ -1,4 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
-  <!-- SIGTERM, período de graça e SIGKILL -->
-  <g transform="translate(600 300) scale(1.12)"><circle class="cv-shape cv-bold" cx="-190" cy="0" r="92"/><text class="cv-mono cv-detail" x="-190" y="27" font-size="76" text-anchor="middle" >15</text><circle class="cv-solid" cx="190" cy="0" r="92"/><text class="cv-mono cv-cut" x="190" y="27" font-size="76" text-anchor="middle" >9</text><line class="cv-muted-line cv-dash" x1="-72" y1="0" x2="74" y2="0"/><path class="cv-muted-line" d="M59 -13 L74 0 L59 13"/><text class="cv-mono cv-muted" x="0" y="-54" font-size="40" text-anchor="middle" >30s</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" class="ac-coral">
+  <g transform="translate(0 27)">
+  <!-- o cronômetro virou o aro do grace period em volta do pod: coroa em cima, setor coral do prazo às 3h, onde o raio SIGKILL bate; a onda SIGTERM encosta no aro pela esquerda -->
+  <rect class="cv-shape" x="582" y="64" width="36" height="38" rx="6"/><rect class="cv-solid" x="590" y="46" width="20" height="18" rx="5"/>
+  <path class="cv-soft-line cv-dash" d="M793.2 351.8 A200 200 0 1 1 600 100"/>
+  <path class="cv-line cv-bold" d="M600 100 A200 200 0 0 1 793.2 248.2"/>
+  <path class="cv-ac-line cv-bold" d="M793.2 248.2 A200 200 0 0 1 793.2 351.8"/>
+  <g transform="translate(600 300) scale(0.8)"><path class="cv-shape cv-bold" d="M0 -180 L156 -90 V90 L0 180 L-156 90 V-90 Z"/><path class="cv-soft" d="M0 -180 L156 -90 L0 0 L-156 -90 Z"/><path class="cv-line" d="M-156 -90 L0 0 L156 -90 M0 0 V180"/></g>
+  <path class="cv-line cv-bold" d="M80 300 q38 -88 76 0 t76 0 t76 0 H358"/><path class="cv-line cv-bold" d="M352 266 L392 300 L352 334"/>
+  <text class="cv-mono cv-detail" x="240" y="440" font-size="44" text-anchor="middle">SIGTERM</text>
+  <path class="cv-ac" transform="translate(955 300) scale(1.25)" d="M130 40 L-20 -60 L-20 0 L-130 -40 L30 70 L30 10 Z"/>
+  <text class="cv-mono cv-ac" x="955" y="440" font-size="44" text-anchor="middle">SIGKILL</text>
+  </g>
 </svg>

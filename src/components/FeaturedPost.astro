@@ -47,7 +47,7 @@ const label = postLabel(post);
   </div>
 
   <div class="ft-cover">
-    <Cover post={post} format="square" class="ft-cover-square" />
+    <Cover post={post} format="featured" class="ft-cover-square" />
     <Cover post={post} format="card" class="ft-cover-card" />
   </div>
 </article>
@@ -55,6 +55,7 @@ const label = postLabel(post);
 <style>
   .featured {
     position: relative;
+    min-height: clamp(420px, 33vw, 580px);
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
     overflow: hidden;
@@ -165,7 +166,8 @@ const label = postLabel(post);
     gap: 6px;
   }
 
-  /* desktop: capa quadrada; a sobra de altura continua o fundo da capa */
+  /* desktop: capa retrato (4:5). O piso de altura evita que o card fique
+     deitado quando o texto é curto — assim o slot fica sempre perto de 4:5. */
   .ft-cover {
     position: relative;
     min-height: 100%;

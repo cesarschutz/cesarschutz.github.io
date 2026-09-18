@@ -386,6 +386,7 @@ a.pill:hover {
    luz pintados no contêiner; o SVG traz só o desenho (sem corte, "meet").
    Traço em px proporcional à largura da capa (non-scaling-stroke + cqw). */
 .cover {
+  --ac: #f5a04a;
   position: relative;
   display: block;
   width: 100%;
@@ -399,9 +400,15 @@ a.pill:hover {
     radial-gradient(circle at 4% 90%, rgb(127 212 245 / 0.4) 0 1.2px, transparent 1.8px),
     radial-gradient(circle at 70% 5%, rgb(127 212 245 / 0.35) 0 1px, transparent 1.6px),
     radial-gradient(circle at 28% 95%, rgb(127 212 245 / 0.35) 0 1px, transparent 1.6px),
-    radial-gradient(ellipse 48% 62% at 50% 50%, rgb(0 160 229 / 0.2), transparent 72%),
+    radial-gradient(ellipse 42% 58% at 50% 50%, rgb(0 160 229 / 0.2), transparent 72%),
+    radial-gradient(ellipse 46% 70% at 12% 62%, color-mix(in srgb, var(--ac) 11%, transparent), transparent 70%),
+    radial-gradient(ellipse 46% 70% at 90% 30%, rgb(0 160 229 / 0.12), transparent 70%),
     linear-gradient(135deg, #01131b 0%, #04283d 55%, #01131b 100%);
 }
+.cover:has(svg.ac-violet) { --ac: #a889f7; }
+.cover:has(svg.ac-green)  { --ac: #4fd69a; }
+.cover:has(svg.ac-coral)  { --ac: #f4706b; }
+.cover:has(svg.ac-pink)   { --ac: #f272b8; }
 
 .cover svg {
   --sw: clamp(1.35px, calc(0.3px + 0.88cqw), 6px);
@@ -431,6 +438,13 @@ a.pill:hover {
 .cover .cv-muted-line { fill: none; stroke: rgb(127 212 245 / 0.4); }
 .cover .cv-soft { fill: rgb(0 160 229 / 0.14); }
 .cover .cv-soft-line { fill: none; stroke: rgb(0 160 229 / 0.3); }
+/* Acento: a segunda cor da capa. O SVG escolhe pela classe na raiz (ex.: <svg class="ac-violet">);
+   sem classe, é âmbar. O halo do fundo acompanha. */
+.cover .cv-ac-line, .cover .cv-warm-line { fill: none; stroke: var(--ac); }
+.cover .cv-ac-shape, .cover .cv-warm-shape { fill: color-mix(in srgb, var(--ac) 14%, #01131b); stroke: var(--ac); }
+.cover .cv-ac, .cover .cv-warm { fill: var(--ac); }
+.cover .cv-ac-soft, .cover .cv-warm-soft { fill: color-mix(in srgb, var(--ac) 16%, transparent); }
+.cover .cv-ac-soft-line, .cover .cv-warm-soft-line { fill: none; stroke: color-mix(in srgb, var(--ac) 30%, transparent); }
 .cover .cv-white { fill: rgb(255 255 255 / 0.78); }
 .cover .cv-cut { fill: #022131; }
 .cover .cv-text { font-family: var(--font-sans); font-weight: 700; }

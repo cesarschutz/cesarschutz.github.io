@@ -1,11 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- o caminho das versões LTS, da 8 à próxima -->
-  <g transform="translate(200 178) scale(0.62)">
-  <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
-  <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
-  <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
-  <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
-  <path class="cv-muted-line" d="M-25 222 h290"/>
-  <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
-  </g><line class="cv-muted-line" x1="640" y1="200" x2="1460" y2="200"/><circle class="cv-shape cv-bold" cx="640" cy="200" r="46"/><text class="cv-mono cv-detail" x="640" y="212" font-size="34" text-anchor="middle" >8</text><circle class="cv-shape cv-bold" cx="804" cy="200" r="46"/><text class="cv-mono cv-detail" x="804" y="212" font-size="34" text-anchor="middle" >11</text><circle class="cv-shape cv-bold" cx="968" cy="200" r="46"/><text class="cv-mono cv-detail" x="968" y="212" font-size="34" text-anchor="middle" >17</text><circle class="cv-shape cv-bold" cx="1132" cy="200" r="46"/><text class="cv-mono cv-detail" x="1132" y="212" font-size="34" text-anchor="middle" >21</text><circle class="cv-solid" cx="1296" cy="200" r="52"/><text class="cv-mono cv-cut" x="1296" y="212" font-size="34" text-anchor="middle" >25</text><circle class="cv-line cv-dash" cx="1460" cy="200" r="46"/><text class="cv-mono cv-muted" x="1460" y="212" font-size="34" text-anchor="middle" >29</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-amber">
+  <!-- a escada inteira: o 11 que ficou para trás, o 17 (âmbar) de onde se salta, o Java rodando no 25 e o degrau do 29 ainda por construir -->
+  <path class="cv-shape cv-bold" d="M60 378 V332 H340 V378 Z"/>
+  <rect class="cv-ac-shape cv-bold" x="340" y="286" width="280" height="92"/>
+  <path class="cv-shape cv-bold" d="M620 378 V240 H900 V194 H1240 V378 Z"/>
+  <line class="cv-muted-line cv-thin" x1="900" y1="194" x2="900" y2="378"/>
+  <rect class="cv-soft" x="1240" y="148" width="300" height="230"/>
+  <path class="cv-muted-line cv-dash" d="M1240 378 V148 H1540 V378 Z"/>
+  <text class="cv-text cv-muted" x="200" y="364" font-size="26" text-anchor="middle">11</text>
+  <text class="cv-text cv-ac" x="480" y="318" font-size="26" text-anchor="middle">17</text>
+  <text class="cv-text cv-detail" x="760" y="272" font-size="26" text-anchor="middle">21</text>
+  <text class="cv-text cv-solid" x="1070" y="226" font-size="26" text-anchor="middle">25</text>
+  <text class="cv-text cv-muted" x="1390" y="180" font-size="26" text-anchor="middle">29</text>
+  <g transform="translate(1004 95) scale(0.55)">
+    <path class="cv-detail-line" d="M75 -48 C58 -80 92 -100 75 -132"/>
+    <path class="cv-detail-line" d="M155 -48 C138 -80 172 -100 155 -136"/>
+    <path class="cv-shape cv-bold" d="M0 0 H240 V120 a60 60 0 0 1 -60 60 H60 a60 60 0 0 1 -60 -60 Z"/>
+    <path class="cv-line cv-bold" d="M240 28 h42 a52 52 0 0 1 0 104 h-42"/>
+    <text class="cv-mono cv-detail" x="120" y="108" font-size="56" text-anchor="middle">&lt;/&gt;</text>
+  </g>
 </svg>

@@ -1,4 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- header, payload e assinatura — as três partes do token -->
-  <circle class="cv-shape" cx="150" cy="200" r="42"/><text class="cv-mono cv-detail" x="150" y="209" font-size="26" text-anchor="middle" >kid</text><line class="cv-muted-line" x1="200" y1="200" x2="300" y2="200"/><path class="cv-muted-line" d="M286 188 L300 200 L286 212"/><g transform="translate(780 210) scale(0.78)"><rect class="cv-shape cv-bold" x="-300" y="-70" width="170" height="140" rx="20"/><line class="cv-detail-line" x1="-274" y1="-34" x2="-156" y2="-34"/><line class="cv-muted-line" x1="-274" y1="0" x2="-174" y2="0"/><circle class="cv-solid" cx="-108" cy="0" r="9"/><rect class="cv-shape cv-bold" x="-110" y="-70" width="250" height="140" rx="20"/><line class="cv-detail-line" x1="-84" y1="-34" x2="114" y2="-34"/><line class="cv-muted-line" x1="-84" y1="0" x2="96" y2="0"/><line class="cv-muted-line" x1="-84" y1="34" x2="114" y2="34"/><circle class="cv-solid" cx="162" cy="0" r="9"/><rect class="cv-shape cv-bold" x="170" y="-70" width="190" height="140" rx="20"/><path class="cv-detail-line cv-bold" d="M247 1 l13 14 l25 -29"/><text class="cv-text cv-white" x="0" y="-120" font-size="64" text-anchor="middle" letter-spacing="14">JWT</text></g><line class="cv-muted-line" x1="1150" y1="210" x2="1250" y2="210"/><path class="cv-muted-line" d="M1236 198 L1250 210 L1236 222"/><path class="cv-shape cv-bold" d="M1400 116 l92 34 v74 c0 56 -46 86 -92 104 c-46 -18 -92 -48 -92 -104 v-74 Z"/><path class="cv-detail-line cv-bold" d="M1381 219 l14 15 l26 -30"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-green">
+  <g transform="translate(-30 -5)">
+  <!-- a vida do token: o usuário entra, o emissor carimba o lacre, a credencial é apresentada ao leitor, a porta abre -->
+  <g transform="translate(181 200)"><circle class="cv-shape cv-bold" cx="0" cy="0" r="48"/><circle class="cv-detail" cx="0" cy="-14" r="17"/><path class="cv-detail" d="M-27 26 a27 27 0 0 1 54 0 Z"/></g>
+  <path class="cv-muted-line" d="M249 200 H359"/><path class="cv-muted-line" d="M345 188 L359 200 L345 212"/>
+  <g transform="translate(461 266) scale(1.05)"><line class="cv-muted-line" x1="-78" y1="0" x2="78" y2="0"/><rect class="cv-ac-shape cv-bold" x="-36" y="-126" width="72" height="42" rx="21"/><rect class="cv-ac" x="-15" y="-92" width="30" height="46" rx="6"/><rect class="cv-ac-shape cv-bold" x="-60" y="-50" width="120" height="34" rx="10"/><rect class="cv-ac" x="-44" y="-12" width="88" height="10" rx="5"/></g>
+  <path class="cv-muted-line" d="M563 200 H673"/><path class="cv-muted-line" d="M659 188 L673 200 L659 212"/>
+  <g transform="translate(800 197) scale(0.7)">
+    <rect class="cv-shape cv-bold" x="-150" y="-180" width="300" height="380" rx="28"/>
+    <circle class="cv-line" cx="0" cy="-192" r="36"/>
+    <rect class="cv-muted" x="-44" y="-160" width="88" height="16" rx="8"/>
+    <circle class="cv-detail" cx="-78" cy="-88" r="32"/><path class="cv-detail" d="M-128 -22 a50 50 0 0 1 100 0 Z"/>
+    <text class="cv-mono cv-detail" x="-6" y="-68" font-size="52">sub</text>
+    <line class="cv-muted-line" x1="-118" y1="26" x2="118" y2="26"/>
+    <circle class="cv-line" cx="-70" cy="106" r="46"/><path class="cv-detail-line" d="M-70 74 V106 H-38"/>
+    <text class="cv-mono cv-detail" x="-6" y="124" font-size="52">exp</text>
+    <g transform="translate(150 180)"><path class="cv-ac-shape cv-bold" d="M0 -62A19 19 0 0 1 33.5 -52.2A19 19 0 0 1 56.4 -25.8A19 19 0 0 1 61.4 8.8A19 19 0 0 1 46.9 40.6A19 19 0 0 1 17.5 59.5A19 19 0 0 1 -17.5 59.5A19 19 0 0 1 -46.9 40.6A19 19 0 0 1 -61.4 8.8A19 19 0 0 1 -56.4 -25.8A19 19 0 0 1 -33.5 -52.2A19 19 0 0 1 0 -62Z"/><circle class="cv-ac-soft-line" cx="0" cy="0" r="44"/><path class="cv-ac-line cv-bold" d="M-38 8 C-30 -24 -16 -24 -10 4 S6 34 14 4 S28 -22 40 -8"/></g>
+  </g>
+  <path class="cv-muted-line" d="M947 200 H1057"/><path class="cv-muted-line" d="M1043 188 L1057 200 L1043 212"/>
+  <g transform="translate(1165 200) scale(0.98)"><rect class="cv-shape cv-bold" x="-66" y="-96" width="132" height="192" rx="18"/><rect class="cv-muted" x="-44" y="-70" width="88" height="14" rx="7"/><circle class="cv-line cv-bold" cx="0" cy="34" r="44"/><path class="cv-line cv-bold" d="M-19 34 L-5 49 L20 19"/></g>
+  <path class="cv-muted-line" d="M1250 200 H1360"/><path class="cv-muted-line" d="M1346 188 L1360 200 L1346 212"/>
+  <g transform="translate(1474 191) scale(0.8)"><rect class="cv-line cv-bold" x="-62" y="-96" width="124" height="192" rx="6"/><path class="cv-shape cv-bold" d="M-62 -96 L-118 -72 V118 L-62 96 Z"/><circle class="cv-detail" cx="-74" cy="20" r="8"/></g>
+  </g>
 </svg>

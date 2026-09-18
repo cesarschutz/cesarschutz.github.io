@@ -1,37 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400">
-  <!-- duas transações (T1, T2) → otimista vs pessimista → a linha protegida na tabela -->
-  <circle class="cv-shape" cx="170" cy="130" r="26"/>
-  <text class="cv-mono cv-detail" x="170" y="139" font-size="24" text-anchor="middle">T1</text>
-  <circle class="cv-shape" cx="170" cy="270" r="26"/>
-  <text class="cv-mono cv-detail" x="170" y="279" font-size="24" text-anchor="middle">T2</text>
-  <path class="cv-muted-line" d="M200 130 C330 130 360 200 500 200"/>
-  <path class="cv-muted-line cv-dash" d="M200 270 C330 270 360 200 500 200"/>
-  <path class="cv-muted-line" d="M486 188 L500 200 L486 212"/>
-  <g transform="translate(660 212) scale(0.92)">
-    <path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v6"/>
-    <rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/>
-    <circle class="cv-detail" cx="0" cy="30" r="16"/>
-    <rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/>
-  </g>
-  <g transform="translate(940 212) scale(0.92)">
-    <path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v38"/>
-    <rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/>
-    <circle class="cv-detail" cx="0" cy="30" r="16"/>
-    <rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/>
-  </g>
-  <text class="cv-mono cv-muted" x="800" y="232" font-size="48" text-anchor="middle">vs</text>
-  <path class="cv-muted-line" d="M1080 200 H1170"/>
-  <path class="cv-muted-line" d="M1156 188 L1170 200 L1156 212"/>
-  <rect class="cv-shape" x="1190" y="100" width="280" height="200" rx="18"/>
-  <line class="cv-line" x1="1190" y1="146" x2="1470" y2="146"/>
-  <line class="cv-muted-line" x1="1290" y1="100" x2="1290" y2="300"/>
-  <circle class="cv-muted" cx="1240" cy="123" r="6"/>
-  <line class="cv-detail-line" x1="1310" y1="123" x2="1420" y2="123"/>
-  <line class="cv-muted-line" x1="1215" y1="180" x2="1265" y2="180"/>
-  <line class="cv-muted-line" x1="1310" y1="180" x2="1440" y2="180"/>
-  <rect class="cv-solid" x="1202" y="206" width="256" height="40" rx="10" fill-opacity="0.9"/>
-  <rect class="cv-cut" x="1215" y="222" width="50" height="8" rx="4"/>
-  <rect class="cv-cut" x="1310" y="222" width="120" height="8" rx="4"/>
-  <line class="cv-muted-line" x1="1215" y1="272" x2="1265" y2="272"/>
-  <line class="cv-muted-line" x1="1310" y1="272" x2="1410" y2="272"/>
+  <g transform="translate(-42.9 -1.4)">
+  <!-- T1 otimista e T2 pessimista disputam a mesma linha da tabela -->
+  <g transform="translate(300 70)"><path class="cv-warm-soft-line" d="M0 -24 L21 -12 L0 0 L-21 -12 Z"/><path class="cv-warm-soft-line" d="M-21 -12 V12 L0 24 V0 Z"/><path class="cv-warm-soft-line" d="M21 -12 V12 L0 24 V0 Z"/></g><g transform="translate(1520 330)"><path class="cv-soft-line" d="M0 -26 L23 -13 L0 0 L-23 -13 Z"/><path class="cv-soft-line" d="M-23 -13 V13 L0 26 V0 Z"/><path class="cv-soft-line" d="M23 -13 V13 L0 26 V0 Z"/></g><circle class="cv-warm-shape" cx="170" cy="130" r="26"/><text class="cv-mono cv-warm" x="170" y="139" font-size="24" text-anchor="middle" >T1</text><circle class="cv-shape" cx="170" cy="270" r="26"/><text class="cv-mono cv-detail" x="170" y="279" font-size="24" text-anchor="middle" >T2</text><path class="cv-warm-line cv-thin" d="M200 130 C330 130 360 190 520 190"/><path class="cv-detail-line cv-thin cv-dash" d="M200 270 C330 270 360 212 520 212"/><g transform="translate(660 212) scale(0.92)"><path class="cv-warm-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v6"/><rect class="cv-warm-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/><circle class="cv-warm" cx="0" cy="30" r="16"/><rect class="cv-warm" x="-7" y="34" width="14" height="38" rx="7"/></g><g transform="translate(940 212) scale(0.92)"><path class="cv-line cv-bold" d="M-58 -30 V-68 a58 58 0 0 1 116 0 v38"/><rect class="cv-shape cv-bold" x="-90" y="-30" width="180" height="148" rx="24"/><circle class="cv-detail" cx="0" cy="30" r="16"/><rect class="cv-detail" x="-7" y="34" width="14" height="38" rx="7"/></g><text class="cv-mono cv-muted" x="800" y="232" font-size="48" text-anchor="middle" >vs</text><path class="cv-muted-line" d="M1080 200 H1170"/><path class="cv-muted-line" d="M1156 188 L1170 200 L1156 212"/><rect class="cv-shape" x="1190" y="100" width="280" height="200" rx="18"/><line class="cv-line" x1="1190" y1="146" x2="1470" y2="146"/><line class="cv-muted-line" x1="1290" y1="100" x2="1290" y2="300"/><circle class="cv-muted" cx="1240" cy="123" r="6"/><line class="cv-detail-line" x1="1310" y1="123" x2="1420" y2="123"/><line class="cv-muted-line" x1="1215" y1="180" x2="1265" y2="180"/><line class="cv-muted-line" x1="1310" y1="180" x2="1440" y2="180"/><rect class="cv-solid" x="1202" y="206" width="256" height="40" rx="10" fill-opacity="0.9"/><rect class="cv-cut" x="1215" y="222" width="50" height="8" rx="4"/><rect class="cv-cut" x="1310" y="222" width="120" height="8" rx="4"/><line class="cv-muted-line" x1="1215" y1="272" x2="1265" y2="272"/><line class="cv-muted-line" x1="1310" y1="272" x2="1410" y2="272"/>
+</g>
 </svg>

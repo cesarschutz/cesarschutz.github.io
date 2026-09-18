@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-violet">
+  <!-- em pé: inspetor em cima, lâmina do proxy no meio, classe real (@) embaixo e o mapa por classe encontrando a linha -->
+  <circle class="cv-shape cv-bold" cx="400" cy="130" r="46"/><circle class="cv-line" cx="394" cy="124" r="15"/><path class="cv-line cv-bold" d="M405 135 L421 151"/>
+  <path class="cv-detail-line cv-dash" d="M378 174 C378 230 300 250 300 280"/><path class="cv-detail-line" d="M286 268 L300 282 L314 268"/>
+  <rect class="cv-ac-shape cv-dash cv-bold" x="100" y="300" width="600" height="100" rx="20"/><text class="cv-mono cv-ac" x="200" y="366" font-size="44" text-anchor="middle">$$</text>
+  <circle class="cv-cut" cx="500" cy="350" r="26"/><circle class="cv-ac-line cv-thin" cx="500" cy="350" r="26"/>
+  <path class="cv-line cv-bold" d="M422 174 C422 230 500 250 500 280 V458"/><path class="cv-line cv-bold" d="M486 442 L500 458 L514 442"/>
+  <rect class="cv-shape cv-bold" x="160" y="480" width="480" height="230" rx="24"/><line class="cv-line" x1="160" y1="530" x2="640" y2="530"/><rect class="cv-detail" x="190" y="498" width="120" height="14" rx="7"/>
+  <text class="cv-mono cv-detail" x="400" y="668" font-size="130" text-anchor="middle">@</text>
+  <path class="cv-muted-line" d="M400 730 V778"/><path class="cv-muted-line" d="M386 764 L400 778 L414 764"/>
+  <rect class="cv-shape" x="160" y="800" width="480" height="120" rx="16"/><line class="cv-line" x1="160" y1="836" x2="640" y2="836"/><line class="cv-muted-line" x1="270" y1="800" x2="270" y2="920"/><circle class="cv-muted" cx="215" cy="818" r="6"/><line class="cv-detail-line" x1="290" y1="818" x2="420" y2="818"/>
+  <rect class="cv-solid" x="172" y="850" width="456" height="32" rx="8" fill-opacity="0.9"/><rect class="cv-cut" x="185" y="862" width="60" height="8" rx="4"/><rect class="cv-cut" x="290" y="862" width="160" height="8" rx="4"/>
+  <line class="cv-muted-line" x1="185" y1="902" x2="245" y2="902"/><line class="cv-muted-line" x1="290" y1="902" x2="420" y2="902"/>
+</svg>
