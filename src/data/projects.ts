@@ -69,7 +69,7 @@ export const projects: Project[] = [
       "Este site: blog técnico em Astro com busca própria, Expressive Code, KaTeX e design derivado do DEV NOTE. Publicado no GitHub Pages.",
     tags: ["Astro", "TypeScript", "GitHub Pages"],
     repoUrl: "https://github.com/cesarschutz/cesarschutz.github.io",
-    demoUrl: "https://cesarschutz.github.io",
+    demoUrl: "https://cesarschutz.com.br",
     icon: "globe",
     color: "#0ea5e9",
     image: "/projects/site.webp",

@@ -28,7 +28,7 @@ export const GET: APIRoute = async () => {
   <text x="90" y="398" font-family="${font}" font-size="34" fill="#c7d2e0">organizados para consulta.</text>
   <rect x="90" y="470" width="4" height="70" rx="2" fill="#2997ff"/>
   <text x="112" y="500" font-family="${font}" font-size="26" fill="#8fa3b8">Arquitetura · Sistemas distribuídos · Java · IA aplicada</text>
-  <text x="112" y="536" font-family="${font}" font-size="26" fill="#8fa3b8">cesarschutz.github.io</text>
+  <text x="112" y="536" font-family="${font}" font-size="26" fill="#8fa3b8">cesarschutz.com.br</text>
 </svg>`;
   const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
   return new Response(new Uint8Array(png), { headers: { "Content-Type": "image/png" } });

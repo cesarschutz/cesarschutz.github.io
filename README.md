@@ -3,7 +3,7 @@
 Blog técnico de **Cesar Schutz**, arquiteto de solução: artigos sobre arquitetura de software,
 sistemas distribuídos e o ecossistema Java.
 
-🌐 <https://cesarschutz.github.io>
+🌐 <https://cesarschutz.com.br>
 
 ## Stack
 

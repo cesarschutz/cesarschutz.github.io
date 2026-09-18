@@ -4,7 +4,7 @@ import type { IconName } from "./utils/icons";
 export const SITE = {
   name: "Cesar Schutz",
   role: "Arquiteto de Soluções",
-  url: "https://cesarschutz.github.io",
+  url: "https://cesarschutz.com.br",
   locale: "pt-BR",
   /** título da aba na home */
   homeTitle: "Cesar Schutz · Arquitetura e engenharia de software",
