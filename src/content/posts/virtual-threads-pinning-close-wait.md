@@ -1,20 +1,20 @@
 ---
 title: "Virtual threads no Java 21 — pinning e CLOSE_WAIT"
 published: 2026-09-12
-updated: 2026-09-16
+updated: 2026-09-20
 description: "Por que um serviço Java 21 com virtual threads congela sem erro no log: pinning por `synchronized` (resolvido no Java 24, JEP 491) e CLOSE_WAIT como rastro. Thread dump, JFR, bulkhead e circuit breaker."
 tags: [Virtual Threads, Concorrência, JVM]
 category: Java
 draft: false
 ---
 
-Um serviço Java 21 com virtual threads para de responder no pico, sem nenhum erro no log, e o host acumula milhares de sockets em CLOSE_WAIT. Este post segue o diagnóstico em formato de desafio: primeiro o sintoma, depois a resposta que parecia certa, onde ela falhou e a causa real, o **pinning** de virtual threads dentro de blocos `synchronized`. Em seguida vem o que continua valendo mesmo depois da correção: limites explícitos com bulkhead e circuit breaker, com código Java que você pode rodar.
+Um serviço Java 21 com virtual threads para de responder no pico, sem nenhum erro no log, e o host acumula milhares de sockets em CLOSE_WAIT. Este post percorre a cadeia inteira desse incidente: por que o processo congela (o **pinning** de virtual threads dentro de blocos `synchronized`), por que o CLOSE_WAIT é o rastro e não a causa, como diagnosticar com thread dump e JFR, e o que continua valendo depois da correção: limites explícitos com bulkhead e circuit breaker, com código Java que você pode rodar.
 
-> **Em quais versões isso acontece.** O pinning por `synchronized` existe do **Java 21 ao 23**. O Java 24 corrigiu o problema com a [JEP 491](https://openjdk.org/jeps/491), e o **Java 25 é a primeira LTS com a correção**. As seções 6 e 7 (gargalo, bulkhead e circuit breaker) valem para qualquer versão. O modelo de virtual threads está no [post do Java 21](/posts/java-21/#virtual-threads) e a correção, no [post do Java 25](/posts/java-25/#synchronized-não-prende-mais-virtual-threads).
+> **Em quais versões isso acontece.** O pinning por `synchronized` existe do **Java 21 ao 23**. O Java 24 corrigiu o problema com a [JEP 491](https://openjdk.org/jeps/491), e o **Java 25 é a primeira LTS com a correção**. As seções 5 e 6 (gargalo, bulkhead e circuit breaker) valem para qualquer versão. O modelo de virtual threads está no [post do Java 21](/posts/java-21/#virtual-threads) e a correção, no [post do Java 25](/posts/java-25/#synchronized-não-prende-mais-virtual-threads).
 
-## 1. Desafio
+## 1. O sintoma: vivo, mudo e cheio de CLOSE_WAIT
 
-**Enunciado.** Serviço de autorização de cartões, Spring Boot 3 com Tomcat embarcado, Java 21. O time ligou virtual threads para processar as requisições (`spring.threads.virtual.enabled=true`, disponível a partir do Spring Boot 3.2). Cada autorização chama o **adquirente**, a empresa que processa a transação de cartão para o lojista.
+Serviço de autorização de cartões, Spring Boot 3 com Tomcat embarcado, Java 21. O time ligou virtual threads para processar as requisições (`spring.threads.virtual.enabled=true`, disponível a partir do Spring Boot 3.2). Cada autorização chama o **adquirente**, a empresa que processa a transação de cartão para o lojista.
 
 Dois dias depois, no pico da tarde, uma instância para de responder. Não devolve erro: simplesmente não responde. O health check estoura o tempo, o Kubernetes reinicia o pod, e tudo volta ao normal por algumas horas.
 
@@ -25,11 +25,9 @@ Os sinais:
 - No host, milhares de sockets em CLOSE_WAIT.
 - Não reproduz em homologação. O teste de carga sintético passa limpo.
 
-O que está acontecendo?
+A leitura imediata costuma ser uma destas duas: "acabaram as threads" ou "tem um vazamento de conexão, alguém não está fechando socket". As duas apontam para o lugar errado, e para ver por que é preciso ter quatro conceitos no lugar.
 
-## 2. Vocabulário que faltava
-
-O diagnóstico começa pelo vocabulário: sem ele, o raciocínio trava. São quatro peças.
+## 2. Quatro conceitos antes do diagnóstico
 
 **Socket** — a ponta que cada lado segura numa conexão de rede. Funciona como o telefone numa ligação: enquanto a ligação existe, ele está ocupado. Cada requisição HTTP em curso usa um, e socket é recurso finito: cada um conta no limite de arquivos abertos do processo.
 
@@ -39,23 +37,19 @@ O diagnóstico começa pelo vocabulário: sem ele, o raciocínio trava. São qua
 
 **Virtual thread** — thread gerenciada pela JVM, não pelo SO. É barata a ponto de uma JVM poder ter milhões ([JEP 444](https://openjdk.org/jeps/444)). Ela não substitui as threads reais: para executar, é **montada** sobre uma das poucas **carrier threads**, que são platform threads de um pool da JVM (por padrão, uma por processador disponível). Quando a virtual thread bloqueia em I/O, a JVM normalmente a **desmonta** da carrier e coloca outra no lugar. É esse revezamento que faz o modelo funcionar.
 
-## 3. Resposta dada
-
-> O microsserviço para de responder porque não tem thread disponível. O problema deve estar nos sockets em CLOSE_WAIT — teria que descobrir por que a aplicação não está encerrando os sockets.
-
-## 4. Onde furou
-
-Dois ajustes.
+## 3. O diagnóstico: faltou carrier, não faltou thread
 
 **Não faltou virtual thread, faltou carrier.** Virtual thread é barata, e a JVM cria quantas forem precisas. O gargalo é o punhado de threads reais embaixo delas. Se cada carrier fica presa a uma virtual thread que bloqueou e não desmontou, pode haver dezenas de milhares de virtual threads prontas, e nenhuma consegue executar. Esse estado tem nome: **pinning** (a virtual thread fica "pregada" à carrier).
 
 **A causalidade é a inversa.** O CLOSE_WAIT não é a causa, é a impressão digital. As carriers travaram, então o código parou de rodar, então ninguém chegou à linha que fecha o socket. Os clientes estouraram o timeout e desligaram do lado deles. Milhares de CLOSE_WAIT são o retrato de uma aplicação congelada, não de um bug no fechamento de conexões.
 
+CLOSE_WAIT em massa tem outras causas conhecidas, e vale ter a lista na cabeça: `close()` que não roda por causa de uma exceção, cliente HTTP sem try-with-resources, pool que nunca devolve a conexão. Todas têm algo em comum com esta: o código parou de chegar à linha que fecha. A diferença é que aqui ele parou de chegar a qualquer linha. É um dos primeiros lugares a olhar quando o processo está vivo, mas mudo.
+
 O diagrama mostra a cadeia completa, do pico de requisições até os sockets em CLOSE_WAIT:
 
 ![Diagrama: no Java 21 a 23, as virtual threads montadas nas 4 carriers bloqueiam dentro de synchronized e prendem as carriers; as demais esperam, ninguém fecha os sockets e eles se acumulam em CLOSE_WAIT; no Java 24 em diante, a JEP 491 corrige o synchronized](/posts/virtual-threads-pinning-close-wait/pinning-virtual-threads.svg)
 
-## 5. Aprendizado — pinning (Java 21 a 23)
+## 4. Pinning (Java 21 a 23)
 
 No Java 21, a virtual thread fica presa à carrier em dois casos ([JEP 444](https://openjdk.org/jeps/444)): quando bloqueia **dentro de um bloco ou método `synchronized`**, e durante um método nativo ou função estrangeira. O primeiro é o que pesa: segundo a JEP 491, resolvê-lo elimina quase todos os casos de pinning.
 
@@ -155,7 +149,7 @@ No Java 21, com `synchronized`, só 4 tarefas avançam por vez: 100 tarefas ÷ 4
 
 Um upgrade de Java leva semanas, e no plantão a mitigação imediata é outra: desligar as virtual threads por configuração (`spring.threads.virtual.enabled=false`) e voltar ao pool tradicional. Perde escalabilidade, mas para de cair. Curativo e conserto são coisas separadas.
 
-## 6. Aprendizado — o gargalo mudou de lugar
+## 5. O gargalo mudou de lugar
 
 O Java 25 resolve o pinning por `synchronized`, mas não resolve o que vem junto com as virtual threads. Esta parte vale para qualquer versão.
 
@@ -166,11 +160,11 @@ Chegam 10 mil requisições no pico:
 - **No Postgres**, nada é derrubado de imediato: forma-se fila. O pool de conexões do HikariCP tem teto (o padrão é 10; digamos que o time configurou 20). Vinte requisições pegam conexão e o resto espera. Quem não consegue conexão em 30 segundos, o `connectionTimeout` padrão, recebe erro, e isso acontece em massa ([HikariCP](https://github.com/brettwooldridge/HikariCP)). Essa fila não existia antes: com 200 threads, no máximo 200 requisições pediam conexão, e as demais nem tinham começado.
 - **No adquirente**, é pior, porque o problema sai de casa. Milhares de chamadas simultâneas chegam a um terceiro com contrato para 500. Ele recusa ou fica lento, e aí você tem milhares de conexões abertas esperando.
 
-**Virtual threads não eliminam gargalo, mudam o gargalo de lugar.** O conserto é tornar explícito o que era implícito: um limite declarado em cada recurso compartilhado, com o número decidido por você em vez de herdado do tamanho do pool.
+**Virtual threads não eliminam gargalo, mudam o gargalo de lugar.** É o mesmo deslocamento de sempre, em outra roupa: aumentar o pool de threads e derrubar o banco, subir réplicas e saturar a rede, paralelizar um job e estourar a cota de uma API de terceiro. Remover um limite não aumenta a capacidade, só empurra a fila para o próximo recurso escasso. O conserto é tornar explícito o que era implícito: um limite declarado em cada recurso compartilhado, com o número decidido por você em vez de herdado do tamanho do pool.
 
 ![Diagrama: antes, o pool de 200 threads separava o trabalho e limitava a saída; depois, 10.000 virtual threads sem limite formam fila no Postgres e sobrecarregam o adquirente; o conserto é bulkhead, circuit breaker e limite também antes do banco](/posts/virtual-threads-pinning-close-wait/gargalo-mudou-de-lugar.svg)
 
-## 7. As três peças juntas
+## 6. As três peças juntas
 
 São três trabalhos diferentes, e nenhum substitui o outro:
 
@@ -286,6 +280,8 @@ recusadas por você:           900
 
 O pico nunca passa de 100, por mais requisições que cheguem. As 100 primeiras entram; as outras 900 esperam 200 ms por uma vaga, e nenhuma vaga abre antes dos 300 ms da chamada, então são recusadas. O `finally` é o ponto crítico do código: se a permissão não for devolvida em todo caminho de saída, inclusive em exceção, o limite encolhe sozinho até travar tudo.
 
+O nome geral desse freio é **backpressure**: quem está sobrecarregado sinaliza a quem produz que desacelere, em vez de aceitar tudo e desmoronar. Semáforo, fila limitada e rate limit são formas de aplicar. Virtual threads não aplicam backpressure sozinhas, elas aceitam tudo o que chega; o semáforo é você declarando o freio.
+
 **De onde vem o número.** Não é chute nem é o contrato do parceiro (o contrato é o teto, não a meta). Vem da [lei de Little](https://en.wikipedia.org/wiki/Little%27s_law): chamadas em andamento = vazão × tempo médio de resposta. Cem chamadas por segundo com resposta em 300 ms dão 30 chamadas em andamento, em média. Some uma folga para picos e meça. O 100 dos exemplos é só ilustrativo.
 
 ### Circuit breaker — com Resilience4j
@@ -385,7 +381,7 @@ A sequência inteira aparece:
 
 Os três estados: **fechado** é o saudável, com a corrente passando (o nome confunde no começo); **aberto** é o disjuntor desarmado, com falha imediata e sem tráfego; **meio-aberto** deixa poucas chamadas passarem para sondar e decide se fecha ou abre de novo.
 
-**De onde vem, e o que ele não é.** O circuit breaker não tem relação com virtual threads. Ele é bem mais antigo: aparece no livro *Release It!*, de Michael Nygard, de 2007, e ficou conhecido com o Hystrix, que a Netflix abriu em 2012, mais de dez anos antes das virtual threads. O problema que ele resolve é de sistema distribuído: parar de insistir com um serviço que está mal. Vale em qualquer linguagem, com ou sem threads, síncrono ou assíncrono. O mesmo vale para o bulkhead, que vem do mesmo livro.
+**De onde vem, e o que ele não é.** O circuit breaker não tem relação com virtual threads. Ele é bem mais antigo: aparece no livro *Release It!*, de Michael Nygard, de 2007, e ficou conhecido com o Hystrix, que a Netflix abriu em 2012, mais de dez anos antes das virtual threads. O problema que ele resolve é de sistema distribuído: parar de insistir com um serviço que está mal. Vale em qualquer linguagem, com ou sem threads, síncrono ou assíncrono. O mesmo vale para o bulkhead, que vem do mesmo livro; o nome vem das anteparas que dividem o casco de um navio em compartimentos estanques.
 
 A relação com este caso é outra, e vale guardar assim: **virtual threads não criaram a necessidade, tiraram o disfarce.** O pool de 200 threads dava um limite acidental de graça, e esse limite mascarava a ausência das duas proteções. Ao remover o pool, o que estava escondido apareceu.
 
@@ -450,7 +446,7 @@ Cinco detalhes que costumam morder:
 - **As anotações só funcionam através do proxy do Spring.** Se outro método da mesma classe chama `capturar()` direto, o bulkhead e o breaker não rodam. O motivo está em [A pegadinha da self-invocation](/posts/aop-jdk-proxy-cglib/#a-pegadinha-da-self-invocation).
 - **Timeout é pré-requisito.** Sem tempo limite na chamada HTTP, ela não falha: fica pendurada. Uma chamada que nunca termina nunca entra na conta do breaker, que então não abre, e as conexões esperando se acumulam.
 - **O limiar é proporção, não contagem.** Baixo demais, o breaker abre por qualquer soluço; alto demais, nunca abre. E o `minimumNumberOfCalls` evita que três falhas às três da manhã, com tráfego baixo, abram o disjuntor.
-- **Cuidado com a ordem dos aspectos.** Por padrão, o Resilience4j aplica, de fora para dentro: Retry, CircuitBreaker, RateLimiter, TimeLimiter, Bulkhead (a ordem pode ser mudada por propriedades como `resilience4j.retry.retryAspectOrder`). Sendo o mais externo, o retry repete o conjunto inteiro. Por isso ele precisa de espera crescente com um pouco de aleatoriedade ([backoff exponencial com jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/)), ou você cria uma tempestade de retries que derruba de vez quem já estava mal. Em cobrança, retry também exige idempotência: veja [Cobrança duplicada no retry](/posts/cobranca-duplicada-no-retry/).
+- **Cuidado com a ordem dos aspectos.** Por padrão, o Resilience4j aplica, de fora para dentro: Retry, CircuitBreaker, RateLimiter, TimeLimiter, Bulkhead (a ordem pode ser mudada por propriedades como `resilience4j.retry.retryAspectOrder`). Sendo o mais externo, o retry repete o conjunto inteiro. Por isso ele precisa de espera crescente com um pouco de aleatoriedade ([backoff exponencial com jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/)), ou você cria uma tempestade de retries que derruba de vez quem já estava mal. Em cobrança, retry também exige idempotência: veja [Chave de idempotência](/posts/cobranca-duplicada-no-retry/).
 
 ### O que devolver para quem foi recusado
 
@@ -458,35 +454,22 @@ Em cartão, **negar não é falhar**. Um erro genérico obriga a maquininha a de
 
 O critério para escolher entre recusa imediata e nova tentativa é o orçamento de tempo. Uma autorização síncrona tem poucos segundos, então recusar rápido é o caminho principal. Retentar fica para os fluxos assíncronos, como ajuste financeiro, estorno e processamento em lote, onde a espera cabe.
 
-## 8. Padrões nomeados
+## 7. O que fica depois do conserto
 
-**Já explicados acima — aqui fica só o nome formal**
+Corrigido o pinning e declarados os limites, sobram decisões que o incidente deixa para o time. São as que eu levaria para a retrospectiva.
 
-- **Carrier pinning** — a virtual thread bloqueia sem conseguir desmontar e mantém a carrier refém. Por `synchronized`, só do Java 21 ao 23. *Onde mais aparece:* mesmo no Java 24 em diante, ainda há pinning quando código nativo chama de volta código Java que bloqueia, e durante o carregamento e a inicialização de classes ([JEP 491](https://openjdk.org/jeps/491)). O Java 26 tirou um desses casos, a espera pela inicialização de uma classe ([post do Java 29](/posts/java-29/#virtual-threads-liberam-a-carrier-enquanto-esperam-a-inicialização-de-uma-classe)).
-- **CLOSE_WAIT como sintoma** — socket que o outro lado fechou e o seu não. *Onde mais aparece:* vazamento de conexão por `close()` que não roda, cliente HTTP sem try-with-resources, pool que nunca devolve a conexão. É um dos primeiros lugares a olhar quando o processo está vivo, mas mudo.
-- **Deslocamento de gargalo** — remover um limite não aumenta a capacidade, só empurra a fila para o próximo recurso escasso. *Onde mais aparece:* aumentar o pool de threads e derrubar o banco, subir réplicas e saturar a rede, paralelizar um job e estourar a cota de uma API de terceiro.
-- **Bulkhead** — limite declarado de chamadas simultâneas a um recurso, para que a sobrecarga de uma dependência não afunde o serviço inteiro. O nome vem das anteparas que dividem o casco de um navio em compartimentos estanques. Vem do livro *Release It!*, de Michael Nygard (2007), e não tem nada a ver com virtual threads. *Onde mais aparece:* pool de conexões separado por dependência, limite de consumidores por tópico, isolamento de clientes (*tenants*) em SaaS.
-- **Circuit breaker** — para de chamar quem está falhando, espera e volta sondando. Três estados: fechado, aberto e meio-aberto. Também vem do *Release It!* (2007) e foi popularizado pelo Hystrix, da Netflix, em 2012, anos antes das virtual threads. *Onde mais aparece:* em qualquer chamada a terceiro, e também entre microsserviços internos. **Virtual threads não criaram a necessidade dele nem do bulkhead, só tiraram o disfarce**, porque o pool de threads dava um limite acidental que mascarava a ausência dos dois.
-
-**Mencionados de passagem — vale saber o que são**
-
-- **Backpressure** — mecanismo pelo qual quem está sobrecarregado sinaliza a quem produz que desacelere, em vez de aceitar tudo e desmoronar. Semáforo, fila limitada e rate limit são formas de aplicar. *Por que importa aqui:* virtual threads não aplicam backpressure sozinhas, elas aceitam tudo o que chega. O freio precisa ser declarado, como o semáforo do bulkhead.
-- **Scoped Values** — alternativa ao `ThreadLocal` para compartilhar dados imutáveis ao longo de uma chamada, finalizada no Java 25 ([JEP 506](https://openjdk.org/jeps/506); detalhes no [post do Java 25](/posts/java-25/#scoped-values)). Virtual threads não devem ser reaproveitadas em pool, então o velho hábito de guardar um objeto caro por thread vira um objeto por requisição. Como elas podem ser muitas, a JEP 444 pede cuidado com `ThreadLocal`: o consumo de memória só aparece sob carga alta. *Onde mais aparece:* propagação de contexto, como usuário autenticado, trace id e tenant.
-- **JEP** — JDK Enhancement Proposal, o documento que descreve cada mudança da plataforma e o raciocínio por trás dela. A JEP 444 trouxe as virtual threads no Java 21; a JEP 491 corrigiu o pinning por `synchronized` no Java 24. *Por que está aqui:* ler a JEP é a forma de conferir o que uma versão mudou sem depender de post de blog.
-
-## 9. Onde eu apertaria numa entrevista
-
-- O upgrade para o Java 25 leva semanas. O que você faz hoje, no plantão?
-- Java 25 e Spring Boot 4 no mesmo deploy: se algo quebrar, como você sabe qual dos dois foi?
-- Qual número você coloca no semáforo do adquirente, e como chega nele?
-- Depois de tudo corrigido, que métrica no Dynatrace avisaria que o pinning voltou?
-- O teste de carga passou limpo. O que faltava nele?
+- **Um upgrade por vez.** Java 25 e Spring Boot 4 no mesmo deploy apagam a pista: se algo quebrar, não dá para saber qual dos dois foi. Suba o Java primeiro, que é o que conserta o pinning, estabilize, e só então o framework. O [guia de atualizações do Java](/posts/guia-atualizacoes-java/) detalha o processo.
+- **O que faltava no teste de carga.** Ele passou limpo porque não reproduzia o que derruba: concorrência suficiente para prender todas as carriers ao mesmo tempo, o mesmo número de vCPUs da produção (carriers = processadores), as mesmas bibliotecas e agentes (no caso da Netflix, o `synchronized` estava no tracing) e duração para acumular. Teste sem o gargalo da produção só mede o que não importa.
+- **A métrica que avisa que o pinning voltou.** O evento `jdk.VirtualThreadPinned` do JFR é a fonte direta: com uma gravação contínua ou com *JFR event streaming* (`jdk.jfr.consumer.RecordingStream`, [JEP 349](https://openjdk.org/jeps/349)) exportando a contagem para o Micrometer, qualquer ocorrência acima do limiar vira alerta. Os sinais indiretos já estavam no incidente: latência subindo com CPU baixa e a contagem de sockets em CLOSE_WAIT no host. Vale manter mesmo no Java 25: ainda há pinning quando código nativo chama de volta código Java que bloqueia ([JEP 491](https://openjdk.org/jeps/491)), e o Java 26 tirou um dos casos restantes, a espera pela inicialização de uma classe ([post do Java 29](/posts/java-29/#virtual-threads-liberam-a-carrier-enquanto-esperam-a-inicialização-de-uma-classe)).
+- **`ThreadLocal` deixa de ser cache.** Virtual threads não devem ser reaproveitadas em pool, então o velho hábito de guardar um objeto caro por thread vira um objeto por requisição, e, como elas podem ser muitas, o consumo de memória só aparece sob carga alta ([JEP 444](https://openjdk.org/jeps/444)). Para propagar contexto (usuário autenticado, trace id, tenant), o substituto é **Scoped Values**, finalizado no Java 25 ([JEP 506](https://openjdk.org/jeps/506); detalhes no [post do Java 25](/posts/java-25/#scoped-values)).
+- **O disfarce caiu, o problema era antigo.** Bulkhead e circuit breaker existem desde 2007 e servem igual aos serviços que continuam com pool de threads; ali a falha só demora mais para aparecer. Se a conclusão da retrospectiva for "circuit breaker é coisa de virtual thread", ela saiu errada.
 
 ## Fontes
 
 - OpenJDK — [JEP 444: Virtual Threads](https://openjdk.org/jeps/444) (casos de pinning, carriers, thread dump, JFR, `ThreadLocal`)
 - OpenJDK — [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491) (Java 24)
 - OpenJDK — [JEP 506: Scoped Values](https://openjdk.org/jeps/506) (Java 25)
+- OpenJDK — [JEP 349: JFR Event Streaming](https://openjdk.org/jeps/349) (Java 14)
 - Oracle — [Virtual Threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html) (guia do Java 21)
 - Oracle — [The java Command](https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html) (tamanho padrão da pilha, `-Xss`)
 - Netflix Technology Blog — [Java 21 Virtual Threads: Dude, Where's My Lock?](https://netflixtechblog.com/java-21-virtual-threads-dude-wheres-my-lock-3052540e231d) (julho de 2024)

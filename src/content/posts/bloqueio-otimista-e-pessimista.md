@@ -1,24 +1,24 @@
 ---
 title: "Bloqueio otimista e pessimista — como funcionam e quando usar cada um"
 published: 2026-09-13
-updated: 2026-09-16
-description: "Como impedir que gravações simultâneas se atropelem: coluna de versão ou trava da linha. SQL testado no PostgreSQL, Spring Data JPA, `FOR UPDATE` com NOWAIT e SKIP LOCKED, deadlocks e isolamento."
+updated: 2026-09-20
+description: "Como impedir que gravações simultâneas se atropelem: coluna de versão ou trava da linha. SQL testado no PostgreSQL, Spring Data JPA, NOWAIT e SKIP LOCKED, deadlock, isolamento e o UPDATE condicional."
 tags: [Banco de Dados, Concorrência, Spring, Trade-offs]
 category: Arquitetura
 draft: false
 ---
 
-Quando duas requisições leem a mesma linha, calculam um valor novo e gravam, uma delas pode apagar o trabalho da outra sem erro nenhum. Este post mostra as duas formas clássicas de impedir isso, o **bloqueio otimista** (detectar o conflito) e o **bloqueio pessimista** (evitar o conflito), com SQL testado no PostgreSQL 17 e o equivalente em Spring Data JPA. No fim, há um critério para escolher entre os dois e um terceiro caminho que muitas vezes dispensa ambos: o UPDATE condicional.
+Quando duas requisições leem a mesma linha, calculam um valor novo e gravam, uma delas pode apagar o trabalho da outra sem erro nenhum. Este post mostra as duas formas clássicas de impedir isso, o **bloqueio otimista** (detectar o conflito) e o **bloqueio pessimista** (evitar o conflito), com SQL testado no PostgreSQL e o equivalente em Spring Data JPA. Depois, o terceiro caminho que muitas vezes dispensa ambos (o UPDATE condicional), o papel dos níveis de isolamento, um critério de escolha e as perguntas que eu faço antes de decidir.
 
-> O tema aparece de raspão no artigo sobre [cobrança duplicada no retry](/posts/cobranca-duplicada-no-retry/), como alternativa à restrição única. Aqui ele ganha o espaço que merece.
+> O tema aparece de raspão no artigo sobre [chave de idempotência](/posts/cobranca-duplicada-no-retry/), como alternativa à restrição única. Aqui ele ganha o espaço que merece.
 
 ## 1. O problema que os dois resolvem
 
 Os dois existem para o mesmo defeito, que tem nome: **lost update**, a atualização perdida.
 
-Dois clientes leem a mesma linha, cada um calcula um valor novo a partir do que leu, e os dois gravam. A segunda gravação sobrescreve a primeira, e a primeira desaparece sem erro nenhum. O saldo fica errado e o log está limpo.
+Dois clientes leem a mesma linha, cada um calcula um valor novo a partir do que leu, e os dois gravam. A segunda gravação sobrescreve a primeira, e a primeira desaparece sem erro nenhum. O saldo fica errado e o log está limpo. Aparece em contador de estoque, em saldo, em qualquer campo calculado a partir do valor lido.
 
-É a mesma família do problema de [cobrança duplicada no retry](/posts/cobranca-duplicada-no-retry/): ler, decidir e gravar como operações separadas, com uma janela no meio. Lá, a solução foi uma restrição única, que funciona quando a decisão cabe numa chave. Aqui o caso é outro: a decisão depende do **valor lido**, e não existe chave que expresse isso.
+É a mesma família do problema da [cobrança duplicada no retry](/posts/cobranca-duplicada-no-retry/): ler, decidir e gravar como operações separadas, com uma janela no meio. Lá, a solução foi uma restrição única, que funciona quando a decisão cabe numa chave. Aqui o caso é outro: a decisão depende do **valor lido**, e não existe chave que expresse isso.
 
 A diferença entre os dois bloqueios cabe numa frase, e é assim que o catálogo de padrões do Martin Fowler os descreve: **bloqueio otimista é detecção de conflito; bloqueio pessimista é prevenção de conflito.**
 
@@ -99,11 +99,15 @@ public void debitar(Long contaId, BigDecimal valor) {
 }
 ```
 
-Dois detalhes que sempre dão errado. Primeiro, o retry precisa **reler** o dado: retentar com a entidade velha em mãos falha de novo, sempre. Aqui isso funciona porque o `@Retryable` envolve o `@Transactional`: cada tentativa abre uma transação nova e faz um `findById` novo. Segundo, precisa de teto: três tentativas no total, não um laço infinito. Num teste com Spring Boot 4.1, forçando uma gravação concorrente na primeira tentativa, a segunda releu o saldo já alterado e gravou normalmente.
+Dois detalhes que sempre dão errado. Primeiro, o retry precisa **reler** o dado: retentar com a entidade velha em mãos falha de novo, sempre. A documentação do Spring Framework fixa a ordem dos dois interceptadores, retry por fora e transação por dentro, então cada tentativa abre uma transação nova e faz um `findById` novo. Segundo, precisa de teto: três tentativas no total, não um laço infinito. Num teste com Spring Boot 4.1, forçando uma gravação concorrente na primeira tentativa, a segunda releu o saldo já alterado e gravou normalmente.
 
-> O projeto Spring Retry, de onde vinha o `@Retryable` com `retryFor` e `@Backoff`, foi arquivado e substituído pelos recursos de resiliência do Spring Framework 7. Em Spring Boot 3, ele ainda é o caminho.
+> O projeto Spring Retry, de onde vinha o `@Retryable` com `retryFor` e `@Backoff`, foi arquivado em julho de 2026 e substituído pelos recursos de resiliência do Spring Framework 7. Em Spring Boot 3, ele ainda é o caminho.
 
-**O que costuma passar batido:** a versão funciona mesmo entre requisições diferentes, separadas por minutos. Das duas técnicas de banco deste post, é a única que resolve o caso do usuário que abriu um formulário às 10h e salvou às 10h15: a transação no banco durou milissegundos, mas a versão lida às 10h continua sendo o critério. Basta a tela devolver a versão junto com os dados. É exatamente o padrão que o Fowler chama de *Optimistic Offline Lock*; "offline" porque a proteção atravessa várias requisições, fora de uma única transação do banco.
+**O que costuma passar batido**
+
+- **A versão funciona entre requisições diferentes**, separadas por minutos. Das duas técnicas de banco deste post, é a única que resolve o caso do usuário que abriu um formulário às 10h e salvou às 10h15: a transação no banco durou milissegundos, mas a versão lida às 10h continua sendo o critério. Basta a tela devolver a versão junto com os dados. É o padrão que o Fowler chama de *Optimistic Offline Lock*; "offline" porque a proteção atravessa várias requisições, fora de uma única transação do banco. Em HTTP, a mesma ideia é o `ETag` com `If-Match`, que a RFC 9110 descreve justamente como proteção contra o lost update; no CouchDB, é o campo `_rev`, que recusa com 409 a gravação feita sobre uma revisão antiga.
+- **Retry automático não serve para edição humana.** Retentar às cegas só faz sentido quando a aplicação sabe recalcular a partir do dado novo: um débito, um contador, um status. Quando quem editou foi uma pessoa, a resposta certa para o conflito é devolver o erro com o estado atual (`409 Conflict`, ou `412 Precondition Failed` quando a versão veio num `If-Match`) e deixar que ela decida o que fazer com as duas versões. Sobrescrever em silêncio é exatamente o lost update que a versão existia para impedir.
+- **UPDATE em massa passa por fora do `@Version`.** Um `update` em JPQL (com `@Modifying`) ou em SQL nativo não checa nem incrementa a versão: quem escreve o comando precisa incluir o `version = version + 1` e, se a decisão depende do valor lido, o filtro pela versão, como no SQL puro acima. A proteção só é automática para entidades gerenciadas que passam pelo `save`.
 
 ## 3. Bloqueio pessimista
 
@@ -132,9 +136,9 @@ Quem pedir a mesma linha com `FOR UPDATE` nesse meio-tempo fica esperando. Quand
 
 Três variações que vale conhecer no PostgreSQL:
 
-- `FOR UPDATE NOWAIT`: em vez de esperar, falha na hora se a linha estiver travada (`could not obtain lock on row`). Bom quando esperar é pior que desistir.
-- `FOR UPDATE SKIP LOCKED`: pula as linhas travadas e devolve as outras. É assim que se implementa fila de trabalho em tabela: vários *workers* pegam itens diferentes sem disputar o mesmo.
-- `lock_timeout`: parâmetro de configuração que limita quanto tempo um comando espera por uma trava (por exemplo, `SET LOCAL lock_timeout = '3s'` vale só para a transação atual). O padrão é `0`, que desliga o limite: sem configurar, a espera é indefinida.
+- `FOR UPDATE NOWAIT`: em vez de esperar, falha na hora se a linha estiver travada (`could not obtain lock on row in relation "conta"`). Bom quando esperar é pior que desistir.
+- `FOR UPDATE SKIP LOCKED`: pula as linhas travadas e devolve as outras. É assim que se implementa fila de trabalho em tabela, e a documentação do PostgreSQL cita exatamente esse uso: vários *workers* pegam itens diferentes sem disputar o mesmo, sem *broker* de mensagens. O relay do outbox em [Efeito externo sem registro local](/posts/efeito-externo-sem-registro-local/) funciona assim.
+- `lock_timeout`: parâmetro de configuração que limita quanto tempo um comando espera por uma trava (por exemplo, `SET LOCAL lock_timeout = '3s'` vale só para a transação atual; estourado, o erro é `canceling statement due to lock timeout`). O padrão é `0`, que desliga o limite: sem configurar, a espera é indefinida.
 
 **Em Spring Data JPA**
 
@@ -156,6 +160,28 @@ Três cuidados com esse código:
 
 **O que costuma passar batido:** a trava dura até o commit. Se dentro da transação você chamar o adquirente e ele levar 800 ms, a linha fica travada por 800 ms e todo mundo que quiser aquela linha entra na fila atrás. **Não chame serviço externo com uma trava na mão.** Como separar a chamada externa da gravação local sem perder nenhuma das duas é o tema do post [Efeito externo sem registro local](/posts/efeito-externo-sem-registro-local/).
 
+### Deadlock: o risco que vem junto
+
+Duas transações travam as mesmas linhas em ordem invertida e ficam esperando uma pela outra para sempre. O PostgreSQL detecta o ciclo (a checagem roda depois de `deadlock_timeout`, 1 segundo por padrão) e aborta uma das duas com `deadlock detected`; a outra segue. Para a aplicação, é mais um erro que precisa de dono, igual ao conflito do otimista.
+
+A prevenção é simples e quase nunca feita: **travar sempre na mesma ordem**. Quando a transação precisa de mais de uma linha, peça todas de uma vez, ordenadas:
+
+```sql
+SELECT id, saldo
+  FROM conta
+ WHERE id IN (7, 3)
+ ORDER BY id
+   FOR UPDATE;
+```
+
+O `ORDER BY` não é enfeite: no plano de execução, o nó que trava as linhas (`LockRows`) fica acima do `Sort`, então as travas são adquiridas na ordem do id, e duas transações que precisem das contas 3 e 7 nunca se cruzam. Some um `lock_timeout` para que a espera, deadlock ou não, tenha teto.
+
+Deadlock é um risco típico do pessimista, mas não exclusivo dele: um UPDATE comum também trava a linha até o commit, então duas transações que atualizam as mesmas contas em ordem invertida podem travar mesmo sem `FOR UPDATE`, com ou sem coluna de versão.
+
+### Quando a trava precisa atravessar requisições
+
+A trava de banco morre com a transação. Para um "só um por vez" que dura minutos, como reservar um assento enquanto a pessoa preenche o formulário ou fazer *check-out* de um documento para edição, a trava vira um **registro da aplicação**: uma linha numa tabela de travas dizendo quem está com o quê e até quando, obtida antes de começar e liberada no fim. Para que dois pedidos simultâneos não levem a trava juntos, a inserção usa a mesma restrição única do post de idempotência. O prazo de validade é obrigatório, porque o cliente pode sumir sem liberar. É o *Pessimistic Offline Lock* do catálogo do Fowler, o par do otimista da seção anterior.
+
 ## 4. O UPDATE condicional, que muitas vezes dispensa os dois
 
 Muita coisa que parece precisar de trava não precisa, porque dá para deixar o próprio banco fazer a conta:
@@ -164,16 +190,25 @@ Muita coisa que parece precisar de trava não precisa, porque dá para deixar o 
 UPDATE conta
    SET saldo = saldo - 10
  WHERE id = 1
-   AND saldo >= 10;
--- UPDATE 1 -> debitou
+   AND saldo >= 10
+RETURNING saldo;
+-- UPDATE 1 -> debitou (e devolveu o saldo novo)
 -- UPDATE 0 -> saldo insuficiente
 ```
 
-Aqui não há leitura prévia na aplicação, então não há janela e não há lost update. O UPDATE trava a linha por conta própria enquanto grava. Se dois débitos chegam juntos, o segundo espera o primeiro terminar e, no nível de isolamento padrão do PostgreSQL, **reavalia o `WHERE` sobre o saldo já atualizado**. Num teste com saldo 15 e dois débitos simultâneos de 10, um afetou uma linha e o outro afetou zero, e o saldo terminou em 5.
+Aqui não há leitura prévia na aplicação, então não há janela e não há lost update. O UPDATE trava a linha por conta própria enquanto grava. Se dois débitos chegam juntos, o segundo espera o primeiro terminar e, no nível de isolamento padrão do PostgreSQL, **reavalia o `WHERE` sobre o saldo já atualizado**. Num teste com saldo 15 e dois débitos simultâneos de 10, um afetou uma linha e o outro afetou zero, e o saldo terminou em 5. O `RETURNING` devolve o saldo novo no mesmo comando, sem outra consulta.
 
 Essa é a primeira pergunta a fazer antes de escolher entre otimista e pessimista: **dá para escrever isso como um único comando?** Se der, nenhum dos dois é necessário. No post sobre [arquitetura de ledger](/posts/arquitetura-de-ledger/), a mesma ideia aparece como *balance locking*: condicionar a escrita ao saldo em vez de à versão.
 
-## 5. Como escolher
+## 5. E os níveis de isolamento?
+
+A outra forma de tratar concorrência é no nível da transação inteira, em vez de linha a linha. O PostgreSQL usa READ COMMITTED por padrão, e nele o padrão "leu na aplicação, calculou, gravou" **não** está protegido: cada comando enxerga o que já foi confirmado, e a segunda gravação simplesmente passa por cima da primeira. Daí a necessidade de bloqueio explícito.
+
+Em REPEATABLE READ e SERIALIZABLE, o PostgreSQL impede o lost update por conta própria: quando a transação tenta gravar uma linha que outra transação alterou e confirmou depois do início dela, o comando é abortado com `could not serialize access due to concurrent update`. Repare no que isso é: **bloqueio otimista feito pelo banco**, com a mesma consequência. Detecção produz erro, e o erro continua precisando de dono: alguém relê e tenta de novo. Subir o isolamento muda quem detecta o conflito, não elimina o tratamento dele.
+
+O SERIALIZABLE vai além: pega anomalias que nenhuma trava de linha pega, como duas transações que leem um conjunto de linhas e cada uma grava numa linha diferente com base no que leu (*write skew*). O preço é mais abortos sob disputa e mais trabalho do banco para rastrear as dependências. E, como a trava, o isolamento vive dentro de uma transação: não protege o formulário aberto às 10h e salvo às 10h15.
+
+## 6. Como escolher
 
 | | Otimista | Pessimista |
 | --- | --- | --- |
@@ -186,29 +221,23 @@ Essa é a primeira pergunta a fazer antes de escolher entre otimista e pessimist
 
 Na descrição do Fowler, o pessimista limita a concorrência do sistema, enquanto o otimista deixa várias pessoas trabalharem nos mesmos dados ao mesmo tempo. Na prática, isso leva a uma regra que funciona bem: comece otimista, que é mais simples e não cria filas. A pergunta certa não é "quando usar o otimista", e sim **"quando o otimista sozinho não basta"**.
 
-No meu domínio, o critério prático é a taxa de disputa pela mesma linha. Cadastro de cooperado, limite, parâmetro de produto: otimista. Saldo de uma única conta em dia de pico, ou contador de uso de limite: pessimista ou, melhor ainda, um único UPDATE condicional.
+O critério prático que eu uso é a taxa de disputa pela mesma linha. Cadastro de cliente, limite, parâmetro de produto, qualquer coisa que uma pessoa edita numa tela: otimista. Saldo de uma única conta em dia de pico, contador de uso de limite, qualquer linha que o sistema atualiza por conta própria muitas vezes por segundo: pessimista ou, melhor ainda, um único UPDATE condicional.
 
-## 6. Padrões nomeados
+### Quando nenhum dos dois basta: a linha quente
 
-**Já explicados acima; aqui fica só o nome formal**
+Existe um caso em que a escolha não resolve: a **linha quente**, uma única linha que todo mundo grava. Um contador global, o saldo da conta que recebe todos os créditos do dia, o estoque do produto em promoção. O otimista vira avalanche de retentativas, porque quase toda gravação encontra a versão mudada. O pessimista e o UPDATE condicional funcionam, mas serializam: cada gravação espera a anterior confirmar, e a vazão daquela linha fica limitada pela duração de uma transação. Não há trava que resolva isso, porque o problema não é a concorrência, é o modelo.
 
-- **Lost update**: duas leituras, dois cálculos, duas escritas, e uma delas desaparece sem erro. *Onde mais aparece:* contador de estoque, saldo, qualquer campo calculado a partir do valor lido.
-- **Optimistic Offline Lock**: nome do padrão no catálogo do Fowler. "Offline" porque a proteção vale além de uma transação do banco, atravessando requisições. *Onde mais aparece:* `ETag` com `If-Match` em HTTP, que a RFC 9110 descreve justamente como proteção contra o lost update; o campo `_rev` no CouchDB, que recusa com 409 a gravação feita sobre uma revisão antiga; edição concorrente de documentos.
-- **Pessimistic Offline Lock**: o par do anterior. Como a trava de banco não sobrevive ao fim da transação, aqui a trava é da aplicação: um registro (numa tabela de travas, por exemplo) dizendo quem está editando o quê, obtido antes de começar e liberado no fim. *Onde mais aparece:* check-out de arquivo em sistemas de versão antigos, reserva de assento, qualquer "só um por vez".
+A saída é mudar o que se grava. Em vez de atualizar o saldo, **acrescente lançamentos** (uma linha por crédito, só INSERT, sem disputa) e calcule ou materialize o saldo em outro momento, que é o desenho de [ledger](/posts/arquitetura-de-ledger/). Contadores podem ser divididos em várias linhas (*sharded counters*) somadas na leitura. E quando a ordem importa, uma fila que serializa as gravações de propósito, em lote, costuma render mais do que centenas de transações disputando a mesma linha.
 
-**Mencionados de passagem; vale saber o que são**
+## 7. Cinco perguntas antes de decidir
 
-- **Deadlock**: duas transações travam as mesmas linhas em ordem invertida e ficam esperando uma pela outra para sempre. O PostgreSQL detecta o ciclo (a checagem roda depois de `deadlock_timeout`, 1 segundo por padrão) e aborta uma das duas com `deadlock detected`. A prevenção é simples e quase nunca feita: **travar sempre na mesma ordem**, por exemplo ordenando por id. É um risco típico do pessimista, mas não exclusivo dele: um UPDATE comum também trava a linha até o commit, então duas transações que atualizam as mesmas contas em ordem invertida podem entrar em deadlock mesmo sem `FOR UPDATE`, com ou sem coluna de versão.
-- **Níveis de isolamento**: a outra forma de tratar concorrência, no nível da transação inteira em vez de linha a linha. O PostgreSQL usa READ COMMITTED por padrão, que **não** impede o lost update do padrão "leu na aplicação, calculou, gravou"; daí a necessidade de bloqueio explícito. Em REPEATABLE READ e SERIALIZABLE, o PostgreSQL impede, mas abortando a segunda transação com `could not serialize access due to concurrent update`, e a aplicação precisa saber retentar. *Vale saber que existe:* é pergunta clássica de entrevista para vaga sênior.
-- **`SELECT ... FOR UPDATE SKIP LOCKED` como fila**: truque para usar uma tabela como fila de trabalho sem *broker* de mensagens. A documentação do PostgreSQL cita exatamente esse uso: evitar disputa entre vários consumidores de uma tabela que funciona como fila. *Por que importa:* permite processar lotes com vários workers em paralelo sem que dois peguem o mesmo item.
+São as perguntas que eu faço a um desenho antes de aprová-lo, e a falta de resposta costuma ser exatamente onde ele quebra em produção.
 
-## 7. Onde eu apertaria numa entrevista
-
-- Você colocou `@Version` e o conflito virou exceção. Quem trata? E o que o usuário final vê?
-- Sob disputa alta, o otimista entra em avalanche de retentativas. Como você percebe isso antes do cliente?
-- Uma transação com `FOR UPDATE` chama o adquirente por dentro. O que acontece com as outras requisições daquela conta?
-- Como você evita deadlock quando precisa travar duas linhas na mesma transação?
-- O time quer subir o isolamento para SERIALIZABLE e "resolver de uma vez". Que argumento você traz?
+- **Quem trata o conflito, e o que o usuário final vê?** Se a aplicação sabe recalcular (débito, contador), retry com teto, e o usuário nem fica sabendo. Se quem editou foi uma pessoa, ela vê o conflito e decide; retry automático aqui é sobrescrever em silêncio.
+- **Como você percebe a avalanche de retentativas antes do cliente?** Contando: cada `ObjectOptimisticLockingFailureException` e cada retry esgotado viram métrica, com alerta na taxa. Se a taxa sobe junto com a carga, a aposta do otimista estava errada para aquela linha: é hora de UPDATE condicional, de pessimista ou de repensar o modelo.
+- **Existe chamada externa dentro da trava?** Não pode existir. A trava envolve só a gravação local; o adquirente, o e-mail e a fila ficam fora, e o desenho para não perder nenhum dos dois lados está em [Efeito externo sem registro local](/posts/efeito-externo-sem-registro-local/).
+- **A transação trava mais de uma linha?** Então trava sempre na mesma ordem, com `lock_timeout`, e com a transação mais curta que der. Deadlock não é azar: é ordem de travamento que ninguém definiu.
+- **"Vamos subir para SERIALIZABLE e resolver de uma vez"?** Resolve a detecção, não o tratamento: a aplicação continua precisando retentar, e sob disputa aborta mais do que a coluna de versão. Vale quando o invariante atravessa várias linhas; não substitui a versão que vai e volta com o formulário.
 
 ## Fontes
 
@@ -217,13 +246,14 @@ No meu domínio, o critério prático é a taxa de disputa pela mesma linha. Cad
 - Version Control with Subversion — [Version Control Basics (lock-modify-unlock e copy-modify-merge)](https://svnbook.red-bean.com/en/1.7/svn.basic.version-control-basics.html)
 - PostgreSQL — [Explicit Locking (modos de trava de linha e deadlocks)](https://www.postgresql.org/docs/current/explicit-locking.html)
 - PostgreSQL — [SELECT: cláusula de trava (NOWAIT, SKIP LOCKED)](https://www.postgresql.org/docs/current/sql-select.html)
+- PostgreSQL — [UPDATE (cláusula RETURNING)](https://www.postgresql.org/docs/current/sql-update.html)
 - PostgreSQL — [Client Connection Defaults (`lock_timeout`)](https://www.postgresql.org/docs/current/runtime-config-client.html)
 - PostgreSQL — [Transaction Isolation](https://www.postgresql.org/docs/current/transaction-iso.html)
 - Hibernate ORM — [User Guide: Locking](https://docs.hibernate.org/orm/current/userguide/html_single/Hibernate_User_Guide.html#locking)
 - Hibernate ORM — [`PostgreSQLLockingSupport` (aplicação do lock timeout via `SET LOCAL lock_timeout`)](https://github.com/hibernate/hibernate-orm/blob/7.4.5/hibernate-core/src/main/java/org/hibernate/dialect/lock/internal/PostgreSQLLockingSupport.java)
 - Spring Data JPA — [Locking](https://docs.spring.io/spring-data/jpa/reference/jpa/locking.html) e [Transactionality](https://docs.spring.io/spring-data/jpa/reference/jpa/transactions.html)
-- Spring Framework — [Resilience Features (`@Retryable`)](https://docs.spring.io/spring-framework/reference/core/resilience.html)
-- Spring Retry — [repositório (arquivado, substituído pelo Spring Framework 7)](https://github.com/spring-projects/spring-retry)
+- Spring Framework — [Resilience Features (`@Retryable`, ordem com `@Transactional`)](https://docs.spring.io/spring-framework/reference/core/resilience.html)
+- Spring Retry — [repositório (arquivado em julho de 2026, substituído pelo Spring Framework 7)](https://github.com/spring-projects/spring-retry)
 - IETF — [RFC 9110, HTTP Semantics (requisições condicionais e o "lost update")](https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.1)
 - Apache CouchDB — [API de documentos (`_rev` e 409 Conflict)](https://docs.couchdb.org/en/stable/api/document/common.html)
 - Vlad Mihalcea — [artigos sobre explicit locking em JPA e Hibernate](https://vladmihalcea.com/tag/explicit-locking/)
