@@ -1,53 +1,47 @@
 ---
-title: "Cobrança duplicada no retry"
+title: "Chave de idempotência — como impedir a cobrança duplicada no retry"
 published: 2026-09-10
-updated: 2026-09-16
+updated: 2026-09-20
 description: "Por que consultar antes de gravar não impede que um retry cobre o cliente duas vezes, e como resolver com chave de idempotência, restrição única e resposta guardada. Com SQL testado no PostgreSQL."
 tags: [Pagamentos, Idempotência, Banco de Dados]
 category: Arquitetura
 draft: false
 ---
 
-Um timeout não diz se a operação aconteceu. Quando o app reenvia uma cobrança depois de um timeout, o serviço precisa reconhecer a repetição e não cobrar de novo. Parece simples, mas a solução mais intuitiva, consultar antes de gravar, falha justamente quando o serviço roda em várias instâncias.
+Um timeout não diz se a operação aconteceu. Quando o app reenvia uma cobrança depois de um timeout, o serviço precisa reconhecer a repetição e não cobrar de novo. Parece simples, mas a solução mais intuitiva, consultar antes de gravar, falha justamente quando o serviço roda em várias instâncias. Este post mostra onde ela falha e o desenho que funciona: uma **chave de idempotência** gerada pelo cliente, uma **restrição única** no banco e a **resposta guardada**, com SQL testado no PostgreSQL e os cuidados de produção.
 
-O post segue um roteiro: o cenário, a primeira resposta que costuma aparecer, onde ela falha e a solução que funciona (chave de idempotência, restrição única no banco e resposta guardada), com SQL testado no PostgreSQL 17 e os cuidados de produção.
-
-## 1. O cenário
+## 1. O que o timeout não diz
 
 O app do cliente envia uma requisição de cobrança de R\$ 250 para o serviço de autorização. A resposta não chega a tempo e a requisição estoura o timeout. Do lado do cliente, não dá para saber o que aconteceu: o servidor pode ter cobrado, pode ainda estar processando ou pode nem ter recebido o pedido. Então o app reenvia.
 
 O serviço roda em várias instâncias atrás de um load balancer. O reenvio pode cair numa instância diferente da primeira, e pode chegar enquanto a primeira ainda está trabalhando.
 
-Como garantir que o cliente seja cobrado uma vez só?
-
 O nome da propriedade que falta é **idempotência**: uma operação é idempotente quando repeti-la tem o mesmo efeito que executá-la uma vez. A especificação do HTTP (RFC 9110) classifica GET, PUT e DELETE como idempotentes por definição; POST não é. Uma cobrança é um POST, e cada repetição sem proteção vira uma cobrança nova.
 
-**O que o cenário deixa em aberto de propósito:** o volume, se o cliente controla o reenvio, por quanto tempo a garantia precisa valer, o que acontece se o reenvio vier no dia seguinte.
+O que o cenário deixa em aberto, e que muda o desenho: o volume, se o cliente controla o reenvio, por quanto tempo a garantia precisa valer e o que acontece se o reenvio vier no dia seguinte.
 
-## 2. A primeira resposta
+## 2. Por que consultar antes de gravar não basta
 
-> Antes de gravar a cobrança, o serviço consulta a tabela procurando uma cobrança com o mesmo número de pedido. Se já existir, devolve a que existe. Se não existir, insere e captura.
-
-## 3. Onde ela falha
+A primeira ideia que aparece é verificar antes de gravar: o serviço consulta a tabela procurando uma cobrança com o mesmo número de pedido; se já existir, devolve a que existe; se não existir, insere e captura.
 
 A ideia está certa: reconhecer o pedido repetido e não cobrar de novo. O problema é **onde** a verificação acontece.
 
 Consultar e depois gravar são duas operações separadas, e entre elas existe uma janela, curta, mas real. Se a requisição original e o reenvio caem em instâncias diferentes ao mesmo tempo, as duas consultam antes de qualquer uma gravar, as duas encontram a tabela vazia e as duas cobram.
 
-Esse defeito tem nome: **condição de corrida do tipo verificar-e-agir** (*check-then-act*). A decisão foi tomada com base num estado que mudou antes da ação.
+Esse defeito tem nome: **condição de corrida do tipo verificar-e-agir** (*check-then-act*). A decisão foi tomada com base num estado que mudou antes da ação. Na forma mais geral, é catalogada como TOCTOU (*time-of-check to time-of-use*, CWE-367), e aparece em reserva de estoque, cadastro por e-mail, débito de saldo e no clássico "verifica se o arquivo existe antes de criar".
 
 Isso dificilmente aparece em teste local, onde as requisições costumam chegar em sequência. Aparece em produção, no pico, quando o volume aumenta a chance de as duas coincidirem. O cenário é fácil de reproduzir no PostgreSQL: duas conexões simultâneas que consultam, esperam um segundo e inserem acabam gravando as duas.
 
 ![Diagrama: a requisição original e o reenvio caem em instâncias diferentes, as duas consultam antes de qualquer uma gravar e o cliente é cobrado duas vezes](/posts/cobranca-duplicada-no-retry/retry-cobranca-duplicada.svg)
 
-## 4. A solução: gravar primeiro e deixar o banco recusar
+## 3. Gravar primeiro e deixar o banco recusar
 
 A garantia precisa estar em quem consegue decidir sozinho, sem janela: **o banco**.
 
 São três peças:
 
-- **Chave de idempotência**: um identificador que o cliente gera uma vez por intenção de cobrança e repete em todas as tentativas dessa mesma intenção, normalmente num cabeçalho `Idempotency-Key`. A Stripe recomenda um UUID v4 ou outro valor aleatório com entropia suficiente para não colidir, e sem dados pessoais. O id do pedido só serve como chave se cada pedido puder ser cobrado uma única vez; se o mesmo pedido pode ter cobranças legítimas separadas, a chave precisa identificar a cobrança, não o pedido.
-- **Restrição única** (`UNIQUE`) no banco sobre essa chave. É ela que transforma "duas gravações" em "uma gravação e uma recusa".
+- **Chave de idempotência**: um identificador que o cliente gera uma vez por intenção de cobrança e repete em todas as tentativas dessa mesma intenção, normalmente num cabeçalho `Idempotency-Key`. A Stripe recomenda um UUID v4 ou outro valor aleatório com entropia suficiente para não colidir, e sem dados pessoais. O id do pedido só serve como chave se cada pedido puder ser cobrado uma única vez; se o mesmo pedido pode ter cobranças legítimas separadas, a chave precisa identificar a cobrança, não o pedido. A mesma técnica vale para webhooks, APIs públicas de pagamento e comandos consumidos de fila.
+- **Restrição única** (`UNIQUE`) no banco sobre essa chave. É ela que transforma "duas gravações" em "uma gravação e uma recusa". É a integridade do banco no lugar de coordenação na aplicação: a decisão fica atômica porque acontece dentro da própria escrita, o mesmo mecanismo que garante slug de URL, número de matrícula e qualquer regra do tipo "só pode existir um".
 - **Resposta guardada**: a primeira tentativa salva o que respondeu. As seguintes, ao esbarrar na restrição, leem e devolvem exatamente a mesma resposta.
 
 A ordem se inverte: em vez de verificar e depois gravar, você grava e deixa o banco recusar. A janela some porque verificar e gravar passam a ser a mesma operação.
@@ -114,28 +108,24 @@ SELECT status, pedido_id, valor_centavos, resposta_http, resposta_corpo
 
 - **Confirme o registro antes de chamar o adquirente.** Se a inserção e a chamada externa ficarem na mesma transação aberta, a segunda inserção com a mesma chave não recusa na hora: o PostgreSQL faz quem tenta inserir esperar até a outra transação terminar. Num teste com PostgreSQL 17, o reenvio ficou parado os dois segundos que a primeira transação levou, e só então recebeu 0 linhas. Sob carga, isso vira conexões presas e fila, e o cliente nunca vê o `PROCESSANDO`.
 - **Um `PROCESSANDO` pode ficar órfão.** Se o processo morrer entre o commit e a resposta do adquirente, sobra um registro sem desfecho. Descobrir se a cobrança passou é trabalho de conciliação, tema do post [Efeito externo sem registro local](/posts/efeito-externo-sem-registro-local/).
-- **Decida por quanto tempo a chave vale.** A Stripe pode remover chaves com pelo menos 24 horas de idade; uma chave reutilizada depois disso gera uma requisição nova. O rascunho da IETF deixa o prazo para cada API definir e publicar na documentação. Prazo mais longo protege reenvios tardios e custa armazenamento.
+- **Decida por quanto tempo a chave vale.** A Stripe pode remover chaves com pelo menos 24 horas de idade; uma chave reutilizada depois disso gera uma requisição nova. O rascunho da IETF deixa o prazo para cada API definir e publicar na documentação. Prazo mais longo protege reenvios tardios e custa armazenamento; qualquer que seja, precisa estar escrito no contrato da API, porque o cliente que reenvia no dia seguinte vai descobrir na prática.
 - **Decida se erro também fica guardado.** A Stripe guarda o status e o corpo da primeira resposta seja sucesso ou falha, inclusive erros `500`. Com isso, uma nova tentativa depois de uma recusa exige chave nova, porque é uma nova intenção.
 
-## 5. Padrões nomeados
+## 4. O que a restrição única não cobre
 
-**Já explicados acima; aqui fica só o nome formal**
+A chave resolve o caso em que a decisão cabe numa chave: "esta intenção já foi processada?". Três situações vizinhas pedem outra ferramenta.
 
-- **Idempotency Key**: o cliente marca a intenção com um identificador, e o servidor garante que ela produza efeito uma vez só, chegue quantas vezes chegar. *Onde mais aparece:* webhooks, APIs públicas de pagamento, comandos consumidos de fila.
-- **Check-then-act race condition**: verificar um estado e agir com base nele em duas operações separadas; entre uma e outra, o estado muda. Na forma mais geral é catalogada como TOCTOU (*time-of-check to time-of-use*, CWE-367). *Onde mais aparece:* reserva de estoque, cadastro por e-mail, débito de saldo e o clássico "verifica se o arquivo existe antes de criar".
-- **Restrição única como mecanismo de concorrência**: usar a integridade do banco no lugar de coordenação na aplicação. A decisão fica atômica porque acontece dentro da própria escrita. *Onde mais aparece:* slug de URL, número de matrícula, qualquer regra do tipo "só pode existir um".
+- **A decisão depende do valor lido.** Débito de saldo, controle de estoque, qualquer "leu, calculou, gravou": não existe chave que expresse "o saldo ainda é o que eu li". As alternativas são o bloqueio pessimista (`SELECT ... FOR UPDATE`, que trava a linha e faz os concorrentes esperarem) e o otimista (uma coluna de versão, e só grava quem leu a versão atual). Os dois precisam de uma linha que já exista; aqui a cobrança ainda não existe, então seria preciso travar outra linha, como a do pedido, o que é mais um motivo para preferir a restrição única quando ela basta. Os dois são detalhados em [Bloqueio otimista e pessimista](/posts/bloqueio-otimista-e-pessimista/).
+- **O efeito externo antes do registro.** A chave só protege o que chegou a ser gravado. Se a captura no adquirente passar e a gravação da resposta falhar, ou se o processo morrer antes de gravar qualquer coisa, sobra dinheiro cobrado sem registro. O desenho que fecha esse buraco, gravar a intenção antes de causar o efeito, está em [Efeito externo sem registro local](/posts/efeito-externo-sem-registro-local/).
+- **A cobrança vira um evento numa fila.** Quando o pedido chega de um tópico em vez de uma chamada síncrona, a repetição é ainda mais certa: a garantia padrão do Kafka, da fila Standard do SQS e do RabbitMQ com confirmações (*acks*) é **entrega pelo menos uma vez** (*at-least-once*). "Exatamente uma vez" existe só em escopos limitados, como a deduplicação de 5 minutos das filas FIFO do SQS ou as transações dentro do próprio Kafka; quando o efeito sai para um sistema externo, a documentação do Kafka lembra que o destino precisa cooperar. Na prática, entrega-se pelo menos uma vez e o consumidor é idempotente, com a mesma tabela e a mesma restrição única deste post, usando o id da mensagem (ou a chave que veio dentro dela) como chave de idempotência. É por isso que idempotência e mensageria andam juntas.
 
-**Mencionados de passagem; vale saber o que são**
+## 5. Regra prática
 
-- **Entrega pelo menos uma vez** (*at-least-once delivery*): a mensagem pode chegar repetida, mas não se perde. É a garantia padrão do Kafka, da fila Standard do SQS e do RabbitMQ com confirmações (*acks*) na publicação e no consumo, e é o que qualquer retry HTTP produz. "Exatamente uma vez" existe só em escopos limitados, como a deduplicação de 5 minutos das filas FIFO do SQS ou as transações dentro do próprio Kafka; quando o efeito sai para um sistema externo, a documentação do Kafka lembra que o destino precisa cooperar. Na prática, entrega-se pelo menos uma vez e o consumidor é idempotente, o que produz o mesmo efeito final. *Onde mais aparece:* toda arquitetura de eventos, e é por isso que idempotência e mensageria andam juntas.
-- **Bloqueio pessimista e bloqueio otimista**: as alternativas à restrição única. No pessimista (`SELECT ... FOR UPDATE`), você trava a linha e os concorrentes esperam até você terminar; funciona, mas cria contenção e risco de deadlock sob carga. No otimista, você adiciona uma coluna de versão e só grava se a versão não mudou; quem perde tenta de novo. Os dois precisam de uma linha que já exista. Neste cenário a cobrança ainda não existe, então seria preciso travar outra linha, como a do pedido, o que é mais um motivo para preferir a restrição única. *Quando usar no lugar dela:* quando a decisão depende de ler e combinar valores e não cabe numa única chave. *Onde mais aparece:* edição concorrente de cadastro, controle de saldo, qualquer "leu, calculou, gravou". Os dois são detalhados no post [Bloqueio otimista e pessimista](/posts/bloqueio-otimista-e-pessimista/).
-
-## 6. Onde eu apertaria numa entrevista
-
-- Por quanto tempo a chave vale? Um dia, um mês, para sempre? O que essa escolha custa em armazenamento, e o que acontece com o reenvio que chega depois do prazo?
-- Um registro está em `PROCESSANDO` há dez minutos. Quem decide se a cobrança passou, e com base em quê?
-- E se a captura no adquirente passar, mas a gravação da resposta no banco falhar?
-- Como isso muda se a cobrança virar um evento assíncrono, consumido de uma fila, em vez de uma chamada síncrona?
+- A chave é gerada pelo **cliente**, uma por intenção, e repetida em todas as tentativas dessa intenção. Id de pedido só serve se o pedido só puder ser cobrado uma vez.
+- Quem decide é o **banco**: `UNIQUE` na chave e `INSERT ... ON CONFLICT DO NOTHING RETURNING` antes de qualquer efeito externo. Nunca "consulta, depois grava".
+- **Confirme** o registro antes de chamar o adquirente; a chamada externa fica fora da transação.
+- A **primeira resposta fica guardada** e é devolvida igual nas repetições; parâmetros diferentes com a mesma chave são recusados.
+- O **prazo da chave** e o tratamento de erro são decisões de contrato: escolha, documente e meça o armazenamento.
 
 ## Fontes
 
