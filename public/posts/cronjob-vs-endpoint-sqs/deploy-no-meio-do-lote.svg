@@ -1,63 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 640" font-family="Inter, system-ui, sans-serif">
-<rect width="940" height="640" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 650" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="650" fill="#ffffff"/>
 <defs>
 <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
 <marker id="mt" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#9ca3af"/></marker>
 </defs>
 
 <text x="470" y="42" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Deploy da API no meio do processamento (abordagem B)</text>
-<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">o graceful shutdown espera as requisições HTTP em andamento, não um lote inteiro</text>
+<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">só as mensagens em andamento ficam em risco; o resto do lote segue na fila para os outros pods</text>
 
 <!-- raias -->
 <g font-size="15" font-weight="700" text-anchor="middle">
-<rect x="40" y="92" width="180" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="130" y="120" fill="#374151">Kubernetes</text>
-<rect x="260" y="92" width="180" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="350" y="120" fill="#2b7fc4">Pod da API v1</text>
-<rect x="500" y="92" width="180" height="44" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
-<text x="590" y="120" fill="#e07a1f">Fila SQS</text>
-<rect x="720" y="92" width="180" height="44" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
-<text x="810" y="120" fill="#2e9e5b">Pod da API v2</text>
+<rect x="55" y="92" width="160" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="135" y="120" fill="#374151">Kubernetes</text>
+<rect x="285" y="92" width="160" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="365" y="120" fill="#2b7fc4">Pod da API v1</text>
+<rect x="515" y="92" width="160" height="44" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="595" y="120" fill="#e07a1f">Fila SQS</text>
+<rect x="745" y="92" width="160" height="44" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="825" y="120" fill="#2e9e5b">Pod da API v2</text>
 </g>
 <g stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 6">
-<path d="M130 136 V536"/><path d="M350 136 V536"/><path d="M590 136 V536"/><path d="M810 136 V536"/>
+<path d="M135 136 V546"/><path d="M365 136 V546"/><path d="M595 136 V546"/><path d="M825 136 V546"/>
 </g>
 
 <!-- eixo do tempo -->
-<path d="M20 160 V526" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
-<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(14 343) rotate(-90)">tempo</text>
+<path d="M34 160 V536" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
+<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(24 348) rotate(-90)">tempo</text>
 
 <!-- 1 lote em andamento -->
-<rect x="260" y="160" width="420" height="34" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
-<text x="470" y="182" font-size="13" fill="#111827" text-anchor="middle">lote em andamento: a v1 consome as mensagens da fila</text>
+<rect x="285" y="160" width="620" height="34" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="595" y="182" font-size="13" fill="#111827" text-anchor="middle">rolling update: o v2 sobe e passa a consumir a fila junto com o v1</text>
 
 <!-- 2 SIGTERM -->
-<path d="M140 235 H344" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="242" y="227" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">SIGTERM (rolling update)</text>
+<path d="M137 240 H363" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="240" y="230" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">SIGTERM (rolling update)</text>
 
 <!-- 3 para de buscar -->
-<path d="M360 285 H584" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="472" y="277" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">para de buscar mensagens</text>
+<path d="M367 290 H593" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="470" y="280" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">para de buscar mensagens</text>
 
 <!-- 4 nota v1 -->
-<rect x="215" y="312" width="270" height="34" rx="10" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="350" y="334" font-size="13" fill="#111827" text-anchor="middle">30 s para concluir o que tem em mãos</text>
+<rect x="225" y="318" width="280" height="34" rx="10" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="365" y="340" font-size="13" fill="#111827" text-anchor="middle">espera as mensagens em andamento</text>
 
 <!-- 5 SIGKILL -->
-<path d="M140 390 H344" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="242" y="382" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">SIGKILL</text>
+<path d="M137 400 H363" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="240" y="373" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">SIGKILL,</text>
+<text x="240" y="390" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">se não sair em 30 s</text>
 
 <!-- 6 nota fila -->
-<rect x="440" y="418" width="300" height="48" rx="10" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
-<text x="590" y="438" font-size="13" fill="#111827" text-anchor="middle">as mensagens não concluídas reaparecem</text>
-<text x="590" y="457" font-size="13" fill="#111827" text-anchor="middle">depois do visibility timeout</text>
+<rect x="440" y="428" width="310" height="48" rx="10" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
+<text x="595" y="448" font-size="13" fill="#111827" text-anchor="middle">o que não foi concluído nem apagado</text>
+<text x="595" y="467" font-size="13" fill="#111827" text-anchor="middle">reaparece depois do visibility timeout</text>
 
 <!-- 7 entrega ao v2 -->
-<path d="M600 505 H804" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="702" y="497" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">entrega o restante do lote</text>
+<path d="M597 520 H823" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="700" y="510" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">entrega o que voltou</text>
 
 <!-- resultado -->
-<rect x="40" y="556" width="860" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="470" y="580" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">parte do lote processada pela v1, parte pela v2</text>
-<text x="470" y="602" font-size="13" fill="#4b5563" text-anchor="middle">e o que já tinha sido publicado no SNS antes do SIGKILL sai de novo, porque a mensagem não foi apagada</text>
+<rect x="55" y="566" width="850" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="480" y="590" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">parte do lote processada pela v1, parte pela v2</text>
+<text x="480" y="612" font-size="13" fill="#4b5563" text-anchor="middle">e o que já tinha sido publicado no SNS, mas não foi apagado da fila, sai de novo</text>
 </svg>
