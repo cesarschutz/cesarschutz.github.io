@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" class="ac-green">
+  <g transform="translate(1.4 -12.1)">
+  <!-- em pé: o relógio em cima; no meio, pod do job (verde) à esquerda e fila -> pod da API à direita; embaixo, o tópico SNS onde os dois publicam -->
+  <g transform="translate(400 170) scale(1.4)"><circle class="cv-shape cv-bold" r="70"/><path class="cv-detail-line" d="M0 -56 V-44 M56 0 H44 M0 56 V44 M-56 0 H-44"/><path class="cv-line cv-bold" d="M0 0 V-42 M0 0 H30"/><circle class="cv-detail" r="5"/></g>
+  <path class="cv-ac-line cv-bold" d="M340 240 C275 300 232 330 214 360"/><path class="cv-ac-line cv-bold" d="M198 350 L210 366 L228 358"/>
+  <g transform="translate(200 480) scale(1.35)"><path class="cv-ac-shape cv-bold" d="M0 -80 L69 -40 V40 L0 80 L-69 40 V-40 Z"/><circle class="cv-ac-line" r="22"/><path class="cv-ac-line" d="M30 0 H40 M21 21 L28 28 M0 30 V40 M-21 21 L-28 28 M-30 0 H-40 M-21 -21 L-28 -28 M0 -30 V-40 M21 -21 L28 -28"/><circle class="cv-ac" r="7"/></g>
+  <path class="cv-muted-line cv-dash" d="M460 240 C525 300 575 320 595 350"/><path class="cv-muted-line" d="M579 346 L597 354 L603 336"/>
+  <g transform="translate(615 430)"><rect class="cv-soft-line" x="-99" y="-74" width="150" height="100" rx="14"/><rect class="cv-soft-line" x="-87" y="-62" width="150" height="100" rx="14"/><rect class="cv-shape" x="-75" y="-50" width="150" height="100" rx="14"/><path class="cv-line" d="M-75 -40 L0 12 L75 -40"/></g>
+  <path class="cv-muted-line" d="M615 484 V526"/><path class="cv-muted-line" d="M601 516 L615 530 L629 516"/>
+  <g transform="translate(615 618) scale(1.05)"><path class="cv-shape cv-bold" d="M0 -80 L69 -40 V40 L0 80 L-69 40 V-40 Z"/><circle class="cv-detail-line" r="24"/><ellipse class="cv-detail-line cv-thin" rx="10" ry="24"/><path class="cv-detail-line cv-thin" d="M-24 0 H24"/></g>
+  <path class="cv-ac-line" d="M200 590 C200 700 255 780 318 830"/><path class="cv-ac-line" d="M302 826 L320 834 L320 814"/>
+  <path class="cv-muted-line" d="M615 704 C615 765 570 792 525 814"/><path class="cv-muted-line" d="M513 802 L521 818 L539 812"/>
+  <g transform="translate(390 870) scale(1.3)"><rect class="cv-shape" x="-56" y="-30" width="36" height="60" rx="8"/><path class="cv-shape cv-bold" d="M-20 -30 H10 L70 -64 V64 L10 30 H-20 Z"/><path class="cv-detail-line cv-thin" d="M86 -22 a26 26 0 0 1 0 44 M100 -44 a50 50 0 0 1 0 88"/></g>
+</g>
+</svg>

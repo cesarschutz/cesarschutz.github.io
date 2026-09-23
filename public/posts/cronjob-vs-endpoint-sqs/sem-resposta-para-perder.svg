@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 640" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="640" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mt" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#9ca3af"/></marker>
+</defs>
+
+<text x="470" y="42" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Abordagem A: não há resposta para perder</text>
+<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">o CronJob cria o Job pela API do Kubernetes, e o processamento é o próprio pod</text>
+
+<!-- raias -->
+<g font-size="15" font-weight="700" text-anchor="middle">
+<rect x="40" y="92" width="180" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="130" y="120" fill="#374151">CronJob</text>
+<rect x="260" y="92" width="180" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="350" y="120" fill="#374151">Kubernetes</text>
+<rect x="500" y="92" width="180" height="44" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="590" y="120" fill="#2e9e5b">Pod do job</text>
+<rect x="720" y="92" width="180" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="810" y="120" fill="#2b7fc4">JobRepository</text>
+</g>
+<g stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 6">
+<path d="M130 136 V612"/><path d="M350 136 V612"/><path d="M590 136 V612"/><path d="M810 136 V612"/>
+</g>
+
+<!-- eixo do tempo -->
+<path d="M20 160 V602" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
+<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(14 381) rotate(-90)">tempo</text>
+
+<!-- 1 -->
+<path d="M140 180 H344" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="242" y="172" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">cria o Job de hoje</text>
+
+<!-- 2 -->
+<path d="M360 225 H584" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="472" y="217" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">sobe o pod</text>
+
+<!-- 3 -->
+<path d="M600 270 H804" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="702" y="262" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">registra a execução do dia</text>
+
+<!-- 4 nota -->
+<rect x="460" y="300" width="260" height="48" rx="10" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
+<text x="590" y="320" font-size="13" fill="#111827" text-anchor="middle">o processamento é o próprio pod:</text>
+<text x="590" y="339" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">não há resposta para perder</text>
+
+<!-- 5 -->
+<path d="M600 385 H804" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="702" y="377" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">marca COMPLETED ou FAILED</text>
+
+<!-- 6 exit code -->
+<path d="M580 425 H364" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#m)"/>
+<text x="472" y="417" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">exit code</text>
+
+<!-- opt: segundo Job -->
+<rect x="250" y="452" width="650" height="150" rx="12" fill="none" stroke="#9ca3af" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="262" y="474" font-size="13" font-weight="700" fill="#6b7280">caso raro documentado: o CronJob cria um segundo Job para o mesmo horário</text>
+
+<path d="M360 507 H584" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="472" y="499" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">sobe outro pod</text>
+
+<path d="M600 547 H804" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="702" y="539" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">tenta registrar a mesma execução</text>
+
+<path d="M800 587 H596" stroke="#d9534f" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#m)"/>
+<text x="702" y="579" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">recusa: a execução já existe</text>
+</svg>
