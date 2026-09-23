@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 620" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="620" fill="#ffffff"/>
+<defs>
+<marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
+<marker id="mt" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#9ca3af"/></marker>
+</defs>
+
+<text x="470" y="42" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Resposta perdida na rede: o gatilho dispara duas vezes (abordagem B)</text>
+<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">quem chama não distingue "a requisição não chegou" de "chegou, mas a resposta não voltou"</text>
+
+<!-- raias -->
+<g font-size="15" font-weight="700" text-anchor="middle">
+<rect x="60" y="92" width="220" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="170" y="120" fill="#374151">CronJob (curl)</text>
+<rect x="360" y="92" width="220" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="470" y="120" fill="#2b7fc4">Endpoint da API</text>
+<rect x="660" y="92" width="220" height="44" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="770" y="120" fill="#e07a1f">Fila SQS</text>
+</g>
+<g stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 6">
+<path d="M170 136 V532"/><path d="M470 136 V532"/><path d="M770 136 V532"/>
+</g>
+
+<!-- eixo do tempo -->
+<path d="M20 160 V522" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
+<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(14 341) rotate(-90)">tempo</text>
+
+<!-- 1 POST -->
+<path d="M180 180 H464" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="322" y="172" font-size="13" fill="#111827" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /processar</text>
+
+<!-- 2 enfileira -->
+<path d="M480 225 H764" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="622" y="217" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">enfileira a lista de hoje</text>
+
+<!-- 3 resposta perdida -->
+<path d="M460 270 H215" stroke="#d9534f" stroke-width="2.5" stroke-dasharray="6 5"/>
+<path d="M192 262 L208 278 M208 262 L192 278" stroke="#d9534f" stroke-width="3"/>
+<text x="330" y="262" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">202 Accepted, mas a resposta se perde na rede</text>
+
+<!-- 4 e 5 notas do CronJob -->
+<rect x="60" y="298" width="220" height="34" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="170" y="320" font-size="13" fill="#111827" text-anchor="middle">timeout: o curl sai com erro</text>
+<rect x="60" y="345" width="220" height="48" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="170" y="365" font-size="13" fill="#111827" text-anchor="middle">o Kubernetes executa o pod</text>
+<text x="170" y="384" font-size="13" fill="#111827" text-anchor="middle">de novo (backoffLimit)</text>
+
+<!-- 6 POST de novo -->
+<path d="M180 425 H464" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="322" y="417" font-size="13" fill="#111827" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /processar</text>
+
+<!-- 7 enfileira outra vez -->
+<path d="M480 470 H764" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="622" y="462" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">enfileira a lista de hoje outra vez</text>
+
+<!-- 8 resposta chega -->
+<path d="M460 510 H184" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#m)"/>
+<text x="322" y="502" font-size="13" fill="#111827" text-anchor="middle">202 Accepted</text>
+
+<!-- resultado -->
+<rect x="40" y="548" width="860" height="56" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="470" y="572" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">A lista de hoje está na fila em dobro</text>
+<text x="470" y="594" font-size="13" fill="#4b5563" text-anchor="middle">as duas cópias de um registro podem ser processadas ao mesmo tempo, por pods diferentes</text>
+</svg>

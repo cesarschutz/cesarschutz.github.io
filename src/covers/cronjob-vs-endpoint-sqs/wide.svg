@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" class="ac-green">
+  <g transform="translate(4.3 -1.4)">
+  <!-- esquerda: o relógio que dispara; centro: pod do job (verde) em cima, fila -> pods da API embaixo; direita: o tópico SNS onde os dois publicam -->
+  <g transform="translate(170 200) scale(1.4)"><circle class="cv-shape cv-bold" r="70"/><path class="cv-detail-line" d="M0 -56 V-44 M56 0 H44 M0 56 V44 M-56 0 H-44"/><path class="cv-line cv-bold" d="M0 0 V-42 M0 0 H30"/><circle class="cv-detail" r="5"/></g>
+  <path class="cv-ac-line cv-bold" d="M270 168 C420 168 470 110 540 110"/><path class="cv-ac-line cv-bold" d="M530 96 L544 110 L530 124"/>
+  <g transform="translate(640 110)"><path class="cv-ac-shape cv-bold" d="M0 -80 L69 -40 V40 L0 80 L-69 40 V-40 Z"/><circle class="cv-ac-line" r="22"/><path class="cv-ac-line" d="M30 0 H40 M21 21 L28 28 M0 30 V40 M-21 21 L-28 28 M-30 0 H-40 M-21 -21 L-28 -28 M0 -30 V-40 M21 -21 L28 -28"/><circle class="cv-ac" r="7"/></g>
+  <path class="cv-muted-line cv-dash" d="M270 232 C420 232 470 290 548 290"/><path class="cv-muted-line" d="M538 276 L552 290 L538 304"/>
+  <g transform="translate(650 290) scale(0.95)"><rect class="cv-soft-line" x="-99" y="-74" width="150" height="100" rx="14"/><rect class="cv-soft-line" x="-87" y="-62" width="150" height="100" rx="14"/><rect class="cv-shape" x="-75" y="-50" width="150" height="100" rx="14"/><path class="cv-line" d="M-75 -40 L0 12 L75 -40"/></g>
+  <path class="cv-muted-line" d="M732 290 H818"/><path class="cv-muted-line" d="M808 276 L822 290 L808 304"/>
+  <g transform="translate(890 290) scale(0.7)"><path class="cv-shape cv-bold" d="M0 -80 L69 -40 V40 L0 80 L-69 40 V-40 Z"/><circle class="cv-detail-line" r="24"/><ellipse class="cv-detail-line cv-thin" rx="10" ry="24"/><path class="cv-detail-line cv-thin" d="M-24 0 H24"/></g>
+  <g transform="translate(1000 290) scale(0.7)"><path class="cv-shape cv-bold" d="M0 -80 L69 -40 V40 L0 80 L-69 40 V-40 Z"/><circle class="cv-detail-line" r="24"/><ellipse class="cv-detail-line cv-thin" rx="10" ry="24"/><path class="cv-detail-line cv-thin" d="M-24 0 H24"/></g>
+  <text class="cv-mono cv-muted" x="945" y="372" font-size="28" text-anchor="middle">API</text>
+  <path class="cv-ac-line" d="M724 118 C950 130 1150 190 1292 200"/>
+  <path class="cv-muted-line" d="M1052 290 C1150 290 1230 220 1292 200"/><path class="cv-muted-line" d="M1282 186 L1296 200 L1282 214"/>
+  <g transform="translate(1380 200) scale(1.1)"><rect class="cv-shape" x="-56" y="-30" width="36" height="60" rx="8"/><path class="cv-shape cv-bold" d="M-20 -30 H10 L70 -64 V64 L10 30 H-20 Z"/><path class="cv-detail-line cv-thin" d="M86 -22 a26 26 0 0 1 0 44 M100 -44 a50 50 0 0 1 0 88"/></g>
+</g>
+</svg>
