@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="ac-green">
   <g transform="translate(1.4 -5)">
-  <!-- em cima: relógio -> pod do job (verde); embaixo: relógio -> envelope -> pod da API -->
+  <!-- em cima: relógio -> pod do job (verde); embaixo: relógio -> uma mensagem (envelope) -> pod da API -->
   <g transform="translate(220 240) scale(1.57)"><circle class="cv-shape cv-bold" r="70"/><path class="cv-detail-line" d="M0 -56 V-44 M56 0 H44 M0 56 V44 M-56 0 H-44"/><path class="cv-line cv-bold" d="M0 0 V-42 M0 0 H30"/><circle class="cv-detail" r="5"/></g>
   <path class="cv-ac-line cv-bold" d="M334 240 H460"/>
   <g transform="translate(580 240) scale(1.56)"><path class="cv-ac-shape cv-bold" d="M0 -80 L69 -40 V40 L0 80 L-69 40 V-40 Z"/><circle class="cv-ac-line" r="22"/><path class="cv-ac-line" d="M30 0 H40 M21 21 L28 28 M0 30 V40 M-21 21 L-28 28 M-30 0 H-40 M-21 -21 L-28 -28 M0 -30 V-40 M21 -21 L28 -28"/><circle class="cv-ac" r="7"/></g>
   <path class="cv-muted-line cv-dash" d="M220 354 V468"/>
-  <g transform="translate(250 570) scale(1.3)"><rect class="cv-soft-line" x="-99" y="-74" width="150" height="100" rx="14"/><rect class="cv-soft-line" x="-87" y="-62" width="150" height="100" rx="14"/><rect class="cv-shape" x="-75" y="-50" width="150" height="100" rx="14"/><path class="cv-line" d="M-75 -40 L0 12 L75 -40"/></g>
-  <path class="cv-muted-line" d="M356 570 H460"/>
+  <g transform="translate(220 570) scale(1.3)"><rect class="cv-shape" x="-75" y="-50" width="150" height="100" rx="14"/><path class="cv-line" d="M-75 -40 L0 12 L75 -40"/></g>
+  <path class="cv-muted-line" d="M326 570 H460"/>
   <g transform="translate(580 570) scale(1.56)"><path class="cv-shape cv-bold" d="M0 -80 L69 -40 V40 L0 80 L-69 40 V-40 Z"/><circle class="cv-detail-line" r="24"/><ellipse class="cv-detail-line cv-thin" rx="10" ry="24"/><path class="cv-detail-line cv-thin" d="M-24 0 H24"/></g>
 </g>
 </svg>
