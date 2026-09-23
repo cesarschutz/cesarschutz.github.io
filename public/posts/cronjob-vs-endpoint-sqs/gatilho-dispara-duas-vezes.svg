@@ -43,8 +43,8 @@
 <rect x="60" y="312" width="220" height="34" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
 <text x="170" y="334" font-size="13" fill="#111827" text-anchor="middle">timeout: o curl sai com erro</text>
 <rect x="60" y="358" width="220" height="48" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
-<text x="170" y="378" font-size="13" fill="#111827" text-anchor="middle">o Kubernetes executa o pod</text>
-<text x="170" y="397" font-size="13" fill="#111827" text-anchor="middle">de novo (backoffLimit)</text>
+<text x="170" y="378" font-size="13" fill="#111827" text-anchor="middle">o Kubernetes cria</text>
+<text x="170" y="397" font-size="13" fill="#111827" text-anchor="middle">outro pod (backoffLimit)</text>
 
 <!-- 6 POST de novo -->
 <path d="M172 450 H468" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>

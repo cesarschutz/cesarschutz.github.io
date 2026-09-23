@@ -5,7 +5,7 @@
 </defs>
 
 <text x="470" y="42" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Quando o SNS fica uma hora fora do ar</text>
-<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">a abordagem B leva o lote para a DLQ; a A falha o job e retoma na próxima execução</text>
+<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">na B, o lote vai para a DLQ; na A, o job falha e os pendentes esperam a próxima execução</text>
 
 <!-- painel B -->
 <rect x="30" y="96" width="460" height="594" rx="14" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="8 6"/>
@@ -40,7 +40,7 @@
 
 <rect x="90" y="606" width="340" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
 <text x="260" y="631" font-size="12" fill="#4b5563" text-anchor="middle">quando o SNS volta, nada reprocessa sozinho:</text>
-<text x="260" y="654" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">alguém precisa fazer o redrive da DLQ</text>
+<text x="260" y="654" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">é preciso fazer o redrive da DLQ</text>
 
 <!-- painel A -->
 <rect x="510" y="96" width="400" height="594" rx="14" fill="none" stroke="#2e9e5b" stroke-width="2" stroke-dasharray="8 6"/>
@@ -58,7 +58,7 @@
 
 <rect x="540" y="346" width="340" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
 <text x="710" y="371" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">O job falha</text>
-<text x="710" y="393" font-size="13" fill="#4b5563" text-anchor="middle">exit code diferente de zero</text>
+<text x="710" y="393" font-size="13" fill="#4b5563" text-anchor="middle">e as retentativas do backoffLimit também</text>
 <path d="M710 408 V434" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
 <rect x="540" y="436" width="340" height="48" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
@@ -67,9 +67,9 @@
 
 <rect x="540" y="514" width="340" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
 <text x="710" y="539" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">A próxima execução pega os pendentes</text>
-<text x="710" y="561" font-size="13" fill="#4b5563" text-anchor="middle">pelo backoffLimit ou no horário seguinte</text>
+<text x="710" y="561" font-size="13" fill="#4b5563" text-anchor="middle">no horário seguinte ou num disparo manual</text>
 
-<text x="710" y="626" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">sem intervenção manual: o estado está no banco,</text>
+<text x="710" y="626" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">sem redrive: o estado está no banco,</text>
 <text x="710" y="646" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">não em mensagens paradas numa DLQ</text>
 
 <text x="470" y="722" font-size="13" fill="#6b7280" text-anchor="middle">Retry em várias camadas ao mesmo tempo (SDK, listener e fila) multiplica a carga sobre quem já está com problema</text>
