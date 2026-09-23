@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 680" font-family="Inter, system-ui, sans-serif">
-<rect width="940" height="680" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 750" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="750" fill="#ffffff"/>
 <defs>
 <marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
 </defs>
@@ -8,69 +8,69 @@
 <text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">a abordagem B leva o lote para a DLQ; a A falha o job e retoma na próxima execução</text>
 
 <!-- painel B -->
-<rect x="40" y="96" width="420" height="536" rx="14" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="8 6"/>
-<text x="60" y="122" font-size="15" font-weight="700" fill="#d9534f">Abordagem B: fila consumida na API</text>
+<rect x="30" y="96" width="460" height="594" rx="14" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="50" y="122" font-size="15" font-weight="700" fill="#d9534f">Abordagem B: fila consumida na API</text>
 
-<rect x="100" y="145" width="300" height="50" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="250" y="176" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">O listener tenta publicar no SNS</text>
-<path d="M250 197 V212" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="90" y="142" width="340" height="50" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="260" y="172" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">O listener tenta publicar no SNS</text>
+<path d="M260 194 V220" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<polygon points="250,216 380,250 250,284 120,250" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="250" y="255" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">SNS responde?</text>
-<path d="M250 286 V304" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="258" y="299" font-size="12" fill="#4b5563">não</text>
+<polygon points="260,222 370,258 260,294 150,258" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="260" y="263" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">SNS responde?</text>
+<path d="M260 296 V334" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="276" y="320" font-size="12" fill="#4b5563">não</text>
 
-<rect x="100" y="308" width="300" height="48" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
-<text x="250" y="338" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">A mensagem volta à fila</text>
-<path d="M250 358 V376" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="90" y="336" width="340" height="48" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="260" y="365" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">A mensagem volta à fila</text>
+<path d="M260 386 V412" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<polygon points="250,380 400,414 250,448 100,414" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="250" y="419" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Atingiu o maxReceiveCount?</text>
+<polygon points="260,414 425,456 260,498 95,456" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="260" y="460" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Atingiu o maxReceiveCount?</text>
 
 <!-- loop "não" -->
-<path d="M100 414 H70 V170 H96" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="62" y="292" font-size="12" fill="#4b5563" text-anchor="end">não</text>
+<path d="M95 456 H55 V167 H88" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="75" y="446" font-size="12" fill="#4b5563" text-anchor="middle">não</text>
 
-<path d="M250 450 V468" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="258" y="463" font-size="12" fill="#4b5563">sim</text>
+<path d="M260 500 V526" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="276" y="516" font-size="12" fill="#4b5563">sim</text>
 
-<rect x="100" y="472" width="300" height="48" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="250" y="502" font-size="14" font-weight="700" fill="#d9534f" text-anchor="middle">A mensagem vai para a DLQ</text>
-<path d="M250 522 V540" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="90" y="528" width="340" height="48" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="260" y="557" font-size="14" font-weight="700" fill="#d9534f" text-anchor="middle">A mensagem vai para a DLQ</text>
+<path d="M260 578 V604" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<rect x="100" y="544" width="300" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="250" y="569" font-size="12" fill="#4b5563" text-anchor="middle">quando o SNS volta, nada reprocessa sozinho:</text>
-<text x="250" y="592" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">alguém precisa fazer o redrive da DLQ</text>
+<rect x="90" y="606" width="340" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="260" y="631" font-size="12" fill="#4b5563" text-anchor="middle">quando o SNS volta, nada reprocessa sozinho:</text>
+<text x="260" y="654" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">alguém precisa fazer o redrive da DLQ</text>
 
 <!-- painel A -->
-<rect x="480" y="96" width="420" height="536" rx="14" fill="none" stroke="#2e9e5b" stroke-width="2" stroke-dasharray="8 6"/>
-<text x="500" y="122" font-size="15" font-weight="700" fill="#2e9e5b">Abordagem A: CronJob com pod próprio</text>
+<rect x="510" y="96" width="400" height="594" rx="14" fill="none" stroke="#2e9e5b" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="530" y="122" font-size="15" font-weight="700" fill="#2e9e5b">Abordagem A: CronJob com pod próprio</text>
 
-<rect x="540" y="145" width="300" height="60" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="690" y="170" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">O job tenta publicar no SNS</text>
-<text x="690" y="192" font-size="13" fill="#4b5563" text-anchor="middle">o SDK da AWS retenta com backoff</text>
-<path d="M690 207 V222" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="540" y="142" width="340" height="60" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="710" y="167" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">O job tenta publicar no SNS</text>
+<text x="710" y="189" font-size="13" fill="#4b5563" text-anchor="middle">o SDK da AWS retenta com backoff</text>
+<path d="M710 204 V230" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<polygon points="690,226 820,260 690,294 560,260" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="690" y="265" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">SNS responde?</text>
-<path d="M690 296 V320" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="698" y="312" font-size="12" fill="#4b5563">não, tentativas esgotadas</text>
+<polygon points="710,232 820,268 710,304 600,268" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="710" y="273" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">SNS responde?</text>
+<path d="M710 306 V344" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="726" y="330" font-size="12" fill="#4b5563">não, tentativas esgotadas</text>
 
-<rect x="540" y="324" width="300" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="690" y="349" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">O job falha</text>
-<text x="690" y="371" font-size="13" fill="#4b5563" text-anchor="middle">exit code diferente de zero</text>
-<path d="M690 386 V402" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="540" y="346" width="340" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="710" y="371" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">O job falha</text>
+<text x="710" y="393" font-size="13" fill="#4b5563" text-anchor="middle">exit code diferente de zero</text>
+<path d="M710 408 V434" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<rect x="540" y="406" width="300" height="48" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="690" y="436" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Os registros seguem pendentes no banco</text>
-<path d="M690 456 V472" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<rect x="540" y="436" width="340" height="48" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="710" y="465" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Os registros seguem pendentes no banco</text>
+<path d="M710 486 V512" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
 
-<rect x="540" y="476" width="300" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
-<text x="690" y="501" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">A próxima execução pega os pendentes</text>
-<text x="690" y="523" font-size="13" fill="#4b5563" text-anchor="middle">pelo backoffLimit ou no horário seguinte</text>
+<rect x="540" y="514" width="340" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="710" y="539" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">A próxima execução pega os pendentes</text>
+<text x="710" y="561" font-size="13" fill="#4b5563" text-anchor="middle">pelo backoffLimit ou no horário seguinte</text>
 
-<text x="690" y="580" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">sem intervenção manual: o estado está no banco,</text>
-<text x="690" y="600" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">não em mensagens paradas numa DLQ</text>
+<text x="710" y="626" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">sem intervenção manual: o estado está no banco,</text>
+<text x="710" y="646" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">não em mensagens paradas numa DLQ</text>
 
-<text x="470" y="662" font-size="13" fill="#6b7280" text-anchor="middle">Retry em várias camadas ao mesmo tempo (SDK, listener e fila) multiplica a carga sobre quem já está com problema</text>
+<text x="470" y="722" font-size="13" fill="#6b7280" text-anchor="middle">Retry em várias camadas ao mesmo tempo (SDK, listener e fila) multiplica a carga sobre quem já está com problema</text>
 </svg>
