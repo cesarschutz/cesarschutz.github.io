@@ -1,78 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 770" font-family="Inter, system-ui, sans-serif">
-<rect width="940" height="770" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 430" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="430" fill="#ffffff"/>
 <defs>
-<marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+<marker id="mt" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#9ca3af"/></marker>
 </defs>
 
 <text x="470" y="42" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Quando o SNS fica uma hora fora do ar</text>
-<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">na B, a mensagem do lote volta à fila até cair na DLQ; na A, o job falha e espera a próxima execução</text>
+<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">o mesmo lote em três cenários (na B, maxReceiveCount 3): o desfecho depende do tempo entre as tentativas</text>
 
-<!-- painel B -->
-<rect x="30" y="96" width="460" height="614" rx="14" fill="none" stroke="#d9534f" stroke-width="2" stroke-dasharray="8 6"/>
-<text x="50" y="122" font-size="15" font-weight="700" fill="#d9534f">Abordagem B: fila consumida na API</text>
+<!-- eixo do tempo -->
+<path d="M205 114 H920" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
+<g stroke="#9ca3af" stroke-width="2"><path d="M205 108 V120"/><path d="M291 108 V120"/><path d="M548 108 V120"/><path d="M719 108 V120"/><path d="M890 108 V120"/></g>
+<text x="190" y="119" font-size="13" fill="#6b7280" text-anchor="end">tempo</text>
+<g font-size="12" fill="#4b5563" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">
+<text x="205" y="96">03:00</text>
+<text x="719" y="96">05:00</text>
+<text x="890" y="96">05:40</text>
+</g>
+<g font-size="12" font-weight="700" fill="#d9534f" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">
+<text x="291" y="96">03:20</text>
+<text x="548" y="96">04:20</text>
+</g>
 
-<rect x="90" y="142" width="340" height="60" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="260" y="167" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">O listener tenta publicar no SNS</text>
-<text x="260" y="189" font-size="13" fill="#4b5563" text-anchor="middle">segue de onde parou, pelo status no banco</text>
-<path d="M260 204 V230" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<!-- SNS fora do ar -->
+<rect x="291" y="126" width="257" height="230" fill="#fdecea"/>
+<text x="419" y="144" font-size="12" font-weight="700" fill="#d9534f" text-anchor="middle">SNS fora do ar</text>
 
-<polygon points="260,232 370,268 260,304 150,268" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="260" y="273" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">SNS responde?</text>
-<path d="M260 306 V344" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="276" y="330" font-size="12" fill="#4b5563">não</text>
+<!-- raia A -->
+<text x="190" y="172" font-size="13" font-weight="700" fill="#111827" text-anchor="end">A: CronJob</text>
+<text x="190" y="187" font-size="11" fill="#6b7280" text-anchor="end">backoffLimit: 2</text>
+<text x="190" y="201" font-size="11" fill="#d9534f" text-anchor="end">3 tentativas em ~1 min</text>
+<rect x="205" y="162" width="86" height="40" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="248" y="186" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">processa</text>
+<g stroke="#d9534f" stroke-width="3">
+<path d="M296 176 L308 188 M308 176 L296 188"/><path d="M314 176 L326 188 M326 176 L314 188"/><path d="M332 176 L344 188 M344 176 L332 188"/>
+</g>
+<rect x="352" y="162" width="538" height="40" rx="8" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="621" y="186" font-size="12" fill="#4b5563" text-anchor="middle">o Job falha; os pendentes esperam o próximo dia ou um disparo manual</text>
 
-<rect x="90" y="346" width="340" height="60" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
-<text x="260" y="371" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">A mensagem volta à fila</text>
-<text x="260" y="393" font-size="13" fill="#4b5563" text-anchor="middle">depois do visibility timeout</text>
-<path d="M260 408 V434" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<!-- raia B, visibility timeout longo -->
+<text x="190" y="242" font-size="12" font-weight="700" fill="#111827" text-anchor="end">B: visibility timeout</text>
+<text x="190" y="258" font-size="11" fill="#6b7280" text-anchor="end">de 2 h, cobre o lote</text>
+<rect x="205" y="226" width="86" height="40" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="248" y="250" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">processa</text>
+<path d="M296 240 L308 252 M308 240 L296 252" stroke="#d9534f" stroke-width="3"/>
+<rect x="316" y="226" width="403" height="40" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="517" y="250" font-size="12" fill="#111827" text-anchor="middle">mensagem invisível até 05:00, 2 h depois do recebimento</text>
+<rect x="719" y="226" width="171" height="40" rx="8" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="804" y="250" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">retoma e termina</text>
 
-<polygon points="260,436 425,478 260,520 95,478" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="260" y="482" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Atingiu o maxReceiveCount?</text>
+<!-- raia B, visibility timeout curto -->
+<text x="190" y="300" font-size="12" font-weight="700" fill="#111827" text-anchor="end">B: visibility timeout</text>
+<text x="190" y="315" font-size="11" fill="#6b7280" text-anchor="end">de 1 min, estendido</text>
+<text x="190" y="329" font-size="11" fill="#d9534f" text-anchor="end">3 tentativas em ~3 min</text>
+<rect x="205" y="290" width="86" height="40" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="248" y="314" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">processa</text>
+<g stroke="#d9534f" stroke-width="3">
+<path d="M296 304 L308 316 M308 304 L296 316"/><path d="M314 304 L326 316 M326 304 L314 316"/><path d="M332 304 L344 316 M344 304 L332 316"/>
+</g>
+<rect x="352" y="296" width="52" height="28" rx="6" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="378" y="315" font-size="12" font-weight="700" fill="#d9534f" text-anchor="middle">DLQ</text>
+<rect x="412" y="290" width="478" height="40" rx="8" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="651" y="314" font-size="12" fill="#4b5563" text-anchor="middle">os pendentes esperam o redrive da DLQ ou o próximo disparo</text>
 
-<!-- loop "não" -->
-<path d="M95 478 H55 V172 H88" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="75" y="468" font-size="12" fill="#4b5563" text-anchor="middle">não</text>
-
-<path d="M260 522 V548" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="276" y="538" font-size="12" fill="#4b5563">sim</text>
-
-<rect x="90" y="550" width="340" height="48" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="260" y="579" font-size="14" font-weight="700" fill="#d9534f" text-anchor="middle">A mensagem do lote vai para a DLQ</text>
-<path d="M260 600 V626" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-
-<rect x="90" y="628" width="340" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="260" y="653" font-size="12" fill="#4b5563" text-anchor="middle">quando o SNS volta, nada retoma sozinho:</text>
-<text x="260" y="676" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">redrive da DLQ ou o próximo disparo</text>
-
-<!-- painel A -->
-<rect x="510" y="96" width="400" height="614" rx="14" fill="none" stroke="#2e9e5b" stroke-width="2" stroke-dasharray="8 6"/>
-<text x="530" y="122" font-size="15" font-weight="700" fill="#2e9e5b">Abordagem A: CronJob com pod próprio</text>
-
-<rect x="540" y="142" width="340" height="60" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="710" y="167" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">O job tenta publicar no SNS</text>
-<text x="710" y="189" font-size="13" fill="#4b5563" text-anchor="middle">o SDK da AWS retenta com backoff</text>
-<path d="M710 204 V230" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-
-<polygon points="710,232 820,268 710,304 600,268" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="710" y="273" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">SNS responde?</text>
-<path d="M710 306 V344" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="726" y="330" font-size="12" fill="#4b5563">não, tentativas esgotadas</text>
-
-<rect x="540" y="346" width="340" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="710" y="371" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">O job falha</text>
-<text x="710" y="393" font-size="13" fill="#4b5563" text-anchor="middle">e as retentativas do backoffLimit também</text>
-<path d="M710 408 V434" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-
-<rect x="540" y="436" width="340" height="48" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="710" y="465" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">Os registros seguem pendentes no banco</text>
-<path d="M710 486 V512" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-
-<rect x="540" y="514" width="340" height="60" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
-<text x="710" y="539" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">A próxima execução pega os pendentes</text>
-<text x="710" y="561" font-size="13" fill="#4b5563" text-anchor="middle">no horário seguinte ou num disparo manual</text>
-
-<text x="710" y="630" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">nenhuma mensagem parada numa DLQ</text>
-<text x="710" y="650" font-size="13" font-weight="700" fill="#2e9e5b" text-anchor="middle">para reprocessar ou descartar</text>
-
-<text x="470" y="742" font-size="13" fill="#6b7280" text-anchor="middle">Retry em várias camadas ao mesmo tempo (SDK, listener e fila) multiplica a carga sobre quem já está com problema</text>
+<!-- conclusão -->
+<rect x="45" y="370" width="850" height="40" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="470" y="395" font-size="13" fill="#111827" text-anchor="middle">nos três casos o estado fica no banco e nenhum pendente se perde; o que muda é quem retoma, e quando</text>
 </svg>

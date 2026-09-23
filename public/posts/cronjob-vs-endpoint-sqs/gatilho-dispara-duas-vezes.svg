@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 666" font-family="Inter, system-ui, sans-serif">
-<rect width="940" height="666" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 774" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="774" fill="#ffffff"/>
 <defs>
 <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
 <marker id="mt" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#9ca3af"/></marker>
@@ -10,56 +10,73 @@
 
 <!-- raias -->
 <g font-size="15" font-weight="700" text-anchor="middle">
-<rect x="60" y="92" width="220" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="170" y="120" fill="#374151">CronJob (curl)</text>
-<rect x="360" y="92" width="220" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="470" y="120" fill="#2b7fc4">Endpoint da API</text>
-<rect x="660" y="92" width="220" height="44" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
-<text x="770" y="120" fill="#e07a1f">Fila SQS</text>
+<rect x="45" y="90" width="180" height="48" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+<text x="135" y="119" fill="#374151">CronJob (curl)</text>
+<rect x="275" y="90" width="180" height="48" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="365" y="119" fill="#2b7fc4">Endpoint da API</text>
+<rect x="505" y="90" width="180" height="48" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="595" y="119" fill="#e07a1f">Fila SQS standard</text>
+<rect x="735" y="90" width="180" height="48" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="825" y="110" fill="#2b7fc4">Listener SQS</text>
 </g>
+<text x="825" y="127" font-size="11" fill="#4b5563" text-anchor="middle">nos pods da API</text>
 <g stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 6">
-<path d="M170 136 V566"/><path d="M470 136 V566"/><path d="M770 136 V566"/>
+<path d="M135 138 V672"/><path d="M365 138 V672"/><path d="M595 138 V672"/><path d="M825 138 V672"/>
 </g>
 
 <!-- eixo do tempo -->
-<path d="M34 160 V556" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
-<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(24 358) rotate(-90)">tempo</text>
+<path d="M34 160 V662" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
+<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(24 411) rotate(-90)">tempo</text>
 
 <!-- 1 POST -->
-<path d="M172 180 H468" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="310" y="170" font-size="13" fill="#111827" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /processar</text>
+<path d="M137 180 H363" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="250" y="170" font-size="13" fill="#111827" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /processar</text>
 
-<!-- 2 publica a mensagem -->
-<path d="M472 225 H768" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="610" y="215" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">publica a mensagem do lote</text>
+<!-- 2 publica a mensagem 1 -->
+<path d="M367 218 H593" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="475" y="208" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">publica a mensagem 1</text>
 
-<!-- 3 resposta perdida -->
-<path d="M468 285 H215" stroke="#d9534f" stroke-width="2.5" stroke-dasharray="6 5"/>
-<path d="M192 277 L208 293 M208 277 L192 293" stroke="#d9534f" stroke-width="3"/>
-<text x="340" y="258" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">202 Accepted,</text>
-<text x="340" y="275" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">mas a resposta se perde na rede</text>
+<!-- 3 entrega a mensagem 1 -->
+<path d="M597 256 H823" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="705" y="246" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">entrega a mensagem 1</text>
+<rect x="720" y="272" width="205" height="34" rx="10" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
+<text x="822" y="294" font-size="12" fill="#111827" text-anchor="middle">execução 1 começa o lote</text>
 
-<!-- 4 e 5 notas do CronJob -->
-<rect x="60" y="312" width="220" height="34" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
-<text x="170" y="334" font-size="13" fill="#111827" text-anchor="middle">timeout: o curl sai com erro</text>
-<rect x="60" y="358" width="220" height="48" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
-<text x="170" y="378" font-size="13" fill="#111827" text-anchor="middle">o Kubernetes cria</text>
-<text x="170" y="397" font-size="13" fill="#111827" text-anchor="middle">outro pod (backoffLimit)</text>
+<!-- 4 resposta perdida -->
+<path d="M363 338 H182" stroke="#d9534f" stroke-width="2.5" stroke-dasharray="6 5"/>
+<path d="M152 330 L168 346 M168 330 L152 346" stroke="#d9534f" stroke-width="3"/>
+<text x="265" y="304" font-size="12" font-weight="700" fill="#d9534f" text-anchor="middle">202 Accepted,</text>
+<text x="265" y="320" font-size="12" font-weight="700" fill="#d9534f" text-anchor="middle">mas a resposta se perde</text>
+
+<!-- 5 notas do CronJob -->
+<rect x="45" y="364" width="180" height="44" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="135" y="382" font-size="12" fill="#111827" text-anchor="middle">timeout: o curl</text>
+<text x="135" y="399" font-size="12" fill="#111827" text-anchor="middle">sai com erro</text>
+<rect x="45" y="418" width="180" height="44" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+<text x="135" y="436" font-size="12" fill="#111827" text-anchor="middle">o Kubernetes tenta</text>
+<text x="135" y="453" font-size="12" fill="#111827" text-anchor="middle">de novo (backoffLimit)</text>
 
 <!-- 6 POST de novo -->
-<path d="M172 450 H468" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="310" y="440" font-size="13" fill="#111827" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /processar</text>
+<path d="M137 490 H363" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="250" y="480" font-size="13" fill="#111827" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">POST /processar</text>
 
-<!-- 7 publica outra mensagem -->
-<path d="M472 495 H768" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="610" y="485" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">publica uma segunda mensagem</text>
+<!-- 7 publica a mensagem 2 -->
+<path d="M367 528 H593" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="475" y="518" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">publica a mensagem 2</text>
 
 <!-- 8 resposta chega -->
-<path d="M468 540 H172" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#m)"/>
-<text x="330" y="530" font-size="13" fill="#111827" text-anchor="middle">202 Accepted</text>
+<path d="M363 564 H139" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="6 5" marker-end="url(#m)"/>
+<text x="250" y="554" font-size="13" fill="#111827" text-anchor="middle">202 Accepted</text>
+
+<!-- 9 entrega a mensagem 2 -->
+<path d="M597 600 H823" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="705" y="590" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">entrega a mensagem 2</text>
+<rect x="720" y="614" width="205" height="48" rx="10" fill="#fdecea" stroke="#d9534f" stroke-width="1.5"/>
+<text x="822" y="634" font-size="12" fill="#111827" text-anchor="middle">execução 2: o mesmo lote,</text>
+<text x="822" y="652" font-size="12" fill="#111827" text-anchor="middle">com a 1 ainda rodando</text>
 
 <!-- resultado -->
-<rect x="60" y="586" width="820" height="56" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="470" y="610" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">Duas mensagens para o mesmo lote</text>
-<text x="470" y="632" font-size="13" fill="#4b5563" text-anchor="middle">dois pods podem processar os mesmos pendentes ao mesmo tempo, e cada registro sair duas vezes</text>
+<rect x="45" y="690" width="850" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="470" y="714" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">Duas execuções do mesmo lote ao mesmo tempo</text>
+<text x="470" y="736" font-size="13" fill="#4b5563" text-anchor="middle">em pods diferentes ou no mesmo pod: os registros que as duas leem como pendentes saem duas vezes no SNS</text>
 </svg>
