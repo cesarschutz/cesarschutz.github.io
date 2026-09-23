@@ -1,69 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 694" font-family="Inter, system-ui, sans-serif">
-<rect width="940" height="694" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 510" font-family="Inter, system-ui, sans-serif">
+<rect width="940" height="510" fill="#ffffff"/>
 <defs>
 <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#4b5563"/></marker>
 <marker id="mt" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#9ca3af"/></marker>
 </defs>
 
-<text x="470" y="42" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Deploy da API no meio do processamento (abordagem B)</text>
-<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">a mensagem do lote é uma só: o deploy interrompe o lote inteiro</text>
-
-<!-- raias -->
-<g font-size="15" font-weight="700" text-anchor="middle">
-<rect x="55" y="92" width="160" height="44" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-<text x="135" y="120" fill="#374151">Kubernetes</text>
-<rect x="285" y="92" width="160" height="44" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
-<text x="365" y="120" fill="#2b7fc4">Pod da API v1</text>
-<rect x="515" y="92" width="160" height="44" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
-<text x="595" y="120" fill="#e07a1f">Fila SQS</text>
-<rect x="745" y="92" width="160" height="44" rx="12" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
-<text x="825" y="120" fill="#2e9e5b">Pod da API v2</text>
-</g>
-<g stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 6">
-<path d="M135 136 V590"/><path d="M365 136 V590"/><path d="M595 136 V590"/><path d="M825 136 V590"/>
-</g>
+<text x="470" y="42" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Deploy da API no meio do lote (abordagem B)</text>
+<text x="470" y="68" font-size="14" fill="#6b7280" text-anchor="middle">exemplo: visibility timeout de 2 h, dimensionado para cobrir o lote, e um deploy às 03:30</text>
 
 <!-- eixo do tempo -->
-<path d="M34 160 V580" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
-<text x="0" y="0" font-size="13" fill="#6b7280" text-anchor="middle" transform="translate(24 370) rotate(-90)">tempo</text>
+<path d="M170 114 H920" stroke="#9ca3af" stroke-width="2" marker-end="url(#mt)"/>
+<g stroke="#9ca3af" stroke-width="2"><path d="M170 108 V120"/><path d="M710 108 V120"/><path d="M890 108 V120"/></g>
+<text x="150" y="119" font-size="13" fill="#6b7280" text-anchor="end">tempo</text>
+<g font-size="12" fill="#4b5563" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">
+<text x="170" y="96">03:00</text>
+<text x="710" y="96">05:00</text>
+<text x="890" y="96">05:40</text>
+</g>
+<text x="330" y="96" font-size="12" font-weight="700" fill="#d9534f" text-anchor="middle">03:30 deploy</text>
 
-<!-- 1 lote em andamento no v1 -->
-<rect x="285" y="160" width="620" height="34" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
-<text x="595" y="182" font-size="13" fill="#111827" text-anchor="middle">o v1 está com a única mensagem e processa o lote; o rolling update sobe o v2</text>
+<!-- momento do deploy (não atravessa a fila: a mensagem continua lá) -->
+<path d="M330 108 V214 M330 276 V350" stroke="#d9534f" stroke-width="2" stroke-dasharray="6 5"/>
 
-<!-- 2 SIGTERM -->
-<path d="M137 240 H363" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="240" y="230" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">SIGTERM (rolling update)</text>
+<!-- raias -->
+<g font-size="14" font-weight="700" text-anchor="end">
+<text x="150" y="175" fill="#2b7fc4">Pod da API v1</text>
+<text x="150" y="250" fill="#e07a1f">Fila SQS</text>
+<text x="150" y="325" fill="#2e9e5b">Pod da API v2</text>
+</g>
 
-<!-- 3 para de buscar -->
-<path d="M367 290 H593" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="470" y="280" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">para de buscar mensagens</text>
+<!-- v1: processa até o deploy -->
+<rect x="170" y="150" width="160" height="40" rx="8" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
+<text x="250" y="175" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">processa o lote</text>
+<text x="344" y="166" font-size="12" font-weight="700" fill="#d9534f">cancelado no meio do lote</text>
+<text x="344" y="183" font-size="12" fill="#4b5563">o pod sai, e a mensagem não é apagada</text>
 
-<!-- 4 nota v1 -->
-<rect x="225" y="318" width="280" height="34" rx="10" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="1.5"/>
-<text x="365" y="340" font-size="13" fill="#111827" text-anchor="middle">espera até 20 s: o lote não termina</text>
+<!-- fila: a mensagem fica invisível desde o recebimento -->
+<rect x="170" y="222" width="540" height="46" rx="8" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="440" y="241" font-size="13" font-weight="700" fill="#111827" text-anchor="middle">mensagem invisível</text>
+<text x="440" y="259" font-size="12" fill="#4b5563" text-anchor="middle">o visibility timeout de 2 h conta desde o recebimento</text>
 
-<!-- 5 SIGKILL -->
-<path d="M137 400 H363" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="240" y="373" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">SIGKILL,</text>
-<text x="240" y="390" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">se não sair em 30 s</text>
+<!-- a mensagem reaparece e vai para o v2 -->
+<path d="M710 270 V296" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
+<text x="726" y="287" font-size="12" fill="#4b5563">reaparece e é entregue ao v2</text>
 
-<!-- 6 nota fila -->
-<rect x="440" y="428" width="310" height="48" rx="10" fill="#fdf1e3" stroke="#e07a1f" stroke-width="1.5"/>
-<text x="595" y="448" font-size="13" fill="#111827" text-anchor="middle">a mensagem não foi apagada: reaparece</text>
-<text x="595" y="467" font-size="13" fill="#111827" text-anchor="middle">depois do visibility timeout</text>
+<!-- v2: no ar sem nada para consumir, depois retoma -->
+<rect x="330" y="298" width="380" height="44" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="520" y="325" font-size="12" fill="#6b7280" text-anchor="middle">no ar, mas sem mensagem para consumir</text>
+<rect x="710" y="298" width="180" height="44" rx="8" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="2"/>
+<text x="800" y="316" font-size="12" font-weight="700" fill="#111827" text-anchor="middle">retoma de onde parou</text>
+<text x="800" y="334" font-size="12" fill="#4b5563" text-anchor="middle">pelo status no banco</text>
 
-<!-- 7 entrega ao v2 -->
-<path d="M597 520 H823" stroke="#4b5563" stroke-width="2.5" marker-end="url(#m)"/>
-<text x="700" y="510" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">entrega a mensagem</text>
-
-<!-- 8 nota v2 -->
-<rect x="670" y="540" width="240" height="48" rx="10" fill="#eaf7ef" stroke="#2e9e5b" stroke-width="1.5"/>
-<text x="790" y="560" font-size="13" fill="#111827" text-anchor="middle">segue de onde o v1 parou,</text>
-<text x="790" y="579" font-size="13" fill="#111827" text-anchor="middle">pelo status no banco</text>
+<!-- o intervalo parado -->
+<path d="M330 356 V366 H710 V356" fill="none" stroke="#d9534f" stroke-width="2"/>
+<text x="520" y="388" font-size="13" font-weight="700" fill="#d9534f" text-anchor="middle">lote parado por 1h30: ninguém processa</text>
+<text x="520" y="406" font-size="12" fill="#4b5563" text-anchor="middle">o v2 já está no ar, mas a mensagem só reaparece às 05:00</text>
 
 <!-- resultado -->
-<rect x="55" y="610" width="850" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="480" y="634" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">o lote fica parado até o visibility timeout expirar e termina na v2</text>
-<text x="480" y="656" font-size="13" fill="#4b5563" text-anchor="middle">parte processada pela v1, parte pela v2; o registro em andamento, se já publicado no SNS, sai de novo</text>
+<rect x="55" y="426" width="850" height="60" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="480" y="450" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">o lote fica parado até a mensagem reaparecer e termina na v2</text>
+<text x="480" y="472" font-size="13" fill="#4b5563" text-anchor="middle">parte processada pela v1, parte pela v2; o registro em andamento no deploy, se já foi ao SNS, sai de novo</text>
 </svg>
