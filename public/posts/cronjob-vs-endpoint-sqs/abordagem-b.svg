@@ -2,10 +2,11 @@
 <rect width="940" height="580" fill="#ffffff"/>
 <defs>
 <marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/></marker>
+<marker id="seta-cinza" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#9ca3af"/></marker>
 </defs>
 
 <text x="470" y="46" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">Abordagem B: endpoint + SQS consumido na própria API</text>
-<text x="470" y="72" font-size="14" fill="#6b7280" text-anchor="middle">o CronJob chama um endpoint, que enfileira; o processamento roda nos pods que atendem as requisições</text>
+<text x="470" y="72" font-size="14" fill="#6b7280" text-anchor="middle">o endpoint publica uma única mensagem; o lote inteiro roda num dos pods que atendem as requisições</text>
 
 <!-- CronJob -->
 <rect x="40" y="125" width="110" height="70" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
@@ -24,15 +25,12 @@
 
 <rect x="335" y="248" width="210" height="64" rx="12" fill="#eaf3fb" stroke="#2b7fc4" stroke-width="2"/>
 <text x="440" y="274" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Listener SQS</text>
-<text x="440" y="296" font-size="13" fill="#4b5563" text-anchor="middle">processa registro a registro</text>
+<text x="440" y="296" font-size="13" fill="#4b5563" text-anchor="middle">processa o lote inteiro</text>
 
-<!-- Endpoint lê a lista no banco -->
-<path d="M335 192 H270 V452 H222" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="262" y="326" font-size="12" fill="#4b5563" text-anchor="end">lê a lista</text>
-
-<!-- Listener marca o status -->
+<!-- Listener lê os pendentes e marca o status -->
 <path d="M350 312 V488 H222" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="358" y="392" font-size="12" fill="#4b5563">marca status</text>
+<text x="342" y="372" font-size="12" fill="#4b5563" text-anchor="end">lê os pendentes</text>
+<text x="342" y="388" font-size="12" fill="#4b5563" text-anchor="end">e marca o status</text>
 
 <!-- Banco -->
 <path d="M80 440 V500 a70 12 0 0 0 140 0 V440" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
@@ -46,25 +44,30 @@
 <text x="460" y="467" font-size="15" font-weight="700" fill="#2b7fc4" text-anchor="middle">Tópico SNS</text>
 <text x="460" y="489" font-size="13" fill="#4b5563" text-anchor="middle">destino dos registros</text>
 
-<!-- Endpoint enfileira -->
-<path d="M547 176 H668" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="615" y="166" font-size="12" fill="#4b5563" text-anchor="middle">enfileira</text>
-<rect x="670" y="144" width="200" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
-<text x="770" y="170" font-size="15" font-weight="700" fill="#e07a1f" text-anchor="middle">Fila SQS</text>
-<text x="770" y="192" font-size="13" fill="#4b5563" text-anchor="middle">mensagens a processar</text>
+<!-- Endpoint publica uma mensagem -->
+<path d="M547 176 H688" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="632" y="138" font-size="12" fill="#4b5563" text-anchor="middle">publica</text>
+<text x="632" y="154" font-size="12" font-weight="700" fill="#4b5563" text-anchor="middle">1 mensagem</text>
+<rect x="690" y="144" width="200" height="64" rx="12" fill="#fdf1e3" stroke="#e07a1f" stroke-width="2"/>
+<text x="790" y="170" font-size="15" font-weight="700" fill="#e07a1f" text-anchor="middle">Fila SQS</text>
+<text x="790" y="192" font-size="13" fill="#4b5563" text-anchor="middle">1 mensagem por execução</text>
 
 <!-- Fila entrega ao listener -->
-<path d="M690 208 V280 H547" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="698" y="248" font-size="12" fill="#4b5563">entrega</text>
+<path d="M710 208 V280 H547" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="702" y="248" font-size="12" fill="#4b5563" text-anchor="end">entrega</text>
+
+<!-- Erro: a mensagem volta à fila -->
+<path d="M547 300 H750 V210" fill="none" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#seta-cinza)"/>
+<text x="660" y="320" font-size="12" fill="#6b7280" text-anchor="middle">erro: volta à fila</text>
 
 <!-- Fila -> DLQ e redrive -->
-<path d="M780 208 V438" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
-<text x="772" y="360" font-size="12" fill="#4b5563" text-anchor="end">após N falhas</text>
-<path d="M840 440 V210" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#seta)"/>
-<text x="848" y="360" font-size="12" fill="#6b7280">redrive</text>
-<rect x="670" y="440" width="200" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
-<text x="770" y="467" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">DLQ</text>
-<text x="770" y="489" font-size="13" fill="#4b5563" text-anchor="middle">mensagens que falharam</text>
+<path d="M800 208 V438" stroke="#4b5563" stroke-width="2.5" marker-end="url(#seta)"/>
+<text x="792" y="372" font-size="12" fill="#4b5563" text-anchor="end">após N falhas</text>
+<path d="M860 440 V210" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#seta-cinza)"/>
+<text x="868" y="372" font-size="12" fill="#6b7280">redrive</text>
+<rect x="690" y="440" width="200" height="64" rx="12" fill="#fdecea" stroke="#d9534f" stroke-width="2"/>
+<text x="790" y="467" font-size="15" font-weight="700" fill="#d9534f" text-anchor="middle">DLQ</text>
+<text x="790" y="489" font-size="13" fill="#4b5563" text-anchor="middle">a mensagem do lote</text>
 
-<text x="470" y="552" font-size="13" fill="#6b7280" text-anchor="middle">Batch e requisições dividem o mesmo processo: pool de conexões, CPU e heap</text>
+<text x="470" y="552" font-size="13" fill="#6b7280" text-anchor="middle">O lote divide o processo com as requisições: pool de conexões, CPU e heap</text>
 </svg>
