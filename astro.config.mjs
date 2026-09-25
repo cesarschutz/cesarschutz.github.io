@@ -28,7 +28,7 @@ const lastmodBySlug = Object.fromEntries(
 );
 
 export default defineConfig({
-  site: "https://cesarschutz.com.br",
+  site: "https://cesarschutz.github.io",
   trailingSlash: "ignore",
   // a antiga página de exercícios virou posts normais
   redirects: {
